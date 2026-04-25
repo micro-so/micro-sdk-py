@@ -2,7 +2,7 @@
 
 from __future__ import annotations
 
-from typing import Union, Iterable
+from typing import Dict, Union, Iterable
 
 import httpx
 
@@ -57,7 +57,7 @@ class OrganizationsResource(SyncAPIResource):
         team_id: str | None = None,
         id: str | Omit = omit,
         crm: object | Omit = omit,
-        default: object | Omit = omit,
+        default: Dict[str, object] | Omit = omit,
         extended: object | Omit = omit,
         # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
         # The extra values given here take precedence over values defined on the client or passed to this method.
@@ -66,10 +66,14 @@ class OrganizationsResource(SyncAPIResource):
         extra_body: Body | None = None,
         timeout: float | httpx.Timeout | None | NotGiven = not_given,
     ) -> OrganizationCreateResponse:
-        """
-        Create Organization
+        """Create Organization
 
         Args:
+          default: Properties keyed by property slug.
+
+        Values can be strings, numbers, booleans,
+              arrays, or null.
+
           extra_headers: Send extra headers
 
           extra_query: Add additional query parameters to the request
@@ -106,7 +110,7 @@ class OrganizationsResource(SyncAPIResource):
         team_id: str | None = None,
         id: str | Omit = omit,
         crm: object | Omit = omit,
-        default: object | Omit = omit,
+        default: Dict[str, object] | Omit = omit,
         extended: object | Omit = omit,
         # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
         # The extra values given here take precedence over values defined on the client or passed to this method.
@@ -115,10 +119,14 @@ class OrganizationsResource(SyncAPIResource):
         extra_body: Body | None = None,
         timeout: float | httpx.Timeout | None | NotGiven = not_given,
     ) -> None:
-        """
-        Update Organization
+        """Update Organization
 
         Args:
+          default: Properties keyed by property slug.
+
+        Values can be strings, numbers, booleans,
+              arrays, or null.
+
           extra_headers: Send extra headers
 
           extra_query: Add additional query parameters to the request
@@ -261,7 +269,7 @@ class OrganizationsResource(SyncAPIResource):
         Import Organizations
 
         Args:
-          objects: Array of objects to import with their property values
+          objects: Array of objects to import with property values keyed by slug
 
           extra_headers: Send extra headers
 
@@ -317,7 +325,7 @@ class AsyncOrganizationsResource(AsyncAPIResource):
         team_id: str | None = None,
         id: str | Omit = omit,
         crm: object | Omit = omit,
-        default: object | Omit = omit,
+        default: Dict[str, object] | Omit = omit,
         extended: object | Omit = omit,
         # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
         # The extra values given here take precedence over values defined on the client or passed to this method.
@@ -326,10 +334,14 @@ class AsyncOrganizationsResource(AsyncAPIResource):
         extra_body: Body | None = None,
         timeout: float | httpx.Timeout | None | NotGiven = not_given,
     ) -> OrganizationCreateResponse:
-        """
-        Create Organization
+        """Create Organization
 
         Args:
+          default: Properties keyed by property slug.
+
+        Values can be strings, numbers, booleans,
+              arrays, or null.
+
           extra_headers: Send extra headers
 
           extra_query: Add additional query parameters to the request
@@ -366,7 +378,7 @@ class AsyncOrganizationsResource(AsyncAPIResource):
         team_id: str | None = None,
         id: str | Omit = omit,
         crm: object | Omit = omit,
-        default: object | Omit = omit,
+        default: Dict[str, object] | Omit = omit,
         extended: object | Omit = omit,
         # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
         # The extra values given here take precedence over values defined on the client or passed to this method.
@@ -375,10 +387,14 @@ class AsyncOrganizationsResource(AsyncAPIResource):
         extra_body: Body | None = None,
         timeout: float | httpx.Timeout | None | NotGiven = not_given,
     ) -> None:
-        """
-        Update Organization
+        """Update Organization
 
         Args:
+          default: Properties keyed by property slug.
+
+        Values can be strings, numbers, booleans,
+              arrays, or null.
+
           extra_headers: Send extra headers
 
           extra_query: Add additional query parameters to the request
@@ -521,7 +537,7 @@ class AsyncOrganizationsResource(AsyncAPIResource):
         Import Organizations
 
         Args:
-          objects: Array of objects to import with their property values
+          objects: Array of objects to import with property values keyed by slug
 
           extra_headers: Send extra headers
 

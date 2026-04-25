@@ -2,12 +2,10 @@
 
 from __future__ import annotations
 
-from typing import Union
-from typing_extensions import Literal
-
 import httpx
 
-from ..._types import Body, Omit, Query, Headers, NotGiven, SequenceNotStr, omit, not_given
+from ...types import ObjectType
+from ..._types import Body, Omit, Query, Headers, NoneType, NotGiven, omit, not_given
 from ..._utils import path_template, maybe_transform, async_maybe_transform
 from ..._compat import cached_property
 from ..._resource import SyncAPIResource, AsyncAPIResource
@@ -17,62 +15,50 @@ from ..._response import (
     async_to_raw_response_wrapper,
     async_to_streamed_response_wrapper,
 )
-from ...types.prism import query_execute_params
+from ...types.prism import metadata_properties_params
 from ..._base_client import make_request_options
-from ...types.prism.query_execute_response import QueryExecuteResponse
+from ...types.object_type import ObjectType
 
-__all__ = ["QueryResource", "AsyncQueryResource"]
+__all__ = ["MetadataResource", "AsyncMetadataResource"]
 
 
-class QueryResource(SyncAPIResource):
+class MetadataResource(SyncAPIResource):
     @cached_property
-    def with_raw_response(self) -> QueryResourceWithRawResponse:
+    def with_raw_response(self) -> MetadataResourceWithRawResponse:
         """
         This property can be used as a prefix for any HTTP method call to return
         the raw response object instead of the parsed content.
 
         For more information, see https://www.github.com/stainless-sdks/micro-python#accessing-raw-response-data-eg-headers
         """
-        return QueryResourceWithRawResponse(self)
+        return MetadataResourceWithRawResponse(self)
 
     @cached_property
-    def with_streaming_response(self) -> QueryResourceWithStreamingResponse:
+    def with_streaming_response(self) -> MetadataResourceWithStreamingResponse:
         """
         An alternative to `.with_raw_response` that doesn't eagerly read the response body.
 
         For more information, see https://www.github.com/stainless-sdks/micro-python#with_streaming_response
         """
-        return QueryResourceWithStreamingResponse(self)
+        return MetadataResourceWithStreamingResponse(self)
 
-    def execute(
+    def properties(
         self,
-        object_type: Literal[
-            "deal",
-            "identity",
-            "ai_chat_thread",
-            "ai_chat_message",
-            "document",
-            "organization",
-            "contact",
-            "action",
-            "event",
-        ],
+        object_type: ObjectType,
         *,
         team_id: str | None = None,
-        query: query_execute_params.Query,
-        id: Union[str, SequenceNotStr[str]] | Omit = omit,
-        boxes: SequenceNotStr[str] | Omit = omit,
-        deleted: bool | Omit = omit,
-        sources: SequenceNotStr[str] | Omit = omit,
+        autofill: bool | Omit = omit,
+        crm_id: str | Omit = omit,
+        term: str | Omit = omit,
         # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
         # The extra values given here take precedence over values defined on the client or passed to this method.
         extra_headers: Headers | None = None,
         extra_query: Query | None = None,
         extra_body: Body | None = None,
         timeout: float | httpx.Timeout | None | NotGiven = not_given,
-    ) -> QueryExecuteResponse:
+    ) -> None:
         """
-        Query v2
+        Get metadata properties by object type
 
         Args:
           extra_headers: Send extra headers
@@ -89,74 +75,66 @@ class QueryResource(SyncAPIResource):
             raise ValueError(f"Expected a non-empty value for `team_id` but received {team_id!r}")
         if not object_type:
             raise ValueError(f"Expected a non-empty value for `object_type` but received {object_type!r}")
-        return self._post(
-            path_template("/v2/prism/query/{team_id}/{object_type}", team_id=team_id, object_type=object_type),
-            body=maybe_transform(
-                {
-                    "query": query,
-                    "id": id,
-                    "boxes": boxes,
-                    "deleted": deleted,
-                    "sources": sources,
-                },
-                query_execute_params.QueryExecuteParams,
+        extra_headers = {"Accept": "*/*", **(extra_headers or {})}
+        return self._get(
+            path_template(
+                "/v2/prism/metadata/properties/{team_id}/{object_type}", team_id=team_id, object_type=object_type
             ),
             options=make_request_options(
-                extra_headers=extra_headers, extra_query=extra_query, extra_body=extra_body, timeout=timeout
+                extra_headers=extra_headers,
+                extra_query=extra_query,
+                extra_body=extra_body,
+                timeout=timeout,
+                query=maybe_transform(
+                    {
+                        "autofill": autofill,
+                        "crm_id": crm_id,
+                        "term": term,
+                    },
+                    metadata_properties_params.MetadataPropertiesParams,
+                ),
             ),
-            cast_to=QueryExecuteResponse,
+            cast_to=NoneType,
         )
 
 
-class AsyncQueryResource(AsyncAPIResource):
+class AsyncMetadataResource(AsyncAPIResource):
     @cached_property
-    def with_raw_response(self) -> AsyncQueryResourceWithRawResponse:
+    def with_raw_response(self) -> AsyncMetadataResourceWithRawResponse:
         """
         This property can be used as a prefix for any HTTP method call to return
         the raw response object instead of the parsed content.
 
         For more information, see https://www.github.com/stainless-sdks/micro-python#accessing-raw-response-data-eg-headers
         """
-        return AsyncQueryResourceWithRawResponse(self)
+        return AsyncMetadataResourceWithRawResponse(self)
 
     @cached_property
-    def with_streaming_response(self) -> AsyncQueryResourceWithStreamingResponse:
+    def with_streaming_response(self) -> AsyncMetadataResourceWithStreamingResponse:
         """
         An alternative to `.with_raw_response` that doesn't eagerly read the response body.
 
         For more information, see https://www.github.com/stainless-sdks/micro-python#with_streaming_response
         """
-        return AsyncQueryResourceWithStreamingResponse(self)
+        return AsyncMetadataResourceWithStreamingResponse(self)
 
-    async def execute(
+    async def properties(
         self,
-        object_type: Literal[
-            "deal",
-            "identity",
-            "ai_chat_thread",
-            "ai_chat_message",
-            "document",
-            "organization",
-            "contact",
-            "action",
-            "event",
-        ],
+        object_type: ObjectType,
         *,
         team_id: str | None = None,
-        query: query_execute_params.Query,
-        id: Union[str, SequenceNotStr[str]] | Omit = omit,
-        boxes: SequenceNotStr[str] | Omit = omit,
-        deleted: bool | Omit = omit,
-        sources: SequenceNotStr[str] | Omit = omit,
+        autofill: bool | Omit = omit,
+        crm_id: str | Omit = omit,
+        term: str | Omit = omit,
         # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
         # The extra values given here take precedence over values defined on the client or passed to this method.
         extra_headers: Headers | None = None,
         extra_query: Query | None = None,
         extra_body: Body | None = None,
         timeout: float | httpx.Timeout | None | NotGiven = not_given,
-    ) -> QueryExecuteResponse:
+    ) -> None:
         """
-        Query v2
+        Get metadata properties by object type
 
         Args:
           extra_headers: Send extra headers
@@ -173,56 +151,60 @@ class AsyncQueryResource(AsyncAPIResource):
             raise ValueError(f"Expected a non-empty value for `team_id` but received {team_id!r}")
         if not object_type:
             raise ValueError(f"Expected a non-empty value for `object_type` but received {object_type!r}")
-        return await self._post(
-            path_template("/v2/prism/query/{team_id}/{object_type}", team_id=team_id, object_type=object_type),
-            body=await async_maybe_transform(
-                {
-                    "query": query,
-                    "id": id,
-                    "boxes": boxes,
-                    "deleted": deleted,
-                    "sources": sources,
-                },
-                query_execute_params.QueryExecuteParams,
+        extra_headers = {"Accept": "*/*", **(extra_headers or {})}
+        return await self._get(
+            path_template(
+                "/v2/prism/metadata/properties/{team_id}/{object_type}", team_id=team_id, object_type=object_type
             ),
             options=make_request_options(
-                extra_headers=extra_headers, extra_query=extra_query, extra_body=extra_body, timeout=timeout
+                extra_headers=extra_headers,
+                extra_query=extra_query,
+                extra_body=extra_body,
+                timeout=timeout,
+                query=await async_maybe_transform(
+                    {
+                        "autofill": autofill,
+                        "crm_id": crm_id,
+                        "term": term,
+                    },
+                    metadata_properties_params.MetadataPropertiesParams,
+                ),
             ),
-            cast_to=QueryExecuteResponse,
+            cast_to=NoneType,
         )
 
 
-class QueryResourceWithRawResponse:
-    def __init__(self, query: QueryResource) -> None:
-        self._query = query
+class MetadataResourceWithRawResponse:
+    def __init__(self, metadata: MetadataResource) -> None:
+        self._metadata = metadata
 
-        self.execute = to_raw_response_wrapper(
-            query.execute,
+        self.properties = to_raw_response_wrapper(
+            metadata.properties,
         )
 
 
-class AsyncQueryResourceWithRawResponse:
-    def __init__(self, query: AsyncQueryResource) -> None:
-        self._query = query
+class AsyncMetadataResourceWithRawResponse:
+    def __init__(self, metadata: AsyncMetadataResource) -> None:
+        self._metadata = metadata
 
-        self.execute = async_to_raw_response_wrapper(
-            query.execute,
+        self.properties = async_to_raw_response_wrapper(
+            metadata.properties,
         )
 
 
-class QueryResourceWithStreamingResponse:
-    def __init__(self, query: QueryResource) -> None:
-        self._query = query
+class MetadataResourceWithStreamingResponse:
+    def __init__(self, metadata: MetadataResource) -> None:
+        self._metadata = metadata
 
-        self.execute = to_streamed_response_wrapper(
-            query.execute,
+        self.properties = to_streamed_response_wrapper(
+            metadata.properties,
         )
 
 
-class AsyncQueryResourceWithStreamingResponse:
-    def __init__(self, query: AsyncQueryResource) -> None:
-        self._query = query
+class AsyncMetadataResourceWithStreamingResponse:
+    def __init__(self, metadata: AsyncMetadataResource) -> None:
+        self._metadata = metadata
 
-        self.execute = async_to_streamed_response_wrapper(
-            query.execute,
+        self.properties = async_to_streamed_response_wrapper(
+            metadata.properties,
         )

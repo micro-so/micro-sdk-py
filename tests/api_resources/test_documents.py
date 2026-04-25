@@ -32,7 +32,7 @@ class TestDocuments:
         document = client.documents.create(
             id="182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
             crm={},
-            default={},
+            default={"foo": "bar"},
             extended={},
         )
         assert_matches_type(DocumentCreateResponse, document, path=["response"])
@@ -74,7 +74,7 @@ class TestDocuments:
             document_id="182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
             id="182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
             crm={},
-            default={},
+            default={"foo": "bar"},
             extended={},
         )
         assert document is None
@@ -227,7 +227,7 @@ class TestAsyncDocuments:
         document = await async_client.documents.create(
             id="182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
             crm={},
-            default={},
+            default={"foo": "bar"},
             extended={},
         )
         assert_matches_type(DocumentCreateResponse, document, path=["response"])
@@ -269,7 +269,7 @@ class TestAsyncDocuments:
             document_id="182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
             id="182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
             crm={},
-            default={},
+            default={"foo": "bar"},
             extended={},
         )
         assert document is None

@@ -8,10 +8,10 @@ from typing_extensions import Required, Annotated, TypedDict
 from .._utils import PropertyInfo
 from .prism_object_properties_param import PrismObjectPropertiesParam
 
-__all__ = ["DealImportParams", "Options"]
+__all__ = ["PrismImportObjectsParams", "Options"]
 
 
-class DealImportParams(TypedDict, total=False):
+class PrismImportObjectsParams(TypedDict, total=False):
     team_id: Annotated[str, PropertyInfo(alias="teamId")]
 
     objects: Required[Iterable[PrismObjectPropertiesParam]]

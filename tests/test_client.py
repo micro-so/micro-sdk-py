@@ -23,7 +23,7 @@ from micro import Micro, AsyncMicro, APIResponseValidationError
 from micro._types import Omit
 from micro._utils import asyncify
 from micro._models import BaseModel, FinalRequestOptions
-from micro._exceptions import APIStatusError, APITimeoutError, APIResponseValidationError
+from micro._exceptions import MicroError, APIStatusError, APITimeoutError, APIResponseValidationError
 from micro._base_client import (
     DEFAULT_TIMEOUT,
     HTTPX_DEFAULT_TIMEOUT,
@@ -433,6 +433,16 @@ class TestMicro:
 
         test_client.close()
         test_client2.close()
+
+    def test_validate_headers(self) -> None:
+        client = Micro(base_url=base_url, api_key=api_key, team_id=team_id, _strict_response_validation=True)
+        request = client._build_request(FinalRequestOptions(method="get", url="/foo"))
+        assert request.headers.get("x-api-key") == api_key
+
+        with pytest.raises(MicroError):
+            with update_env(**{"MICRO_API_KEY": Omit()}):
+                client2 = Micro(base_url=base_url, api_key=None, team_id=team_id, _strict_response_validation=True)
+            _ = client2
 
     def test_default_query_option(self) -> None:
         client = Micro(
@@ -1409,6 +1419,16 @@ class TestAsyncMicro:
 
         await test_client.close()
         await test_client2.close()
+
+    def test_validate_headers(self) -> None:
+        client = AsyncMicro(base_url=base_url, api_key=api_key, team_id=team_id, _strict_response_validation=True)
+        request = client._build_request(FinalRequestOptions(method="get", url="/foo"))
+        assert request.headers.get("x-api-key") == api_key
+
+        with pytest.raises(MicroError):
+            with update_env(**{"MICRO_API_KEY": Omit()}):
+                client2 = AsyncMicro(base_url=base_url, api_key=None, team_id=team_id, _strict_response_validation=True)
+            _ = client2
 
     async def test_default_query_option(self) -> None:
         client = AsyncMicro(

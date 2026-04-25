@@ -32,7 +32,7 @@ class TestActions:
         action = client.actions.create(
             id="182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
             crm={},
-            default={},
+            default={"foo": "bar"},
             extended={},
         )
         assert_matches_type(ActionCreateResponse, action, path=["response"])
@@ -74,7 +74,7 @@ class TestActions:
             action_id="182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
             id="182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
             crm={},
-            default={},
+            default={"foo": "bar"},
             extended={},
         )
         assert action is None
@@ -227,7 +227,7 @@ class TestAsyncActions:
         action = await async_client.actions.create(
             id="182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
             crm={},
-            default={},
+            default={"foo": "bar"},
             extended={},
         )
         assert_matches_type(ActionCreateResponse, action, path=["response"])
@@ -269,7 +269,7 @@ class TestAsyncActions:
             action_id="182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
             id="182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
             crm={},
-            default={},
+            default={"foo": "bar"},
             extended={},
         )
         assert action is None

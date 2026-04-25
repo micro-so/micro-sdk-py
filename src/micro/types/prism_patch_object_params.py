@@ -3,15 +3,18 @@
 from __future__ import annotations
 
 from typing import Dict
-from typing_extensions import Annotated, TypedDict
+from typing_extensions import Required, Annotated, TypedDict
 
 from .._utils import PropertyInfo
+from .object_type import ObjectType
 
-__all__ = ["DealCreateParams"]
+__all__ = ["PrismPatchObjectParams"]
 
 
-class DealCreateParams(TypedDict, total=False):
+class PrismPatchObjectParams(TypedDict, total=False):
     team_id: Annotated[str, PropertyInfo(alias="teamId")]
+
+    object_type: Required[Annotated[ObjectType, PropertyInfo(alias="objectType")]]
 
     id: str
 

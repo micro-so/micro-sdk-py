@@ -33,7 +33,7 @@ class TestOrganizations:
         organization = client.organizations.create(
             id="182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
             crm={},
-            default={},
+            default={"foo": "bar"},
             extended={},
         )
         assert_matches_type(OrganizationCreateResponse, organization, path=["response"])
@@ -75,7 +75,7 @@ class TestOrganizations:
             organization_id="182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
             id="182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
             crm={},
-            default={},
+            default={"foo": "bar"},
             extended={},
         )
         assert organization is None
@@ -226,15 +226,14 @@ class TestOrganizations:
                 {
                     "id": "182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
                     "crm": {},
-                    "default": {},
+                    "default": {"foo": "bar"},
                     "extended": {},
                 }
             ],
             options={
                 "case_insensitive": True,
                 "crm_id": "182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
-                "dedupe_by": "182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
-                "dedupe_type": "str",
+                "dedupe_by": "dedupe_by",
             },
         )
         assert_matches_type(OrganizationImportResponse, organization, path=["response"])
@@ -283,7 +282,7 @@ class TestAsyncOrganizations:
         organization = await async_client.organizations.create(
             id="182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
             crm={},
-            default={},
+            default={"foo": "bar"},
             extended={},
         )
         assert_matches_type(OrganizationCreateResponse, organization, path=["response"])
@@ -325,7 +324,7 @@ class TestAsyncOrganizations:
             organization_id="182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
             id="182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
             crm={},
-            default={},
+            default={"foo": "bar"},
             extended={},
         )
         assert organization is None
@@ -476,15 +475,14 @@ class TestAsyncOrganizations:
                 {
                     "id": "182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
                     "crm": {},
-                    "default": {},
+                    "default": {"foo": "bar"},
                     "extended": {},
                 }
             ],
             options={
                 "case_insensitive": True,
                 "crm_id": "182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
-                "dedupe_by": "182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
-                "dedupe_type": "str",
+                "dedupe_by": "dedupe_by",
             },
         )
         assert_matches_type(OrganizationImportResponse, organization, path=["response"])
