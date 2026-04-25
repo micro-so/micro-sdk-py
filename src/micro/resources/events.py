@@ -3,55 +3,51 @@
 from __future__ import annotations
 
 from typing import Union
-from typing_extensions import Literal
 
 import httpx
 
-from ..._types import Body, Omit, Query, Headers, NotGiven, SequenceNotStr, omit, not_given
-from ..._utils import path_template, maybe_transform, async_maybe_transform
-from ..._compat import cached_property
-from ..._resource import SyncAPIResource, AsyncAPIResource
-from ..._response import (
+from ..types import event_list_params
+from .._types import Body, Omit, Query, Headers, NotGiven, SequenceNotStr, omit, not_given
+from .._utils import path_template, maybe_transform, async_maybe_transform
+from .._compat import cached_property
+from .._resource import SyncAPIResource, AsyncAPIResource
+from .._response import (
     to_raw_response_wrapper,
     to_streamed_response_wrapper,
     async_to_raw_response_wrapper,
     async_to_streamed_response_wrapper,
 )
-from ...types.prism import query_execute_params
-from ..._base_client import make_request_options
-from ...types.prism.query_execute_response import QueryExecuteResponse
+from .._base_client import make_request_options
+from ..types.event_list_response import EventListResponse
 
-__all__ = ["QueryResource", "AsyncQueryResource"]
+__all__ = ["EventsResource", "AsyncEventsResource"]
 
 
-class QueryResource(SyncAPIResource):
+class EventsResource(SyncAPIResource):
     @cached_property
-    def with_raw_response(self) -> QueryResourceWithRawResponse:
+    def with_raw_response(self) -> EventsResourceWithRawResponse:
         """
         This property can be used as a prefix for any HTTP method call to return
         the raw response object instead of the parsed content.
 
         For more information, see https://www.github.com/stainless-sdks/micro-python#accessing-raw-response-data-eg-headers
         """
-        return QueryResourceWithRawResponse(self)
+        return EventsResourceWithRawResponse(self)
 
     @cached_property
-    def with_streaming_response(self) -> QueryResourceWithStreamingResponse:
+    def with_streaming_response(self) -> EventsResourceWithStreamingResponse:
         """
         An alternative to `.with_raw_response` that doesn't eagerly read the response body.
 
         For more information, see https://www.github.com/stainless-sdks/micro-python#with_streaming_response
         """
-        return QueryResourceWithStreamingResponse(self)
+        return EventsResourceWithStreamingResponse(self)
 
-    def execute(
+    def list(
         self,
-        object_type: Literal[
-            "deal", "identity", "ai_chat_thread", "ai_chat_message", "document", "organization", "contact", "action"
-        ],
         *,
         team_id: str | None = None,
-        query: query_execute_params.Query,
+        query: event_list_params.Query,
         id: Union[str, SequenceNotStr[str]] | Omit = omit,
         boxes: SequenceNotStr[str] | Omit = omit,
         deleted: bool | Omit = omit,
@@ -62,9 +58,9 @@ class QueryResource(SyncAPIResource):
         extra_query: Query | None = None,
         extra_body: Body | None = None,
         timeout: float | httpx.Timeout | None | NotGiven = not_given,
-    ) -> QueryExecuteResponse:
+    ) -> EventListResponse:
         """
-        Query v2
+        List Events
 
         Args:
           extra_headers: Send extra headers
@@ -79,10 +75,8 @@ class QueryResource(SyncAPIResource):
             team_id = self._client._get_team_id_path_param()
         if not team_id:
             raise ValueError(f"Expected a non-empty value for `team_id` but received {team_id!r}")
-        if not object_type:
-            raise ValueError(f"Expected a non-empty value for `object_type` but received {object_type!r}")
         return self._post(
-            path_template("/v2/prism/query/{team_id}/{object_type}", team_id=team_id, object_type=object_type),
+            path_template("/v2/prism/query/{team_id}/event", team_id=team_id),
             body=maybe_transform(
                 {
                     "query": query,
@@ -91,43 +85,40 @@ class QueryResource(SyncAPIResource):
                     "deleted": deleted,
                     "sources": sources,
                 },
-                query_execute_params.QueryExecuteParams,
+                event_list_params.EventListParams,
             ),
             options=make_request_options(
                 extra_headers=extra_headers, extra_query=extra_query, extra_body=extra_body, timeout=timeout
             ),
-            cast_to=QueryExecuteResponse,
+            cast_to=EventListResponse,
         )
 
 
-class AsyncQueryResource(AsyncAPIResource):
+class AsyncEventsResource(AsyncAPIResource):
     @cached_property
-    def with_raw_response(self) -> AsyncQueryResourceWithRawResponse:
+    def with_raw_response(self) -> AsyncEventsResourceWithRawResponse:
         """
         This property can be used as a prefix for any HTTP method call to return
         the raw response object instead of the parsed content.
 
         For more information, see https://www.github.com/stainless-sdks/micro-python#accessing-raw-response-data-eg-headers
         """
-        return AsyncQueryResourceWithRawResponse(self)
+        return AsyncEventsResourceWithRawResponse(self)
 
     @cached_property
-    def with_streaming_response(self) -> AsyncQueryResourceWithStreamingResponse:
+    def with_streaming_response(self) -> AsyncEventsResourceWithStreamingResponse:
         """
         An alternative to `.with_raw_response` that doesn't eagerly read the response body.
 
         For more information, see https://www.github.com/stainless-sdks/micro-python#with_streaming_response
         """
-        return AsyncQueryResourceWithStreamingResponse(self)
+        return AsyncEventsResourceWithStreamingResponse(self)
 
-    async def execute(
+    async def list(
         self,
-        object_type: Literal[
-            "deal", "identity", "ai_chat_thread", "ai_chat_message", "document", "organization", "contact", "action"
-        ],
         *,
         team_id: str | None = None,
-        query: query_execute_params.Query,
+        query: event_list_params.Query,
         id: Union[str, SequenceNotStr[str]] | Omit = omit,
         boxes: SequenceNotStr[str] | Omit = omit,
         deleted: bool | Omit = omit,
@@ -138,9 +129,9 @@ class AsyncQueryResource(AsyncAPIResource):
         extra_query: Query | None = None,
         extra_body: Body | None = None,
         timeout: float | httpx.Timeout | None | NotGiven = not_given,
-    ) -> QueryExecuteResponse:
+    ) -> EventListResponse:
         """
-        Query v2
+        List Events
 
         Args:
           extra_headers: Send extra headers
@@ -155,10 +146,8 @@ class AsyncQueryResource(AsyncAPIResource):
             team_id = self._client._get_team_id_path_param()
         if not team_id:
             raise ValueError(f"Expected a non-empty value for `team_id` but received {team_id!r}")
-        if not object_type:
-            raise ValueError(f"Expected a non-empty value for `object_type` but received {object_type!r}")
         return await self._post(
-            path_template("/v2/prism/query/{team_id}/{object_type}", team_id=team_id, object_type=object_type),
+            path_template("/v2/prism/query/{team_id}/event", team_id=team_id),
             body=await async_maybe_transform(
                 {
                     "query": query,
@@ -167,46 +156,46 @@ class AsyncQueryResource(AsyncAPIResource):
                     "deleted": deleted,
                     "sources": sources,
                 },
-                query_execute_params.QueryExecuteParams,
+                event_list_params.EventListParams,
             ),
             options=make_request_options(
                 extra_headers=extra_headers, extra_query=extra_query, extra_body=extra_body, timeout=timeout
             ),
-            cast_to=QueryExecuteResponse,
+            cast_to=EventListResponse,
         )
 
 
-class QueryResourceWithRawResponse:
-    def __init__(self, query: QueryResource) -> None:
-        self._query = query
+class EventsResourceWithRawResponse:
+    def __init__(self, events: EventsResource) -> None:
+        self._events = events
 
-        self.execute = to_raw_response_wrapper(
-            query.execute,
+        self.list = to_raw_response_wrapper(
+            events.list,
         )
 
 
-class AsyncQueryResourceWithRawResponse:
-    def __init__(self, query: AsyncQueryResource) -> None:
-        self._query = query
+class AsyncEventsResourceWithRawResponse:
+    def __init__(self, events: AsyncEventsResource) -> None:
+        self._events = events
 
-        self.execute = async_to_raw_response_wrapper(
-            query.execute,
+        self.list = async_to_raw_response_wrapper(
+            events.list,
         )
 
 
-class QueryResourceWithStreamingResponse:
-    def __init__(self, query: QueryResource) -> None:
-        self._query = query
+class EventsResourceWithStreamingResponse:
+    def __init__(self, events: EventsResource) -> None:
+        self._events = events
 
-        self.execute = to_streamed_response_wrapper(
-            query.execute,
+        self.list = to_streamed_response_wrapper(
+            events.list,
         )
 
 
-class AsyncQueryResourceWithStreamingResponse:
-    def __init__(self, query: AsyncQueryResource) -> None:
-        self._query = query
+class AsyncEventsResourceWithStreamingResponse:
+    def __init__(self, events: AsyncEventsResource) -> None:
+        self._events = events
 
-        self.execute = async_to_streamed_response_wrapper(
-            query.execute,
+        self.list = async_to_streamed_response_wrapper(
+            events.list,
         )

@@ -4,16 +4,18 @@ from __future__ import annotations
 
 from typing_extensions import Annotated, TypedDict
 
-from ..._utils import PropertyInfo
+from .._utils import PropertyInfo
 
-__all__ = ["MetadataPropertiesParams"]
+__all__ = ["OrganizationUpdateParams"]
 
 
-class MetadataPropertiesParams(TypedDict, total=False):
+class OrganizationUpdateParams(TypedDict, total=False):
     team_id: Annotated[str, PropertyInfo(alias="teamId")]
 
-    autofill: bool
+    id: str
 
-    crm_id: Annotated[str, PropertyInfo(alias="crmId")]
+    crm: object
 
-    term: str
+    default: object
+
+    extended: object

@@ -5,13 +5,13 @@ from __future__ import annotations
 from typing import Dict, Union, Iterable
 from typing_extensions import Literal, Required, Annotated, TypedDict
 
-from ..._types import SequenceNotStr
-from ..._utils import PropertyInfo
+from .._types import SequenceNotStr
+from .._utils import PropertyInfo
 
-__all__ = ["QueryExecuteParams", "Query"]
+__all__ = ["DocumentListParams", "Query"]
 
 
-class QueryExecuteParams(TypedDict, total=False):
+class DocumentListParams(TypedDict, total=False):
     team_id: Annotated[str, PropertyInfo(alias="teamId")]
 
     query: Required[Query]
