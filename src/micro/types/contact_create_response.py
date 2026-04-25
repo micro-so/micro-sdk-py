@@ -4,8 +4,8 @@ from typing import Optional
 
 from .._models import BaseModel
 
-__all__ = ["PrismDuplicateObjectResponse"]
+__all__ = ["ContactCreateResponse"]
 
 
-class PrismDuplicateObjectResponse(BaseModel):
+class ContactCreateResponse(BaseModel):
     id: Optional[str] = None

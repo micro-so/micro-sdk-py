@@ -1,5 +1,13 @@
 # File generated from our OpenAPI spec by Stainless. See CONTRIBUTING.md for details.
 
+from .deals import (
+    DealsResource,
+    AsyncDealsResource,
+    DealsResourceWithRawResponse,
+    AsyncDealsResourceWithRawResponse,
+    DealsResourceWithStreamingResponse,
+    AsyncDealsResourceWithStreamingResponse,
+)
 from .prism import (
     PrismResource,
     AsyncPrismResource,
@@ -7,6 +15,54 @@ from .prism import (
     AsyncPrismResourceWithRawResponse,
     PrismResourceWithStreamingResponse,
     AsyncPrismResourceWithStreamingResponse,
+)
+from .events import (
+    EventsResource,
+    AsyncEventsResource,
+    EventsResourceWithRawResponse,
+    AsyncEventsResourceWithRawResponse,
+    EventsResourceWithStreamingResponse,
+    AsyncEventsResourceWithStreamingResponse,
+)
+from .actions import (
+    ActionsResource,
+    AsyncActionsResource,
+    ActionsResourceWithRawResponse,
+    AsyncActionsResourceWithRawResponse,
+    ActionsResourceWithStreamingResponse,
+    AsyncActionsResourceWithStreamingResponse,
+)
+from .contacts import (
+    ContactsResource,
+    AsyncContactsResource,
+    ContactsResourceWithRawResponse,
+    AsyncContactsResourceWithRawResponse,
+    ContactsResourceWithStreamingResponse,
+    AsyncContactsResourceWithStreamingResponse,
+)
+from .documents import (
+    DocumentsResource,
+    AsyncDocumentsResource,
+    DocumentsResourceWithRawResponse,
+    AsyncDocumentsResourceWithRawResponse,
+    DocumentsResourceWithStreamingResponse,
+    AsyncDocumentsResourceWithStreamingResponse,
+)
+from .identities import (
+    IdentitiesResource,
+    AsyncIdentitiesResource,
+    IdentitiesResourceWithRawResponse,
+    AsyncIdentitiesResourceWithRawResponse,
+    IdentitiesResourceWithStreamingResponse,
+    AsyncIdentitiesResourceWithStreamingResponse,
+)
+from .organizations import (
+    OrganizationsResource,
+    AsyncOrganizationsResource,
+    OrganizationsResourceWithRawResponse,
+    AsyncOrganizationsResourceWithRawResponse,
+    OrganizationsResourceWithStreamingResponse,
+    AsyncOrganizationsResourceWithStreamingResponse,
 )
 
 __all__ = [
@@ -16,4 +72,46 @@ __all__ = [
     "AsyncPrismResourceWithRawResponse",
     "PrismResourceWithStreamingResponse",
     "AsyncPrismResourceWithStreamingResponse",
+    "ContactsResource",
+    "AsyncContactsResource",
+    "ContactsResourceWithRawResponse",
+    "AsyncContactsResourceWithRawResponse",
+    "ContactsResourceWithStreamingResponse",
+    "AsyncContactsResourceWithStreamingResponse",
+    "OrganizationsResource",
+    "AsyncOrganizationsResource",
+    "OrganizationsResourceWithRawResponse",
+    "AsyncOrganizationsResourceWithRawResponse",
+    "OrganizationsResourceWithStreamingResponse",
+    "AsyncOrganizationsResourceWithStreamingResponse",
+    "IdentitiesResource",
+    "AsyncIdentitiesResource",
+    "IdentitiesResourceWithRawResponse",
+    "AsyncIdentitiesResourceWithRawResponse",
+    "IdentitiesResourceWithStreamingResponse",
+    "AsyncIdentitiesResourceWithStreamingResponse",
+    "DealsResource",
+    "AsyncDealsResource",
+    "DealsResourceWithRawResponse",
+    "AsyncDealsResourceWithRawResponse",
+    "DealsResourceWithStreamingResponse",
+    "AsyncDealsResourceWithStreamingResponse",
+    "ActionsResource",
+    "AsyncActionsResource",
+    "ActionsResourceWithRawResponse",
+    "AsyncActionsResourceWithRawResponse",
+    "ActionsResourceWithStreamingResponse",
+    "AsyncActionsResourceWithStreamingResponse",
+    "EventsResource",
+    "AsyncEventsResource",
+    "EventsResourceWithRawResponse",
+    "AsyncEventsResourceWithRawResponse",
+    "EventsResourceWithStreamingResponse",
+    "AsyncEventsResourceWithStreamingResponse",
+    "DocumentsResource",
+    "AsyncDocumentsResource",
+    "DocumentsResourceWithRawResponse",
+    "AsyncDocumentsResourceWithRawResponse",
+    "DocumentsResourceWithStreamingResponse",
+    "AsyncDocumentsResourceWithStreamingResponse",
 ]

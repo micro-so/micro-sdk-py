@@ -5,7 +5,7 @@ from typing_extensions import Literal
 
 from .._models import BaseModel
 
-__all__ = ["PrismImportObjectsResponse", "Result", "Summary"]
+__all__ = ["IdentityImportResponse", "Result", "Summary"]
 
 
 class Result(BaseModel):
@@ -28,7 +28,7 @@ class Summary(BaseModel):
     total: Optional[int] = None
 
 
-class PrismImportObjectsResponse(BaseModel):
+class IdentityImportResponse(BaseModel):
     results: Optional[List[Result]] = None
 
     status: Optional[Literal["complete"]] = None

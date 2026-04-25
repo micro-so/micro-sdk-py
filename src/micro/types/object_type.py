@@ -4,4 +4,4 @@ from typing_extensions import Literal, TypeAlias
 
 __all__ = ["ObjectType"]
 
-ObjectType: TypeAlias = Literal["deal", "identity", "ai_chat_thread", "ai_chat_message", "document", "action", "event"]
+ObjectType: TypeAlias = Literal["deal", "identity", "ai_chat_thread", "ai_chat_message", "document", "action"]

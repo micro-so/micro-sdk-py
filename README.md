@@ -37,45 +37,38 @@ pip install git+ssh://git@github.com/stainless-sdks/micro-python.git
 The full API of this library can be found in [api.md](api.md).
 
 ```python
-import os
 from micro import Micro
 
 client = Micro(
+    api_key="My API Key",
     team_id="My Team ID",
-    api_key=os.environ.get("MICRO_API_KEY"),  # This is the default and can be omitted
 )
 
-client.prism.restore_object(
-    object_id="REPLACE_ME",
-    object_type="deal",
+contacts = client.contacts.list(
+    query={"select": ["full_name", "email"]},
 )
+print(contacts.data)
 ```
-
-While you can provide an `api_key` keyword argument,
-we recommend using [python-dotenv](https://pypi.org/project/python-dotenv/)
-to add `MICRO_API_KEY="My API Key"` to your `.env` file
-so that your API Key is not stored in source control.
 
 ## Async usage
 
 Simply import `AsyncMicro` instead of `Micro` and use `await` with each API call:
 
 ```python
-import os
 import asyncio
 from micro import AsyncMicro
 
 client = AsyncMicro(
+    api_key="My API Key",
     team_id="My Team ID",
-    api_key=os.environ.get("MICRO_API_KEY"),  # This is the default and can be omitted
 )
 
 
 async def main() -> None:
-    await client.prism.restore_object(
-        object_id="REPLACE_ME",
-        object_type="deal",
+    contacts = await client.contacts.list(
+        query={"select": ["full_name", "email"]},
     )
+    print(contacts.data)
 
 
 asyncio.run(main())
@@ -97,7 +90,6 @@ pip install 'micro[aiohttp] @ git+ssh://git@github.com/stainless-sdks/micro-pyth
 Then you can enable it by instantiating the client with `http_client=DefaultAioHttpClient()`:
 
 ```python
-import os
 import asyncio
 from micro import DefaultAioHttpClient
 from micro import AsyncMicro
@@ -105,14 +97,14 @@ from micro import AsyncMicro
 
 async def main() -> None:
     async with AsyncMicro(
+        api_key="My API Key",
         team_id="My Team ID",
-        api_key=os.environ.get("MICRO_API_KEY"),  # This is the default and can be omitted
         http_client=DefaultAioHttpClient(),
     ) as client:
-        await client.prism.restore_object(
-            object_id="REPLACE_ME",
-            object_type="deal",
+        contacts = await client.contacts.list(
+            query={"select": ["full_name", "email"]},
         )
+        print(contacts.data)
 
 
 asyncio.run(main())
@@ -135,15 +127,14 @@ Nested parameters are dictionaries, typed using `TypedDict`, for example:
 from micro import Micro
 
 client = Micro(
+    api_key="My API Key",
     team_id="My Team ID",
 )
 
-response = client.prism.import_objects(
-    object_type="identity",
-    objects=[{}],
-    options={},
+contacts = client.contacts.list(
+    query={"select": ["string"]},
 )
-print(response.options)
+print(contacts.query)
 ```
 
 ## Handling errors
@@ -160,13 +151,13 @@ import micro
 from micro import Micro
 
 client = Micro(
+    api_key="My API Key",
     team_id="My Team ID",
 )
 
 try:
-    client.prism.restore_object(
-        object_id="REPLACE_ME",
-        object_type="deal",
+    client.contacts.list(
+        query={"select": ["full_name", "email"]},
     )
 except micro.APIConnectionError as e:
     print("The server could not be reached")
@@ -205,15 +196,15 @@ from micro import Micro
 
 # Configure the default for all requests:
 client = Micro(
+    api_key="My API Key",
     team_id="My Team ID",
     # default is 2
     max_retries=0,
 )
 
 # Or, configure per-request:
-client.with_options(max_retries=5).prism.restore_object(
-    object_id="REPLACE_ME",
-    object_type="deal",
+client.with_options(max_retries=5).contacts.list(
+    query={"select": ["full_name", "email"]},
 )
 ```
 
@@ -227,6 +218,7 @@ from micro import Micro
 
 # Configure the default for all requests:
 client = Micro(
+    api_key="My API Key",
     team_id="My Team ID",
     # 20 seconds (default is 1 minute)
     timeout=20.0,
@@ -234,14 +226,14 @@ client = Micro(
 
 # More granular control:
 client = Micro(
+    api_key="My API Key",
     team_id="My Team ID",
     timeout=httpx.Timeout(60.0, read=5.0, write=10.0, connect=2.0),
 )
 
 # Override per-request:
-client.with_options(timeout=5.0).prism.restore_object(
-    object_id="REPLACE_ME",
-    object_type="deal",
+client.with_options(timeout=5.0).contacts.list(
+    query={"select": ["full_name", "email"]},
 )
 ```
 
@@ -283,16 +275,18 @@ The "raw" Response object can be accessed by prefixing `.with_raw_response.` to 
 from micro import Micro
 
 client = Micro(
+    api_key="My API Key",
     team_id="My Team ID",
 )
-response = client.prism.with_raw_response.restore_object(
-    object_id="REPLACE_ME",
-    object_type="deal",
+response = client.contacts.with_raw_response.list(
+    query={
+        "select": ["full_name", "email"]
+    },
 )
 print(response.headers.get('X-My-Header'))
 
-prism = response.parse()  # get the object that `prism.restore_object()` would have returned
-print(prism)
+contact = response.parse()  # get the object that `contacts.list()` would have returned
+print(contact.data)
 ```
 
 These methods return an [`APIResponse`](https://github.com/stainless-sdks/micro-python/tree/main/src/micro/_response.py) object.
@@ -306,9 +300,8 @@ The above interface eagerly reads the full response body when you make the reque
 To stream the response body, use `.with_streaming_response` instead, which requires a context manager and only reads the response body once you call `.read()`, `.text()`, `.json()`, `.iter_bytes()`, `.iter_text()`, `.iter_lines()` or `.parse()`. In the async client, these are async methods.
 
 ```python
-with client.prism.with_streaming_response.restore_object(
-    object_id="REPLACE_ME",
-    object_type="deal",
+with client.contacts.with_streaming_response.list(
+    query={"select": ["full_name", "email"]},
 ) as response:
     print(response.headers.get("X-My-Header"))
 
@@ -365,6 +358,7 @@ import httpx
 from micro import Micro, DefaultHttpxClient
 
 client = Micro(
+    api_key="My API Key",
     team_id="My Team ID",
     # Or use the `MICRO_BASE_URL` env var
     base_url="http://my.test.server.example.com:8083",
@@ -389,6 +383,7 @@ By default the library closes underlying HTTP connections whenever the client is
 from micro import Micro
 
 with Micro(
+    api_key="My API Key",
     team_id="My Team ID",
 ) as client:
   # make requests here
