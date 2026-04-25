@@ -37,11 +37,12 @@ pip install git+ssh://git@github.com/stainless-sdks/micro-python.git
 The full API of this library can be found in [api.md](api.md).
 
 ```python
+import os
 from micro import Micro
 
 client = Micro(
-    api_key="My API Key",
     team_id="My Team ID",
+    api_key=os.environ.get("MICRO_API_KEY"),  # This is the default and can be omitted
 )
 
 contacts = client.contacts.list(
@@ -50,17 +51,23 @@ contacts = client.contacts.list(
 print(contacts.data)
 ```
 
+While you can provide an `api_key` keyword argument,
+we recommend using [python-dotenv](https://pypi.org/project/python-dotenv/)
+to add `MICRO_API_KEY="My API Key"` to your `.env` file
+so that your API Key is not stored in source control.
+
 ## Async usage
 
 Simply import `AsyncMicro` instead of `Micro` and use `await` with each API call:
 
 ```python
+import os
 import asyncio
 from micro import AsyncMicro
 
 client = AsyncMicro(
-    api_key="My API Key",
     team_id="My Team ID",
+    api_key=os.environ.get("MICRO_API_KEY"),  # This is the default and can be omitted
 )
 
 
@@ -90,6 +97,7 @@ pip install 'micro[aiohttp] @ git+ssh://git@github.com/stainless-sdks/micro-pyth
 Then you can enable it by instantiating the client with `http_client=DefaultAioHttpClient()`:
 
 ```python
+import os
 import asyncio
 from micro import DefaultAioHttpClient
 from micro import AsyncMicro
@@ -97,8 +105,8 @@ from micro import AsyncMicro
 
 async def main() -> None:
     async with AsyncMicro(
-        api_key="My API Key",
         team_id="My Team ID",
+        api_key=os.environ.get("MICRO_API_KEY"),  # This is the default and can be omitted
         http_client=DefaultAioHttpClient(),
     ) as client:
         contacts = await client.contacts.list(
@@ -127,7 +135,6 @@ Nested parameters are dictionaries, typed using `TypedDict`, for example:
 from micro import Micro
 
 client = Micro(
-    api_key="My API Key",
     team_id="My Team ID",
 )
 
@@ -151,7 +158,6 @@ import micro
 from micro import Micro
 
 client = Micro(
-    api_key="My API Key",
     team_id="My Team ID",
 )
 
@@ -196,7 +202,6 @@ from micro import Micro
 
 # Configure the default for all requests:
 client = Micro(
-    api_key="My API Key",
     team_id="My Team ID",
     # default is 2
     max_retries=0,
@@ -218,7 +223,6 @@ from micro import Micro
 
 # Configure the default for all requests:
 client = Micro(
-    api_key="My API Key",
     team_id="My Team ID",
     # 20 seconds (default is 1 minute)
     timeout=20.0,
@@ -226,7 +230,6 @@ client = Micro(
 
 # More granular control:
 client = Micro(
-    api_key="My API Key",
     team_id="My Team ID",
     timeout=httpx.Timeout(60.0, read=5.0, write=10.0, connect=2.0),
 )
@@ -275,7 +278,6 @@ The "raw" Response object can be accessed by prefixing `.with_raw_response.` to 
 from micro import Micro
 
 client = Micro(
-    api_key="My API Key",
     team_id="My Team ID",
 )
 response = client.contacts.with_raw_response.list(
@@ -358,7 +360,6 @@ import httpx
 from micro import Micro, DefaultHttpxClient
 
 client = Micro(
-    api_key="My API Key",
     team_id="My Team ID",
     # Or use the `MICRO_BASE_URL` env var
     base_url="http://my.test.server.example.com:8083",
@@ -383,7 +384,6 @@ By default the library closes underlying HTTP connections whenever the client is
 from micro import Micro
 
 with Micro(
-    api_key="My API Key",
     team_id="My Team ID",
 ) as client:
   # make requests here

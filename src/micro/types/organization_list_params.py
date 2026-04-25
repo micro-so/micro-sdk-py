@@ -38,7 +38,10 @@ class Query(TypedDict, total=False):
     crm_id: str
 
     filter: Iterable[Dict[str, Dict[str, Union[str, bool, SequenceNotStr[str]]]]]
-    """Filters as [{ slug: { operator: value } }]"""
+    """Filters as [{ slug: { operator: value } }].
+
+    For select/multiselect properties, values must be option slugs
+    """
 
     limit: int
 

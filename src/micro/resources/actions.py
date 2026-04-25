@@ -2,7 +2,7 @@
 
 from __future__ import annotations
 
-from typing import Union
+from typing import Dict, Union
 
 import httpx
 
@@ -50,7 +50,7 @@ class ActionsResource(SyncAPIResource):
         team_id: str | None = None,
         id: str | Omit = omit,
         crm: object | Omit = omit,
-        default: object | Omit = omit,
+        default: Dict[str, object] | Omit = omit,
         extended: object | Omit = omit,
         # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
         # The extra values given here take precedence over values defined on the client or passed to this method.
@@ -59,10 +59,14 @@ class ActionsResource(SyncAPIResource):
         extra_body: Body | None = None,
         timeout: float | httpx.Timeout | None | NotGiven = not_given,
     ) -> ActionCreateResponse:
-        """
-        Create Action
+        """Create Action
 
         Args:
+          default: Properties keyed by property slug.
+
+        Values can be strings, numbers, booleans,
+              arrays, or null.
+
           extra_headers: Send extra headers
 
           extra_query: Add additional query parameters to the request
@@ -99,7 +103,7 @@ class ActionsResource(SyncAPIResource):
         team_id: str | None = None,
         id: str | Omit = omit,
         crm: object | Omit = omit,
-        default: object | Omit = omit,
+        default: Dict[str, object] | Omit = omit,
         extended: object | Omit = omit,
         # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
         # The extra values given here take precedence over values defined on the client or passed to this method.
@@ -108,10 +112,14 @@ class ActionsResource(SyncAPIResource):
         extra_body: Body | None = None,
         timeout: float | httpx.Timeout | None | NotGiven = not_given,
     ) -> None:
-        """
-        Update Action
+        """Update Action
 
         Args:
+          default: Properties keyed by property slug.
+
+        Values can be strings, numbers, booleans,
+              arrays, or null.
+
           extra_headers: Send extra headers
 
           extra_query: Add additional query parameters to the request
@@ -260,7 +268,7 @@ class AsyncActionsResource(AsyncAPIResource):
         team_id: str | None = None,
         id: str | Omit = omit,
         crm: object | Omit = omit,
-        default: object | Omit = omit,
+        default: Dict[str, object] | Omit = omit,
         extended: object | Omit = omit,
         # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
         # The extra values given here take precedence over values defined on the client or passed to this method.
@@ -269,10 +277,14 @@ class AsyncActionsResource(AsyncAPIResource):
         extra_body: Body | None = None,
         timeout: float | httpx.Timeout | None | NotGiven = not_given,
     ) -> ActionCreateResponse:
-        """
-        Create Action
+        """Create Action
 
         Args:
+          default: Properties keyed by property slug.
+
+        Values can be strings, numbers, booleans,
+              arrays, or null.
+
           extra_headers: Send extra headers
 
           extra_query: Add additional query parameters to the request
@@ -309,7 +321,7 @@ class AsyncActionsResource(AsyncAPIResource):
         team_id: str | None = None,
         id: str | Omit = omit,
         crm: object | Omit = omit,
-        default: object | Omit = omit,
+        default: Dict[str, object] | Omit = omit,
         extended: object | Omit = omit,
         # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
         # The extra values given here take precedence over values defined on the client or passed to this method.
@@ -318,10 +330,14 @@ class AsyncActionsResource(AsyncAPIResource):
         extra_body: Body | None = None,
         timeout: float | httpx.Timeout | None | NotGiven = not_given,
     ) -> None:
-        """
-        Update Action
+        """Update Action
 
         Args:
+          default: Properties keyed by property slug.
+
+        Values can be strings, numbers, booleans,
+              arrays, or null.
+
           extra_headers: Send extra headers
 
           extra_query: Add additional query parameters to the request

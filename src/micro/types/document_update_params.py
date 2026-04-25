@@ -2,6 +2,7 @@
 
 from __future__ import annotations
 
+from typing import Dict
 from typing_extensions import Annotated, TypedDict
 
 from .._utils import PropertyInfo
@@ -16,6 +17,10 @@ class DocumentUpdateParams(TypedDict, total=False):
 
     crm: object
 
-    default: object
+    default: Dict[str, object]
+    """Properties keyed by property slug.
+
+    Values can be strings, numbers, booleans, arrays, or null.
+    """
 
     extended: object

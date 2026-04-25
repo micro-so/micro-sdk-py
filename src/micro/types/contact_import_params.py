@@ -3,7 +3,7 @@
 from __future__ import annotations
 
 from typing import Iterable
-from typing_extensions import Literal, Required, Annotated, TypedDict
+from typing_extensions import Required, Annotated, TypedDict
 
 from .._utils import PropertyInfo
 from .prism_object_properties_param import PrismObjectPropertiesParam
@@ -15,7 +15,7 @@ class ContactImportParams(TypedDict, total=False):
     team_id: Annotated[str, PropertyInfo(alias="teamId")]
 
     objects: Required[Iterable[PrismObjectPropertiesParam]]
-    """Array of objects to import with their property values"""
+    """Array of objects to import with property values keyed by slug"""
 
     options: Options
 
@@ -28,7 +28,4 @@ class Options(TypedDict, total=False):
     """App/CRM ID for context (optional)"""
 
     dedupe_by: str
-    """Property definition ID to deduplicate on"""
-
-    dedupe_type: Literal["str", "multi_str", "multiref_contact"]
-    """Type of the deduplication property"""
+    """Property slug to deduplicate on"""
