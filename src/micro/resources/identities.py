@@ -171,7 +171,7 @@ class IdentitiesResource(SyncAPIResource):
         timeout: float | httpx.Timeout | None | NotGiven = not_given,
     ) -> IdentityListResponse:
         """
-        List Identitys
+        List Identities
 
         Args:
           extra_headers: Send extra headers
@@ -257,7 +257,7 @@ class IdentitiesResource(SyncAPIResource):
         timeout: float | httpx.Timeout | None | NotGiven = not_given,
     ) -> IdentityImportResponse:
         """
-        Import Identitys
+        Import Identities
 
         Args:
           objects: Array of objects to import with property values keyed by slug
@@ -435,7 +435,7 @@ class AsyncIdentitiesResource(AsyncAPIResource):
         timeout: float | httpx.Timeout | None | NotGiven = not_given,
     ) -> IdentityListResponse:
         """
-        List Identitys
+        List Identities
 
         Args:
           extra_headers: Send extra headers
@@ -521,7 +521,7 @@ class AsyncIdentitiesResource(AsyncAPIResource):
         timeout: float | httpx.Timeout | None | NotGiven = not_given,
     ) -> IdentityImportResponse:
         """
-        Import Identitys
+        Import Identities
 
         Args:
           objects: Array of objects to import with property values keyed by slug
