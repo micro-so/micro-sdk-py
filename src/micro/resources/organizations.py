@@ -32,6 +32,11 @@ __all__ = ["OrganizationsResource", "AsyncOrganizationsResource"]
 
 
 class OrganizationsResource(SyncAPIResource):
+    """Organizations represent companies or teams in Micro.
+
+    Contacts and deals can be associated with an organization.
+    """
+
     @cached_property
     def with_raw_response(self) -> OrganizationsResourceWithRawResponse:
         """
@@ -300,6 +305,11 @@ class OrganizationsResource(SyncAPIResource):
 
 
 class AsyncOrganizationsResource(AsyncAPIResource):
+    """Organizations represent companies or teams in Micro.
+
+    Contacts and deals can be associated with an organization.
+    """
+
     @cached_property
     def with_raw_response(self) -> AsyncOrganizationsResourceWithRawResponse:
         """

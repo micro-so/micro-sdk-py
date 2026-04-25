@@ -27,6 +27,11 @@ __all__ = ["ContactsResource", "AsyncContactsResource"]
 
 
 class ContactsResource(SyncAPIResource):
+    """Contacts represent individual people in Micro.
+
+    Each contact can have a name, email, phone, title, and custom properties, and can be linked to an organization.
+    """
+
     @cached_property
     def with_raw_response(self) -> ContactsResourceWithRawResponse:
         """
@@ -291,6 +296,11 @@ class ContactsResource(SyncAPIResource):
 
 
 class AsyncContactsResource(AsyncAPIResource):
+    """Contacts represent individual people in Micro.
+
+    Each contact can have a name, email, phone, title, and custom properties, and can be linked to an organization.
+    """
+
     @cached_property
     def with_raw_response(self) -> AsyncContactsResourceWithRawResponse:
         """

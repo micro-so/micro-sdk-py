@@ -26,6 +26,10 @@ __all__ = ["GrantResource", "AsyncGrantResource"]
 
 
 class GrantResource(SyncAPIResource):
+    """
+    The Prism query engine provides generic read/write access to any object type using a single unified API surface.
+    """
+
     @cached_property
     def with_raw_response(self) -> GrantResourceWithRawResponse:
         """
@@ -152,6 +156,10 @@ class GrantResource(SyncAPIResource):
 
 
 class AsyncGrantResource(AsyncAPIResource):
+    """
+    The Prism query engine provides generic read/write access to any object type using a single unified API surface.
+    """
+
     @cached_property
     def with_raw_response(self) -> AsyncGrantResourceWithRawResponse:
         """

@@ -27,6 +27,10 @@ __all__ = ["IdentitiesResource", "AsyncIdentitiesResource"]
 
 
 class IdentitiesResource(SyncAPIResource):
+    """
+    Identities link multiple contacts together as the same real-world person, deduplicating people who appear in different contexts.
+    """
+
     @cached_property
     def with_raw_response(self) -> IdentitiesResourceWithRawResponse:
         """
@@ -291,6 +295,10 @@ class IdentitiesResource(SyncAPIResource):
 
 
 class AsyncIdentitiesResource(AsyncAPIResource):
+    """
+    Identities link multiple contacts together as the same real-world person, deduplicating people who appear in different contexts.
+    """
+
     @cached_property
     def with_raw_response(self) -> AsyncIdentitiesResourceWithRawResponse:
         """

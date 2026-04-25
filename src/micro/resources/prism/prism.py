@@ -52,16 +52,29 @@ __all__ = ["PrismResource", "AsyncPrismResource"]
 
 
 class PrismResource(SyncAPIResource):
+    """
+    The Prism query engine provides generic read/write access to any object type using a single unified API surface.
+    """
+
     @cached_property
     def grant(self) -> GrantResource:
+        """
+        The Prism query engine provides generic read/write access to any object type using a single unified API surface.
+        """
         return GrantResource(self._client)
 
     @cached_property
     def query(self) -> QueryResource:
+        """
+        The Prism query engine provides generic read/write access to any object type using a single unified API surface.
+        """
         return QueryResource(self._client)
 
     @cached_property
     def metadata(self) -> MetadataResource:
+        """
+        The Prism query engine provides generic read/write access to any object type using a single unified API surface.
+        """
         return MetadataResource(self._client)
 
     @cached_property
@@ -397,16 +410,29 @@ class PrismResource(SyncAPIResource):
 
 
 class AsyncPrismResource(AsyncAPIResource):
+    """
+    The Prism query engine provides generic read/write access to any object type using a single unified API surface.
+    """
+
     @cached_property
     def grant(self) -> AsyncGrantResource:
+        """
+        The Prism query engine provides generic read/write access to any object type using a single unified API surface.
+        """
         return AsyncGrantResource(self._client)
 
     @cached_property
     def query(self) -> AsyncQueryResource:
+        """
+        The Prism query engine provides generic read/write access to any object type using a single unified API surface.
+        """
         return AsyncQueryResource(self._client)
 
     @cached_property
     def metadata(self) -> AsyncMetadataResource:
+        """
+        The Prism query engine provides generic read/write access to any object type using a single unified API surface.
+        """
         return AsyncMetadataResource(self._client)
 
     @cached_property
@@ -766,14 +792,23 @@ class PrismResourceWithRawResponse:
 
     @cached_property
     def grant(self) -> GrantResourceWithRawResponse:
+        """
+        The Prism query engine provides generic read/write access to any object type using a single unified API surface.
+        """
         return GrantResourceWithRawResponse(self._prism.grant)
 
     @cached_property
     def query(self) -> QueryResourceWithRawResponse:
+        """
+        The Prism query engine provides generic read/write access to any object type using a single unified API surface.
+        """
         return QueryResourceWithRawResponse(self._prism.query)
 
     @cached_property
     def metadata(self) -> MetadataResourceWithRawResponse:
+        """
+        The Prism query engine provides generic read/write access to any object type using a single unified API surface.
+        """
         return MetadataResourceWithRawResponse(self._prism.metadata)
 
 
@@ -802,14 +837,23 @@ class AsyncPrismResourceWithRawResponse:
 
     @cached_property
     def grant(self) -> AsyncGrantResourceWithRawResponse:
+        """
+        The Prism query engine provides generic read/write access to any object type using a single unified API surface.
+        """
         return AsyncGrantResourceWithRawResponse(self._prism.grant)
 
     @cached_property
     def query(self) -> AsyncQueryResourceWithRawResponse:
+        """
+        The Prism query engine provides generic read/write access to any object type using a single unified API surface.
+        """
         return AsyncQueryResourceWithRawResponse(self._prism.query)
 
     @cached_property
     def metadata(self) -> AsyncMetadataResourceWithRawResponse:
+        """
+        The Prism query engine provides generic read/write access to any object type using a single unified API surface.
+        """
         return AsyncMetadataResourceWithRawResponse(self._prism.metadata)
 
 
@@ -838,14 +882,23 @@ class PrismResourceWithStreamingResponse:
 
     @cached_property
     def grant(self) -> GrantResourceWithStreamingResponse:
+        """
+        The Prism query engine provides generic read/write access to any object type using a single unified API surface.
+        """
         return GrantResourceWithStreamingResponse(self._prism.grant)
 
     @cached_property
     def query(self) -> QueryResourceWithStreamingResponse:
+        """
+        The Prism query engine provides generic read/write access to any object type using a single unified API surface.
+        """
         return QueryResourceWithStreamingResponse(self._prism.query)
 
     @cached_property
     def metadata(self) -> MetadataResourceWithStreamingResponse:
+        """
+        The Prism query engine provides generic read/write access to any object type using a single unified API surface.
+        """
         return MetadataResourceWithStreamingResponse(self._prism.metadata)
 
 
@@ -874,12 +927,21 @@ class AsyncPrismResourceWithStreamingResponse:
 
     @cached_property
     def grant(self) -> AsyncGrantResourceWithStreamingResponse:
+        """
+        The Prism query engine provides generic read/write access to any object type using a single unified API surface.
+        """
         return AsyncGrantResourceWithStreamingResponse(self._prism.grant)
 
     @cached_property
     def query(self) -> AsyncQueryResourceWithStreamingResponse:
+        """
+        The Prism query engine provides generic read/write access to any object type using a single unified API surface.
+        """
         return AsyncQueryResourceWithStreamingResponse(self._prism.query)
 
     @cached_property
     def metadata(self) -> AsyncMetadataResourceWithStreamingResponse:
+        """
+        The Prism query engine provides generic read/write access to any object type using a single unified API surface.
+        """
         return AsyncMetadataResourceWithStreamingResponse(self._prism.metadata)

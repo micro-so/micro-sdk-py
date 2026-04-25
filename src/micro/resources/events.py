@@ -24,6 +24,10 @@ __all__ = ["EventsResource", "AsyncEventsResource"]
 
 
 class EventsResource(SyncAPIResource):
+    """
+    Events are calendar items — meetings, calls, and appointments — automatically captured from your connected calendar accounts.
+    """
+
     @cached_property
     def with_raw_response(self) -> EventsResourceWithRawResponse:
         """
@@ -95,6 +99,10 @@ class EventsResource(SyncAPIResource):
 
 
 class AsyncEventsResource(AsyncAPIResource):
+    """
+    Events are calendar items — meetings, calls, and appointments — automatically captured from your connected calendar accounts.
+    """
+
     @cached_property
     def with_raw_response(self) -> AsyncEventsResourceWithRawResponse:
         """

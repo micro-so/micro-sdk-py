@@ -25,6 +25,10 @@ __all__ = ["DocumentsResource", "AsyncDocumentsResource"]
 
 
 class DocumentsResource(SyncAPIResource):
+    """
+    Documents are rich-text notes attached to contacts, organizations, or deals, used for meeting notes, research, or context.
+    """
+
     @cached_property
     def with_raw_response(self) -> DocumentsResourceWithRawResponse:
         """
@@ -243,6 +247,10 @@ class DocumentsResource(SyncAPIResource):
 
 
 class AsyncDocumentsResource(AsyncAPIResource):
+    """
+    Documents are rich-text notes attached to contacts, organizations, or deals, used for meeting notes, research, or context.
+    """
+
     @cached_property
     def with_raw_response(self) -> AsyncDocumentsResourceWithRawResponse:
         """
