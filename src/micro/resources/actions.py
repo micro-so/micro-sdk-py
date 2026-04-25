@@ -25,6 +25,10 @@ __all__ = ["ActionsResource", "AsyncActionsResource"]
 
 
 class ActionsResource(SyncAPIResource):
+    """
+    Actions are tasks and to-dos that can be assigned to contacts, organizations, or deals, with a status, due date, and priority.
+    """
+
     @cached_property
     def with_raw_response(self) -> ActionsResourceWithRawResponse:
         """
@@ -243,6 +247,10 @@ class ActionsResource(SyncAPIResource):
 
 
 class AsyncActionsResource(AsyncAPIResource):
+    """
+    Actions are tasks and to-dos that can be assigned to contacts, organizations, or deals, with a status, due date, and priority.
+    """
+
     @cached_property
     def with_raw_response(self) -> AsyncActionsResourceWithRawResponse:
         """

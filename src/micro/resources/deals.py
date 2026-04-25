@@ -27,6 +27,10 @@ __all__ = ["DealsResource", "AsyncDealsResource"]
 
 
 class DealsResource(SyncAPIResource):
+    """
+    Deals track opportunities moving through a pipeline — fundraising rounds, sales opportunities, hiring candidates, or any custom workflow.
+    """
+
     @cached_property
     def with_raw_response(self) -> DealsResourceWithRawResponse:
         """
@@ -291,6 +295,10 @@ class DealsResource(SyncAPIResource):
 
 
 class AsyncDealsResource(AsyncAPIResource):
+    """
+    Deals track opportunities moving through a pipeline — fundraising rounds, sales opportunities, hiring candidates, or any custom workflow.
+    """
+
     @cached_property
     def with_raw_response(self) -> AsyncDealsResourceWithRawResponse:
         """

@@ -23,6 +23,10 @@ __all__ = ["MetadataResource", "AsyncMetadataResource"]
 
 
 class MetadataResource(SyncAPIResource):
+    """
+    The Prism query engine provides generic read/write access to any object type using a single unified API surface.
+    """
+
     @cached_property
     def with_raw_response(self) -> MetadataResourceWithRawResponse:
         """
@@ -99,6 +103,10 @@ class MetadataResource(SyncAPIResource):
 
 
 class AsyncMetadataResource(AsyncAPIResource):
+    """
+    The Prism query engine provides generic read/write access to any object type using a single unified API surface.
+    """
+
     @cached_property
     def with_raw_response(self) -> AsyncMetadataResourceWithRawResponse:
         """
