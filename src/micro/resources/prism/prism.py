@@ -44,6 +44,7 @@ from ..._response import (
 )
 from ..._base_client import make_request_options
 from ...types.object_type import ObjectType
+from ...types.prism_object_properties import PrismObjectProperties
 from ...types.prism_import_objects_response import PrismImportObjectsResponse
 from ...types.prism_object_properties_param import PrismObjectPropertiesParam
 from ...types.prism_duplicate_object_response import PrismDuplicateObjectResponse
@@ -52,29 +53,16 @@ __all__ = ["PrismResource", "AsyncPrismResource"]
 
 
 class PrismResource(SyncAPIResource):
-    """
-    The Prism query engine provides generic read/write access to any object type using a single unified API surface.
-    """
-
     @cached_property
     def grant(self) -> GrantResource:
-        """
-        The Prism query engine provides generic read/write access to any object type using a single unified API surface.
-        """
         return GrantResource(self._client)
 
     @cached_property
     def query(self) -> QueryResource:
-        """
-        The Prism query engine provides generic read/write access to any object type using a single unified API surface.
-        """
         return QueryResource(self._client)
 
     @cached_property
     def metadata(self) -> MetadataResource:
-        """
-        The Prism query engine provides generic read/write access to any object type using a single unified API surface.
-        """
         return MetadataResource(self._client)
 
     @cached_property
@@ -111,7 +99,7 @@ class PrismResource(SyncAPIResource):
         extra_query: Query | None = None,
         extra_body: Body | None = None,
         timeout: float | httpx.Timeout | None | NotGiven = not_given,
-    ) -> None:
+    ) -> PrismObjectProperties:
         """Create object
 
         Args:
@@ -134,7 +122,6 @@ class PrismResource(SyncAPIResource):
             raise ValueError(f"Expected a non-empty value for `team_id` but received {team_id!r}")
         if not object_type:
             raise ValueError(f"Expected a non-empty value for `object_type` but received {object_type!r}")
-        extra_headers = {"Accept": "*/*", **(extra_headers or {})}
         return self._post(
             path_template("/v2/prism/{team_id}/{object_type}", team_id=team_id, object_type=object_type),
             body=maybe_transform(
@@ -149,7 +136,7 @@ class PrismResource(SyncAPIResource):
             options=make_request_options(
                 extra_headers=extra_headers, extra_query=extra_query, extra_body=extra_body, timeout=timeout
             ),
-            cast_to=NoneType,
+            cast_to=PrismObjectProperties,
         )
 
     def delete_object(
@@ -313,7 +300,7 @@ class PrismResource(SyncAPIResource):
         extra_query: Query | None = None,
         extra_body: Body | None = None,
         timeout: float | httpx.Timeout | None | NotGiven = not_given,
-    ) -> None:
+    ) -> PrismObjectProperties:
         """Patch object
 
         Args:
@@ -338,7 +325,6 @@ class PrismResource(SyncAPIResource):
             raise ValueError(f"Expected a non-empty value for `object_type` but received {object_type!r}")
         if not object_id:
             raise ValueError(f"Expected a non-empty value for `object_id` but received {object_id!r}")
-        extra_headers = {"Accept": "*/*", **(extra_headers or {})}
         return self._patch(
             path_template(
                 "/v2/prism/{team_id}/{object_type}/{object_id}",
@@ -358,7 +344,7 @@ class PrismResource(SyncAPIResource):
             options=make_request_options(
                 extra_headers=extra_headers, extra_query=extra_query, extra_body=extra_body, timeout=timeout
             ),
-            cast_to=NoneType,
+            cast_to=PrismObjectProperties,
         )
 
     def restore_object(
@@ -373,7 +359,7 @@ class PrismResource(SyncAPIResource):
         extra_query: Query | None = None,
         extra_body: Body | None = None,
         timeout: float | httpx.Timeout | None | NotGiven = not_given,
-    ) -> None:
+    ) -> PrismObjectProperties:
         """
         Restore object
 
@@ -394,7 +380,6 @@ class PrismResource(SyncAPIResource):
             raise ValueError(f"Expected a non-empty value for `object_type` but received {object_type!r}")
         if not object_id:
             raise ValueError(f"Expected a non-empty value for `object_id` but received {object_id!r}")
-        extra_headers = {"Accept": "*/*", **(extra_headers or {})}
         return self._post(
             path_template(
                 "/v2/prism/{team_id}/{object_type}/{object_id}/restore",
@@ -405,34 +390,21 @@ class PrismResource(SyncAPIResource):
             options=make_request_options(
                 extra_headers=extra_headers, extra_query=extra_query, extra_body=extra_body, timeout=timeout
             ),
-            cast_to=NoneType,
+            cast_to=PrismObjectProperties,
         )
 
 
 class AsyncPrismResource(AsyncAPIResource):
-    """
-    The Prism query engine provides generic read/write access to any object type using a single unified API surface.
-    """
-
     @cached_property
     def grant(self) -> AsyncGrantResource:
-        """
-        The Prism query engine provides generic read/write access to any object type using a single unified API surface.
-        """
         return AsyncGrantResource(self._client)
 
     @cached_property
     def query(self) -> AsyncQueryResource:
-        """
-        The Prism query engine provides generic read/write access to any object type using a single unified API surface.
-        """
         return AsyncQueryResource(self._client)
 
     @cached_property
     def metadata(self) -> AsyncMetadataResource:
-        """
-        The Prism query engine provides generic read/write access to any object type using a single unified API surface.
-        """
         return AsyncMetadataResource(self._client)
 
     @cached_property
@@ -469,7 +441,7 @@ class AsyncPrismResource(AsyncAPIResource):
         extra_query: Query | None = None,
         extra_body: Body | None = None,
         timeout: float | httpx.Timeout | None | NotGiven = not_given,
-    ) -> None:
+    ) -> PrismObjectProperties:
         """Create object
 
         Args:
@@ -492,7 +464,6 @@ class AsyncPrismResource(AsyncAPIResource):
             raise ValueError(f"Expected a non-empty value for `team_id` but received {team_id!r}")
         if not object_type:
             raise ValueError(f"Expected a non-empty value for `object_type` but received {object_type!r}")
-        extra_headers = {"Accept": "*/*", **(extra_headers or {})}
         return await self._post(
             path_template("/v2/prism/{team_id}/{object_type}", team_id=team_id, object_type=object_type),
             body=await async_maybe_transform(
@@ -507,7 +478,7 @@ class AsyncPrismResource(AsyncAPIResource):
             options=make_request_options(
                 extra_headers=extra_headers, extra_query=extra_query, extra_body=extra_body, timeout=timeout
             ),
-            cast_to=NoneType,
+            cast_to=PrismObjectProperties,
         )
 
     async def delete_object(
@@ -671,7 +642,7 @@ class AsyncPrismResource(AsyncAPIResource):
         extra_query: Query | None = None,
         extra_body: Body | None = None,
         timeout: float | httpx.Timeout | None | NotGiven = not_given,
-    ) -> None:
+    ) -> PrismObjectProperties:
         """Patch object
 
         Args:
@@ -696,7 +667,6 @@ class AsyncPrismResource(AsyncAPIResource):
             raise ValueError(f"Expected a non-empty value for `object_type` but received {object_type!r}")
         if not object_id:
             raise ValueError(f"Expected a non-empty value for `object_id` but received {object_id!r}")
-        extra_headers = {"Accept": "*/*", **(extra_headers or {})}
         return await self._patch(
             path_template(
                 "/v2/prism/{team_id}/{object_type}/{object_id}",
@@ -716,7 +686,7 @@ class AsyncPrismResource(AsyncAPIResource):
             options=make_request_options(
                 extra_headers=extra_headers, extra_query=extra_query, extra_body=extra_body, timeout=timeout
             ),
-            cast_to=NoneType,
+            cast_to=PrismObjectProperties,
         )
 
     async def restore_object(
@@ -731,7 +701,7 @@ class AsyncPrismResource(AsyncAPIResource):
         extra_query: Query | None = None,
         extra_body: Body | None = None,
         timeout: float | httpx.Timeout | None | NotGiven = not_given,
-    ) -> None:
+    ) -> PrismObjectProperties:
         """
         Restore object
 
@@ -752,7 +722,6 @@ class AsyncPrismResource(AsyncAPIResource):
             raise ValueError(f"Expected a non-empty value for `object_type` but received {object_type!r}")
         if not object_id:
             raise ValueError(f"Expected a non-empty value for `object_id` but received {object_id!r}")
-        extra_headers = {"Accept": "*/*", **(extra_headers or {})}
         return await self._post(
             path_template(
                 "/v2/prism/{team_id}/{object_type}/{object_id}/restore",
@@ -763,7 +732,7 @@ class AsyncPrismResource(AsyncAPIResource):
             options=make_request_options(
                 extra_headers=extra_headers, extra_query=extra_query, extra_body=extra_body, timeout=timeout
             ),
-            cast_to=NoneType,
+            cast_to=PrismObjectProperties,
         )
 
 
@@ -792,23 +761,14 @@ class PrismResourceWithRawResponse:
 
     @cached_property
     def grant(self) -> GrantResourceWithRawResponse:
-        """
-        The Prism query engine provides generic read/write access to any object type using a single unified API surface.
-        """
         return GrantResourceWithRawResponse(self._prism.grant)
 
     @cached_property
     def query(self) -> QueryResourceWithRawResponse:
-        """
-        The Prism query engine provides generic read/write access to any object type using a single unified API surface.
-        """
         return QueryResourceWithRawResponse(self._prism.query)
 
     @cached_property
     def metadata(self) -> MetadataResourceWithRawResponse:
-        """
-        The Prism query engine provides generic read/write access to any object type using a single unified API surface.
-        """
         return MetadataResourceWithRawResponse(self._prism.metadata)
 
 
@@ -837,23 +797,14 @@ class AsyncPrismResourceWithRawResponse:
 
     @cached_property
     def grant(self) -> AsyncGrantResourceWithRawResponse:
-        """
-        The Prism query engine provides generic read/write access to any object type using a single unified API surface.
-        """
         return AsyncGrantResourceWithRawResponse(self._prism.grant)
 
     @cached_property
     def query(self) -> AsyncQueryResourceWithRawResponse:
-        """
-        The Prism query engine provides generic read/write access to any object type using a single unified API surface.
-        """
         return AsyncQueryResourceWithRawResponse(self._prism.query)
 
     @cached_property
     def metadata(self) -> AsyncMetadataResourceWithRawResponse:
-        """
-        The Prism query engine provides generic read/write access to any object type using a single unified API surface.
-        """
         return AsyncMetadataResourceWithRawResponse(self._prism.metadata)
 
 
@@ -882,23 +833,14 @@ class PrismResourceWithStreamingResponse:
 
     @cached_property
     def grant(self) -> GrantResourceWithStreamingResponse:
-        """
-        The Prism query engine provides generic read/write access to any object type using a single unified API surface.
-        """
         return GrantResourceWithStreamingResponse(self._prism.grant)
 
     @cached_property
     def query(self) -> QueryResourceWithStreamingResponse:
-        """
-        The Prism query engine provides generic read/write access to any object type using a single unified API surface.
-        """
         return QueryResourceWithStreamingResponse(self._prism.query)
 
     @cached_property
     def metadata(self) -> MetadataResourceWithStreamingResponse:
-        """
-        The Prism query engine provides generic read/write access to any object type using a single unified API surface.
-        """
         return MetadataResourceWithStreamingResponse(self._prism.metadata)
 
 
@@ -927,21 +869,12 @@ class AsyncPrismResourceWithStreamingResponse:
 
     @cached_property
     def grant(self) -> AsyncGrantResourceWithStreamingResponse:
-        """
-        The Prism query engine provides generic read/write access to any object type using a single unified API surface.
-        """
         return AsyncGrantResourceWithStreamingResponse(self._prism.grant)
 
     @cached_property
     def query(self) -> AsyncQueryResourceWithStreamingResponse:
-        """
-        The Prism query engine provides generic read/write access to any object type using a single unified API surface.
-        """
         return AsyncQueryResourceWithStreamingResponse(self._prism.query)
 
     @cached_property
     def metadata(self) -> AsyncMetadataResourceWithStreamingResponse:
-        """
-        The Prism query engine provides generic read/write access to any object type using a single unified API surface.
-        """
         return AsyncMetadataResourceWithStreamingResponse(self._prism.metadata)

@@ -8,6 +8,8 @@ from typing import Any, cast
 import pytest
 
 from micro import Micro, AsyncMicro
+from tests.utils import assert_matches_type
+from micro.types.prism import GrantUpdateGrantResponse, GrantRetrieveGrantResponse
 
 base_url = os.environ.get("TEST_API_BASE_URL", "http://127.0.0.1:4010")
 
@@ -22,7 +24,7 @@ class TestGrant:
             object_id="182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
             object_type="deal",
         )
-        assert grant is None
+        assert_matches_type(GrantRetrieveGrantResponse, grant, path=["response"])
 
     @pytest.mark.skip(reason="Mock server tests are disabled")
     @parametrize
@@ -35,7 +37,7 @@ class TestGrant:
         assert response.is_closed is True
         assert response.http_request.headers.get("X-Stainless-Lang") == "python"
         grant = response.parse()
-        assert grant is None
+        assert_matches_type(GrantRetrieveGrantResponse, grant, path=["response"])
 
     @pytest.mark.skip(reason="Mock server tests are disabled")
     @parametrize
@@ -48,7 +50,7 @@ class TestGrant:
             assert response.http_request.headers.get("X-Stainless-Lang") == "python"
 
             grant = response.parse()
-            assert grant is None
+            assert_matches_type(GrantRetrieveGrantResponse, grant, path=["response"])
 
         assert cast(Any, response.is_closed) is True
 
@@ -68,7 +70,7 @@ class TestGrant:
             object_id="182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
             object_type="deal",
         )
-        assert grant is None
+        assert_matches_type(GrantUpdateGrantResponse, grant, path=["response"])
 
     @pytest.mark.skip(reason="Mock server tests are disabled")
     @parametrize
@@ -80,7 +82,7 @@ class TestGrant:
             body_team_id={"foo": "a"},
             user_id=[{"foo": "a"}],
         )
-        assert grant is None
+        assert_matches_type(GrantUpdateGrantResponse, grant, path=["response"])
 
     @pytest.mark.skip(reason="Mock server tests are disabled")
     @parametrize
@@ -93,7 +95,7 @@ class TestGrant:
         assert response.is_closed is True
         assert response.http_request.headers.get("X-Stainless-Lang") == "python"
         grant = response.parse()
-        assert grant is None
+        assert_matches_type(GrantUpdateGrantResponse, grant, path=["response"])
 
     @pytest.mark.skip(reason="Mock server tests are disabled")
     @parametrize
@@ -106,7 +108,7 @@ class TestGrant:
             assert response.http_request.headers.get("X-Stainless-Lang") == "python"
 
             grant = response.parse()
-            assert grant is None
+            assert_matches_type(GrantUpdateGrantResponse, grant, path=["response"])
 
         assert cast(Any, response.is_closed) is True
 
@@ -132,7 +134,7 @@ class TestAsyncGrant:
             object_id="182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
             object_type="deal",
         )
-        assert grant is None
+        assert_matches_type(GrantRetrieveGrantResponse, grant, path=["response"])
 
     @pytest.mark.skip(reason="Mock server tests are disabled")
     @parametrize
@@ -145,7 +147,7 @@ class TestAsyncGrant:
         assert response.is_closed is True
         assert response.http_request.headers.get("X-Stainless-Lang") == "python"
         grant = await response.parse()
-        assert grant is None
+        assert_matches_type(GrantRetrieveGrantResponse, grant, path=["response"])
 
     @pytest.mark.skip(reason="Mock server tests are disabled")
     @parametrize
@@ -158,7 +160,7 @@ class TestAsyncGrant:
             assert response.http_request.headers.get("X-Stainless-Lang") == "python"
 
             grant = await response.parse()
-            assert grant is None
+            assert_matches_type(GrantRetrieveGrantResponse, grant, path=["response"])
 
         assert cast(Any, response.is_closed) is True
 
@@ -178,7 +180,7 @@ class TestAsyncGrant:
             object_id="182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
             object_type="deal",
         )
-        assert grant is None
+        assert_matches_type(GrantUpdateGrantResponse, grant, path=["response"])
 
     @pytest.mark.skip(reason="Mock server tests are disabled")
     @parametrize
@@ -190,7 +192,7 @@ class TestAsyncGrant:
             body_team_id={"foo": "a"},
             user_id=[{"foo": "a"}],
         )
-        assert grant is None
+        assert_matches_type(GrantUpdateGrantResponse, grant, path=["response"])
 
     @pytest.mark.skip(reason="Mock server tests are disabled")
     @parametrize
@@ -203,7 +205,7 @@ class TestAsyncGrant:
         assert response.is_closed is True
         assert response.http_request.headers.get("X-Stainless-Lang") == "python"
         grant = await response.parse()
-        assert grant is None
+        assert_matches_type(GrantUpdateGrantResponse, grant, path=["response"])
 
     @pytest.mark.skip(reason="Mock server tests are disabled")
     @parametrize
@@ -216,7 +218,7 @@ class TestAsyncGrant:
             assert response.http_request.headers.get("X-Stainless-Lang") == "python"
 
             grant = await response.parse()
-            assert grant is None
+            assert_matches_type(GrantUpdateGrantResponse, grant, path=["response"])
 
         assert cast(Any, response.is_closed) is True
 

@@ -9,6 +9,7 @@ import pytest
 
 from micro import Micro, AsyncMicro
 from micro.types import (
+    PrismObjectProperties,
     PrismImportObjectsResponse,
     PrismDuplicateObjectResponse,
 )
@@ -26,7 +27,7 @@ class TestPrism:
         prism = client.prism.create_object(
             object_type="deal",
         )
-        assert prism is None
+        assert_matches_type(PrismObjectProperties, prism, path=["response"])
 
     @pytest.mark.skip(reason="Mock server tests are disabled")
     @parametrize
@@ -38,7 +39,7 @@ class TestPrism:
             default={"foo": "bar"},
             extended={},
         )
-        assert prism is None
+        assert_matches_type(PrismObjectProperties, prism, path=["response"])
 
     @pytest.mark.skip(reason="Mock server tests are disabled")
     @parametrize
@@ -50,7 +51,7 @@ class TestPrism:
         assert response.is_closed is True
         assert response.http_request.headers.get("X-Stainless-Lang") == "python"
         prism = response.parse()
-        assert prism is None
+        assert_matches_type(PrismObjectProperties, prism, path=["response"])
 
     @pytest.mark.skip(reason="Mock server tests are disabled")
     @parametrize
@@ -62,7 +63,7 @@ class TestPrism:
             assert response.http_request.headers.get("X-Stainless-Lang") == "python"
 
             prism = response.parse()
-            assert prism is None
+            assert_matches_type(PrismObjectProperties, prism, path=["response"])
 
         assert cast(Any, response.is_closed) is True
 
@@ -223,7 +224,7 @@ class TestPrism:
             object_id="182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
             object_type="deal",
         )
-        assert prism is None
+        assert_matches_type(PrismObjectProperties, prism, path=["response"])
 
     @pytest.mark.skip(reason="Mock server tests are disabled")
     @parametrize
@@ -236,7 +237,7 @@ class TestPrism:
             default={"foo": "bar"},
             extended={},
         )
-        assert prism is None
+        assert_matches_type(PrismObjectProperties, prism, path=["response"])
 
     @pytest.mark.skip(reason="Mock server tests are disabled")
     @parametrize
@@ -249,7 +250,7 @@ class TestPrism:
         assert response.is_closed is True
         assert response.http_request.headers.get("X-Stainless-Lang") == "python"
         prism = response.parse()
-        assert prism is None
+        assert_matches_type(PrismObjectProperties, prism, path=["response"])
 
     @pytest.mark.skip(reason="Mock server tests are disabled")
     @parametrize
@@ -262,7 +263,7 @@ class TestPrism:
             assert response.http_request.headers.get("X-Stainless-Lang") == "python"
 
             prism = response.parse()
-            assert prism is None
+            assert_matches_type(PrismObjectProperties, prism, path=["response"])
 
         assert cast(Any, response.is_closed) is True
 
@@ -282,7 +283,7 @@ class TestPrism:
             object_id="182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
             object_type="deal",
         )
-        assert prism is None
+        assert_matches_type(PrismObjectProperties, prism, path=["response"])
 
     @pytest.mark.skip(reason="Mock server tests are disabled")
     @parametrize
@@ -295,7 +296,7 @@ class TestPrism:
         assert response.is_closed is True
         assert response.http_request.headers.get("X-Stainless-Lang") == "python"
         prism = response.parse()
-        assert prism is None
+        assert_matches_type(PrismObjectProperties, prism, path=["response"])
 
     @pytest.mark.skip(reason="Mock server tests are disabled")
     @parametrize
@@ -308,7 +309,7 @@ class TestPrism:
             assert response.http_request.headers.get("X-Stainless-Lang") == "python"
 
             prism = response.parse()
-            assert prism is None
+            assert_matches_type(PrismObjectProperties, prism, path=["response"])
 
         assert cast(Any, response.is_closed) is True
 
@@ -333,7 +334,7 @@ class TestAsyncPrism:
         prism = await async_client.prism.create_object(
             object_type="deal",
         )
-        assert prism is None
+        assert_matches_type(PrismObjectProperties, prism, path=["response"])
 
     @pytest.mark.skip(reason="Mock server tests are disabled")
     @parametrize
@@ -345,7 +346,7 @@ class TestAsyncPrism:
             default={"foo": "bar"},
             extended={},
         )
-        assert prism is None
+        assert_matches_type(PrismObjectProperties, prism, path=["response"])
 
     @pytest.mark.skip(reason="Mock server tests are disabled")
     @parametrize
@@ -357,7 +358,7 @@ class TestAsyncPrism:
         assert response.is_closed is True
         assert response.http_request.headers.get("X-Stainless-Lang") == "python"
         prism = await response.parse()
-        assert prism is None
+        assert_matches_type(PrismObjectProperties, prism, path=["response"])
 
     @pytest.mark.skip(reason="Mock server tests are disabled")
     @parametrize
@@ -369,7 +370,7 @@ class TestAsyncPrism:
             assert response.http_request.headers.get("X-Stainless-Lang") == "python"
 
             prism = await response.parse()
-            assert prism is None
+            assert_matches_type(PrismObjectProperties, prism, path=["response"])
 
         assert cast(Any, response.is_closed) is True
 
@@ -530,7 +531,7 @@ class TestAsyncPrism:
             object_id="182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
             object_type="deal",
         )
-        assert prism is None
+        assert_matches_type(PrismObjectProperties, prism, path=["response"])
 
     @pytest.mark.skip(reason="Mock server tests are disabled")
     @parametrize
@@ -543,7 +544,7 @@ class TestAsyncPrism:
             default={"foo": "bar"},
             extended={},
         )
-        assert prism is None
+        assert_matches_type(PrismObjectProperties, prism, path=["response"])
 
     @pytest.mark.skip(reason="Mock server tests are disabled")
     @parametrize
@@ -556,7 +557,7 @@ class TestAsyncPrism:
         assert response.is_closed is True
         assert response.http_request.headers.get("X-Stainless-Lang") == "python"
         prism = await response.parse()
-        assert prism is None
+        assert_matches_type(PrismObjectProperties, prism, path=["response"])
 
     @pytest.mark.skip(reason="Mock server tests are disabled")
     @parametrize
@@ -569,7 +570,7 @@ class TestAsyncPrism:
             assert response.http_request.headers.get("X-Stainless-Lang") == "python"
 
             prism = await response.parse()
-            assert prism is None
+            assert_matches_type(PrismObjectProperties, prism, path=["response"])
 
         assert cast(Any, response.is_closed) is True
 
@@ -589,7 +590,7 @@ class TestAsyncPrism:
             object_id="182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
             object_type="deal",
         )
-        assert prism is None
+        assert_matches_type(PrismObjectProperties, prism, path=["response"])
 
     @pytest.mark.skip(reason="Mock server tests are disabled")
     @parametrize
@@ -602,7 +603,7 @@ class TestAsyncPrism:
         assert response.is_closed is True
         assert response.http_request.headers.get("X-Stainless-Lang") == "python"
         prism = await response.parse()
-        assert prism is None
+        assert_matches_type(PrismObjectProperties, prism, path=["response"])
 
     @pytest.mark.skip(reason="Mock server tests are disabled")
     @parametrize
@@ -615,7 +616,7 @@ class TestAsyncPrism:
             assert response.http_request.headers.get("X-Stainless-Lang") == "python"
 
             prism = await response.parse()
-            assert prism is None
+            assert_matches_type(PrismObjectProperties, prism, path=["response"])
 
         assert cast(Any, response.is_closed) is True
 

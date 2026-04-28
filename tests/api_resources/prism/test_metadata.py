@@ -8,6 +8,8 @@ from typing import Any, cast
 import pytest
 
 from micro import Micro, AsyncMicro
+from tests.utils import assert_matches_type
+from micro.types.prism import MetadataPropertiesResponse
 
 base_url = os.environ.get("TEST_API_BASE_URL", "http://127.0.0.1:4010")
 
@@ -21,7 +23,7 @@ class TestMetadata:
         metadata = client.prism.metadata.properties(
             object_type="deal",
         )
-        assert metadata is None
+        assert_matches_type(MetadataPropertiesResponse, metadata, path=["response"])
 
     @pytest.mark.skip(reason="Mock server tests are disabled")
     @parametrize
@@ -32,7 +34,7 @@ class TestMetadata:
             crm_id="182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
             term="term",
         )
-        assert metadata is None
+        assert_matches_type(MetadataPropertiesResponse, metadata, path=["response"])
 
     @pytest.mark.skip(reason="Mock server tests are disabled")
     @parametrize
@@ -44,7 +46,7 @@ class TestMetadata:
         assert response.is_closed is True
         assert response.http_request.headers.get("X-Stainless-Lang") == "python"
         metadata = response.parse()
-        assert metadata is None
+        assert_matches_type(MetadataPropertiesResponse, metadata, path=["response"])
 
     @pytest.mark.skip(reason="Mock server tests are disabled")
     @parametrize
@@ -56,7 +58,7 @@ class TestMetadata:
             assert response.http_request.headers.get("X-Stainless-Lang") == "python"
 
             metadata = response.parse()
-            assert metadata is None
+            assert_matches_type(MetadataPropertiesResponse, metadata, path=["response"])
 
         assert cast(Any, response.is_closed) is True
 
@@ -72,7 +74,7 @@ class TestAsyncMetadata:
         metadata = await async_client.prism.metadata.properties(
             object_type="deal",
         )
-        assert metadata is None
+        assert_matches_type(MetadataPropertiesResponse, metadata, path=["response"])
 
     @pytest.mark.skip(reason="Mock server tests are disabled")
     @parametrize
@@ -83,7 +85,7 @@ class TestAsyncMetadata:
             crm_id="182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
             term="term",
         )
-        assert metadata is None
+        assert_matches_type(MetadataPropertiesResponse, metadata, path=["response"])
 
     @pytest.mark.skip(reason="Mock server tests are disabled")
     @parametrize
@@ -95,7 +97,7 @@ class TestAsyncMetadata:
         assert response.is_closed is True
         assert response.http_request.headers.get("X-Stainless-Lang") == "python"
         metadata = await response.parse()
-        assert metadata is None
+        assert_matches_type(MetadataPropertiesResponse, metadata, path=["response"])
 
     @pytest.mark.skip(reason="Mock server tests are disabled")
     @parametrize
@@ -107,6 +109,6 @@ class TestAsyncMetadata:
             assert response.http_request.headers.get("X-Stainless-Lang") == "python"
 
             metadata = await response.parse()
-            assert metadata is None
+            assert_matches_type(MetadataPropertiesResponse, metadata, path=["response"])
 
         assert cast(Any, response.is_closed) is True
