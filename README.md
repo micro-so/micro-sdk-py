@@ -45,10 +45,10 @@ client = Micro(
     api_key=os.environ.get("MICRO_API_KEY"),  # This is the default and can be omitted
 )
 
-contacts = client.contacts.list(
-    query={"select": ["full_name", "email"]},
+prism_object_properties = client.prism.create_object(
+    object_type="deal",
 )
-print(contacts.data)
+print(prism_object_properties.id)
 ```
 
 While you can provide an `api_key` keyword argument,
@@ -72,10 +72,10 @@ client = AsyncMicro(
 
 
 async def main() -> None:
-    contacts = await client.contacts.list(
-        query={"select": ["full_name", "email"]},
+    prism_object_properties = await client.prism.create_object(
+        object_type="deal",
     )
-    print(contacts.data)
+    print(prism_object_properties.id)
 
 
 asyncio.run(main())
@@ -109,10 +109,10 @@ async def main() -> None:
         api_key=os.environ.get("MICRO_API_KEY"),  # This is the default and can be omitted
         http_client=DefaultAioHttpClient(),
     ) as client:
-        contacts = await client.contacts.list(
-            query={"select": ["full_name", "email"]},
+        prism_object_properties = await client.prism.create_object(
+            object_type="deal",
         )
-        print(contacts.data)
+        print(prism_object_properties.id)
 
 
 asyncio.run(main())
@@ -138,10 +138,12 @@ client = Micro(
     team_id="My Team ID",
 )
 
-contacts = client.contacts.list(
-    query={"select": ["string"]},
+response = client.prism.import_objects(
+    object_type="identity",
+    objects=[{}],
+    options={},
 )
-print(contacts.query)
+print(response.options)
 ```
 
 ## Handling errors
@@ -162,8 +164,8 @@ client = Micro(
 )
 
 try:
-    client.contacts.list(
-        query={"select": ["full_name", "email"]},
+    client.prism.create_object(
+        object_type="deal",
     )
 except micro.APIConnectionError as e:
     print("The server could not be reached")
@@ -208,8 +210,8 @@ client = Micro(
 )
 
 # Or, configure per-request:
-client.with_options(max_retries=5).contacts.list(
-    query={"select": ["full_name", "email"]},
+client.with_options(max_retries=5).prism.create_object(
+    object_type="deal",
 )
 ```
 
@@ -235,8 +237,8 @@ client = Micro(
 )
 
 # Override per-request:
-client.with_options(timeout=5.0).contacts.list(
-    query={"select": ["full_name", "email"]},
+client.with_options(timeout=5.0).prism.create_object(
+    object_type="deal",
 )
 ```
 
@@ -280,15 +282,13 @@ from micro import Micro
 client = Micro(
     team_id="My Team ID",
 )
-response = client.contacts.with_raw_response.list(
-    query={
-        "select": ["full_name", "email"]
-    },
+response = client.prism.with_raw_response.create_object(
+    object_type="deal",
 )
 print(response.headers.get('X-My-Header'))
 
-contact = response.parse()  # get the object that `contacts.list()` would have returned
-print(contact.data)
+prism = response.parse()  # get the object that `prism.create_object()` would have returned
+print(prism.id)
 ```
 
 These methods return an [`APIResponse`](https://github.com/stainless-sdks/micro-python/tree/main/src/micro/_response.py) object.
@@ -302,8 +302,8 @@ The above interface eagerly reads the full response body when you make the reque
 To stream the response body, use `.with_streaming_response` instead, which requires a context manager and only reads the response body once you call `.read()`, `.text()`, `.json()`, `.iter_bytes()`, `.iter_text()`, `.iter_lines()` or `.parse()`. In the async client, these are async methods.
 
 ```python
-with client.contacts.with_streaming_response.list(
-    query={"select": ["full_name", "email"]},
+with client.prism.with_streaming_response.create_object(
+    object_type="deal",
 ) as response:
     print(response.headers.get("X-My-Header"))
 

@@ -5,7 +5,7 @@ from __future__ import annotations
 import httpx
 
 from ...types import ObjectType
-from ..._types import Body, Omit, Query, Headers, NoneType, NotGiven, omit, not_given
+from ..._types import Body, Omit, Query, Headers, NotGiven, omit, not_given
 from ..._utils import path_template, maybe_transform, async_maybe_transform
 from ..._compat import cached_property
 from ..._resource import SyncAPIResource, AsyncAPIResource
@@ -18,15 +18,12 @@ from ..._response import (
 from ...types.prism import metadata_properties_params
 from ..._base_client import make_request_options
 from ...types.object_type import ObjectType
+from ...types.prism.metadata_properties_response import MetadataPropertiesResponse
 
 __all__ = ["MetadataResource", "AsyncMetadataResource"]
 
 
 class MetadataResource(SyncAPIResource):
-    """
-    The Prism query engine provides generic read/write access to any object type using a single unified API surface.
-    """
-
     @cached_property
     def with_raw_response(self) -> MetadataResourceWithRawResponse:
         """
@@ -60,7 +57,7 @@ class MetadataResource(SyncAPIResource):
         extra_query: Query | None = None,
         extra_body: Body | None = None,
         timeout: float | httpx.Timeout | None | NotGiven = not_given,
-    ) -> None:
+    ) -> MetadataPropertiesResponse:
         """
         Get metadata properties by object type
 
@@ -79,7 +76,6 @@ class MetadataResource(SyncAPIResource):
             raise ValueError(f"Expected a non-empty value for `team_id` but received {team_id!r}")
         if not object_type:
             raise ValueError(f"Expected a non-empty value for `object_type` but received {object_type!r}")
-        extra_headers = {"Accept": "*/*", **(extra_headers or {})}
         return self._get(
             path_template(
                 "/v2/prism/metadata/properties/{team_id}/{object_type}", team_id=team_id, object_type=object_type
@@ -98,15 +94,11 @@ class MetadataResource(SyncAPIResource):
                     metadata_properties_params.MetadataPropertiesParams,
                 ),
             ),
-            cast_to=NoneType,
+            cast_to=MetadataPropertiesResponse,
         )
 
 
 class AsyncMetadataResource(AsyncAPIResource):
-    """
-    The Prism query engine provides generic read/write access to any object type using a single unified API surface.
-    """
-
     @cached_property
     def with_raw_response(self) -> AsyncMetadataResourceWithRawResponse:
         """
@@ -140,7 +132,7 @@ class AsyncMetadataResource(AsyncAPIResource):
         extra_query: Query | None = None,
         extra_body: Body | None = None,
         timeout: float | httpx.Timeout | None | NotGiven = not_given,
-    ) -> None:
+    ) -> MetadataPropertiesResponse:
         """
         Get metadata properties by object type
 
@@ -159,7 +151,6 @@ class AsyncMetadataResource(AsyncAPIResource):
             raise ValueError(f"Expected a non-empty value for `team_id` but received {team_id!r}")
         if not object_type:
             raise ValueError(f"Expected a non-empty value for `object_type` but received {object_type!r}")
-        extra_headers = {"Accept": "*/*", **(extra_headers or {})}
         return await self._get(
             path_template(
                 "/v2/prism/metadata/properties/{team_id}/{object_type}", team_id=team_id, object_type=object_type
@@ -178,7 +169,7 @@ class AsyncMetadataResource(AsyncAPIResource):
                     metadata_properties_params.MetadataPropertiesParams,
                 ),
             ),
-            cast_to=NoneType,
+            cast_to=MetadataPropertiesResponse,
         )
 
 

@@ -36,15 +36,8 @@ from ._base_client import (
 )
 
 if TYPE_CHECKING:
-    from .resources import deals, prism, events, actions, contacts, documents, identities, organizations
-    from .resources.deals import DealsResource, AsyncDealsResource
-    from .resources.events import EventsResource, AsyncEventsResource
-    from .resources.actions import ActionsResource, AsyncActionsResource
-    from .resources.contacts import ContactsResource, AsyncContactsResource
-    from .resources.documents import DocumentsResource, AsyncDocumentsResource
-    from .resources.identities import IdentitiesResource, AsyncIdentitiesResource
+    from .resources import prism
     from .resources.prism.prism import PrismResource, AsyncPrismResource
-    from .resources.organizations import OrganizationsResource, AsyncOrganizationsResource
 
 __all__ = ["Timeout", "Transport", "ProxiesTypes", "RequestOptions", "Micro", "AsyncMicro", "Client", "AsyncClient"]
 
@@ -119,77 +112,9 @@ class Micro(SyncAPIClient):
 
     @cached_property
     def prism(self) -> PrismResource:
-        """
-        The Prism query engine provides generic read/write access to any object type using a single unified API surface.
-        """
         from .resources.prism import PrismResource
 
         return PrismResource(self)
-
-    @cached_property
-    def contacts(self) -> ContactsResource:
-        """Contacts represent individual people in Micro.
-
-        Each contact can have a name, email, phone, title, and custom properties, and can be linked to an organization.
-        """
-        from .resources.contacts import ContactsResource
-
-        return ContactsResource(self)
-
-    @cached_property
-    def organizations(self) -> OrganizationsResource:
-        """Organizations represent companies or teams in Micro.
-
-        Contacts and deals can be associated with an organization.
-        """
-        from .resources.organizations import OrganizationsResource
-
-        return OrganizationsResource(self)
-
-    @cached_property
-    def identities(self) -> IdentitiesResource:
-        """
-        Identities link multiple contacts together as the same real-world person, deduplicating people who appear in different contexts.
-        """
-        from .resources.identities import IdentitiesResource
-
-        return IdentitiesResource(self)
-
-    @cached_property
-    def deals(self) -> DealsResource:
-        """
-        Deals track opportunities moving through a pipeline — fundraising rounds, sales opportunities, hiring candidates, or any custom workflow.
-        """
-        from .resources.deals import DealsResource
-
-        return DealsResource(self)
-
-    @cached_property
-    def actions(self) -> ActionsResource:
-        """
-        Actions are tasks and to-dos that can be assigned to contacts, organizations, or deals, with a status, due date, and priority.
-        """
-        from .resources.actions import ActionsResource
-
-        return ActionsResource(self)
-
-    @cached_property
-    def events(self) -> EventsResource:
-        """
-        Events are calendar items — meetings, calls, and appointments — automatically captured from your connected calendar accounts.
-        """
-        from .resources.events import EventsResource
-
-        return EventsResource(self)
-
-    @cached_property
-    def documents(self) -> DocumentsResource:
-        """
-        Documents are rich-text notes attached to contacts, organizations, or deals, used for meeting notes, research, or context.
-        """
-        from .resources.documents import DocumentsResource
-
-        return DocumentsResource(self)
 
     @cached_property
     def with_raw_response(self) -> MicroWithRawResponse:
@@ -384,77 +309,9 @@ class AsyncMicro(AsyncAPIClient):
 
     @cached_property
     def prism(self) -> AsyncPrismResource:
-        """
-        The Prism query engine provides generic read/write access to any object type using a single unified API surface.
-        """
         from .resources.prism import AsyncPrismResource
 
         return AsyncPrismResource(self)
-
-    @cached_property
-    def contacts(self) -> AsyncContactsResource:
-        """Contacts represent individual people in Micro.
-
-        Each contact can have a name, email, phone, title, and custom properties, and can be linked to an organization.
-        """
-        from .resources.contacts import AsyncContactsResource
-
-        return AsyncContactsResource(self)
-
-    @cached_property
-    def organizations(self) -> AsyncOrganizationsResource:
-        """Organizations represent companies or teams in Micro.
-
-        Contacts and deals can be associated with an organization.
-        """
-        from .resources.organizations import AsyncOrganizationsResource
-
-        return AsyncOrganizationsResource(self)
-
-    @cached_property
-    def identities(self) -> AsyncIdentitiesResource:
-        """
-        Identities link multiple contacts together as the same real-world person, deduplicating people who appear in different contexts.
-        """
-        from .resources.identities import AsyncIdentitiesResource
-
-        return AsyncIdentitiesResource(self)
-
-    @cached_property
-    def deals(self) -> AsyncDealsResource:
-        """
-        Deals track opportunities moving through a pipeline — fundraising rounds, sales opportunities, hiring candidates, or any custom workflow.
-        """
-        from .resources.deals import AsyncDealsResource
-
-        return AsyncDealsResource(self)
-
-    @cached_property
-    def actions(self) -> AsyncActionsResource:
-        """
-        Actions are tasks and to-dos that can be assigned to contacts, organizations, or deals, with a status, due date, and priority.
-        """
-        from .resources.actions import AsyncActionsResource
-
-        return AsyncActionsResource(self)
-
-    @cached_property
-    def events(self) -> AsyncEventsResource:
-        """
-        Events are calendar items — meetings, calls, and appointments — automatically captured from your connected calendar accounts.
-        """
-        from .resources.events import AsyncEventsResource
-
-        return AsyncEventsResource(self)
-
-    @cached_property
-    def documents(self) -> AsyncDocumentsResource:
-        """
-        Documents are rich-text notes attached to contacts, organizations, or deals, used for meeting notes, research, or context.
-        """
-        from .resources.documents import AsyncDocumentsResource
-
-        return AsyncDocumentsResource(self)
 
     @cached_property
     def with_raw_response(self) -> AsyncMicroWithRawResponse:
@@ -587,77 +444,9 @@ class MicroWithRawResponse:
 
     @cached_property
     def prism(self) -> prism.PrismResourceWithRawResponse:
-        """
-        The Prism query engine provides generic read/write access to any object type using a single unified API surface.
-        """
         from .resources.prism import PrismResourceWithRawResponse
 
         return PrismResourceWithRawResponse(self._client.prism)
-
-    @cached_property
-    def contacts(self) -> contacts.ContactsResourceWithRawResponse:
-        """Contacts represent individual people in Micro.
-
-        Each contact can have a name, email, phone, title, and custom properties, and can be linked to an organization.
-        """
-        from .resources.contacts import ContactsResourceWithRawResponse
-
-        return ContactsResourceWithRawResponse(self._client.contacts)
-
-    @cached_property
-    def organizations(self) -> organizations.OrganizationsResourceWithRawResponse:
-        """Organizations represent companies or teams in Micro.
-
-        Contacts and deals can be associated with an organization.
-        """
-        from .resources.organizations import OrganizationsResourceWithRawResponse
-
-        return OrganizationsResourceWithRawResponse(self._client.organizations)
-
-    @cached_property
-    def identities(self) -> identities.IdentitiesResourceWithRawResponse:
-        """
-        Identities link multiple contacts together as the same real-world person, deduplicating people who appear in different contexts.
-        """
-        from .resources.identities import IdentitiesResourceWithRawResponse
-
-        return IdentitiesResourceWithRawResponse(self._client.identities)
-
-    @cached_property
-    def deals(self) -> deals.DealsResourceWithRawResponse:
-        """
-        Deals track opportunities moving through a pipeline — fundraising rounds, sales opportunities, hiring candidates, or any custom workflow.
-        """
-        from .resources.deals import DealsResourceWithRawResponse
-
-        return DealsResourceWithRawResponse(self._client.deals)
-
-    @cached_property
-    def actions(self) -> actions.ActionsResourceWithRawResponse:
-        """
-        Actions are tasks and to-dos that can be assigned to contacts, organizations, or deals, with a status, due date, and priority.
-        """
-        from .resources.actions import ActionsResourceWithRawResponse
-
-        return ActionsResourceWithRawResponse(self._client.actions)
-
-    @cached_property
-    def events(self) -> events.EventsResourceWithRawResponse:
-        """
-        Events are calendar items — meetings, calls, and appointments — automatically captured from your connected calendar accounts.
-        """
-        from .resources.events import EventsResourceWithRawResponse
-
-        return EventsResourceWithRawResponse(self._client.events)
-
-    @cached_property
-    def documents(self) -> documents.DocumentsResourceWithRawResponse:
-        """
-        Documents are rich-text notes attached to contacts, organizations, or deals, used for meeting notes, research, or context.
-        """
-        from .resources.documents import DocumentsResourceWithRawResponse
-
-        return DocumentsResourceWithRawResponse(self._client.documents)
 
 
 class AsyncMicroWithRawResponse:
@@ -668,77 +457,9 @@ class AsyncMicroWithRawResponse:
 
     @cached_property
     def prism(self) -> prism.AsyncPrismResourceWithRawResponse:
-        """
-        The Prism query engine provides generic read/write access to any object type using a single unified API surface.
-        """
         from .resources.prism import AsyncPrismResourceWithRawResponse
 
         return AsyncPrismResourceWithRawResponse(self._client.prism)
-
-    @cached_property
-    def contacts(self) -> contacts.AsyncContactsResourceWithRawResponse:
-        """Contacts represent individual people in Micro.
-
-        Each contact can have a name, email, phone, title, and custom properties, and can be linked to an organization.
-        """
-        from .resources.contacts import AsyncContactsResourceWithRawResponse
-
-        return AsyncContactsResourceWithRawResponse(self._client.contacts)
-
-    @cached_property
-    def organizations(self) -> organizations.AsyncOrganizationsResourceWithRawResponse:
-        """Organizations represent companies or teams in Micro.
-
-        Contacts and deals can be associated with an organization.
-        """
-        from .resources.organizations import AsyncOrganizationsResourceWithRawResponse
-
-        return AsyncOrganizationsResourceWithRawResponse(self._client.organizations)
-
-    @cached_property
-    def identities(self) -> identities.AsyncIdentitiesResourceWithRawResponse:
-        """
-        Identities link multiple contacts together as the same real-world person, deduplicating people who appear in different contexts.
-        """
-        from .resources.identities import AsyncIdentitiesResourceWithRawResponse
-
-        return AsyncIdentitiesResourceWithRawResponse(self._client.identities)
-
-    @cached_property
-    def deals(self) -> deals.AsyncDealsResourceWithRawResponse:
-        """
-        Deals track opportunities moving through a pipeline — fundraising rounds, sales opportunities, hiring candidates, or any custom workflow.
-        """
-        from .resources.deals import AsyncDealsResourceWithRawResponse
-
-        return AsyncDealsResourceWithRawResponse(self._client.deals)
-
-    @cached_property
-    def actions(self) -> actions.AsyncActionsResourceWithRawResponse:
-        """
-        Actions are tasks and to-dos that can be assigned to contacts, organizations, or deals, with a status, due date, and priority.
-        """
-        from .resources.actions import AsyncActionsResourceWithRawResponse
-
-        return AsyncActionsResourceWithRawResponse(self._client.actions)
-
-    @cached_property
-    def events(self) -> events.AsyncEventsResourceWithRawResponse:
-        """
-        Events are calendar items — meetings, calls, and appointments — automatically captured from your connected calendar accounts.
-        """
-        from .resources.events import AsyncEventsResourceWithRawResponse
-
-        return AsyncEventsResourceWithRawResponse(self._client.events)
-
-    @cached_property
-    def documents(self) -> documents.AsyncDocumentsResourceWithRawResponse:
-        """
-        Documents are rich-text notes attached to contacts, organizations, or deals, used for meeting notes, research, or context.
-        """
-        from .resources.documents import AsyncDocumentsResourceWithRawResponse
-
-        return AsyncDocumentsResourceWithRawResponse(self._client.documents)
 
 
 class MicroWithStreamedResponse:
@@ -749,77 +470,9 @@ class MicroWithStreamedResponse:
 
     @cached_property
     def prism(self) -> prism.PrismResourceWithStreamingResponse:
-        """
-        The Prism query engine provides generic read/write access to any object type using a single unified API surface.
-        """
         from .resources.prism import PrismResourceWithStreamingResponse
 
         return PrismResourceWithStreamingResponse(self._client.prism)
-
-    @cached_property
-    def contacts(self) -> contacts.ContactsResourceWithStreamingResponse:
-        """Contacts represent individual people in Micro.
-
-        Each contact can have a name, email, phone, title, and custom properties, and can be linked to an organization.
-        """
-        from .resources.contacts import ContactsResourceWithStreamingResponse
-
-        return ContactsResourceWithStreamingResponse(self._client.contacts)
-
-    @cached_property
-    def organizations(self) -> organizations.OrganizationsResourceWithStreamingResponse:
-        """Organizations represent companies or teams in Micro.
-
-        Contacts and deals can be associated with an organization.
-        """
-        from .resources.organizations import OrganizationsResourceWithStreamingResponse
-
-        return OrganizationsResourceWithStreamingResponse(self._client.organizations)
-
-    @cached_property
-    def identities(self) -> identities.IdentitiesResourceWithStreamingResponse:
-        """
-        Identities link multiple contacts together as the same real-world person, deduplicating people who appear in different contexts.
-        """
-        from .resources.identities import IdentitiesResourceWithStreamingResponse
-
-        return IdentitiesResourceWithStreamingResponse(self._client.identities)
-
-    @cached_property
-    def deals(self) -> deals.DealsResourceWithStreamingResponse:
-        """
-        Deals track opportunities moving through a pipeline — fundraising rounds, sales opportunities, hiring candidates, or any custom workflow.
-        """
-        from .resources.deals import DealsResourceWithStreamingResponse
-
-        return DealsResourceWithStreamingResponse(self._client.deals)
-
-    @cached_property
-    def actions(self) -> actions.ActionsResourceWithStreamingResponse:
-        """
-        Actions are tasks and to-dos that can be assigned to contacts, organizations, or deals, with a status, due date, and priority.
-        """
-        from .resources.actions import ActionsResourceWithStreamingResponse
-
-        return ActionsResourceWithStreamingResponse(self._client.actions)
-
-    @cached_property
-    def events(self) -> events.EventsResourceWithStreamingResponse:
-        """
-        Events are calendar items — meetings, calls, and appointments — automatically captured from your connected calendar accounts.
-        """
-        from .resources.events import EventsResourceWithStreamingResponse
-
-        return EventsResourceWithStreamingResponse(self._client.events)
-
-    @cached_property
-    def documents(self) -> documents.DocumentsResourceWithStreamingResponse:
-        """
-        Documents are rich-text notes attached to contacts, organizations, or deals, used for meeting notes, research, or context.
-        """
-        from .resources.documents import DocumentsResourceWithStreamingResponse
-
-        return DocumentsResourceWithStreamingResponse(self._client.documents)
 
 
 class AsyncMicroWithStreamedResponse:
@@ -830,77 +483,9 @@ class AsyncMicroWithStreamedResponse:
 
     @cached_property
     def prism(self) -> prism.AsyncPrismResourceWithStreamingResponse:
-        """
-        The Prism query engine provides generic read/write access to any object type using a single unified API surface.
-        """
         from .resources.prism import AsyncPrismResourceWithStreamingResponse
 
         return AsyncPrismResourceWithStreamingResponse(self._client.prism)
-
-    @cached_property
-    def contacts(self) -> contacts.AsyncContactsResourceWithStreamingResponse:
-        """Contacts represent individual people in Micro.
-
-        Each contact can have a name, email, phone, title, and custom properties, and can be linked to an organization.
-        """
-        from .resources.contacts import AsyncContactsResourceWithStreamingResponse
-
-        return AsyncContactsResourceWithStreamingResponse(self._client.contacts)
-
-    @cached_property
-    def organizations(self) -> organizations.AsyncOrganizationsResourceWithStreamingResponse:
-        """Organizations represent companies or teams in Micro.
-
-        Contacts and deals can be associated with an organization.
-        """
-        from .resources.organizations import AsyncOrganizationsResourceWithStreamingResponse
-
-        return AsyncOrganizationsResourceWithStreamingResponse(self._client.organizations)
-
-    @cached_property
-    def identities(self) -> identities.AsyncIdentitiesResourceWithStreamingResponse:
-        """
-        Identities link multiple contacts together as the same real-world person, deduplicating people who appear in different contexts.
-        """
-        from .resources.identities import AsyncIdentitiesResourceWithStreamingResponse
-
-        return AsyncIdentitiesResourceWithStreamingResponse(self._client.identities)
-
-    @cached_property
-    def deals(self) -> deals.AsyncDealsResourceWithStreamingResponse:
-        """
-        Deals track opportunities moving through a pipeline — fundraising rounds, sales opportunities, hiring candidates, or any custom workflow.
-        """
-        from .resources.deals import AsyncDealsResourceWithStreamingResponse
-
-        return AsyncDealsResourceWithStreamingResponse(self._client.deals)
-
-    @cached_property
-    def actions(self) -> actions.AsyncActionsResourceWithStreamingResponse:
-        """
-        Actions are tasks and to-dos that can be assigned to contacts, organizations, or deals, with a status, due date, and priority.
-        """
-        from .resources.actions import AsyncActionsResourceWithStreamingResponse
-
-        return AsyncActionsResourceWithStreamingResponse(self._client.actions)
-
-    @cached_property
-    def events(self) -> events.AsyncEventsResourceWithStreamingResponse:
-        """
-        Events are calendar items — meetings, calls, and appointments — automatically captured from your connected calendar accounts.
-        """
-        from .resources.events import AsyncEventsResourceWithStreamingResponse
-
-        return AsyncEventsResourceWithStreamingResponse(self._client.events)
-
-    @cached_property
-    def documents(self) -> documents.AsyncDocumentsResourceWithStreamingResponse:
-        """
-        Documents are rich-text notes attached to contacts, organizations, or deals, used for meeting notes, research, or context.
-        """
-        from .resources.documents import AsyncDocumentsResourceWithStreamingResponse
-
-        return AsyncDocumentsResourceWithStreamingResponse(self._client.documents)
 
 
 Client = Micro

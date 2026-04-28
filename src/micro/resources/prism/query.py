@@ -25,10 +25,6 @@ __all__ = ["QueryResource", "AsyncQueryResource"]
 
 
 class QueryResource(SyncAPIResource):
-    """
-    The Prism query engine provides generic read/write access to any object type using a single unified API surface.
-    """
-
     @cached_property
     def with_raw_response(self) -> QueryResourceWithRawResponse:
         """
@@ -113,10 +109,6 @@ class QueryResource(SyncAPIResource):
 
 
 class AsyncQueryResource(AsyncAPIResource):
-    """
-    The Prism query engine provides generic read/write access to any object type using a single unified API surface.
-    """
-
     @cached_property
     def with_raw_response(self) -> AsyncQueryResourceWithRawResponse:
         """

@@ -10,6 +10,4 @@ __all__ = ["QueryExecuteResponse"]
 class QueryExecuteResponse(BaseModel):
     data: Optional[List[object]] = None
 
-    next_cursor: Optional[str] = None
-
     total: Optional[int] = None
