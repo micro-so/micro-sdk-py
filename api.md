@@ -62,53 +62,103 @@ Methods:
 Types:
 
 ```python
-from micro.types import Contact
+from micro.types import Contact, ContactListResponse, ContactImportResponse
 ```
+
+Methods:
+
+- <code title="post /v2/prism/{teamId}/contact">client.contacts.<a href="./src/micro/resources/contacts.py">create</a>(\*, team_id, \*\*<a href="src/micro/types/contact_create_params.py">params</a>) -> <a href="./src/micro/types/prism_object_properties.py">PrismObjectProperties</a></code>
+- <code title="patch /v2/prism/{teamId}/contact/{contactId}">client.contacts.<a href="./src/micro/resources/contacts.py">update</a>(contact_id, \*, team_id, \*\*<a href="src/micro/types/contact_update_params.py">params</a>) -> <a href="./src/micro/types/prism_object_properties.py">PrismObjectProperties</a></code>
+- <code title="post /v2/prism/query/{teamId}/contact">client.contacts.<a href="./src/micro/resources/contacts.py">list</a>(\*, team_id, \*\*<a href="src/micro/types/contact_list_params.py">params</a>) -> <a href="./src/micro/types/contact_list_response.py">ContactListResponse</a></code>
+- <code title="delete /v2/prism/{teamId}/contact/{contactId}">client.contacts.<a href="./src/micro/resources/contacts.py">delete</a>(contact_id, \*, team_id) -> None</code>
+- <code title="post /v2/prism/{teamId}/contact/import">client.contacts.<a href="./src/micro/resources/contacts.py">import\_</a>(\*, team_id, \*\*<a href="src/micro/types/contact_import_params.py">params</a>) -> <a href="./src/micro/types/contact_import_response.py">ContactImportResponse</a></code>
 
 # Organizations
 
 Types:
 
 ```python
-from micro.types import Organization
+from micro.types import Organization, OrganizationListResponse, OrganizationImportResponse
 ```
+
+Methods:
+
+- <code title="post /v2/prism/{teamId}/organization">client.organizations.<a href="./src/micro/resources/organizations.py">create</a>(\*, team_id, \*\*<a href="src/micro/types/organization_create_params.py">params</a>) -> <a href="./src/micro/types/prism_object_properties.py">PrismObjectProperties</a></code>
+- <code title="patch /v2/prism/{teamId}/organization/{organizationId}">client.organizations.<a href="./src/micro/resources/organizations.py">update</a>(organization_id, \*, team_id, \*\*<a href="src/micro/types/organization_update_params.py">params</a>) -> <a href="./src/micro/types/prism_object_properties.py">PrismObjectProperties</a></code>
+- <code title="post /v2/prism/query/{teamId}/organization">client.organizations.<a href="./src/micro/resources/organizations.py">list</a>(\*, team_id, \*\*<a href="src/micro/types/organization_list_params.py">params</a>) -> <a href="./src/micro/types/organization_list_response.py">OrganizationListResponse</a></code>
+- <code title="delete /v2/prism/{teamId}/organization/{organizationId}">client.organizations.<a href="./src/micro/resources/organizations.py">delete</a>(organization_id, \*, team_id) -> None</code>
+- <code title="post /v2/prism/{teamId}/organization/import">client.organizations.<a href="./src/micro/resources/organizations.py">import\_</a>(\*, team_id, \*\*<a href="src/micro/types/organization_import_params.py">params</a>) -> <a href="./src/micro/types/organization_import_response.py">OrganizationImportResponse</a></code>
 
 # Identities
 
 Types:
 
 ```python
-from micro.types import Identity
+from micro.types import Identity, IdentityListResponse, IdentityImportResponse
 ```
+
+Methods:
+
+- <code title="post /v2/prism/{teamId}/identity">client.identities.<a href="./src/micro/resources/identities.py">create</a>(\*, team_id, \*\*<a href="src/micro/types/identity_create_params.py">params</a>) -> <a href="./src/micro/types/prism_object_properties.py">PrismObjectProperties</a></code>
+- <code title="patch /v2/prism/{teamId}/identity/{identityId}">client.identities.<a href="./src/micro/resources/identities.py">update</a>(identity_id, \*, team_id, \*\*<a href="src/micro/types/identity_update_params.py">params</a>) -> <a href="./src/micro/types/prism_object_properties.py">PrismObjectProperties</a></code>
+- <code title="post /v2/prism/query/{teamId}/identity">client.identities.<a href="./src/micro/resources/identities.py">list</a>(\*, team_id, \*\*<a href="src/micro/types/identity_list_params.py">params</a>) -> <a href="./src/micro/types/identity_list_response.py">IdentityListResponse</a></code>
+- <code title="delete /v2/prism/{teamId}/identity/{identityId}">client.identities.<a href="./src/micro/resources/identities.py">delete</a>(identity_id, \*, team_id) -> None</code>
+- <code title="post /v2/prism/{teamId}/identity/import">client.identities.<a href="./src/micro/resources/identities.py">import\_</a>(\*, team_id, \*\*<a href="src/micro/types/identity_import_params.py">params</a>) -> <a href="./src/micro/types/identity_import_response.py">IdentityImportResponse</a></code>
 
 # Deals
 
 Types:
 
 ```python
-from micro.types import Deal
+from micro.types import Deal, DealListResponse, DealImportResponse
 ```
+
+Methods:
+
+- <code title="post /v2/prism/{teamId}/deal">client.deals.<a href="./src/micro/resources/deals.py">create</a>(\*, team_id, \*\*<a href="src/micro/types/deal_create_params.py">params</a>) -> <a href="./src/micro/types/prism_object_properties.py">PrismObjectProperties</a></code>
+- <code title="patch /v2/prism/{teamId}/deal/{dealId}">client.deals.<a href="./src/micro/resources/deals.py">update</a>(deal_id, \*, team_id, \*\*<a href="src/micro/types/deal_update_params.py">params</a>) -> <a href="./src/micro/types/prism_object_properties.py">PrismObjectProperties</a></code>
+- <code title="post /v2/prism/query/{teamId}/deal">client.deals.<a href="./src/micro/resources/deals.py">list</a>(\*, team_id, \*\*<a href="src/micro/types/deal_list_params.py">params</a>) -> <a href="./src/micro/types/deal_list_response.py">DealListResponse</a></code>
+- <code title="delete /v2/prism/{teamId}/deal/{dealId}">client.deals.<a href="./src/micro/resources/deals.py">delete</a>(deal_id, \*, team_id) -> None</code>
+- <code title="post /v2/prism/{teamId}/deal/import">client.deals.<a href="./src/micro/resources/deals.py">import\_</a>(\*, team_id, \*\*<a href="src/micro/types/deal_import_params.py">params</a>) -> <a href="./src/micro/types/deal_import_response.py">DealImportResponse</a></code>
 
 # Actions
 
 Types:
 
 ```python
-from micro.types import Action
+from micro.types import Action, ActionListResponse
 ```
+
+Methods:
+
+- <code title="post /v2/prism/{teamId}/action">client.actions.<a href="./src/micro/resources/actions.py">create</a>(\*, team_id, \*\*<a href="src/micro/types/action_create_params.py">params</a>) -> <a href="./src/micro/types/prism_object_properties.py">PrismObjectProperties</a></code>
+- <code title="patch /v2/prism/{teamId}/action/{actionId}">client.actions.<a href="./src/micro/resources/actions.py">update</a>(action_id, \*, team_id, \*\*<a href="src/micro/types/action_update_params.py">params</a>) -> <a href="./src/micro/types/prism_object_properties.py">PrismObjectProperties</a></code>
+- <code title="post /v2/prism/query/{teamId}/action">client.actions.<a href="./src/micro/resources/actions.py">list</a>(\*, team_id, \*\*<a href="src/micro/types/action_list_params.py">params</a>) -> <a href="./src/micro/types/action_list_response.py">ActionListResponse</a></code>
+- <code title="delete /v2/prism/{teamId}/action/{actionId}">client.actions.<a href="./src/micro/resources/actions.py">delete</a>(action_id, \*, team_id) -> None</code>
 
 # Events
 
 Types:
 
 ```python
-from micro.types import Event
+from micro.types import Event, EventListResponse
 ```
+
+Methods:
+
+- <code title="post /v2/prism/query/{teamId}/event">client.events.<a href="./src/micro/resources/events.py">list</a>(\*, team_id, \*\*<a href="src/micro/types/event_list_params.py">params</a>) -> <a href="./src/micro/types/event_list_response.py">EventListResponse</a></code>
 
 # Documents
 
 Types:
 
 ```python
-from micro.types import Document
+from micro.types import Document, DocumentListResponse
 ```
+
+Methods:
+
+- <code title="post /v2/prism/{teamId}/document">client.documents.<a href="./src/micro/resources/documents.py">create</a>(\*, team_id, \*\*<a href="src/micro/types/document_create_params.py">params</a>) -> <a href="./src/micro/types/prism_object_properties.py">PrismObjectProperties</a></code>
+- <code title="patch /v2/prism/{teamId}/document/{documentId}">client.documents.<a href="./src/micro/resources/documents.py">update</a>(document_id, \*, team_id, \*\*<a href="src/micro/types/document_update_params.py">params</a>) -> <a href="./src/micro/types/prism_object_properties.py">PrismObjectProperties</a></code>
+- <code title="post /v2/prism/query/{teamId}/document">client.documents.<a href="./src/micro/resources/documents.py">list</a>(\*, team_id, \*\*<a href="src/micro/types/document_list_params.py">params</a>) -> <a href="./src/micro/types/document_list_response.py">DocumentListResponse</a></code>
+- <code title="delete /v2/prism/{teamId}/document/{documentId}">client.documents.<a href="./src/micro/resources/documents.py">delete</a>(document_id, \*, team_id) -> None</code>
