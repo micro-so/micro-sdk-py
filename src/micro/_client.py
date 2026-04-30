@@ -36,8 +36,15 @@ from ._base_client import (
 )
 
 if TYPE_CHECKING:
-    from .resources import prism
+    from .resources import deals, prism, events, actions, contacts, documents, identities, organizations
+    from .resources.deals import DealsResource, AsyncDealsResource
+    from .resources.events import EventsResource, AsyncEventsResource
+    from .resources.actions import ActionsResource, AsyncActionsResource
+    from .resources.contacts import ContactsResource, AsyncContactsResource
+    from .resources.documents import DocumentsResource, AsyncDocumentsResource
+    from .resources.identities import IdentitiesResource, AsyncIdentitiesResource
     from .resources.prism.prism import PrismResource, AsyncPrismResource
+    from .resources.organizations import OrganizationsResource, AsyncOrganizationsResource
 
 __all__ = ["Timeout", "Transport", "ProxiesTypes", "RequestOptions", "Micro", "AsyncMicro", "Client", "AsyncClient"]
 
@@ -115,6 +122,48 @@ class Micro(SyncAPIClient):
         from .resources.prism import PrismResource
 
         return PrismResource(self)
+
+    @cached_property
+    def contacts(self) -> ContactsResource:
+        from .resources.contacts import ContactsResource
+
+        return ContactsResource(self)
+
+    @cached_property
+    def organizations(self) -> OrganizationsResource:
+        from .resources.organizations import OrganizationsResource
+
+        return OrganizationsResource(self)
+
+    @cached_property
+    def identities(self) -> IdentitiesResource:
+        from .resources.identities import IdentitiesResource
+
+        return IdentitiesResource(self)
+
+    @cached_property
+    def deals(self) -> DealsResource:
+        from .resources.deals import DealsResource
+
+        return DealsResource(self)
+
+    @cached_property
+    def actions(self) -> ActionsResource:
+        from .resources.actions import ActionsResource
+
+        return ActionsResource(self)
+
+    @cached_property
+    def events(self) -> EventsResource:
+        from .resources.events import EventsResource
+
+        return EventsResource(self)
+
+    @cached_property
+    def documents(self) -> DocumentsResource:
+        from .resources.documents import DocumentsResource
+
+        return DocumentsResource(self)
 
     @cached_property
     def with_raw_response(self) -> MicroWithRawResponse:
@@ -314,6 +363,48 @@ class AsyncMicro(AsyncAPIClient):
         return AsyncPrismResource(self)
 
     @cached_property
+    def contacts(self) -> AsyncContactsResource:
+        from .resources.contacts import AsyncContactsResource
+
+        return AsyncContactsResource(self)
+
+    @cached_property
+    def organizations(self) -> AsyncOrganizationsResource:
+        from .resources.organizations import AsyncOrganizationsResource
+
+        return AsyncOrganizationsResource(self)
+
+    @cached_property
+    def identities(self) -> AsyncIdentitiesResource:
+        from .resources.identities import AsyncIdentitiesResource
+
+        return AsyncIdentitiesResource(self)
+
+    @cached_property
+    def deals(self) -> AsyncDealsResource:
+        from .resources.deals import AsyncDealsResource
+
+        return AsyncDealsResource(self)
+
+    @cached_property
+    def actions(self) -> AsyncActionsResource:
+        from .resources.actions import AsyncActionsResource
+
+        return AsyncActionsResource(self)
+
+    @cached_property
+    def events(self) -> AsyncEventsResource:
+        from .resources.events import AsyncEventsResource
+
+        return AsyncEventsResource(self)
+
+    @cached_property
+    def documents(self) -> AsyncDocumentsResource:
+        from .resources.documents import AsyncDocumentsResource
+
+        return AsyncDocumentsResource(self)
+
+    @cached_property
     def with_raw_response(self) -> AsyncMicroWithRawResponse:
         return AsyncMicroWithRawResponse(self)
 
@@ -448,6 +539,48 @@ class MicroWithRawResponse:
 
         return PrismResourceWithRawResponse(self._client.prism)
 
+    @cached_property
+    def contacts(self) -> contacts.ContactsResourceWithRawResponse:
+        from .resources.contacts import ContactsResourceWithRawResponse
+
+        return ContactsResourceWithRawResponse(self._client.contacts)
+
+    @cached_property
+    def organizations(self) -> organizations.OrganizationsResourceWithRawResponse:
+        from .resources.organizations import OrganizationsResourceWithRawResponse
+
+        return OrganizationsResourceWithRawResponse(self._client.organizations)
+
+    @cached_property
+    def identities(self) -> identities.IdentitiesResourceWithRawResponse:
+        from .resources.identities import IdentitiesResourceWithRawResponse
+
+        return IdentitiesResourceWithRawResponse(self._client.identities)
+
+    @cached_property
+    def deals(self) -> deals.DealsResourceWithRawResponse:
+        from .resources.deals import DealsResourceWithRawResponse
+
+        return DealsResourceWithRawResponse(self._client.deals)
+
+    @cached_property
+    def actions(self) -> actions.ActionsResourceWithRawResponse:
+        from .resources.actions import ActionsResourceWithRawResponse
+
+        return ActionsResourceWithRawResponse(self._client.actions)
+
+    @cached_property
+    def events(self) -> events.EventsResourceWithRawResponse:
+        from .resources.events import EventsResourceWithRawResponse
+
+        return EventsResourceWithRawResponse(self._client.events)
+
+    @cached_property
+    def documents(self) -> documents.DocumentsResourceWithRawResponse:
+        from .resources.documents import DocumentsResourceWithRawResponse
+
+        return DocumentsResourceWithRawResponse(self._client.documents)
+
 
 class AsyncMicroWithRawResponse:
     _client: AsyncMicro
@@ -460,6 +593,48 @@ class AsyncMicroWithRawResponse:
         from .resources.prism import AsyncPrismResourceWithRawResponse
 
         return AsyncPrismResourceWithRawResponse(self._client.prism)
+
+    @cached_property
+    def contacts(self) -> contacts.AsyncContactsResourceWithRawResponse:
+        from .resources.contacts import AsyncContactsResourceWithRawResponse
+
+        return AsyncContactsResourceWithRawResponse(self._client.contacts)
+
+    @cached_property
+    def organizations(self) -> organizations.AsyncOrganizationsResourceWithRawResponse:
+        from .resources.organizations import AsyncOrganizationsResourceWithRawResponse
+
+        return AsyncOrganizationsResourceWithRawResponse(self._client.organizations)
+
+    @cached_property
+    def identities(self) -> identities.AsyncIdentitiesResourceWithRawResponse:
+        from .resources.identities import AsyncIdentitiesResourceWithRawResponse
+
+        return AsyncIdentitiesResourceWithRawResponse(self._client.identities)
+
+    @cached_property
+    def deals(self) -> deals.AsyncDealsResourceWithRawResponse:
+        from .resources.deals import AsyncDealsResourceWithRawResponse
+
+        return AsyncDealsResourceWithRawResponse(self._client.deals)
+
+    @cached_property
+    def actions(self) -> actions.AsyncActionsResourceWithRawResponse:
+        from .resources.actions import AsyncActionsResourceWithRawResponse
+
+        return AsyncActionsResourceWithRawResponse(self._client.actions)
+
+    @cached_property
+    def events(self) -> events.AsyncEventsResourceWithRawResponse:
+        from .resources.events import AsyncEventsResourceWithRawResponse
+
+        return AsyncEventsResourceWithRawResponse(self._client.events)
+
+    @cached_property
+    def documents(self) -> documents.AsyncDocumentsResourceWithRawResponse:
+        from .resources.documents import AsyncDocumentsResourceWithRawResponse
+
+        return AsyncDocumentsResourceWithRawResponse(self._client.documents)
 
 
 class MicroWithStreamedResponse:
@@ -474,6 +649,48 @@ class MicroWithStreamedResponse:
 
         return PrismResourceWithStreamingResponse(self._client.prism)
 
+    @cached_property
+    def contacts(self) -> contacts.ContactsResourceWithStreamingResponse:
+        from .resources.contacts import ContactsResourceWithStreamingResponse
+
+        return ContactsResourceWithStreamingResponse(self._client.contacts)
+
+    @cached_property
+    def organizations(self) -> organizations.OrganizationsResourceWithStreamingResponse:
+        from .resources.organizations import OrganizationsResourceWithStreamingResponse
+
+        return OrganizationsResourceWithStreamingResponse(self._client.organizations)
+
+    @cached_property
+    def identities(self) -> identities.IdentitiesResourceWithStreamingResponse:
+        from .resources.identities import IdentitiesResourceWithStreamingResponse
+
+        return IdentitiesResourceWithStreamingResponse(self._client.identities)
+
+    @cached_property
+    def deals(self) -> deals.DealsResourceWithStreamingResponse:
+        from .resources.deals import DealsResourceWithStreamingResponse
+
+        return DealsResourceWithStreamingResponse(self._client.deals)
+
+    @cached_property
+    def actions(self) -> actions.ActionsResourceWithStreamingResponse:
+        from .resources.actions import ActionsResourceWithStreamingResponse
+
+        return ActionsResourceWithStreamingResponse(self._client.actions)
+
+    @cached_property
+    def events(self) -> events.EventsResourceWithStreamingResponse:
+        from .resources.events import EventsResourceWithStreamingResponse
+
+        return EventsResourceWithStreamingResponse(self._client.events)
+
+    @cached_property
+    def documents(self) -> documents.DocumentsResourceWithStreamingResponse:
+        from .resources.documents import DocumentsResourceWithStreamingResponse
+
+        return DocumentsResourceWithStreamingResponse(self._client.documents)
+
 
 class AsyncMicroWithStreamedResponse:
     _client: AsyncMicro
@@ -486,6 +703,48 @@ class AsyncMicroWithStreamedResponse:
         from .resources.prism import AsyncPrismResourceWithStreamingResponse
 
         return AsyncPrismResourceWithStreamingResponse(self._client.prism)
+
+    @cached_property
+    def contacts(self) -> contacts.AsyncContactsResourceWithStreamingResponse:
+        from .resources.contacts import AsyncContactsResourceWithStreamingResponse
+
+        return AsyncContactsResourceWithStreamingResponse(self._client.contacts)
+
+    @cached_property
+    def organizations(self) -> organizations.AsyncOrganizationsResourceWithStreamingResponse:
+        from .resources.organizations import AsyncOrganizationsResourceWithStreamingResponse
+
+        return AsyncOrganizationsResourceWithStreamingResponse(self._client.organizations)
+
+    @cached_property
+    def identities(self) -> identities.AsyncIdentitiesResourceWithStreamingResponse:
+        from .resources.identities import AsyncIdentitiesResourceWithStreamingResponse
+
+        return AsyncIdentitiesResourceWithStreamingResponse(self._client.identities)
+
+    @cached_property
+    def deals(self) -> deals.AsyncDealsResourceWithStreamingResponse:
+        from .resources.deals import AsyncDealsResourceWithStreamingResponse
+
+        return AsyncDealsResourceWithStreamingResponse(self._client.deals)
+
+    @cached_property
+    def actions(self) -> actions.AsyncActionsResourceWithStreamingResponse:
+        from .resources.actions import AsyncActionsResourceWithStreamingResponse
+
+        return AsyncActionsResourceWithStreamingResponse(self._client.actions)
+
+    @cached_property
+    def events(self) -> events.AsyncEventsResourceWithStreamingResponse:
+        from .resources.events import AsyncEventsResourceWithStreamingResponse
+
+        return AsyncEventsResourceWithStreamingResponse(self._client.events)
+
+    @cached_property
+    def documents(self) -> documents.AsyncDocumentsResourceWithStreamingResponse:
+        from .resources.documents import AsyncDocumentsResourceWithStreamingResponse
+
+        return AsyncDocumentsResourceWithStreamingResponse(self._client.documents)
 
 
 Client = Micro
