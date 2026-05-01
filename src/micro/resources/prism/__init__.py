@@ -1,13 +1,5 @@
 # File generated from our OpenAPI spec by Stainless. See CONTRIBUTING.md for details.
 
-from .grant import (
-    GrantResource,
-    AsyncGrantResource,
-    GrantResourceWithRawResponse,
-    AsyncGrantResourceWithRawResponse,
-    GrantResourceWithStreamingResponse,
-    AsyncGrantResourceWithStreamingResponse,
-)
 from .prism import (
     PrismResource,
     AsyncPrismResource,
@@ -16,13 +8,13 @@ from .prism import (
     PrismResourceWithStreamingResponse,
     AsyncPrismResourceWithStreamingResponse,
 )
-from .query import (
-    QueryResource,
-    AsyncQueryResource,
-    QueryResourceWithRawResponse,
-    AsyncQueryResourceWithRawResponse,
-    QueryResourceWithStreamingResponse,
-    AsyncQueryResourceWithStreamingResponse,
+from .objects import (
+    ObjectsResource,
+    AsyncObjectsResource,
+    ObjectsResourceWithRawResponse,
+    AsyncObjectsResourceWithRawResponse,
+    ObjectsResourceWithStreamingResponse,
+    AsyncObjectsResourceWithStreamingResponse,
 )
 from .metadata import (
     MetadataResource,
@@ -34,24 +26,18 @@ from .metadata import (
 )
 
 __all__ = [
-    "GrantResource",
-    "AsyncGrantResource",
-    "GrantResourceWithRawResponse",
-    "AsyncGrantResourceWithRawResponse",
-    "GrantResourceWithStreamingResponse",
-    "AsyncGrantResourceWithStreamingResponse",
-    "QueryResource",
-    "AsyncQueryResource",
-    "QueryResourceWithRawResponse",
-    "AsyncQueryResourceWithRawResponse",
-    "QueryResourceWithStreamingResponse",
-    "AsyncQueryResourceWithStreamingResponse",
     "MetadataResource",
     "AsyncMetadataResource",
     "MetadataResourceWithRawResponse",
     "AsyncMetadataResourceWithRawResponse",
     "MetadataResourceWithStreamingResponse",
     "AsyncMetadataResourceWithStreamingResponse",
+    "ObjectsResource",
+    "AsyncObjectsResource",
+    "ObjectsResourceWithRawResponse",
+    "AsyncObjectsResourceWithRawResponse",
+    "ObjectsResourceWithStreamingResponse",
+    "AsyncObjectsResourceWithStreamingResponse",
     "PrismResource",
     "AsyncPrismResource",
     "PrismResourceWithRawResponse",
