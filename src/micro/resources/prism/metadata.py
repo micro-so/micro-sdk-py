@@ -2,9 +2,10 @@
 
 from __future__ import annotations
 
+from typing_extensions import Literal
+
 import httpx
 
-from ...types import ObjectType
 from ..._types import Body, Omit, Query, Headers, NotGiven, omit, not_given
 from ..._utils import path_template, maybe_transform, async_maybe_transform
 from ..._compat import cached_property
@@ -15,10 +16,9 @@ from ..._response import (
     async_to_raw_response_wrapper,
     async_to_streamed_response_wrapper,
 )
-from ...types.prism import metadata_properties_params
+from ...types.prism import metadata_list_params
 from ..._base_client import make_request_options
-from ...types.object_type import ObjectType
-from ...types.prism.metadata_properties_response import MetadataPropertiesResponse
+from ...types.prism.metadata_list_response import MetadataListResponse
 
 __all__ = ["MetadataResource", "AsyncMetadataResource"]
 
@@ -43,9 +43,9 @@ class MetadataResource(SyncAPIResource):
         """
         return MetadataResourceWithStreamingResponse(self)
 
-    def properties(
+    def list(
         self,
-        object_type: ObjectType,
+        object_type: Literal["deal", "identity", "ai_chat_thread", "ai_chat_message", "document", "action", "event"],
         *,
         team_id: str | None = None,
         autofill: bool | Omit = omit,
@@ -57,7 +57,7 @@ class MetadataResource(SyncAPIResource):
         extra_query: Query | None = None,
         extra_body: Body | None = None,
         timeout: float | httpx.Timeout | None | NotGiven = not_given,
-    ) -> MetadataPropertiesResponse:
+    ) -> MetadataListResponse:
         """
         Get metadata properties by object type
 
@@ -91,10 +91,10 @@ class MetadataResource(SyncAPIResource):
                         "crm_id": crm_id,
                         "term": term,
                     },
-                    metadata_properties_params.MetadataPropertiesParams,
+                    metadata_list_params.MetadataListParams,
                 ),
             ),
-            cast_to=MetadataPropertiesResponse,
+            cast_to=MetadataListResponse,
         )
 
 
@@ -118,9 +118,9 @@ class AsyncMetadataResource(AsyncAPIResource):
         """
         return AsyncMetadataResourceWithStreamingResponse(self)
 
-    async def properties(
+    async def list(
         self,
-        object_type: ObjectType,
+        object_type: Literal["deal", "identity", "ai_chat_thread", "ai_chat_message", "document", "action", "event"],
         *,
         team_id: str | None = None,
         autofill: bool | Omit = omit,
@@ -132,7 +132,7 @@ class AsyncMetadataResource(AsyncAPIResource):
         extra_query: Query | None = None,
         extra_body: Body | None = None,
         timeout: float | httpx.Timeout | None | NotGiven = not_given,
-    ) -> MetadataPropertiesResponse:
+    ) -> MetadataListResponse:
         """
         Get metadata properties by object type
 
@@ -166,10 +166,10 @@ class AsyncMetadataResource(AsyncAPIResource):
                         "crm_id": crm_id,
                         "term": term,
                     },
-                    metadata_properties_params.MetadataPropertiesParams,
+                    metadata_list_params.MetadataListParams,
                 ),
             ),
-            cast_to=MetadataPropertiesResponse,
+            cast_to=MetadataListResponse,
         )
 
 
@@ -177,8 +177,8 @@ class MetadataResourceWithRawResponse:
     def __init__(self, metadata: MetadataResource) -> None:
         self._metadata = metadata
 
-        self.properties = to_raw_response_wrapper(
-            metadata.properties,
+        self.list = to_raw_response_wrapper(
+            metadata.list,
         )
 
 
@@ -186,8 +186,8 @@ class AsyncMetadataResourceWithRawResponse:
     def __init__(self, metadata: AsyncMetadataResource) -> None:
         self._metadata = metadata
 
-        self.properties = async_to_raw_response_wrapper(
-            metadata.properties,
+        self.list = async_to_raw_response_wrapper(
+            metadata.list,
         )
 
 
@@ -195,8 +195,8 @@ class MetadataResourceWithStreamingResponse:
     def __init__(self, metadata: MetadataResource) -> None:
         self._metadata = metadata
 
-        self.properties = to_streamed_response_wrapper(
-            metadata.properties,
+        self.list = to_streamed_response_wrapper(
+            metadata.list,
         )
 
 
@@ -204,6 +204,6 @@ class AsyncMetadataResourceWithStreamingResponse:
     def __init__(self, metadata: AsyncMetadataResource) -> None:
         self._metadata = metadata
 
-        self.properties = async_to_streamed_response_wrapper(
-            metadata.properties,
+        self.list = async_to_streamed_response_wrapper(
+            metadata.list,
         )
