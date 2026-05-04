@@ -1,5 +1,13 @@
 # Changelog
 
+## 0.1.1 (2026-05-04)
+
+Full Changelog: [v0.1.0...v0.1.1](https://github.com/micro-so/micro-sdk-py/compare/v0.1.0...v0.1.1)
+
+### Chores
+
+* update SDK settings ([09b3c09](https://github.com/micro-so/micro-sdk-py/commit/09b3c09435e142f363bd7151169e0a29755a2dbf))
+
 ## 0.1.0 (2026-05-04)
 
 Full Changelog: [v0.0.1...v0.1.0](https://github.com/micro-so/micro-sdk-py/compare/v0.0.1...v0.1.0)
