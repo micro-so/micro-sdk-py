@@ -1,5 +1,5 @@
 [project]
-name = "micro"
+name = "micro-so"
 version = "0.0.1"
 description = "The official Python library for the micro API"
 dynamic = ["readme"]
