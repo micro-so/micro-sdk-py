@@ -6,48 +6,36 @@ from typing import Dict, Union, Iterable
 
 import httpx
 
-from .grant import (
-    GrantResource,
-    AsyncGrantResource,
-    GrantResourceWithRawResponse,
-    AsyncGrantResourceWithRawResponse,
-    GrantResourceWithStreamingResponse,
-    AsyncGrantResourceWithStreamingResponse,
-)
-from ....._types import Body, Omit, Query, Headers, NoneType, NotGiven, SequenceNotStr, omit, not_given
-from ....._utils import path_template, maybe_transform, async_maybe_transform
-from ....._compat import cached_property
-from ....._resource import SyncAPIResource, AsyncAPIResource
-from ....._response import (
+from ...._types import Body, Omit, Query, Headers, NoneType, NotGiven, SequenceNotStr, omit, not_given
+from ...._utils import path_template, maybe_transform, async_maybe_transform
+from ...._compat import cached_property
+from ...._resource import SyncAPIResource, AsyncAPIResource
+from ...._response import (
     to_raw_response_wrapper,
     to_streamed_response_wrapper,
     async_to_raw_response_wrapper,
     async_to_streamed_response_wrapper,
 )
-from ....._base_client import make_request_options
-from .....types.prism.objects import (
+from ...._base_client import make_request_options
+from ....types.prism.objects import (
     identity_query_params,
     identity_create_params,
     identity_update_params,
     identity_bulk_create_params,
 )
-from .....types.prism_object_properties_param import PrismObjectPropertiesParam
-from .....types.prism.objects.identity_get_response import IdentityGetResponse
-from .....types.prism.objects.identity_query_response import IdentityQueryResponse
-from .....types.prism.objects.identity_create_response import IdentityCreateResponse
-from .....types.prism.objects.identity_update_response import IdentityUpdateResponse
-from .....types.prism.objects.identity_restore_response import IdentityRestoreResponse
-from .....types.prism.objects.identity_duplicate_response import IdentityDuplicateResponse
-from .....types.prism.objects.identity_bulk_create_response import IdentityBulkCreateResponse
+from ....types.prism_object_properties_param import PrismObjectPropertiesParam
+from ....types.prism.objects.identity_get_response import IdentityGetResponse
+from ....types.prism.objects.identity_query_response import IdentityQueryResponse
+from ....types.prism.objects.identity_create_response import IdentityCreateResponse
+from ....types.prism.objects.identity_update_response import IdentityUpdateResponse
+from ....types.prism.objects.identity_restore_response import IdentityRestoreResponse
+from ....types.prism.objects.identity_duplicate_response import IdentityDuplicateResponse
+from ....types.prism.objects.identity_bulk_create_response import IdentityBulkCreateResponse
 
 __all__ = ["IdentitiesResource", "AsyncIdentitiesResource"]
 
 
 class IdentitiesResource(SyncAPIResource):
-    @cached_property
-    def grant(self) -> GrantResource:
-        return GrantResource(self._client)
-
     @cached_property
     def with_raw_response(self) -> IdentitiesResourceWithRawResponse:
         """
@@ -434,10 +422,6 @@ class IdentitiesResource(SyncAPIResource):
 
 
 class AsyncIdentitiesResource(AsyncAPIResource):
-    @cached_property
-    def grant(self) -> AsyncGrantResource:
-        return AsyncGrantResource(self._client)
-
     @cached_property
     def with_raw_response(self) -> AsyncIdentitiesResourceWithRawResponse:
         """
@@ -852,10 +836,6 @@ class IdentitiesResourceWithRawResponse:
             identities.restore,
         )
 
-    @cached_property
-    def grant(self) -> GrantResourceWithRawResponse:
-        return GrantResourceWithRawResponse(self._identities.grant)
-
 
 class AsyncIdentitiesResourceWithRawResponse:
     def __init__(self, identities: AsyncIdentitiesResource) -> None:
@@ -885,10 +865,6 @@ class AsyncIdentitiesResourceWithRawResponse:
         self.restore = async_to_raw_response_wrapper(
             identities.restore,
         )
-
-    @cached_property
-    def grant(self) -> AsyncGrantResourceWithRawResponse:
-        return AsyncGrantResourceWithRawResponse(self._identities.grant)
 
 
 class IdentitiesResourceWithStreamingResponse:
@@ -920,10 +896,6 @@ class IdentitiesResourceWithStreamingResponse:
             identities.restore,
         )
 
-    @cached_property
-    def grant(self) -> GrantResourceWithStreamingResponse:
-        return GrantResourceWithStreamingResponse(self._identities.grant)
-
 
 class AsyncIdentitiesResourceWithStreamingResponse:
     def __init__(self, identities: AsyncIdentitiesResource) -> None:
@@ -953,7 +925,3 @@ class AsyncIdentitiesResourceWithStreamingResponse:
         self.restore = async_to_streamed_response_wrapper(
             identities.restore,
         )
-
-    @cached_property
-    def grant(self) -> AsyncGrantResourceWithStreamingResponse:
-        return AsyncGrantResourceWithStreamingResponse(self._identities.grant)

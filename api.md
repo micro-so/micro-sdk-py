@@ -77,27 +77,14 @@ from micro.types.prism.objects import (
 
 Methods:
 
-- <code title="post /v2/prism/{teamId}/identity">client.prism.objects.identities.<a href="./src/micro/resources/prism/objects/identities/identities.py">create</a>(\*, team_id, \*\*<a href="src/micro/types/prism/objects/identity_create_params.py">params</a>) -> <a href="./src/micro/types/prism/objects/identity_create_response.py">IdentityCreateResponse</a></code>
-- <code title="patch /v2/prism/{teamId}/identity/{identityId}">client.prism.objects.identities.<a href="./src/micro/resources/prism/objects/identities/identities.py">update</a>(identity_id, \*, team_id, \*\*<a href="src/micro/types/prism/objects/identity_update_params.py">params</a>) -> <a href="./src/micro/types/prism/objects/identity_update_response.py">IdentityUpdateResponse</a></code>
-- <code title="delete /v2/prism/{teamId}/identity/{identityId}">client.prism.objects.identities.<a href="./src/micro/resources/prism/objects/identities/identities.py">delete</a>(identity_id, \*, team_id) -> None</code>
-- <code title="post /v2/prism/{teamId}/identity/import">client.prism.objects.identities.<a href="./src/micro/resources/prism/objects/identities/identities.py">bulk_create</a>(\*, team_id, \*\*<a href="src/micro/types/prism/objects/identity_bulk_create_params.py">params</a>) -> <a href="./src/micro/types/prism/objects/identity_bulk_create_response.py">IdentityBulkCreateResponse</a></code>
-- <code title="post /v2/prism/{teamId}/identity/{identityId}/duplicate">client.prism.objects.identities.<a href="./src/micro/resources/prism/objects/identities/identities.py">duplicate</a>(identity_id, \*, team_id) -> <a href="./src/micro/types/prism/objects/identity_duplicate_response.py">IdentityDuplicateResponse</a></code>
-- <code title="get /v2/prism/{teamId}/identity/{identityId}">client.prism.objects.identities.<a href="./src/micro/resources/prism/objects/identities/identities.py">get</a>(identity_id, \*, team_id) -> <a href="./src/micro/types/prism/objects/identity_get_response.py">IdentityGetResponse</a></code>
-- <code title="post /v2/prism/query/{teamId}/identity">client.prism.objects.identities.<a href="./src/micro/resources/prism/objects/identities/identities.py">query</a>(\*, team_id, \*\*<a href="src/micro/types/prism/objects/identity_query_params.py">params</a>) -> <a href="./src/micro/types/prism/objects/identity_query_response.py">IdentityQueryResponse</a></code>
-- <code title="post /v2/prism/{teamId}/identity/{identityId}/restore">client.prism.objects.identities.<a href="./src/micro/resources/prism/objects/identities/identities.py">restore</a>(identity_id, \*, team_id) -> <a href="./src/micro/types/prism/objects/identity_restore_response.py">IdentityRestoreResponse</a></code>
-
-#### Grant
-
-Types:
-
-```python
-from micro.types.prism.objects.identities import GrantUpdateResponse, GrantGetResponse
-```
-
-Methods:
-
-- <code title="put /v2/prism/grant/{teamId}/identity/{identityId}">client.prism.objects.identities.grant.<a href="./src/micro/resources/prism/objects/identities/grant.py">update</a>(identity_id, \*, path_team_id, \*\*<a href="src/micro/types/prism/objects/identities/grant_update_params.py">params</a>) -> <a href="./src/micro/types/prism/objects/identities/grant_update_response.py">GrantUpdateResponse</a></code>
-- <code title="get /v2/prism/grant/{teamId}/identity/{identityId}">client.prism.objects.identities.grant.<a href="./src/micro/resources/prism/objects/identities/grant.py">get</a>(identity_id, \*, team_id) -> <a href="./src/micro/types/prism/objects/identities/grant_get_response.py">GrantGetResponse</a></code>
+- <code title="post /v2/prism/{teamId}/identity">client.prism.objects.identities.<a href="./src/micro/resources/prism/objects/identities.py">create</a>(\*, team_id, \*\*<a href="src/micro/types/prism/objects/identity_create_params.py">params</a>) -> <a href="./src/micro/types/prism/objects/identity_create_response.py">IdentityCreateResponse</a></code>
+- <code title="patch /v2/prism/{teamId}/identity/{identityId}">client.prism.objects.identities.<a href="./src/micro/resources/prism/objects/identities.py">update</a>(identity_id, \*, team_id, \*\*<a href="src/micro/types/prism/objects/identity_update_params.py">params</a>) -> <a href="./src/micro/types/prism/objects/identity_update_response.py">IdentityUpdateResponse</a></code>
+- <code title="delete /v2/prism/{teamId}/identity/{identityId}">client.prism.objects.identities.<a href="./src/micro/resources/prism/objects/identities.py">delete</a>(identity_id, \*, team_id) -> None</code>
+- <code title="post /v2/prism/{teamId}/identity/import">client.prism.objects.identities.<a href="./src/micro/resources/prism/objects/identities.py">bulk_create</a>(\*, team_id, \*\*<a href="src/micro/types/prism/objects/identity_bulk_create_params.py">params</a>) -> <a href="./src/micro/types/prism/objects/identity_bulk_create_response.py">IdentityBulkCreateResponse</a></code>
+- <code title="post /v2/prism/{teamId}/identity/{identityId}/duplicate">client.prism.objects.identities.<a href="./src/micro/resources/prism/objects/identities.py">duplicate</a>(identity_id, \*, team_id) -> <a href="./src/micro/types/prism/objects/identity_duplicate_response.py">IdentityDuplicateResponse</a></code>
+- <code title="get /v2/prism/{teamId}/identity/{identityId}">client.prism.objects.identities.<a href="./src/micro/resources/prism/objects/identities.py">get</a>(identity_id, \*, team_id) -> <a href="./src/micro/types/prism/objects/identity_get_response.py">IdentityGetResponse</a></code>
+- <code title="post /v2/prism/query/{teamId}/identity">client.prism.objects.identities.<a href="./src/micro/resources/prism/objects/identities.py">query</a>(\*, team_id, \*\*<a href="src/micro/types/prism/objects/identity_query_params.py">params</a>) -> <a href="./src/micro/types/prism/objects/identity_query_response.py">IdentityQueryResponse</a></code>
+- <code title="post /v2/prism/{teamId}/identity/{identityId}/restore">client.prism.objects.identities.<a href="./src/micro/resources/prism/objects/identities.py">restore</a>(identity_id, \*, team_id) -> <a href="./src/micro/types/prism/objects/identity_restore_response.py">IdentityRestoreResponse</a></code>
 
 ### Deals
 
