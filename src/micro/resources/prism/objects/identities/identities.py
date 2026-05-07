@@ -31,9 +31,12 @@ from .....types.prism.objects import (
     identity_update_params,
     identity_bulk_create_params,
 )
-from .....types.prism_object_properties import PrismObjectProperties
 from .....types.prism_object_properties_param import PrismObjectPropertiesParam
+from .....types.prism.objects.identity_get_response import IdentityGetResponse
 from .....types.prism.objects.identity_query_response import IdentityQueryResponse
+from .....types.prism.objects.identity_create_response import IdentityCreateResponse
+from .....types.prism.objects.identity_update_response import IdentityUpdateResponse
+from .....types.prism.objects.identity_restore_response import IdentityRestoreResponse
 from .....types.prism.objects.identity_duplicate_response import IdentityDuplicateResponse
 from .....types.prism.objects.identity_bulk_create_response import IdentityBulkCreateResponse
 
@@ -78,14 +81,15 @@ class IdentitiesResource(SyncAPIResource):
         extra_query: Query | None = None,
         extra_body: Body | None = None,
         timeout: float | httpx.Timeout | None | NotGiven = not_given,
-    ) -> PrismObjectProperties:
+    ) -> IdentityCreateResponse:
         """Create object
 
         Args:
           default: Properties keyed by property slug.
 
         Values can be strings, numbers, booleans,
-              arrays, or null.
+              arrays, or null. For select/multiselect properties, values may be option slugs
+              or option UUIDs on write; option slugs are returned on read.
 
           extra_headers: Send extra headers
 
@@ -113,7 +117,7 @@ class IdentitiesResource(SyncAPIResource):
             options=make_request_options(
                 extra_headers=extra_headers, extra_query=extra_query, extra_body=extra_body, timeout=timeout
             ),
-            cast_to=PrismObjectProperties,
+            cast_to=IdentityCreateResponse,
         )
 
     def update(
@@ -131,14 +135,15 @@ class IdentitiesResource(SyncAPIResource):
         extra_query: Query | None = None,
         extra_body: Body | None = None,
         timeout: float | httpx.Timeout | None | NotGiven = not_given,
-    ) -> PrismObjectProperties:
+    ) -> IdentityUpdateResponse:
         """Patch object
 
         Args:
           default: Properties keyed by property slug.
 
         Values can be strings, numbers, booleans,
-              arrays, or null.
+              arrays, or null. For select/multiselect properties, values may be option slugs
+              or option UUIDs on write; option slugs are returned on read.
 
           extra_headers: Send extra headers
 
@@ -168,7 +173,7 @@ class IdentitiesResource(SyncAPIResource):
             options=make_request_options(
                 extra_headers=extra_headers, extra_query=extra_query, extra_body=extra_body, timeout=timeout
             ),
-            cast_to=PrismObjectProperties,
+            cast_to=IdentityUpdateResponse,
         )
 
     def delete(
@@ -310,7 +315,7 @@ class IdentitiesResource(SyncAPIResource):
         extra_query: Query | None = None,
         extra_body: Body | None = None,
         timeout: float | httpx.Timeout | None | NotGiven = not_given,
-    ) -> PrismObjectProperties:
+    ) -> IdentityGetResponse:
         """
         Get object
 
@@ -334,7 +339,7 @@ class IdentitiesResource(SyncAPIResource):
             options=make_request_options(
                 extra_headers=extra_headers, extra_query=extra_query, extra_body=extra_body, timeout=timeout
             ),
-            cast_to=PrismObjectProperties,
+            cast_to=IdentityGetResponse,
         )
 
     def query(
@@ -398,7 +403,7 @@ class IdentitiesResource(SyncAPIResource):
         extra_query: Query | None = None,
         extra_body: Body | None = None,
         timeout: float | httpx.Timeout | None | NotGiven = not_given,
-    ) -> PrismObjectProperties:
+    ) -> IdentityRestoreResponse:
         """
         Restore object
 
@@ -424,7 +429,7 @@ class IdentitiesResource(SyncAPIResource):
             options=make_request_options(
                 extra_headers=extra_headers, extra_query=extra_query, extra_body=extra_body, timeout=timeout
             ),
-            cast_to=PrismObjectProperties,
+            cast_to=IdentityRestoreResponse,
         )
 
 
@@ -466,14 +471,15 @@ class AsyncIdentitiesResource(AsyncAPIResource):
         extra_query: Query | None = None,
         extra_body: Body | None = None,
         timeout: float | httpx.Timeout | None | NotGiven = not_given,
-    ) -> PrismObjectProperties:
+    ) -> IdentityCreateResponse:
         """Create object
 
         Args:
           default: Properties keyed by property slug.
 
         Values can be strings, numbers, booleans,
-              arrays, or null.
+              arrays, or null. For select/multiselect properties, values may be option slugs
+              or option UUIDs on write; option slugs are returned on read.
 
           extra_headers: Send extra headers
 
@@ -501,7 +507,7 @@ class AsyncIdentitiesResource(AsyncAPIResource):
             options=make_request_options(
                 extra_headers=extra_headers, extra_query=extra_query, extra_body=extra_body, timeout=timeout
             ),
-            cast_to=PrismObjectProperties,
+            cast_to=IdentityCreateResponse,
         )
 
     async def update(
@@ -519,14 +525,15 @@ class AsyncIdentitiesResource(AsyncAPIResource):
         extra_query: Query | None = None,
         extra_body: Body | None = None,
         timeout: float | httpx.Timeout | None | NotGiven = not_given,
-    ) -> PrismObjectProperties:
+    ) -> IdentityUpdateResponse:
         """Patch object
 
         Args:
           default: Properties keyed by property slug.
 
         Values can be strings, numbers, booleans,
-              arrays, or null.
+              arrays, or null. For select/multiselect properties, values may be option slugs
+              or option UUIDs on write; option slugs are returned on read.
 
           extra_headers: Send extra headers
 
@@ -556,7 +563,7 @@ class AsyncIdentitiesResource(AsyncAPIResource):
             options=make_request_options(
                 extra_headers=extra_headers, extra_query=extra_query, extra_body=extra_body, timeout=timeout
             ),
-            cast_to=PrismObjectProperties,
+            cast_to=IdentityUpdateResponse,
         )
 
     async def delete(
@@ -698,7 +705,7 @@ class AsyncIdentitiesResource(AsyncAPIResource):
         extra_query: Query | None = None,
         extra_body: Body | None = None,
         timeout: float | httpx.Timeout | None | NotGiven = not_given,
-    ) -> PrismObjectProperties:
+    ) -> IdentityGetResponse:
         """
         Get object
 
@@ -722,7 +729,7 @@ class AsyncIdentitiesResource(AsyncAPIResource):
             options=make_request_options(
                 extra_headers=extra_headers, extra_query=extra_query, extra_body=extra_body, timeout=timeout
             ),
-            cast_to=PrismObjectProperties,
+            cast_to=IdentityGetResponse,
         )
 
     async def query(
@@ -786,7 +793,7 @@ class AsyncIdentitiesResource(AsyncAPIResource):
         extra_query: Query | None = None,
         extra_body: Body | None = None,
         timeout: float | httpx.Timeout | None | NotGiven = not_given,
-    ) -> PrismObjectProperties:
+    ) -> IdentityRestoreResponse:
         """
         Restore object
 
@@ -812,7 +819,7 @@ class AsyncIdentitiesResource(AsyncAPIResource):
             options=make_request_options(
                 extra_headers=extra_headers, extra_query=extra_query, extra_body=extra_body, timeout=timeout
             ),
-            cast_to=PrismObjectProperties,
+            cast_to=IdentityRestoreResponse,
         )
 
 

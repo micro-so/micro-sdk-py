@@ -9,13 +9,110 @@ import pytest
 
 from micro import Micro, AsyncMicro
 from tests.utils import assert_matches_type
-from micro.types.prism.objects import ContactQueryResponse
+from micro.types.prism.objects import (
+    ContactQueryResponse,
+    ContactCreateResponse,
+    ContactBulkCreateResponse,
+)
 
 base_url = os.environ.get("TEST_API_BASE_URL", "http://127.0.0.1:4010")
 
 
 class TestContacts:
     parametrize = pytest.mark.parametrize("client", [False, True], indirect=True, ids=["loose", "strict"])
+
+    @pytest.mark.skip(reason="Mock server tests are disabled")
+    @parametrize
+    def test_method_create(self, client: Micro) -> None:
+        contact = client.prism.objects.contacts.create()
+        assert_matches_type(ContactCreateResponse, contact, path=["response"])
+
+    @pytest.mark.skip(reason="Mock server tests are disabled")
+    @parametrize
+    def test_method_create_with_all_params(self, client: Micro) -> None:
+        contact = client.prism.objects.contacts.create(
+            id="182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
+            crm={},
+            default={"foo": "bar"},
+            extended={},
+        )
+        assert_matches_type(ContactCreateResponse, contact, path=["response"])
+
+    @pytest.mark.skip(reason="Mock server tests are disabled")
+    @parametrize
+    def test_raw_response_create(self, client: Micro) -> None:
+        response = client.prism.objects.contacts.with_raw_response.create()
+
+        assert response.is_closed is True
+        assert response.http_request.headers.get("X-Stainless-Lang") == "python"
+        contact = response.parse()
+        assert_matches_type(ContactCreateResponse, contact, path=["response"])
+
+    @pytest.mark.skip(reason="Mock server tests are disabled")
+    @parametrize
+    def test_streaming_response_create(self, client: Micro) -> None:
+        with client.prism.objects.contacts.with_streaming_response.create() as response:
+            assert not response.is_closed
+            assert response.http_request.headers.get("X-Stainless-Lang") == "python"
+
+            contact = response.parse()
+            assert_matches_type(ContactCreateResponse, contact, path=["response"])
+
+        assert cast(Any, response.is_closed) is True
+
+    @pytest.mark.skip(reason="Mock server tests are disabled")
+    @parametrize
+    def test_method_bulk_create(self, client: Micro) -> None:
+        contact = client.prism.objects.contacts.bulk_create(
+            objects=[{}],
+        )
+        assert_matches_type(ContactBulkCreateResponse, contact, path=["response"])
+
+    @pytest.mark.skip(reason="Mock server tests are disabled")
+    @parametrize
+    def test_method_bulk_create_with_all_params(self, client: Micro) -> None:
+        contact = client.prism.objects.contacts.bulk_create(
+            objects=[
+                {
+                    "id": "182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
+                    "crm": {},
+                    "default": {"foo": "bar"},
+                    "extended": {},
+                }
+            ],
+            options={
+                "case_insensitive": True,
+                "crm_id": "182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
+                "dedupe_by": "dedupe_by",
+            },
+        )
+        assert_matches_type(ContactBulkCreateResponse, contact, path=["response"])
+
+    @pytest.mark.skip(reason="Mock server tests are disabled")
+    @parametrize
+    def test_raw_response_bulk_create(self, client: Micro) -> None:
+        response = client.prism.objects.contacts.with_raw_response.bulk_create(
+            objects=[{}],
+        )
+
+        assert response.is_closed is True
+        assert response.http_request.headers.get("X-Stainless-Lang") == "python"
+        contact = response.parse()
+        assert_matches_type(ContactBulkCreateResponse, contact, path=["response"])
+
+    @pytest.mark.skip(reason="Mock server tests are disabled")
+    @parametrize
+    def test_streaming_response_bulk_create(self, client: Micro) -> None:
+        with client.prism.objects.contacts.with_streaming_response.bulk_create(
+            objects=[{}],
+        ) as response:
+            assert not response.is_closed
+            assert response.http_request.headers.get("X-Stainless-Lang") == "python"
+
+            contact = response.parse()
+            assert_matches_type(ContactBulkCreateResponse, contact, path=["response"])
+
+        assert cast(Any, response.is_closed) is True
 
     @pytest.mark.skip(reason="Mock server tests are disabled")
     @parametrize
@@ -76,6 +173,99 @@ class TestAsyncContacts:
     parametrize = pytest.mark.parametrize(
         "async_client", [False, True, {"http_client": "aiohttp"}], indirect=True, ids=["loose", "strict", "aiohttp"]
     )
+
+    @pytest.mark.skip(reason="Mock server tests are disabled")
+    @parametrize
+    async def test_method_create(self, async_client: AsyncMicro) -> None:
+        contact = await async_client.prism.objects.contacts.create()
+        assert_matches_type(ContactCreateResponse, contact, path=["response"])
+
+    @pytest.mark.skip(reason="Mock server tests are disabled")
+    @parametrize
+    async def test_method_create_with_all_params(self, async_client: AsyncMicro) -> None:
+        contact = await async_client.prism.objects.contacts.create(
+            id="182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
+            crm={},
+            default={"foo": "bar"},
+            extended={},
+        )
+        assert_matches_type(ContactCreateResponse, contact, path=["response"])
+
+    @pytest.mark.skip(reason="Mock server tests are disabled")
+    @parametrize
+    async def test_raw_response_create(self, async_client: AsyncMicro) -> None:
+        response = await async_client.prism.objects.contacts.with_raw_response.create()
+
+        assert response.is_closed is True
+        assert response.http_request.headers.get("X-Stainless-Lang") == "python"
+        contact = await response.parse()
+        assert_matches_type(ContactCreateResponse, contact, path=["response"])
+
+    @pytest.mark.skip(reason="Mock server tests are disabled")
+    @parametrize
+    async def test_streaming_response_create(self, async_client: AsyncMicro) -> None:
+        async with async_client.prism.objects.contacts.with_streaming_response.create() as response:
+            assert not response.is_closed
+            assert response.http_request.headers.get("X-Stainless-Lang") == "python"
+
+            contact = await response.parse()
+            assert_matches_type(ContactCreateResponse, contact, path=["response"])
+
+        assert cast(Any, response.is_closed) is True
+
+    @pytest.mark.skip(reason="Mock server tests are disabled")
+    @parametrize
+    async def test_method_bulk_create(self, async_client: AsyncMicro) -> None:
+        contact = await async_client.prism.objects.contacts.bulk_create(
+            objects=[{}],
+        )
+        assert_matches_type(ContactBulkCreateResponse, contact, path=["response"])
+
+    @pytest.mark.skip(reason="Mock server tests are disabled")
+    @parametrize
+    async def test_method_bulk_create_with_all_params(self, async_client: AsyncMicro) -> None:
+        contact = await async_client.prism.objects.contacts.bulk_create(
+            objects=[
+                {
+                    "id": "182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
+                    "crm": {},
+                    "default": {"foo": "bar"},
+                    "extended": {},
+                }
+            ],
+            options={
+                "case_insensitive": True,
+                "crm_id": "182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
+                "dedupe_by": "dedupe_by",
+            },
+        )
+        assert_matches_type(ContactBulkCreateResponse, contact, path=["response"])
+
+    @pytest.mark.skip(reason="Mock server tests are disabled")
+    @parametrize
+    async def test_raw_response_bulk_create(self, async_client: AsyncMicro) -> None:
+        response = await async_client.prism.objects.contacts.with_raw_response.bulk_create(
+            objects=[{}],
+        )
+
+        assert response.is_closed is True
+        assert response.http_request.headers.get("X-Stainless-Lang") == "python"
+        contact = await response.parse()
+        assert_matches_type(ContactBulkCreateResponse, contact, path=["response"])
+
+    @pytest.mark.skip(reason="Mock server tests are disabled")
+    @parametrize
+    async def test_streaming_response_bulk_create(self, async_client: AsyncMicro) -> None:
+        async with async_client.prism.objects.contacts.with_streaming_response.bulk_create(
+            objects=[{}],
+        ) as response:
+            assert not response.is_closed
+            assert response.http_request.headers.get("X-Stainless-Lang") == "python"
+
+            contact = await response.parse()
+            assert_matches_type(ContactBulkCreateResponse, contact, path=["response"])
+
+        assert cast(Any, response.is_closed) is True
 
     @pytest.mark.skip(reason="Mock server tests are disabled")
     @parametrize

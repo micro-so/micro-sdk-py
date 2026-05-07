@@ -31,9 +31,12 @@ from .....types.prism.objects import (
     document_update_params,
     document_bulk_create_params,
 )
-from .....types.prism_object_properties import PrismObjectProperties
 from .....types.prism_object_properties_param import PrismObjectPropertiesParam
+from .....types.prism.objects.document_get_response import DocumentGetResponse
 from .....types.prism.objects.document_query_response import DocumentQueryResponse
+from .....types.prism.objects.document_create_response import DocumentCreateResponse
+from .....types.prism.objects.document_update_response import DocumentUpdateResponse
+from .....types.prism.objects.document_restore_response import DocumentRestoreResponse
 from .....types.prism.objects.document_duplicate_response import DocumentDuplicateResponse
 from .....types.prism.objects.document_bulk_create_response import DocumentBulkCreateResponse
 
@@ -78,14 +81,15 @@ class DocumentsResource(SyncAPIResource):
         extra_query: Query | None = None,
         extra_body: Body | None = None,
         timeout: float | httpx.Timeout | None | NotGiven = not_given,
-    ) -> PrismObjectProperties:
+    ) -> DocumentCreateResponse:
         """Create object
 
         Args:
           default: Properties keyed by property slug.
 
         Values can be strings, numbers, booleans,
-              arrays, or null.
+              arrays, or null. For select/multiselect properties, values may be option slugs
+              or option UUIDs on write; option slugs are returned on read.
 
           extra_headers: Send extra headers
 
@@ -113,7 +117,7 @@ class DocumentsResource(SyncAPIResource):
             options=make_request_options(
                 extra_headers=extra_headers, extra_query=extra_query, extra_body=extra_body, timeout=timeout
             ),
-            cast_to=PrismObjectProperties,
+            cast_to=DocumentCreateResponse,
         )
 
     def update(
@@ -131,14 +135,15 @@ class DocumentsResource(SyncAPIResource):
         extra_query: Query | None = None,
         extra_body: Body | None = None,
         timeout: float | httpx.Timeout | None | NotGiven = not_given,
-    ) -> PrismObjectProperties:
+    ) -> DocumentUpdateResponse:
         """Patch object
 
         Args:
           default: Properties keyed by property slug.
 
         Values can be strings, numbers, booleans,
-              arrays, or null.
+              arrays, or null. For select/multiselect properties, values may be option slugs
+              or option UUIDs on write; option slugs are returned on read.
 
           extra_headers: Send extra headers
 
@@ -168,7 +173,7 @@ class DocumentsResource(SyncAPIResource):
             options=make_request_options(
                 extra_headers=extra_headers, extra_query=extra_query, extra_body=extra_body, timeout=timeout
             ),
-            cast_to=PrismObjectProperties,
+            cast_to=DocumentUpdateResponse,
         )
 
     def delete(
@@ -310,7 +315,7 @@ class DocumentsResource(SyncAPIResource):
         extra_query: Query | None = None,
         extra_body: Body | None = None,
         timeout: float | httpx.Timeout | None | NotGiven = not_given,
-    ) -> PrismObjectProperties:
+    ) -> DocumentGetResponse:
         """
         Get object
 
@@ -334,7 +339,7 @@ class DocumentsResource(SyncAPIResource):
             options=make_request_options(
                 extra_headers=extra_headers, extra_query=extra_query, extra_body=extra_body, timeout=timeout
             ),
-            cast_to=PrismObjectProperties,
+            cast_to=DocumentGetResponse,
         )
 
     def query(
@@ -398,7 +403,7 @@ class DocumentsResource(SyncAPIResource):
         extra_query: Query | None = None,
         extra_body: Body | None = None,
         timeout: float | httpx.Timeout | None | NotGiven = not_given,
-    ) -> PrismObjectProperties:
+    ) -> DocumentRestoreResponse:
         """
         Restore object
 
@@ -424,7 +429,7 @@ class DocumentsResource(SyncAPIResource):
             options=make_request_options(
                 extra_headers=extra_headers, extra_query=extra_query, extra_body=extra_body, timeout=timeout
             ),
-            cast_to=PrismObjectProperties,
+            cast_to=DocumentRestoreResponse,
         )
 
 
@@ -466,14 +471,15 @@ class AsyncDocumentsResource(AsyncAPIResource):
         extra_query: Query | None = None,
         extra_body: Body | None = None,
         timeout: float | httpx.Timeout | None | NotGiven = not_given,
-    ) -> PrismObjectProperties:
+    ) -> DocumentCreateResponse:
         """Create object
 
         Args:
           default: Properties keyed by property slug.
 
         Values can be strings, numbers, booleans,
-              arrays, or null.
+              arrays, or null. For select/multiselect properties, values may be option slugs
+              or option UUIDs on write; option slugs are returned on read.
 
           extra_headers: Send extra headers
 
@@ -501,7 +507,7 @@ class AsyncDocumentsResource(AsyncAPIResource):
             options=make_request_options(
                 extra_headers=extra_headers, extra_query=extra_query, extra_body=extra_body, timeout=timeout
             ),
-            cast_to=PrismObjectProperties,
+            cast_to=DocumentCreateResponse,
         )
 
     async def update(
@@ -519,14 +525,15 @@ class AsyncDocumentsResource(AsyncAPIResource):
         extra_query: Query | None = None,
         extra_body: Body | None = None,
         timeout: float | httpx.Timeout | None | NotGiven = not_given,
-    ) -> PrismObjectProperties:
+    ) -> DocumentUpdateResponse:
         """Patch object
 
         Args:
           default: Properties keyed by property slug.
 
         Values can be strings, numbers, booleans,
-              arrays, or null.
+              arrays, or null. For select/multiselect properties, values may be option slugs
+              or option UUIDs on write; option slugs are returned on read.
 
           extra_headers: Send extra headers
 
@@ -556,7 +563,7 @@ class AsyncDocumentsResource(AsyncAPIResource):
             options=make_request_options(
                 extra_headers=extra_headers, extra_query=extra_query, extra_body=extra_body, timeout=timeout
             ),
-            cast_to=PrismObjectProperties,
+            cast_to=DocumentUpdateResponse,
         )
 
     async def delete(
@@ -698,7 +705,7 @@ class AsyncDocumentsResource(AsyncAPIResource):
         extra_query: Query | None = None,
         extra_body: Body | None = None,
         timeout: float | httpx.Timeout | None | NotGiven = not_given,
-    ) -> PrismObjectProperties:
+    ) -> DocumentGetResponse:
         """
         Get object
 
@@ -722,7 +729,7 @@ class AsyncDocumentsResource(AsyncAPIResource):
             options=make_request_options(
                 extra_headers=extra_headers, extra_query=extra_query, extra_body=extra_body, timeout=timeout
             ),
-            cast_to=PrismObjectProperties,
+            cast_to=DocumentGetResponse,
         )
 
     async def query(
@@ -786,7 +793,7 @@ class AsyncDocumentsResource(AsyncAPIResource):
         extra_query: Query | None = None,
         extra_body: Body | None = None,
         timeout: float | httpx.Timeout | None | NotGiven = not_given,
-    ) -> PrismObjectProperties:
+    ) -> DocumentRestoreResponse:
         """
         Restore object
 
@@ -812,7 +819,7 @@ class AsyncDocumentsResource(AsyncAPIResource):
             options=make_request_options(
                 extra_headers=extra_headers, extra_query=extra_query, extra_body=extra_body, timeout=timeout
             ),
-            cast_to=PrismObjectProperties,
+            cast_to=DocumentRestoreResponse,
         )
 
 

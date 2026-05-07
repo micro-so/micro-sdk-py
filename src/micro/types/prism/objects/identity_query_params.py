@@ -40,7 +40,7 @@ class Query(TypedDict, total=False):
     filter: Iterable[Dict[str, Dict[str, Union[str, bool, SequenceNotStr[str]]]]]
     """Filters as [{ slug: { operator: value } }].
 
-    For select/multiselect properties, values must be option slugs
+    For select/multiselect properties, values may be option slugs or option UUIDs.
     """
 
     limit: int
