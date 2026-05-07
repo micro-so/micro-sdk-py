@@ -11,6 +11,14 @@ from .contacts import (
     AsyncContactsResourceWithStreamingResponse,
 )
 from ...._compat import cached_property
+from .identities import (
+    IdentitiesResource,
+    AsyncIdentitiesResource,
+    IdentitiesResourceWithRawResponse,
+    AsyncIdentitiesResourceWithRawResponse,
+    IdentitiesResourceWithStreamingResponse,
+    AsyncIdentitiesResourceWithStreamingResponse,
+)
 from .deals.deals import (
     DealsResource,
     AsyncDealsResource,
@@ -51,14 +59,6 @@ from .documents.documents import (
     AsyncDocumentsResourceWithRawResponse,
     DocumentsResourceWithStreamingResponse,
     AsyncDocumentsResourceWithStreamingResponse,
-)
-from .identities.identities import (
-    IdentitiesResource,
-    AsyncIdentitiesResource,
-    IdentitiesResourceWithRawResponse,
-    AsyncIdentitiesResourceWithRawResponse,
-    IdentitiesResourceWithStreamingResponse,
-    AsyncIdentitiesResourceWithStreamingResponse,
 )
 
 __all__ = ["ObjectsResource", "AsyncObjectsResource"]
