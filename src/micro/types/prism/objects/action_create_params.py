@@ -20,7 +20,9 @@ class ActionCreateParams(TypedDict, total=False):
     default: Dict[str, object]
     """Properties keyed by property slug.
 
-    Values can be strings, numbers, booleans, arrays, or null.
+    Values can be strings, numbers, booleans, arrays, or null. For
+    select/multiselect properties, values may be option slugs or option UUIDs on
+    write; option slugs are returned on read.
     """
 
     extended: object

@@ -2,7 +2,7 @@
 
 from __future__ import annotations
 
-from typing import Union
+from typing import Dict, Union, Iterable
 
 import httpx
 
@@ -17,8 +17,11 @@ from ...._response import (
     async_to_streamed_response_wrapper,
 )
 from ...._base_client import make_request_options
-from ....types.prism.objects import contact_query_params
+from ....types.prism.objects import contact_query_params, contact_create_params, contact_bulk_create_params
+from ....types.prism_object_properties_param import PrismObjectPropertiesParam
 from ....types.prism.objects.contact_query_response import ContactQueryResponse
+from ....types.prism.objects.contact_create_response import ContactCreateResponse
+from ....types.prism.objects.contact_bulk_create_response import ContactBulkCreateResponse
 
 __all__ = ["ContactsResource", "AsyncContactsResource"]
 
@@ -42,6 +45,108 @@ class ContactsResource(SyncAPIResource):
         For more information, see https://www.github.com/stainless-sdks/micro-python#with_streaming_response
         """
         return ContactsResourceWithStreamingResponse(self)
+
+    def create(
+        self,
+        *,
+        team_id: str | None = None,
+        id: str | Omit = omit,
+        crm: object | Omit = omit,
+        default: Dict[str, object] | Omit = omit,
+        extended: object | Omit = omit,
+        # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
+        # The extra values given here take precedence over values defined on the client or passed to this method.
+        extra_headers: Headers | None = None,
+        extra_query: Query | None = None,
+        extra_body: Body | None = None,
+        timeout: float | httpx.Timeout | None | NotGiven = not_given,
+    ) -> ContactCreateResponse:
+        """Create object
+
+        Args:
+          default: Properties keyed by property slug.
+
+        Values can be strings, numbers, booleans,
+              arrays, or null. For select/multiselect properties, values may be option slugs
+              or option UUIDs on write; option slugs are returned on read.
+
+          extra_headers: Send extra headers
+
+          extra_query: Add additional query parameters to the request
+
+          extra_body: Add additional JSON properties to the request
+
+          timeout: Override the client-level default timeout for this request, in seconds
+        """
+        if team_id is None:
+            team_id = self._client._get_team_id_path_param()
+        if not team_id:
+            raise ValueError(f"Expected a non-empty value for `team_id` but received {team_id!r}")
+        return self._post(
+            path_template("/v2/prism/{team_id}/contact", team_id=team_id),
+            body=maybe_transform(
+                {
+                    "id": id,
+                    "crm": crm,
+                    "default": default,
+                    "extended": extended,
+                },
+                contact_create_params.ContactCreateParams,
+            ),
+            options=make_request_options(
+                extra_headers=extra_headers, extra_query=extra_query, extra_body=extra_body, timeout=timeout
+            ),
+            cast_to=ContactCreateResponse,
+        )
+
+    def bulk_create(
+        self,
+        *,
+        team_id: str | None = None,
+        objects: Iterable[PrismObjectPropertiesParam],
+        options: contact_bulk_create_params.Options | Omit = omit,
+        # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
+        # The extra values given here take precedence over values defined on the client or passed to this method.
+        extra_headers: Headers | None = None,
+        extra_query: Query | None = None,
+        extra_body: Body | None = None,
+        timeout: float | httpx.Timeout | None | NotGiven = not_given,
+    ) -> ContactBulkCreateResponse:
+        """Import multiple objects in batch.
+
+        Properties are keyed by slug. Automatically
+        routes based on size: <100 records sync (immediate response), >=100 records
+        async (S3/Lambda with WebSocket progress)
+
+        Args:
+          objects: Array of objects to import with property values keyed by slug
+
+          extra_headers: Send extra headers
+
+          extra_query: Add additional query parameters to the request
+
+          extra_body: Add additional JSON properties to the request
+
+          timeout: Override the client-level default timeout for this request, in seconds
+        """
+        if team_id is None:
+            team_id = self._client._get_team_id_path_param()
+        if not team_id:
+            raise ValueError(f"Expected a non-empty value for `team_id` but received {team_id!r}")
+        return self._post(
+            path_template("/v2/prism/{team_id}/contact/import", team_id=team_id),
+            body=maybe_transform(
+                {
+                    "objects": objects,
+                    "options": options,
+                },
+                contact_bulk_create_params.ContactBulkCreateParams,
+            ),
+            options=make_request_options(
+                extra_headers=extra_headers, extra_query=extra_query, extra_body=extra_body, timeout=timeout
+            ),
+            cast_to=ContactBulkCreateResponse,
+        )
 
     def query(
         self,
@@ -114,6 +219,108 @@ class AsyncContactsResource(AsyncAPIResource):
         """
         return AsyncContactsResourceWithStreamingResponse(self)
 
+    async def create(
+        self,
+        *,
+        team_id: str | None = None,
+        id: str | Omit = omit,
+        crm: object | Omit = omit,
+        default: Dict[str, object] | Omit = omit,
+        extended: object | Omit = omit,
+        # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
+        # The extra values given here take precedence over values defined on the client or passed to this method.
+        extra_headers: Headers | None = None,
+        extra_query: Query | None = None,
+        extra_body: Body | None = None,
+        timeout: float | httpx.Timeout | None | NotGiven = not_given,
+    ) -> ContactCreateResponse:
+        """Create object
+
+        Args:
+          default: Properties keyed by property slug.
+
+        Values can be strings, numbers, booleans,
+              arrays, or null. For select/multiselect properties, values may be option slugs
+              or option UUIDs on write; option slugs are returned on read.
+
+          extra_headers: Send extra headers
+
+          extra_query: Add additional query parameters to the request
+
+          extra_body: Add additional JSON properties to the request
+
+          timeout: Override the client-level default timeout for this request, in seconds
+        """
+        if team_id is None:
+            team_id = self._client._get_team_id_path_param()
+        if not team_id:
+            raise ValueError(f"Expected a non-empty value for `team_id` but received {team_id!r}")
+        return await self._post(
+            path_template("/v2/prism/{team_id}/contact", team_id=team_id),
+            body=await async_maybe_transform(
+                {
+                    "id": id,
+                    "crm": crm,
+                    "default": default,
+                    "extended": extended,
+                },
+                contact_create_params.ContactCreateParams,
+            ),
+            options=make_request_options(
+                extra_headers=extra_headers, extra_query=extra_query, extra_body=extra_body, timeout=timeout
+            ),
+            cast_to=ContactCreateResponse,
+        )
+
+    async def bulk_create(
+        self,
+        *,
+        team_id: str | None = None,
+        objects: Iterable[PrismObjectPropertiesParam],
+        options: contact_bulk_create_params.Options | Omit = omit,
+        # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
+        # The extra values given here take precedence over values defined on the client or passed to this method.
+        extra_headers: Headers | None = None,
+        extra_query: Query | None = None,
+        extra_body: Body | None = None,
+        timeout: float | httpx.Timeout | None | NotGiven = not_given,
+    ) -> ContactBulkCreateResponse:
+        """Import multiple objects in batch.
+
+        Properties are keyed by slug. Automatically
+        routes based on size: <100 records sync (immediate response), >=100 records
+        async (S3/Lambda with WebSocket progress)
+
+        Args:
+          objects: Array of objects to import with property values keyed by slug
+
+          extra_headers: Send extra headers
+
+          extra_query: Add additional query parameters to the request
+
+          extra_body: Add additional JSON properties to the request
+
+          timeout: Override the client-level default timeout for this request, in seconds
+        """
+        if team_id is None:
+            team_id = self._client._get_team_id_path_param()
+        if not team_id:
+            raise ValueError(f"Expected a non-empty value for `team_id` but received {team_id!r}")
+        return await self._post(
+            path_template("/v2/prism/{team_id}/contact/import", team_id=team_id),
+            body=await async_maybe_transform(
+                {
+                    "objects": objects,
+                    "options": options,
+                },
+                contact_bulk_create_params.ContactBulkCreateParams,
+            ),
+            options=make_request_options(
+                extra_headers=extra_headers, extra_query=extra_query, extra_body=extra_body, timeout=timeout
+            ),
+            cast_to=ContactBulkCreateResponse,
+        )
+
     async def query(
         self,
         *,
@@ -169,6 +376,12 @@ class ContactsResourceWithRawResponse:
     def __init__(self, contacts: ContactsResource) -> None:
         self._contacts = contacts
 
+        self.create = to_raw_response_wrapper(
+            contacts.create,
+        )
+        self.bulk_create = to_raw_response_wrapper(
+            contacts.bulk_create,
+        )
         self.query = to_raw_response_wrapper(
             contacts.query,
         )
@@ -178,6 +391,12 @@ class AsyncContactsResourceWithRawResponse:
     def __init__(self, contacts: AsyncContactsResource) -> None:
         self._contacts = contacts
 
+        self.create = async_to_raw_response_wrapper(
+            contacts.create,
+        )
+        self.bulk_create = async_to_raw_response_wrapper(
+            contacts.bulk_create,
+        )
         self.query = async_to_raw_response_wrapper(
             contacts.query,
         )
@@ -187,6 +406,12 @@ class ContactsResourceWithStreamingResponse:
     def __init__(self, contacts: ContactsResource) -> None:
         self._contacts = contacts
 
+        self.create = to_streamed_response_wrapper(
+            contacts.create,
+        )
+        self.bulk_create = to_streamed_response_wrapper(
+            contacts.bulk_create,
+        )
         self.query = to_streamed_response_wrapper(
             contacts.query,
         )
@@ -196,6 +421,12 @@ class AsyncContactsResourceWithStreamingResponse:
     def __init__(self, contacts: AsyncContactsResource) -> None:
         self._contacts = contacts
 
+        self.create = async_to_streamed_response_wrapper(
+            contacts.create,
+        )
+        self.bulk_create = async_to_streamed_response_wrapper(
+            contacts.bulk_create,
+        )
         self.query = async_to_streamed_response_wrapper(
             contacts.query,
         )

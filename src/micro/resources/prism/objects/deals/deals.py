@@ -26,9 +26,12 @@ from ....._response import (
 )
 from ....._base_client import make_request_options
 from .....types.prism.objects import deal_query_params, deal_create_params, deal_update_params, deal_bulk_create_params
-from .....types.prism_object_properties import PrismObjectProperties
 from .....types.prism_object_properties_param import PrismObjectPropertiesParam
+from .....types.prism.objects.deal_get_response import DealGetResponse
 from .....types.prism.objects.deal_query_response import DealQueryResponse
+from .....types.prism.objects.deal_create_response import DealCreateResponse
+from .....types.prism.objects.deal_update_response import DealUpdateResponse
+from .....types.prism.objects.deal_restore_response import DealRestoreResponse
 from .....types.prism.objects.deal_duplicate_response import DealDuplicateResponse
 from .....types.prism.objects.deal_bulk_create_response import DealBulkCreateResponse
 
@@ -73,14 +76,15 @@ class DealsResource(SyncAPIResource):
         extra_query: Query | None = None,
         extra_body: Body | None = None,
         timeout: float | httpx.Timeout | None | NotGiven = not_given,
-    ) -> PrismObjectProperties:
+    ) -> DealCreateResponse:
         """Create object
 
         Args:
           default: Properties keyed by property slug.
 
         Values can be strings, numbers, booleans,
-              arrays, or null.
+              arrays, or null. For select/multiselect properties, values may be option slugs
+              or option UUIDs on write; option slugs are returned on read.
 
           extra_headers: Send extra headers
 
@@ -108,7 +112,7 @@ class DealsResource(SyncAPIResource):
             options=make_request_options(
                 extra_headers=extra_headers, extra_query=extra_query, extra_body=extra_body, timeout=timeout
             ),
-            cast_to=PrismObjectProperties,
+            cast_to=DealCreateResponse,
         )
 
     def update(
@@ -126,14 +130,15 @@ class DealsResource(SyncAPIResource):
         extra_query: Query | None = None,
         extra_body: Body | None = None,
         timeout: float | httpx.Timeout | None | NotGiven = not_given,
-    ) -> PrismObjectProperties:
+    ) -> DealUpdateResponse:
         """Patch object
 
         Args:
           default: Properties keyed by property slug.
 
         Values can be strings, numbers, booleans,
-              arrays, or null.
+              arrays, or null. For select/multiselect properties, values may be option slugs
+              or option UUIDs on write; option slugs are returned on read.
 
           extra_headers: Send extra headers
 
@@ -163,7 +168,7 @@ class DealsResource(SyncAPIResource):
             options=make_request_options(
                 extra_headers=extra_headers, extra_query=extra_query, extra_body=extra_body, timeout=timeout
             ),
-            cast_to=PrismObjectProperties,
+            cast_to=DealUpdateResponse,
         )
 
     def delete(
@@ -303,7 +308,7 @@ class DealsResource(SyncAPIResource):
         extra_query: Query | None = None,
         extra_body: Body | None = None,
         timeout: float | httpx.Timeout | None | NotGiven = not_given,
-    ) -> PrismObjectProperties:
+    ) -> DealGetResponse:
         """
         Get object
 
@@ -327,7 +332,7 @@ class DealsResource(SyncAPIResource):
             options=make_request_options(
                 extra_headers=extra_headers, extra_query=extra_query, extra_body=extra_body, timeout=timeout
             ),
-            cast_to=PrismObjectProperties,
+            cast_to=DealGetResponse,
         )
 
     def query(
@@ -391,7 +396,7 @@ class DealsResource(SyncAPIResource):
         extra_query: Query | None = None,
         extra_body: Body | None = None,
         timeout: float | httpx.Timeout | None | NotGiven = not_given,
-    ) -> PrismObjectProperties:
+    ) -> DealRestoreResponse:
         """
         Restore object
 
@@ -415,7 +420,7 @@ class DealsResource(SyncAPIResource):
             options=make_request_options(
                 extra_headers=extra_headers, extra_query=extra_query, extra_body=extra_body, timeout=timeout
             ),
-            cast_to=PrismObjectProperties,
+            cast_to=DealRestoreResponse,
         )
 
 
@@ -457,14 +462,15 @@ class AsyncDealsResource(AsyncAPIResource):
         extra_query: Query | None = None,
         extra_body: Body | None = None,
         timeout: float | httpx.Timeout | None | NotGiven = not_given,
-    ) -> PrismObjectProperties:
+    ) -> DealCreateResponse:
         """Create object
 
         Args:
           default: Properties keyed by property slug.
 
         Values can be strings, numbers, booleans,
-              arrays, or null.
+              arrays, or null. For select/multiselect properties, values may be option slugs
+              or option UUIDs on write; option slugs are returned on read.
 
           extra_headers: Send extra headers
 
@@ -492,7 +498,7 @@ class AsyncDealsResource(AsyncAPIResource):
             options=make_request_options(
                 extra_headers=extra_headers, extra_query=extra_query, extra_body=extra_body, timeout=timeout
             ),
-            cast_to=PrismObjectProperties,
+            cast_to=DealCreateResponse,
         )
 
     async def update(
@@ -510,14 +516,15 @@ class AsyncDealsResource(AsyncAPIResource):
         extra_query: Query | None = None,
         extra_body: Body | None = None,
         timeout: float | httpx.Timeout | None | NotGiven = not_given,
-    ) -> PrismObjectProperties:
+    ) -> DealUpdateResponse:
         """Patch object
 
         Args:
           default: Properties keyed by property slug.
 
         Values can be strings, numbers, booleans,
-              arrays, or null.
+              arrays, or null. For select/multiselect properties, values may be option slugs
+              or option UUIDs on write; option slugs are returned on read.
 
           extra_headers: Send extra headers
 
@@ -547,7 +554,7 @@ class AsyncDealsResource(AsyncAPIResource):
             options=make_request_options(
                 extra_headers=extra_headers, extra_query=extra_query, extra_body=extra_body, timeout=timeout
             ),
-            cast_to=PrismObjectProperties,
+            cast_to=DealUpdateResponse,
         )
 
     async def delete(
@@ -687,7 +694,7 @@ class AsyncDealsResource(AsyncAPIResource):
         extra_query: Query | None = None,
         extra_body: Body | None = None,
         timeout: float | httpx.Timeout | None | NotGiven = not_given,
-    ) -> PrismObjectProperties:
+    ) -> DealGetResponse:
         """
         Get object
 
@@ -711,7 +718,7 @@ class AsyncDealsResource(AsyncAPIResource):
             options=make_request_options(
                 extra_headers=extra_headers, extra_query=extra_query, extra_body=extra_body, timeout=timeout
             ),
-            cast_to=PrismObjectProperties,
+            cast_to=DealGetResponse,
         )
 
     async def query(
@@ -775,7 +782,7 @@ class AsyncDealsResource(AsyncAPIResource):
         extra_query: Query | None = None,
         extra_body: Body | None = None,
         timeout: float | httpx.Timeout | None | NotGiven = not_given,
-    ) -> PrismObjectProperties:
+    ) -> DealRestoreResponse:
         """
         Restore object
 
@@ -799,7 +806,7 @@ class AsyncDealsResource(AsyncAPIResource):
             options=make_request_options(
                 extra_headers=extra_headers, extra_query=extra_query, extra_body=extra_body, timeout=timeout
             ),
-            cast_to=PrismObjectProperties,
+            cast_to=DealRestoreResponse,
         )
 
 

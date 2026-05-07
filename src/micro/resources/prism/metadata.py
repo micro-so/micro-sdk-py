@@ -45,7 +45,17 @@ class MetadataResource(SyncAPIResource):
 
     def list(
         self,
-        object_type: Literal["deal", "identity", "ai_chat_thread", "ai_chat_message", "document", "action", "event"],
+        object_type: Literal[
+            "deal",
+            "identity",
+            "ai_chat_thread",
+            "ai_chat_message",
+            "document",
+            "action",
+            "event",
+            "organization",
+            "contact",
+        ],
         *,
         team_id: str | None = None,
         autofill: bool | Omit = omit,
@@ -120,7 +130,17 @@ class AsyncMetadataResource(AsyncAPIResource):
 
     async def list(
         self,
-        object_type: Literal["deal", "identity", "ai_chat_thread", "ai_chat_message", "document", "action", "event"],
+        object_type: Literal[
+            "deal",
+            "identity",
+            "ai_chat_thread",
+            "ai_chat_message",
+            "document",
+            "action",
+            "event",
+            "organization",
+            "contact",
+        ],
         *,
         team_id: str | None = None,
         autofill: bool | Omit = omit,

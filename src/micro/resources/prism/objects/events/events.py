@@ -26,7 +26,7 @@ from ....._response import (
 )
 from ....._base_client import make_request_options
 from .....types.prism.objects import event_query_params
-from .....types.prism_object_properties import PrismObjectProperties
+from .....types.prism.objects.event_get_response import EventGetResponse
 from .....types.prism.objects.event_query_response import EventQueryResponse
 
 __all__ = ["EventsResource", "AsyncEventsResource"]
@@ -67,7 +67,7 @@ class EventsResource(SyncAPIResource):
         extra_query: Query | None = None,
         extra_body: Body | None = None,
         timeout: float | httpx.Timeout | None | NotGiven = not_given,
-    ) -> PrismObjectProperties:
+    ) -> EventGetResponse:
         """
         Get object
 
@@ -91,7 +91,7 @@ class EventsResource(SyncAPIResource):
             options=make_request_options(
                 extra_headers=extra_headers, extra_query=extra_query, extra_body=extra_body, timeout=timeout
             ),
-            cast_to=PrismObjectProperties,
+            cast_to=EventGetResponse,
         )
 
     def query(
@@ -180,7 +180,7 @@ class AsyncEventsResource(AsyncAPIResource):
         extra_query: Query | None = None,
         extra_body: Body | None = None,
         timeout: float | httpx.Timeout | None | NotGiven = not_given,
-    ) -> PrismObjectProperties:
+    ) -> EventGetResponse:
         """
         Get object
 
@@ -204,7 +204,7 @@ class AsyncEventsResource(AsyncAPIResource):
             options=make_request_options(
                 extra_headers=extra_headers, extra_query=extra_query, extra_body=extra_body, timeout=timeout
             ),
-            cast_to=PrismObjectProperties,
+            cast_to=EventGetResponse,
         )
 
     async def query(
