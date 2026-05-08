@@ -757,6 +757,18 @@ class TestMicro:
             client = Micro(api_key=api_key, team_id=team_id, _strict_response_validation=True)
             assert client.base_url == "http://localhost:5000/from/env/"
 
+        # explicit environment arg requires explicitness
+        with update_env(MICRO_BASE_URL="http://localhost:5000/from/env"):
+            with pytest.raises(ValueError, match=r"you must pass base_url=None"):
+                Micro(api_key=api_key, team_id=team_id, _strict_response_validation=True, environment="staging")
+
+            client = Micro(
+                base_url=None, api_key=api_key, team_id=team_id, _strict_response_validation=True, environment="staging"
+            )
+            assert str(client.base_url).startswith("https://developers.staging.micro.so")
+
+            client.close()
+
     @pytest.mark.parametrize(
         "client",
         [
@@ -1746,6 +1758,18 @@ class TestAsyncMicro:
         with update_env(MICRO_BASE_URL="http://localhost:5000/from/env"):
             client = AsyncMicro(api_key=api_key, team_id=team_id, _strict_response_validation=True)
             assert client.base_url == "http://localhost:5000/from/env/"
+
+        # explicit environment arg requires explicitness
+        with update_env(MICRO_BASE_URL="http://localhost:5000/from/env"):
+            with pytest.raises(ValueError, match=r"you must pass base_url=None"):
+                AsyncMicro(api_key=api_key, team_id=team_id, _strict_response_validation=True, environment="staging")
+
+            client = AsyncMicro(
+                base_url=None, api_key=api_key, team_id=team_id, _strict_response_validation=True, environment="staging"
+            )
+            assert str(client.base_url).startswith("https://developers.staging.micro.so")
+
+            await client.close()
 
     @pytest.mark.parametrize(
         "client",
