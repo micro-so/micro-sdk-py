@@ -359,7 +359,7 @@ class DocumentsResource(SyncAPIResource):
         timeout: float | httpx.Timeout | None | NotGiven = not_given,
     ) -> DocumentQueryResponse:
         """
-        Query v2
+        Query
 
         Args:
           extra_headers: Send extra headers
@@ -749,7 +749,7 @@ class AsyncDocumentsResource(AsyncAPIResource):
         timeout: float | httpx.Timeout | None | NotGiven = not_given,
     ) -> DocumentQueryResponse:
         """
-        Query v2
+        Query
 
         Args:
           extra_headers: Send extra headers

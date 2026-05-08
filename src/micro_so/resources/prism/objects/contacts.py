@@ -345,7 +345,7 @@ class ContactsResource(SyncAPIResource):
         timeout: float | httpx.Timeout | None | NotGiven = not_given,
     ) -> ContactQueryResponse:
         """
-        Query v2
+        Query
 
         Args:
           extra_headers: Send extra headers
@@ -727,7 +727,7 @@ class AsyncContactsResource(AsyncAPIResource):
         timeout: float | httpx.Timeout | None | NotGiven = not_given,
     ) -> ContactQueryResponse:
         """
-        Query v2
+        Query
 
         Args:
           extra_headers: Send extra headers

@@ -355,7 +355,7 @@ class OrganizationsResource(SyncAPIResource):
         timeout: float | httpx.Timeout | None | NotGiven = not_given,
     ) -> OrganizationQueryResponse:
         """
-        Query v2
+        Query
 
         Args:
           extra_headers: Send extra headers
@@ -751,7 +751,7 @@ class AsyncOrganizationsResource(AsyncAPIResource):
         timeout: float | httpx.Timeout | None | NotGiven = not_given,
     ) -> OrganizationQueryResponse:
         """
-        Query v2
+        Query
 
         Args:
           extra_headers: Send extra headers

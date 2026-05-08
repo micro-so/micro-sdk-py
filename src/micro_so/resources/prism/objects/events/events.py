@@ -111,7 +111,7 @@ class EventsResource(SyncAPIResource):
         timeout: float | httpx.Timeout | None | NotGiven = not_given,
     ) -> EventQueryResponse:
         """
-        Query v2
+        Query
 
         Args:
           extra_headers: Send extra headers
@@ -224,7 +224,7 @@ class AsyncEventsResource(AsyncAPIResource):
         timeout: float | httpx.Timeout | None | NotGiven = not_given,
     ) -> EventQueryResponse:
         """
-        Query v2
+        Query
 
         Args:
           extra_headers: Send extra headers
