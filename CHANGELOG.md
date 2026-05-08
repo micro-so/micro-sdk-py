@@ -1,5 +1,33 @@
 # Changelog
 
+## 0.2.0 (2026-05-08)
+
+Full Changelog: [v0.1.0...v0.2.0](https://github.com/micro-so/micro-sdk-py/compare/v0.1.0...v0.2.0)
+
+### Features
+
+* **api:** api update ([9344c1f](https://github.com/micro-so/micro-sdk-py/commit/9344c1fc24633b25447b9492b6a01fd534707aca))
+* **api:** api update ([0ac9843](https://github.com/micro-so/micro-sdk-py/commit/0ac98434b047287093fa32054746071dcc2cf1e0))
+* **api:** api update ([ced2d40](https://github.com/micro-so/micro-sdk-py/commit/ced2d40953ef301cc7a882ac4670c7a2a89c86a6))
+* **api:** api update ([9922029](https://github.com/micro-so/micro-sdk-py/commit/9922029576e18926d65b7644fa57e2c1180c5deb))
+* **api:** api update ([eeeb6a0](https://github.com/micro-so/micro-sdk-py/commit/eeeb6a0edea3454506911a5dc2b318db0a0ec75d))
+* **api:** api update ([134ac38](https://github.com/micro-so/micro-sdk-py/commit/134ac38597d6f3b8e15480e71d990c5f7017b4a6))
+* **api:** api update ([60f59f9](https://github.com/micro-so/micro-sdk-py/commit/60f59f937098e8c0c74025a1993b9e5ea490844a))
+* **api:** api update ([ae48d6e](https://github.com/micro-so/micro-sdk-py/commit/ae48d6e91955fded4bc0e76a0357b4bd329c5fc8))
+* **api:** api update ([4b7ad25](https://github.com/micro-so/micro-sdk-py/commit/4b7ad25335733c14ffbbf676ee45dd014837e036))
+* **api:** api update ([6d1c958](https://github.com/micro-so/micro-sdk-py/commit/6d1c95834bd79b5125244aca45e6993f5fac99ab))
+
+
+### Chores
+
+* update SDK settings ([a53bdd6](https://github.com/micro-so/micro-sdk-py/commit/a53bdd6088c5cc6128af6660e97ee4b888d07eea))
+* update SDK settings ([0b1dc85](https://github.com/micro-so/micro-sdk-py/commit/0b1dc8584a62c23491a65dd487a04a6333e8c1cf))
+* update SDK settings ([1b9aa9a](https://github.com/micro-so/micro-sdk-py/commit/1b9aa9a1f20f13a322a71044a2b0a6fbebd22941))
+* update SDK settings ([de9be15](https://github.com/micro-so/micro-sdk-py/commit/de9be15d57bc2bf90eab46292936af21e4e68f2d))
+* update SDK settings ([2c2264f](https://github.com/micro-so/micro-sdk-py/commit/2c2264fb6e4eb2e4dd379c2f0da15f4bcaec2560))
+* update SDK settings ([aaf3b74](https://github.com/micro-so/micro-sdk-py/commit/aaf3b7451496225eb28e2639ba4c32a6b0b80bb5))
+* update SDK settings ([09b3c09](https://github.com/micro-so/micro-sdk-py/commit/09b3c09435e142f363bd7151169e0a29755a2dbf))
+
 ## 0.1.0 (2026-05-04)
 
 Full Changelog: [v0.0.1...v0.1.0](https://github.com/micro-so/micro-sdk-py/compare/v0.0.1...v0.1.0)
