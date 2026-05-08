@@ -8,15 +8,15 @@ from typing_extensions import Required, Annotated, TypedDict
 
 import pytest
 
-from micro._types import Base64FileInput, omit, not_given
-from micro._utils import (
+from micro_so._types import Base64FileInput, omit, not_given
+from micro_so._utils import (
     PropertyInfo,
     transform as _transform,
     parse_datetime,
     async_transform as _async_transform,
 )
-from micro._compat import PYDANTIC_V1
-from micro._models import BaseModel
+from micro_so._compat import PYDANTIC_V1
+from micro_so._models import BaseModel
 
 _T = TypeVar("_T")
 

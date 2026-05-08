@@ -4,7 +4,7 @@ from urllib.parse import unquote
 
 import pytest
 
-from micro._qs import Querystring, stringify
+from micro_so._qs import Querystring, stringify
 
 
 def test_empty() -> None:

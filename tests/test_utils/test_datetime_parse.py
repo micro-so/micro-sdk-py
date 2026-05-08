@@ -8,7 +8,7 @@ from datetime import date, datetime, timezone, timedelta
 
 import pytest
 
-from micro._utils import parse_date, parse_datetime
+from micro_so._utils import parse_date, parse_datetime
 
 
 def create_tz(minutes: int) -> timezone:

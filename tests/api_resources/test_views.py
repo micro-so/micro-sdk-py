@@ -7,9 +7,13 @@ from typing import Any, cast
 
 import pytest
 
-from micro import Micro, AsyncMicro
-from micro.types import ViewGetResponse, ViewCreateResponse, ViewUpdateResponse
+from micro_so import Micro, AsyncMicro
 from tests.utils import assert_matches_type
+from micro_so.types import (
+    ViewGetResponse,
+    ViewCreateResponse,
+    ViewUpdateResponse,
+)
 
 base_url = os.environ.get("TEST_API_BASE_URL", "http://127.0.0.1:4010")
 

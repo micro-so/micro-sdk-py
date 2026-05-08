@@ -5,8 +5,8 @@ from typing import Union
 
 import pydantic
 
-from micro import _compat
-from micro._utils._json import openapi_dumps
+from micro_so import _compat
+from micro_so._utils._json import openapi_dumps
 
 
 class TestOpenapiDumps:

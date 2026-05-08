@@ -8,8 +8,8 @@ from typing import Any, TypeVar, Iterator, Sequence, cast
 from datetime import date, datetime
 from typing_extensions import Literal, get_args, get_origin, assert_type
 
-from micro._types import Omit, NoneType
-from micro._utils import (
+from micro_so._types import Omit, NoneType
+from micro_so._utils import (
     is_dict,
     is_list,
     is_list_type,
@@ -19,8 +19,8 @@ from micro._utils import (
     is_annotated_type,
     is_type_alias_type,
 )
-from micro._compat import PYDANTIC_V1, field_outer_type, get_model_fields
-from micro._models import BaseModel
+from micro_so._compat import PYDANTIC_V1, field_outer_type, get_model_fields
+from micro_so._models import BaseModel
 
 BaseModelT = TypeVar("BaseModelT", bound=BaseModel)
 

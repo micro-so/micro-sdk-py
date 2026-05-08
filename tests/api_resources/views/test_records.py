@@ -7,9 +7,9 @@ from typing import Any, cast
 
 import pytest
 
-from micro import Micro, AsyncMicro
+from micro_so import Micro, AsyncMicro
 from tests.utils import assert_matches_type
-from micro.types.views import RecordListResponse
+from micro_so.types.views import RecordListResponse
 
 base_url = os.environ.get("TEST_API_BASE_URL", "http://127.0.0.1:4010")
 

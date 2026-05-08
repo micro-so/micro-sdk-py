@@ -7,9 +7,9 @@ from typing import Any, cast
 
 import pytest
 
-from micro import Micro, AsyncMicro
+from micro_so import Micro, AsyncMicro
 from tests.utils import assert_matches_type
-from micro.types.prism.objects import (
+from micro_so.types.prism.objects import (
     ContactQueryResponse,
     ContactCreateResponse,
     ContactBulkCreateResponse,
