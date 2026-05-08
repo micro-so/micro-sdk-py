@@ -1,0 +1,927 @@
+# File generated from our OpenAPI spec by Stainless. See CONTRIBUTING.md for details.
+
+from __future__ import annotations
+
+from typing import Dict, Union, Iterable
+
+import httpx
+
+from ...._types import Body, Omit, Query, Headers, NoneType, NotGiven, SequenceNotStr, omit, not_given
+from ...._utils import path_template, maybe_transform, async_maybe_transform
+from ...._compat import cached_property
+from ...._resource import SyncAPIResource, AsyncAPIResource
+from ...._response import (
+    to_raw_response_wrapper,
+    to_streamed_response_wrapper,
+    async_to_raw_response_wrapper,
+    async_to_streamed_response_wrapper,
+)
+from ...._base_client import make_request_options
+from ....types.prism.objects import (
+    identity_query_params,
+    identity_create_params,
+    identity_update_params,
+    identity_bulk_create_params,
+)
+from ....types.prism_object_properties_param import PrismObjectPropertiesParam
+from ....types.prism.objects.identity_get_response import IdentityGetResponse
+from ....types.prism.objects.identity_query_response import IdentityQueryResponse
+from ....types.prism.objects.identity_create_response import IdentityCreateResponse
+from ....types.prism.objects.identity_update_response import IdentityUpdateResponse
+from ....types.prism.objects.identity_restore_response import IdentityRestoreResponse
+from ....types.prism.objects.identity_duplicate_response import IdentityDuplicateResponse
+from ....types.prism.objects.identity_bulk_create_response import IdentityBulkCreateResponse
+
+__all__ = ["IdentitiesResource", "AsyncIdentitiesResource"]
+
+
+class IdentitiesResource(SyncAPIResource):
+    @cached_property
+    def with_raw_response(self) -> IdentitiesResourceWithRawResponse:
+        """
+        This property can be used as a prefix for any HTTP method call to return
+        the raw response object instead of the parsed content.
+
+        For more information, see https://www.github.com/micro-so/micro-sdk-py#accessing-raw-response-data-eg-headers
+        """
+        return IdentitiesResourceWithRawResponse(self)
+
+    @cached_property
+    def with_streaming_response(self) -> IdentitiesResourceWithStreamingResponse:
+        """
+        An alternative to `.with_raw_response` that doesn't eagerly read the response body.
+
+        For more information, see https://www.github.com/micro-so/micro-sdk-py#with_streaming_response
+        """
+        return IdentitiesResourceWithStreamingResponse(self)
+
+    def create(
+        self,
+        *,
+        team_id: str | None = None,
+        id: str | Omit = omit,
+        crm: object | Omit = omit,
+        default: Dict[str, object] | Omit = omit,
+        extended: object | Omit = omit,
+        # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
+        # The extra values given here take precedence over values defined on the client or passed to this method.
+        extra_headers: Headers | None = None,
+        extra_query: Query | None = None,
+        extra_body: Body | None = None,
+        timeout: float | httpx.Timeout | None | NotGiven = not_given,
+    ) -> IdentityCreateResponse:
+        """Create object
+
+        Args:
+          default: Properties keyed by property slug.
+
+        Values can be strings, numbers, booleans,
+              arrays, or null. For select/multiselect properties, values may be option slugs
+              or option UUIDs on write; option slugs are returned on read.
+
+          extra_headers: Send extra headers
+
+          extra_query: Add additional query parameters to the request
+
+          extra_body: Add additional JSON properties to the request
+
+          timeout: Override the client-level default timeout for this request, in seconds
+        """
+        if team_id is None:
+            team_id = self._client._get_team_id_path_param()
+        if not team_id:
+            raise ValueError(f"Expected a non-empty value for `team_id` but received {team_id!r}")
+        return self._post(
+            path_template("/v2/prism/{team_id}/identity", team_id=team_id),
+            body=maybe_transform(
+                {
+                    "id": id,
+                    "crm": crm,
+                    "default": default,
+                    "extended": extended,
+                },
+                identity_create_params.IdentityCreateParams,
+            ),
+            options=make_request_options(
+                extra_headers=extra_headers, extra_query=extra_query, extra_body=extra_body, timeout=timeout
+            ),
+            cast_to=IdentityCreateResponse,
+        )
+
+    def update(
+        self,
+        identity_id: str,
+        *,
+        team_id: str | None = None,
+        id: str | Omit = omit,
+        crm: object | Omit = omit,
+        default: Dict[str, object] | Omit = omit,
+        extended: object | Omit = omit,
+        # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
+        # The extra values given here take precedence over values defined on the client or passed to this method.
+        extra_headers: Headers | None = None,
+        extra_query: Query | None = None,
+        extra_body: Body | None = None,
+        timeout: float | httpx.Timeout | None | NotGiven = not_given,
+    ) -> IdentityUpdateResponse:
+        """Patch object
+
+        Args:
+          default: Properties keyed by property slug.
+
+        Values can be strings, numbers, booleans,
+              arrays, or null. For select/multiselect properties, values may be option slugs
+              or option UUIDs on write; option slugs are returned on read.
+
+          extra_headers: Send extra headers
+
+          extra_query: Add additional query parameters to the request
+
+          extra_body: Add additional JSON properties to the request
+
+          timeout: Override the client-level default timeout for this request, in seconds
+        """
+        if team_id is None:
+            team_id = self._client._get_team_id_path_param()
+        if not team_id:
+            raise ValueError(f"Expected a non-empty value for `team_id` but received {team_id!r}")
+        if not identity_id:
+            raise ValueError(f"Expected a non-empty value for `identity_id` but received {identity_id!r}")
+        return self._patch(
+            path_template("/v2/prism/{team_id}/identity/{identity_id}", team_id=team_id, identity_id=identity_id),
+            body=maybe_transform(
+                {
+                    "id": id,
+                    "crm": crm,
+                    "default": default,
+                    "extended": extended,
+                },
+                identity_update_params.IdentityUpdateParams,
+            ),
+            options=make_request_options(
+                extra_headers=extra_headers, extra_query=extra_query, extra_body=extra_body, timeout=timeout
+            ),
+            cast_to=IdentityUpdateResponse,
+        )
+
+    def delete(
+        self,
+        identity_id: str,
+        *,
+        team_id: str | None = None,
+        # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
+        # The extra values given here take precedence over values defined on the client or passed to this method.
+        extra_headers: Headers | None = None,
+        extra_query: Query | None = None,
+        extra_body: Body | None = None,
+        timeout: float | httpx.Timeout | None | NotGiven = not_given,
+    ) -> None:
+        """
+        Delete object
+
+        Args:
+          extra_headers: Send extra headers
+
+          extra_query: Add additional query parameters to the request
+
+          extra_body: Add additional JSON properties to the request
+
+          timeout: Override the client-level default timeout for this request, in seconds
+        """
+        if team_id is None:
+            team_id = self._client._get_team_id_path_param()
+        if not team_id:
+            raise ValueError(f"Expected a non-empty value for `team_id` but received {team_id!r}")
+        if not identity_id:
+            raise ValueError(f"Expected a non-empty value for `identity_id` but received {identity_id!r}")
+        extra_headers = {"Accept": "*/*", **(extra_headers or {})}
+        return self._delete(
+            path_template("/v2/prism/{team_id}/identity/{identity_id}", team_id=team_id, identity_id=identity_id),
+            options=make_request_options(
+                extra_headers=extra_headers, extra_query=extra_query, extra_body=extra_body, timeout=timeout
+            ),
+            cast_to=NoneType,
+        )
+
+    def bulk_create(
+        self,
+        *,
+        team_id: str | None = None,
+        objects: Iterable[PrismObjectPropertiesParam],
+        options: identity_bulk_create_params.Options | Omit = omit,
+        # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
+        # The extra values given here take precedence over values defined on the client or passed to this method.
+        extra_headers: Headers | None = None,
+        extra_query: Query | None = None,
+        extra_body: Body | None = None,
+        timeout: float | httpx.Timeout | None | NotGiven = not_given,
+    ) -> IdentityBulkCreateResponse:
+        """Import multiple objects in batch.
+
+        Properties are keyed by slug. Automatically
+        routes based on size: <100 records sync (immediate response), >=100 records
+        async (S3/Lambda with WebSocket progress)
+
+        Args:
+          objects: Array of objects to import with property values keyed by slug
+
+          extra_headers: Send extra headers
+
+          extra_query: Add additional query parameters to the request
+
+          extra_body: Add additional JSON properties to the request
+
+          timeout: Override the client-level default timeout for this request, in seconds
+        """
+        if team_id is None:
+            team_id = self._client._get_team_id_path_param()
+        if not team_id:
+            raise ValueError(f"Expected a non-empty value for `team_id` but received {team_id!r}")
+        return self._post(
+            path_template("/v2/prism/{team_id}/identity/import", team_id=team_id),
+            body=maybe_transform(
+                {
+                    "objects": objects,
+                    "options": options,
+                },
+                identity_bulk_create_params.IdentityBulkCreateParams,
+            ),
+            options=make_request_options(
+                extra_headers=extra_headers, extra_query=extra_query, extra_body=extra_body, timeout=timeout
+            ),
+            cast_to=IdentityBulkCreateResponse,
+        )
+
+    def duplicate(
+        self,
+        identity_id: str,
+        *,
+        team_id: str | None = None,
+        # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
+        # The extra values given here take precedence over values defined on the client or passed to this method.
+        extra_headers: Headers | None = None,
+        extra_query: Query | None = None,
+        extra_body: Body | None = None,
+        timeout: float | httpx.Timeout | None | NotGiven = not_given,
+    ) -> IdentityDuplicateResponse:
+        """
+        Duplicate object
+
+        Args:
+          extra_headers: Send extra headers
+
+          extra_query: Add additional query parameters to the request
+
+          extra_body: Add additional JSON properties to the request
+
+          timeout: Override the client-level default timeout for this request, in seconds
+        """
+        if team_id is None:
+            team_id = self._client._get_team_id_path_param()
+        if not team_id:
+            raise ValueError(f"Expected a non-empty value for `team_id` but received {team_id!r}")
+        if not identity_id:
+            raise ValueError(f"Expected a non-empty value for `identity_id` but received {identity_id!r}")
+        return self._post(
+            path_template(
+                "/v2/prism/{team_id}/identity/{identity_id}/duplicate", team_id=team_id, identity_id=identity_id
+            ),
+            options=make_request_options(
+                extra_headers=extra_headers, extra_query=extra_query, extra_body=extra_body, timeout=timeout
+            ),
+            cast_to=IdentityDuplicateResponse,
+        )
+
+    def get(
+        self,
+        identity_id: str,
+        *,
+        team_id: str | None = None,
+        # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
+        # The extra values given here take precedence over values defined on the client or passed to this method.
+        extra_headers: Headers | None = None,
+        extra_query: Query | None = None,
+        extra_body: Body | None = None,
+        timeout: float | httpx.Timeout | None | NotGiven = not_given,
+    ) -> IdentityGetResponse:
+        """
+        Get object
+
+        Args:
+          extra_headers: Send extra headers
+
+          extra_query: Add additional query parameters to the request
+
+          extra_body: Add additional JSON properties to the request
+
+          timeout: Override the client-level default timeout for this request, in seconds
+        """
+        if team_id is None:
+            team_id = self._client._get_team_id_path_param()
+        if not team_id:
+            raise ValueError(f"Expected a non-empty value for `team_id` but received {team_id!r}")
+        if not identity_id:
+            raise ValueError(f"Expected a non-empty value for `identity_id` but received {identity_id!r}")
+        return self._get(
+            path_template("/v2/prism/{team_id}/identity/{identity_id}", team_id=team_id, identity_id=identity_id),
+            options=make_request_options(
+                extra_headers=extra_headers, extra_query=extra_query, extra_body=extra_body, timeout=timeout
+            ),
+            cast_to=IdentityGetResponse,
+        )
+
+    def query(
+        self,
+        *,
+        team_id: str | None = None,
+        query: identity_query_params.Query,
+        id: Union[str, SequenceNotStr[str]] | Omit = omit,
+        boxes: SequenceNotStr[str] | Omit = omit,
+        deleted: bool | Omit = omit,
+        sources: SequenceNotStr[str] | Omit = omit,
+        # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
+        # The extra values given here take precedence over values defined on the client or passed to this method.
+        extra_headers: Headers | None = None,
+        extra_query: Query | None = None,
+        extra_body: Body | None = None,
+        timeout: float | httpx.Timeout | None | NotGiven = not_given,
+    ) -> IdentityQueryResponse:
+        """
+        Query
+
+        Args:
+          extra_headers: Send extra headers
+
+          extra_query: Add additional query parameters to the request
+
+          extra_body: Add additional JSON properties to the request
+
+          timeout: Override the client-level default timeout for this request, in seconds
+        """
+        if team_id is None:
+            team_id = self._client._get_team_id_path_param()
+        if not team_id:
+            raise ValueError(f"Expected a non-empty value for `team_id` but received {team_id!r}")
+        return self._post(
+            path_template("/v2/prism/query/{team_id}/identity", team_id=team_id),
+            body=maybe_transform(
+                {
+                    "query": query,
+                    "id": id,
+                    "boxes": boxes,
+                    "deleted": deleted,
+                    "sources": sources,
+                },
+                identity_query_params.IdentityQueryParams,
+            ),
+            options=make_request_options(
+                extra_headers=extra_headers, extra_query=extra_query, extra_body=extra_body, timeout=timeout
+            ),
+            cast_to=IdentityQueryResponse,
+        )
+
+    def restore(
+        self,
+        identity_id: str,
+        *,
+        team_id: str | None = None,
+        # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
+        # The extra values given here take precedence over values defined on the client or passed to this method.
+        extra_headers: Headers | None = None,
+        extra_query: Query | None = None,
+        extra_body: Body | None = None,
+        timeout: float | httpx.Timeout | None | NotGiven = not_given,
+    ) -> IdentityRestoreResponse:
+        """
+        Restore object
+
+        Args:
+          extra_headers: Send extra headers
+
+          extra_query: Add additional query parameters to the request
+
+          extra_body: Add additional JSON properties to the request
+
+          timeout: Override the client-level default timeout for this request, in seconds
+        """
+        if team_id is None:
+            team_id = self._client._get_team_id_path_param()
+        if not team_id:
+            raise ValueError(f"Expected a non-empty value for `team_id` but received {team_id!r}")
+        if not identity_id:
+            raise ValueError(f"Expected a non-empty value for `identity_id` but received {identity_id!r}")
+        return self._post(
+            path_template(
+                "/v2/prism/{team_id}/identity/{identity_id}/restore", team_id=team_id, identity_id=identity_id
+            ),
+            options=make_request_options(
+                extra_headers=extra_headers, extra_query=extra_query, extra_body=extra_body, timeout=timeout
+            ),
+            cast_to=IdentityRestoreResponse,
+        )
+
+
+class AsyncIdentitiesResource(AsyncAPIResource):
+    @cached_property
+    def with_raw_response(self) -> AsyncIdentitiesResourceWithRawResponse:
+        """
+        This property can be used as a prefix for any HTTP method call to return
+        the raw response object instead of the parsed content.
+
+        For more information, see https://www.github.com/micro-so/micro-sdk-py#accessing-raw-response-data-eg-headers
+        """
+        return AsyncIdentitiesResourceWithRawResponse(self)
+
+    @cached_property
+    def with_streaming_response(self) -> AsyncIdentitiesResourceWithStreamingResponse:
+        """
+        An alternative to `.with_raw_response` that doesn't eagerly read the response body.
+
+        For more information, see https://www.github.com/micro-so/micro-sdk-py#with_streaming_response
+        """
+        return AsyncIdentitiesResourceWithStreamingResponse(self)
+
+    async def create(
+        self,
+        *,
+        team_id: str | None = None,
+        id: str | Omit = omit,
+        crm: object | Omit = omit,
+        default: Dict[str, object] | Omit = omit,
+        extended: object | Omit = omit,
+        # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
+        # The extra values given here take precedence over values defined on the client or passed to this method.
+        extra_headers: Headers | None = None,
+        extra_query: Query | None = None,
+        extra_body: Body | None = None,
+        timeout: float | httpx.Timeout | None | NotGiven = not_given,
+    ) -> IdentityCreateResponse:
+        """Create object
+
+        Args:
+          default: Properties keyed by property slug.
+
+        Values can be strings, numbers, booleans,
+              arrays, or null. For select/multiselect properties, values may be option slugs
+              or option UUIDs on write; option slugs are returned on read.
+
+          extra_headers: Send extra headers
+
+          extra_query: Add additional query parameters to the request
+
+          extra_body: Add additional JSON properties to the request
+
+          timeout: Override the client-level default timeout for this request, in seconds
+        """
+        if team_id is None:
+            team_id = self._client._get_team_id_path_param()
+        if not team_id:
+            raise ValueError(f"Expected a non-empty value for `team_id` but received {team_id!r}")
+        return await self._post(
+            path_template("/v2/prism/{team_id}/identity", team_id=team_id),
+            body=await async_maybe_transform(
+                {
+                    "id": id,
+                    "crm": crm,
+                    "default": default,
+                    "extended": extended,
+                },
+                identity_create_params.IdentityCreateParams,
+            ),
+            options=make_request_options(
+                extra_headers=extra_headers, extra_query=extra_query, extra_body=extra_body, timeout=timeout
+            ),
+            cast_to=IdentityCreateResponse,
+        )
+
+    async def update(
+        self,
+        identity_id: str,
+        *,
+        team_id: str | None = None,
+        id: str | Omit = omit,
+        crm: object | Omit = omit,
+        default: Dict[str, object] | Omit = omit,
+        extended: object | Omit = omit,
+        # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
+        # The extra values given here take precedence over values defined on the client or passed to this method.
+        extra_headers: Headers | None = None,
+        extra_query: Query | None = None,
+        extra_body: Body | None = None,
+        timeout: float | httpx.Timeout | None | NotGiven = not_given,
+    ) -> IdentityUpdateResponse:
+        """Patch object
+
+        Args:
+          default: Properties keyed by property slug.
+
+        Values can be strings, numbers, booleans,
+              arrays, or null. For select/multiselect properties, values may be option slugs
+              or option UUIDs on write; option slugs are returned on read.
+
+          extra_headers: Send extra headers
+
+          extra_query: Add additional query parameters to the request
+
+          extra_body: Add additional JSON properties to the request
+
+          timeout: Override the client-level default timeout for this request, in seconds
+        """
+        if team_id is None:
+            team_id = self._client._get_team_id_path_param()
+        if not team_id:
+            raise ValueError(f"Expected a non-empty value for `team_id` but received {team_id!r}")
+        if not identity_id:
+            raise ValueError(f"Expected a non-empty value for `identity_id` but received {identity_id!r}")
+        return await self._patch(
+            path_template("/v2/prism/{team_id}/identity/{identity_id}", team_id=team_id, identity_id=identity_id),
+            body=await async_maybe_transform(
+                {
+                    "id": id,
+                    "crm": crm,
+                    "default": default,
+                    "extended": extended,
+                },
+                identity_update_params.IdentityUpdateParams,
+            ),
+            options=make_request_options(
+                extra_headers=extra_headers, extra_query=extra_query, extra_body=extra_body, timeout=timeout
+            ),
+            cast_to=IdentityUpdateResponse,
+        )
+
+    async def delete(
+        self,
+        identity_id: str,
+        *,
+        team_id: str | None = None,
+        # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
+        # The extra values given here take precedence over values defined on the client or passed to this method.
+        extra_headers: Headers | None = None,
+        extra_query: Query | None = None,
+        extra_body: Body | None = None,
+        timeout: float | httpx.Timeout | None | NotGiven = not_given,
+    ) -> None:
+        """
+        Delete object
+
+        Args:
+          extra_headers: Send extra headers
+
+          extra_query: Add additional query parameters to the request
+
+          extra_body: Add additional JSON properties to the request
+
+          timeout: Override the client-level default timeout for this request, in seconds
+        """
+        if team_id is None:
+            team_id = self._client._get_team_id_path_param()
+        if not team_id:
+            raise ValueError(f"Expected a non-empty value for `team_id` but received {team_id!r}")
+        if not identity_id:
+            raise ValueError(f"Expected a non-empty value for `identity_id` but received {identity_id!r}")
+        extra_headers = {"Accept": "*/*", **(extra_headers or {})}
+        return await self._delete(
+            path_template("/v2/prism/{team_id}/identity/{identity_id}", team_id=team_id, identity_id=identity_id),
+            options=make_request_options(
+                extra_headers=extra_headers, extra_query=extra_query, extra_body=extra_body, timeout=timeout
+            ),
+            cast_to=NoneType,
+        )
+
+    async def bulk_create(
+        self,
+        *,
+        team_id: str | None = None,
+        objects: Iterable[PrismObjectPropertiesParam],
+        options: identity_bulk_create_params.Options | Omit = omit,
+        # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
+        # The extra values given here take precedence over values defined on the client or passed to this method.
+        extra_headers: Headers | None = None,
+        extra_query: Query | None = None,
+        extra_body: Body | None = None,
+        timeout: float | httpx.Timeout | None | NotGiven = not_given,
+    ) -> IdentityBulkCreateResponse:
+        """Import multiple objects in batch.
+
+        Properties are keyed by slug. Automatically
+        routes based on size: <100 records sync (immediate response), >=100 records
+        async (S3/Lambda with WebSocket progress)
+
+        Args:
+          objects: Array of objects to import with property values keyed by slug
+
+          extra_headers: Send extra headers
+
+          extra_query: Add additional query parameters to the request
+
+          extra_body: Add additional JSON properties to the request
+
+          timeout: Override the client-level default timeout for this request, in seconds
+        """
+        if team_id is None:
+            team_id = self._client._get_team_id_path_param()
+        if not team_id:
+            raise ValueError(f"Expected a non-empty value for `team_id` but received {team_id!r}")
+        return await self._post(
+            path_template("/v2/prism/{team_id}/identity/import", team_id=team_id),
+            body=await async_maybe_transform(
+                {
+                    "objects": objects,
+                    "options": options,
+                },
+                identity_bulk_create_params.IdentityBulkCreateParams,
+            ),
+            options=make_request_options(
+                extra_headers=extra_headers, extra_query=extra_query, extra_body=extra_body, timeout=timeout
+            ),
+            cast_to=IdentityBulkCreateResponse,
+        )
+
+    async def duplicate(
+        self,
+        identity_id: str,
+        *,
+        team_id: str | None = None,
+        # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
+        # The extra values given here take precedence over values defined on the client or passed to this method.
+        extra_headers: Headers | None = None,
+        extra_query: Query | None = None,
+        extra_body: Body | None = None,
+        timeout: float | httpx.Timeout | None | NotGiven = not_given,
+    ) -> IdentityDuplicateResponse:
+        """
+        Duplicate object
+
+        Args:
+          extra_headers: Send extra headers
+
+          extra_query: Add additional query parameters to the request
+
+          extra_body: Add additional JSON properties to the request
+
+          timeout: Override the client-level default timeout for this request, in seconds
+        """
+        if team_id is None:
+            team_id = self._client._get_team_id_path_param()
+        if not team_id:
+            raise ValueError(f"Expected a non-empty value for `team_id` but received {team_id!r}")
+        if not identity_id:
+            raise ValueError(f"Expected a non-empty value for `identity_id` but received {identity_id!r}")
+        return await self._post(
+            path_template(
+                "/v2/prism/{team_id}/identity/{identity_id}/duplicate", team_id=team_id, identity_id=identity_id
+            ),
+            options=make_request_options(
+                extra_headers=extra_headers, extra_query=extra_query, extra_body=extra_body, timeout=timeout
+            ),
+            cast_to=IdentityDuplicateResponse,
+        )
+
+    async def get(
+        self,
+        identity_id: str,
+        *,
+        team_id: str | None = None,
+        # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
+        # The extra values given here take precedence over values defined on the client or passed to this method.
+        extra_headers: Headers | None = None,
+        extra_query: Query | None = None,
+        extra_body: Body | None = None,
+        timeout: float | httpx.Timeout | None | NotGiven = not_given,
+    ) -> IdentityGetResponse:
+        """
+        Get object
+
+        Args:
+          extra_headers: Send extra headers
+
+          extra_query: Add additional query parameters to the request
+
+          extra_body: Add additional JSON properties to the request
+
+          timeout: Override the client-level default timeout for this request, in seconds
+        """
+        if team_id is None:
+            team_id = self._client._get_team_id_path_param()
+        if not team_id:
+            raise ValueError(f"Expected a non-empty value for `team_id` but received {team_id!r}")
+        if not identity_id:
+            raise ValueError(f"Expected a non-empty value for `identity_id` but received {identity_id!r}")
+        return await self._get(
+            path_template("/v2/prism/{team_id}/identity/{identity_id}", team_id=team_id, identity_id=identity_id),
+            options=make_request_options(
+                extra_headers=extra_headers, extra_query=extra_query, extra_body=extra_body, timeout=timeout
+            ),
+            cast_to=IdentityGetResponse,
+        )
+
+    async def query(
+        self,
+        *,
+        team_id: str | None = None,
+        query: identity_query_params.Query,
+        id: Union[str, SequenceNotStr[str]] | Omit = omit,
+        boxes: SequenceNotStr[str] | Omit = omit,
+        deleted: bool | Omit = omit,
+        sources: SequenceNotStr[str] | Omit = omit,
+        # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
+        # The extra values given here take precedence over values defined on the client or passed to this method.
+        extra_headers: Headers | None = None,
+        extra_query: Query | None = None,
+        extra_body: Body | None = None,
+        timeout: float | httpx.Timeout | None | NotGiven = not_given,
+    ) -> IdentityQueryResponse:
+        """
+        Query
+
+        Args:
+          extra_headers: Send extra headers
+
+          extra_query: Add additional query parameters to the request
+
+          extra_body: Add additional JSON properties to the request
+
+          timeout: Override the client-level default timeout for this request, in seconds
+        """
+        if team_id is None:
+            team_id = self._client._get_team_id_path_param()
+        if not team_id:
+            raise ValueError(f"Expected a non-empty value for `team_id` but received {team_id!r}")
+        return await self._post(
+            path_template("/v2/prism/query/{team_id}/identity", team_id=team_id),
+            body=await async_maybe_transform(
+                {
+                    "query": query,
+                    "id": id,
+                    "boxes": boxes,
+                    "deleted": deleted,
+                    "sources": sources,
+                },
+                identity_query_params.IdentityQueryParams,
+            ),
+            options=make_request_options(
+                extra_headers=extra_headers, extra_query=extra_query, extra_body=extra_body, timeout=timeout
+            ),
+            cast_to=IdentityQueryResponse,
+        )
+
+    async def restore(
+        self,
+        identity_id: str,
+        *,
+        team_id: str | None = None,
+        # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
+        # The extra values given here take precedence over values defined on the client or passed to this method.
+        extra_headers: Headers | None = None,
+        extra_query: Query | None = None,
+        extra_body: Body | None = None,
+        timeout: float | httpx.Timeout | None | NotGiven = not_given,
+    ) -> IdentityRestoreResponse:
+        """
+        Restore object
+
+        Args:
+          extra_headers: Send extra headers
+
+          extra_query: Add additional query parameters to the request
+
+          extra_body: Add additional JSON properties to the request
+
+          timeout: Override the client-level default timeout for this request, in seconds
+        """
+        if team_id is None:
+            team_id = self._client._get_team_id_path_param()
+        if not team_id:
+            raise ValueError(f"Expected a non-empty value for `team_id` but received {team_id!r}")
+        if not identity_id:
+            raise ValueError(f"Expected a non-empty value for `identity_id` but received {identity_id!r}")
+        return await self._post(
+            path_template(
+                "/v2/prism/{team_id}/identity/{identity_id}/restore", team_id=team_id, identity_id=identity_id
+            ),
+            options=make_request_options(
+                extra_headers=extra_headers, extra_query=extra_query, extra_body=extra_body, timeout=timeout
+            ),
+            cast_to=IdentityRestoreResponse,
+        )
+
+
+class IdentitiesResourceWithRawResponse:
+    def __init__(self, identities: IdentitiesResource) -> None:
+        self._identities = identities
+
+        self.create = to_raw_response_wrapper(
+            identities.create,
+        )
+        self.update = to_raw_response_wrapper(
+            identities.update,
+        )
+        self.delete = to_raw_response_wrapper(
+            identities.delete,
+        )
+        self.bulk_create = to_raw_response_wrapper(
+            identities.bulk_create,
+        )
+        self.duplicate = to_raw_response_wrapper(
+            identities.duplicate,
+        )
+        self.get = to_raw_response_wrapper(
+            identities.get,
+        )
+        self.query = to_raw_response_wrapper(
+            identities.query,
+        )
+        self.restore = to_raw_response_wrapper(
+            identities.restore,
+        )
+
+
+class AsyncIdentitiesResourceWithRawResponse:
+    def __init__(self, identities: AsyncIdentitiesResource) -> None:
+        self._identities = identities
+
+        self.create = async_to_raw_response_wrapper(
+            identities.create,
+        )
+        self.update = async_to_raw_response_wrapper(
+            identities.update,
+        )
+        self.delete = async_to_raw_response_wrapper(
+            identities.delete,
+        )
+        self.bulk_create = async_to_raw_response_wrapper(
+            identities.bulk_create,
+        )
+        self.duplicate = async_to_raw_response_wrapper(
+            identities.duplicate,
+        )
+        self.get = async_to_raw_response_wrapper(
+            identities.get,
+        )
+        self.query = async_to_raw_response_wrapper(
+            identities.query,
+        )
+        self.restore = async_to_raw_response_wrapper(
+            identities.restore,
+        )
+
+
+class IdentitiesResourceWithStreamingResponse:
+    def __init__(self, identities: IdentitiesResource) -> None:
+        self._identities = identities
+
+        self.create = to_streamed_response_wrapper(
+            identities.create,
+        )
+        self.update = to_streamed_response_wrapper(
+            identities.update,
+        )
+        self.delete = to_streamed_response_wrapper(
+            identities.delete,
+        )
+        self.bulk_create = to_streamed_response_wrapper(
+            identities.bulk_create,
+        )
+        self.duplicate = to_streamed_response_wrapper(
+            identities.duplicate,
+        )
+        self.get = to_streamed_response_wrapper(
+            identities.get,
+        )
+        self.query = to_streamed_response_wrapper(
+            identities.query,
+        )
+        self.restore = to_streamed_response_wrapper(
+            identities.restore,
+        )
+
+
+class AsyncIdentitiesResourceWithStreamingResponse:
+    def __init__(self, identities: AsyncIdentitiesResource) -> None:
+        self._identities = identities
+
+        self.create = async_to_streamed_response_wrapper(
+            identities.create,
+        )
+        self.update = async_to_streamed_response_wrapper(
+            identities.update,
+        )
+        self.delete = async_to_streamed_response_wrapper(
+            identities.delete,
+        )
+        self.bulk_create = async_to_streamed_response_wrapper(
+            identities.bulk_create,
+        )
+        self.duplicate = async_to_streamed_response_wrapper(
+            identities.duplicate,
+        )
+        self.get = async_to_streamed_response_wrapper(
+            identities.get,
+        )
+        self.query = async_to_streamed_response_wrapper(
+            identities.query,
+        )
+        self.restore = async_to_streamed_response_wrapper(
+            identities.restore,
+        )

@@ -19,12 +19,12 @@ import pytest
 from respx import MockRouter
 from pydantic import ValidationError
 
-from micro import Micro, AsyncMicro, APIResponseValidationError
-from micro._types import Omit
-from micro._utils import asyncify
-from micro._models import BaseModel, FinalRequestOptions
-from micro._exceptions import MicroError, APIStatusError, APITimeoutError, APIResponseValidationError
-from micro._base_client import (
+from micro_so import Micro, AsyncMicro, APIResponseValidationError
+from micro_so._types import Omit
+from micro_so._utils import asyncify
+from micro_so._models import BaseModel, FinalRequestOptions
+from micro_so._exceptions import MicroError, APIStatusError, APITimeoutError, APIResponseValidationError
+from micro_so._base_client import (
     DEFAULT_TIMEOUT,
     HTTPX_DEFAULT_TIMEOUT,
     BaseClient,
@@ -299,10 +299,10 @@ class TestMicro:
                         # to_raw_response_wrapper leaks through the @functools.wraps() decorator.
                         #
                         # removing the decorator fixes the leak for reasons we don't understand.
-                        "micro/_legacy_response.py",
-                        "micro/_response.py",
+                        "micro_so/_legacy_response.py",
+                        "micro_so/_response.py",
                         # pydantic.BaseModel.model_dump || pydantic.BaseModel.dict leak memory for some reason.
-                        "micro/_compat.py",
+                        "micro_so/_compat.py",
                         # Standard library leaks we don't care about.
                         "/logging/__init__.py",
                     ]
@@ -757,6 +757,18 @@ class TestMicro:
             client = Micro(api_key=api_key, team_id=team_id, _strict_response_validation=True)
             assert client.base_url == "http://localhost:5000/from/env/"
 
+        # explicit environment arg requires explicitness
+        with update_env(MICRO_BASE_URL="http://localhost:5000/from/env"):
+            with pytest.raises(ValueError, match=r"you must pass base_url=None"):
+                Micro(api_key=api_key, team_id=team_id, _strict_response_validation=True, environment="staging")
+
+            client = Micro(
+                base_url=None, api_key=api_key, team_id=team_id, _strict_response_validation=True, environment="staging"
+            )
+            assert str(client.base_url).startswith("https://developers.staging.micro.so")
+
+            client.close()
+
     @pytest.mark.parametrize(
         "client",
         [
@@ -940,7 +952,7 @@ class TestMicro:
         calculated = client._calculate_retry_timeout(remaining_retries, options, headers)
         assert calculated == pytest.approx(timeout, 0.5 * 0.875)  # pyright: ignore[reportUnknownMemberType]
 
-    @mock.patch("micro._base_client.BaseClient._calculate_retry_timeout", _low_retry_timeout)
+    @mock.patch("micro_so._base_client.BaseClient._calculate_retry_timeout", _low_retry_timeout)
     @pytest.mark.respx(base_url=base_url)
     def test_retrying_timeout_errors_doesnt_leak(self, respx_mock: MockRouter, client: Micro) -> None:
         respx_mock.post("/v2/prism/query/My Team ID/deal").mock(
@@ -952,7 +964,7 @@ class TestMicro:
 
         assert _get_open_connections(client) == 0
 
-    @mock.patch("micro._base_client.BaseClient._calculate_retry_timeout", _low_retry_timeout)
+    @mock.patch("micro_so._base_client.BaseClient._calculate_retry_timeout", _low_retry_timeout)
     @pytest.mark.respx(base_url=base_url)
     def test_retrying_status_errors_doesnt_leak(self, respx_mock: MockRouter, client: Micro) -> None:
         respx_mock.post("/v2/prism/query/My Team ID/deal").mock(return_value=httpx.Response(500))
@@ -962,7 +974,7 @@ class TestMicro:
         assert _get_open_connections(client) == 0
 
     @pytest.mark.parametrize("failures_before_success", [0, 2, 4])
-    @mock.patch("micro._base_client.BaseClient._calculate_retry_timeout", _low_retry_timeout)
+    @mock.patch("micro_so._base_client.BaseClient._calculate_retry_timeout", _low_retry_timeout)
     @pytest.mark.respx(base_url=base_url)
     @pytest.mark.parametrize("failure_mode", ["status", "exception"])
     def test_retries_taken(
@@ -993,7 +1005,7 @@ class TestMicro:
         assert int(response.http_request.headers.get("x-stainless-retry-count")) == failures_before_success
 
     @pytest.mark.parametrize("failures_before_success", [0, 2, 4])
-    @mock.patch("micro._base_client.BaseClient._calculate_retry_timeout", _low_retry_timeout)
+    @mock.patch("micro_so._base_client.BaseClient._calculate_retry_timeout", _low_retry_timeout)
     @pytest.mark.respx(base_url=base_url)
     def test_omit_retry_count_header(self, client: Micro, failures_before_success: int, respx_mock: MockRouter) -> None:
         client = client.with_options(max_retries=4)
@@ -1016,7 +1028,7 @@ class TestMicro:
         assert len(response.http_request.headers.get_list("x-stainless-retry-count")) == 0
 
     @pytest.mark.parametrize("failures_before_success", [0, 2, 4])
-    @mock.patch("micro._base_client.BaseClient._calculate_retry_timeout", _low_retry_timeout)
+    @mock.patch("micro_so._base_client.BaseClient._calculate_retry_timeout", _low_retry_timeout)
     @pytest.mark.respx(base_url=base_url)
     def test_overwrite_retry_count_header(
         self, client: Micro, failures_before_success: int, respx_mock: MockRouter
@@ -1283,10 +1295,10 @@ class TestAsyncMicro:
                         # to_raw_response_wrapper leaks through the @functools.wraps() decorator.
                         #
                         # removing the decorator fixes the leak for reasons we don't understand.
-                        "micro/_legacy_response.py",
-                        "micro/_response.py",
+                        "micro_so/_legacy_response.py",
+                        "micro_so/_response.py",
                         # pydantic.BaseModel.model_dump || pydantic.BaseModel.dict leak memory for some reason.
-                        "micro/_compat.py",
+                        "micro_so/_compat.py",
                         # Standard library leaks we don't care about.
                         "/logging/__init__.py",
                     ]
@@ -1747,6 +1759,18 @@ class TestAsyncMicro:
             client = AsyncMicro(api_key=api_key, team_id=team_id, _strict_response_validation=True)
             assert client.base_url == "http://localhost:5000/from/env/"
 
+        # explicit environment arg requires explicitness
+        with update_env(MICRO_BASE_URL="http://localhost:5000/from/env"):
+            with pytest.raises(ValueError, match=r"you must pass base_url=None"):
+                AsyncMicro(api_key=api_key, team_id=team_id, _strict_response_validation=True, environment="staging")
+
+            client = AsyncMicro(
+                base_url=None, api_key=api_key, team_id=team_id, _strict_response_validation=True, environment="staging"
+            )
+            assert str(client.base_url).startswith("https://developers.staging.micro.so")
+
+            await client.close()
+
     @pytest.mark.parametrize(
         "client",
         [
@@ -1933,7 +1957,7 @@ class TestAsyncMicro:
         calculated = async_client._calculate_retry_timeout(remaining_retries, options, headers)
         assert calculated == pytest.approx(timeout, 0.5 * 0.875)  # pyright: ignore[reportUnknownMemberType]
 
-    @mock.patch("micro._base_client.BaseClient._calculate_retry_timeout", _low_retry_timeout)
+    @mock.patch("micro_so._base_client.BaseClient._calculate_retry_timeout", _low_retry_timeout)
     @pytest.mark.respx(base_url=base_url)
     async def test_retrying_timeout_errors_doesnt_leak(self, respx_mock: MockRouter, async_client: AsyncMicro) -> None:
         respx_mock.post("/v2/prism/query/My Team ID/deal").mock(
@@ -1947,7 +1971,7 @@ class TestAsyncMicro:
 
         assert _get_open_connections(async_client) == 0
 
-    @mock.patch("micro._base_client.BaseClient._calculate_retry_timeout", _low_retry_timeout)
+    @mock.patch("micro_so._base_client.BaseClient._calculate_retry_timeout", _low_retry_timeout)
     @pytest.mark.respx(base_url=base_url)
     async def test_retrying_status_errors_doesnt_leak(self, respx_mock: MockRouter, async_client: AsyncMicro) -> None:
         respx_mock.post("/v2/prism/query/My Team ID/deal").mock(return_value=httpx.Response(500))
@@ -1959,7 +1983,7 @@ class TestAsyncMicro:
         assert _get_open_connections(async_client) == 0
 
     @pytest.mark.parametrize("failures_before_success", [0, 2, 4])
-    @mock.patch("micro._base_client.BaseClient._calculate_retry_timeout", _low_retry_timeout)
+    @mock.patch("micro_so._base_client.BaseClient._calculate_retry_timeout", _low_retry_timeout)
     @pytest.mark.respx(base_url=base_url)
     @pytest.mark.parametrize("failure_mode", ["status", "exception"])
     async def test_retries_taken(
@@ -1990,7 +2014,7 @@ class TestAsyncMicro:
         assert int(response.http_request.headers.get("x-stainless-retry-count")) == failures_before_success
 
     @pytest.mark.parametrize("failures_before_success", [0, 2, 4])
-    @mock.patch("micro._base_client.BaseClient._calculate_retry_timeout", _low_retry_timeout)
+    @mock.patch("micro_so._base_client.BaseClient._calculate_retry_timeout", _low_retry_timeout)
     @pytest.mark.respx(base_url=base_url)
     async def test_omit_retry_count_header(
         self, async_client: AsyncMicro, failures_before_success: int, respx_mock: MockRouter
@@ -2015,7 +2039,7 @@ class TestAsyncMicro:
         assert len(response.http_request.headers.get_list("x-stainless-retry-count")) == 0
 
     @pytest.mark.parametrize("failures_before_success", [0, 2, 4])
-    @mock.patch("micro._base_client.BaseClient._calculate_retry_timeout", _low_retry_timeout)
+    @mock.patch("micro_so._base_client.BaseClient._calculate_retry_timeout", _low_retry_timeout)
     @pytest.mark.respx(base_url=base_url)
     async def test_overwrite_retry_count_header(
         self, async_client: AsyncMicro, failures_before_success: int, respx_mock: MockRouter

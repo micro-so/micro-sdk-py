@@ -1,7 +1,7 @@
 # Micro Python API library
 
 <!-- prettier-ignore -->
-[![PyPI version](https://img.shields.io/pypi/v/micro-so.svg?label=pypi%20(stable))](https://pypi.org/project/micro-so/)
+[![PyPI version](https://img.shields.io/pypi/v/micro_so.svg?label=pypi%20(stable))](https://pypi.org/project/micro_so/)
 
 The Micro Python library provides convenient access to the Micro REST API from any Python 3.9+
 application. The library includes type definitions for all request params and response fields,
@@ -13,8 +13,8 @@ It is generated with [Stainless](https://www.stainless.com/).
 
 Use the Micro MCP Server to enable AI assistants to interact with this API, allowing them to explore endpoints, make test requests, and use documentation to help integrate this SDK into your application.
 
-[![Add to Cursor](https://cursor.com/deeplink/mcp-install-dark.svg)](https://cursor.com/en-US/install-mcp?name=micro-mcp&config=eyJjb21tYW5kIjoibnB4IiwiYXJncyI6WyIteSIsIm1pY3JvLW1jcCJdLCJlbnYiOnsiTUlDUk9fQVBJX0tFWSI6Ik15IEFQSSBLZXkiLCJNSUNST19URUFNX0lEIjoiTXkgVGVhbSBJRCJ9fQ)
-[![Install in VS Code](https://img.shields.io/badge/_-Add_to_VS_Code-blue?style=for-the-badge&logo=data:image/svg%2bxml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIGZpbGw9Im5vbmUiIHZpZXdCb3g9IjAgMCA0MCA0MCI+PHBhdGggZmlsbD0iI0VFRSIgZmlsbC1ydWxlPSJldmVub2RkIiBkPSJNMzAuMjM1IDM5Ljg4NGEyLjQ5MSAyLjQ5MSAwIDAgMS0xLjc4MS0uNzNMMTIuNyAyNC43OGwtMy40NiAyLjYyNC0zLjQwNiAyLjU4MmExLjY2NSAxLjY2NSAwIDAgMS0xLjA4Mi4zMzggMS42NjQgMS42NjQgMCAwIDEtMS4wNDYtLjQzMWwtMi4yLTJhMS42NjYgMS42NjYgMCAwIDEgMC0yLjQ2M0w3LjQ1OCAyMCA0LjY3IDE3LjQ1MyAxLjUwNyAxNC41N2ExLjY2NSAxLjY2NSAwIDAgMSAwLTIuNDYzbDIuMi0yYTEuNjY1IDEuNjY1IDAgMCAxIDIuMTMtLjA5N2w2Ljg2MyA1LjIwOUwyOC40NTIuODQ0YTIuNDg4IDIuNDg4IDAgMCAxIDEuODQxLS43MjljLjM1MS4wMDkuNjk5LjA5MSAxLjAxOS4yNDVsOC4yMzYgMy45NjFhMi41IDIuNSAwIDAgMSAxLjQxNSAyLjI1M3YuMDk5LS4wNDVWMzMuMzd2LS4wNDUuMDk1YTIuNTAxIDIuNTAxIDAgMCAxLTEuNDE2IDIuMjU3bC04LjIzNSAzLjk2MWEyLjQ5MiAyLjQ5MiAwIDAgMS0xLjA3Ny4yNDZabS43MTYtMjguOTQ3LTExLjk0OCA5LjA2MiAxMS45NTIgOS4wNjUtLjAwNC0xOC4xMjdaIi8+PC9zdmc+)](https://vscode.stainless.com/mcp/%7B%22name%22%3A%22micro-mcp%22%2C%22command%22%3A%22npx%22%2C%22args%22%3A%5B%22-y%22%2C%22micro-mcp%22%5D%2C%22env%22%3A%7B%22MICRO_API_KEY%22%3A%22My%20API%20Key%22%2C%22MICRO_TEAM_ID%22%3A%22My%20Team%20ID%22%7D%7D)
+[![Add to Cursor](https://cursor.com/deeplink/mcp-install-dark.svg)](https://cursor.com/en-US/install-mcp?name=%40micro-so%2Fmcp&config=eyJjb21tYW5kIjoibnB4IiwiYXJncyI6WyIteSIsIkBtaWNyby1zby9tY3AiXSwiZW52Ijp7Ik1JQ1JPX0FQSV9LRVkiOiJNeSBBUEkgS2V5IiwiTUlDUk9fVEVBTV9JRCI6Ik15IFRlYW0gSUQifX0)
+[![Install in VS Code](https://img.shields.io/badge/_-Add_to_VS_Code-blue?style=for-the-badge&logo=data:image/svg%2bxml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIGZpbGw9Im5vbmUiIHZpZXdCb3g9IjAgMCA0MCA0MCI+PHBhdGggZmlsbD0iI0VFRSIgZmlsbC1ydWxlPSJldmVub2RkIiBkPSJNMzAuMjM1IDM5Ljg4NGEyLjQ5MSAyLjQ5MSAwIDAgMS0xLjc4MS0uNzNMMTIuNyAyNC43OGwtMy40NiAyLjYyNC0zLjQwNiAyLjU4MmExLjY2NSAxLjY2NSAwIDAgMS0xLjA4Mi4zMzggMS42NjQgMS42NjQgMCAwIDEtMS4wNDYtLjQzMWwtMi4yLTJhMS42NjYgMS42NjYgMCAwIDEgMC0yLjQ2M0w3LjQ1OCAyMCA0LjY3IDE3LjQ1MyAxLjUwNyAxNC41N2ExLjY2NSAxLjY2NSAwIDAgMSAwLTIuNDYzbDIuMi0yYTEuNjY1IDEuNjY1IDAgMCAxIDIuMTMtLjA5N2w2Ljg2MyA1LjIwOUwyOC40NTIuODQ0YTIuNDg4IDIuNDg4IDAgMCAxIDEuODQxLS43MjljLjM1MS4wMDkuNjk5LjA5MSAxLjAxOS4yNDVsOC4yMzYgMy45NjFhMi41IDIuNSAwIDAgMSAxLjQxNSAyLjI1M3YuMDk5LS4wNDVWMzMuMzd2LS4wNDUuMDk1YTIuNTAxIDIuNTAxIDAgMCAxLTEuNDE2IDIuMjU3bC04LjIzNSAzLjk2MWEyLjQ5MiAyLjQ5MiAwIDAgMS0xLjA3Ny4yNDZabS43MTYtMjguOTQ3LTExLjk0OCA5LjA2MiAxMS45NTIgOS4wNjUtLjAwNC0xOC4xMjdaIi8+PC9zdmc+)](https://vscode.stainless.com/mcp/%7B%22name%22%3A%22%40micro-so%2Fmcp%22%2C%22command%22%3A%22npx%22%2C%22args%22%3A%5B%22-y%22%2C%22%40micro-so%2Fmcp%22%5D%2C%22env%22%3A%7B%22MICRO_API_KEY%22%3A%22My%20API%20Key%22%2C%22MICRO_TEAM_ID%22%3A%22My%20Team%20ID%22%7D%7D)
 
 > Note: You may need to set environment variables in your MCP client.
 
@@ -26,7 +26,7 @@ The full API of this library can be found in [api.md](api.md).
 
 ```sh
 # install from PyPI
-pip install micro-so
+pip install micro_so
 ```
 
 ## Usage
@@ -35,11 +35,13 @@ The full API of this library can be found in [api.md](api.md).
 
 ```python
 import os
-from micro import Micro
+from micro_so import Micro
 
 client = Micro(
     team_id="My Team ID",
     api_key=os.environ.get("MICRO_API_KEY"),  # This is the default and can be omitted
+    # defaults to "staging".
+    environment="production",
 )
 
 response = client.prism.objects.deals.query(
@@ -60,11 +62,13 @@ Simply import `AsyncMicro` instead of `Micro` and use `await` with each API call
 ```python
 import os
 import asyncio
-from micro import AsyncMicro
+from micro_so import AsyncMicro
 
 client = AsyncMicro(
     team_id="My Team ID",
     api_key=os.environ.get("MICRO_API_KEY"),  # This is the default and can be omitted
+    # defaults to "staging".
+    environment="production",
 )
 
 
@@ -88,7 +92,7 @@ You can enable this by installing `aiohttp`:
 
 ```sh
 # install from PyPI
-pip install micro-so[aiohttp]
+pip install micro_so[aiohttp]
 ```
 
 Then you can enable it by instantiating the client with `http_client=DefaultAioHttpClient()`:
@@ -96,8 +100,8 @@ Then you can enable it by instantiating the client with `http_client=DefaultAioH
 ```python
 import os
 import asyncio
-from micro import DefaultAioHttpClient
-from micro import AsyncMicro
+from micro_so import DefaultAioHttpClient
+from micro_so import AsyncMicro
 
 
 async def main() -> None:
@@ -129,7 +133,7 @@ Typed requests and responses provide autocomplete and documentation within your 
 Nested parameters are dictionaries, typed using `TypedDict`, for example:
 
 ```python
-from micro import Micro
+from micro_so import Micro
 
 client = Micro(
     team_id="My Team ID",
@@ -143,16 +147,16 @@ print(response.query)
 
 ## Handling errors
 
-When the library is unable to connect to the API (for example, due to network connection problems or a timeout), a subclass of `micro.APIConnectionError` is raised.
+When the library is unable to connect to the API (for example, due to network connection problems or a timeout), a subclass of `micro_so.APIConnectionError` is raised.
 
 When the API returns a non-success status code (that is, 4xx or 5xx
-response), a subclass of `micro.APIStatusError` is raised, containing `status_code` and `response` properties.
+response), a subclass of `micro_so.APIStatusError` is raised, containing `status_code` and `response` properties.
 
-All errors inherit from `micro.APIError`.
+All errors inherit from `micro_so.APIError`.
 
 ```python
-import micro
-from micro import Micro
+import micro_so
+from micro_so import Micro
 
 client = Micro(
     team_id="My Team ID",
@@ -162,12 +166,12 @@ try:
     client.prism.objects.deals.query(
         query={"select": ["id", "name"]},
     )
-except micro.APIConnectionError as e:
+except micro_so.APIConnectionError as e:
     print("The server could not be reached")
     print(e.__cause__)  # an underlying Exception, likely raised within httpx.
-except micro.RateLimitError as e:
+except micro_so.RateLimitError as e:
     print("A 429 status code was received; we should back off a bit.")
-except micro.APIStatusError as e:
+except micro_so.APIStatusError as e:
     print("Another non-200-range status code was received")
     print(e.status_code)
     print(e.response)
@@ -195,7 +199,7 @@ Connection errors (for example, due to a network connectivity problem), 408 Requ
 You can use the `max_retries` option to configure or disable retry settings:
 
 ```python
-from micro import Micro
+from micro_so import Micro
 
 # Configure the default for all requests:
 client = Micro(
@@ -216,7 +220,7 @@ By default requests time out after 1 minute. You can configure this with a `time
 which accepts a float or an [`httpx.Timeout`](https://www.python-httpx.org/advanced/timeouts/#fine-tuning-the-configuration) object:
 
 ```python
-from micro import Micro
+from micro_so import Micro
 
 # Configure the default for all requests:
 client = Micro(
@@ -272,7 +276,7 @@ if response.my_field is None:
 The "raw" Response object can be accessed by prefixing `.with_raw_response.` to any HTTP method call, e.g.,
 
 ```py
-from micro import Micro
+from micro_so import Micro
 
 client = Micro(
     team_id="My Team ID",
@@ -288,9 +292,9 @@ deal = response.parse()  # get the object that `prism.objects.deals.query()` wou
 print(deal.data)
 ```
 
-These methods return an [`APIResponse`](https://github.com/micro-so/micro-sdk-py/tree/main/src/micro/_response.py) object.
+These methods return an [`APIResponse`](https://github.com/micro-so/micro-sdk-py/tree/main/src/micro_so/_response.py) object.
 
-The async client returns an [`AsyncAPIResponse`](https://github.com/micro-so/micro-sdk-py/tree/main/src/micro/_response.py) with the same structure, the only difference being `await`able methods for reading the response content.
+The async client returns an [`AsyncAPIResponse`](https://github.com/micro-so/micro-sdk-py/tree/main/src/micro_so/_response.py) with the same structure, the only difference being `await`able methods for reading the response content.
 
 #### `.with_streaming_response`
 
@@ -354,7 +358,7 @@ You can directly override the [httpx client](https://www.python-httpx.org/api/#c
 
 ```python
 import httpx
-from micro import Micro, DefaultHttpxClient
+from micro_so import Micro, DefaultHttpxClient
 
 client = Micro(
     team_id="My Team ID",
@@ -378,7 +382,7 @@ client.with_options(http_client=DefaultHttpxClient(...))
 By default the library closes underlying HTTP connections whenever the client is [garbage collected](https://docs.python.org/3/reference/datamodel.html#object.__del__). You can manually close the client using the `.close()` method if desired, or with a context manager that closes when exiting.
 
 ```py
-from micro import Micro
+from micro_so import Micro
 
 with Micro(
     team_id="My Team ID",
@@ -408,8 +412,8 @@ If you've upgraded to the latest version but aren't seeing any new features you 
 You can determine the version that is being used at runtime with:
 
 ```py
-import micro
-print(micro.__version__)
+import micro_so
+print(micro_so.__version__)
 ```
 
 ## Requirements

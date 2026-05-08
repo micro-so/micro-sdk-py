@@ -7,11 +7,14 @@ from typing import Any, cast
 
 import pytest
 
-from micro import Micro, AsyncMicro
-from micro.types import PrismObjectProperties
+from micro_so import Micro, AsyncMicro
 from tests.utils import assert_matches_type
-from micro.types.prism.objects import (
+from micro_so.types.prism.objects import (
+    IdentityGetResponse,
     IdentityQueryResponse,
+    IdentityCreateResponse,
+    IdentityUpdateResponse,
+    IdentityRestoreResponse,
     IdentityDuplicateResponse,
     IdentityBulkCreateResponse,
 )
@@ -26,7 +29,7 @@ class TestIdentities:
     @parametrize
     def test_method_create(self, client: Micro) -> None:
         identity = client.prism.objects.identities.create()
-        assert_matches_type(PrismObjectProperties, identity, path=["response"])
+        assert_matches_type(IdentityCreateResponse, identity, path=["response"])
 
     @pytest.mark.skip(reason="Mock server tests are disabled")
     @parametrize
@@ -37,7 +40,7 @@ class TestIdentities:
             default={"foo": "bar"},
             extended={},
         )
-        assert_matches_type(PrismObjectProperties, identity, path=["response"])
+        assert_matches_type(IdentityCreateResponse, identity, path=["response"])
 
     @pytest.mark.skip(reason="Mock server tests are disabled")
     @parametrize
@@ -47,7 +50,7 @@ class TestIdentities:
         assert response.is_closed is True
         assert response.http_request.headers.get("X-Stainless-Lang") == "python"
         identity = response.parse()
-        assert_matches_type(PrismObjectProperties, identity, path=["response"])
+        assert_matches_type(IdentityCreateResponse, identity, path=["response"])
 
     @pytest.mark.skip(reason="Mock server tests are disabled")
     @parametrize
@@ -57,7 +60,7 @@ class TestIdentities:
             assert response.http_request.headers.get("X-Stainless-Lang") == "python"
 
             identity = response.parse()
-            assert_matches_type(PrismObjectProperties, identity, path=["response"])
+            assert_matches_type(IdentityCreateResponse, identity, path=["response"])
 
         assert cast(Any, response.is_closed) is True
 
@@ -67,7 +70,7 @@ class TestIdentities:
         identity = client.prism.objects.identities.update(
             identity_id="182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
         )
-        assert_matches_type(PrismObjectProperties, identity, path=["response"])
+        assert_matches_type(IdentityUpdateResponse, identity, path=["response"])
 
     @pytest.mark.skip(reason="Mock server tests are disabled")
     @parametrize
@@ -79,7 +82,7 @@ class TestIdentities:
             default={"foo": "bar"},
             extended={},
         )
-        assert_matches_type(PrismObjectProperties, identity, path=["response"])
+        assert_matches_type(IdentityUpdateResponse, identity, path=["response"])
 
     @pytest.mark.skip(reason="Mock server tests are disabled")
     @parametrize
@@ -91,7 +94,7 @@ class TestIdentities:
         assert response.is_closed is True
         assert response.http_request.headers.get("X-Stainless-Lang") == "python"
         identity = response.parse()
-        assert_matches_type(PrismObjectProperties, identity, path=["response"])
+        assert_matches_type(IdentityUpdateResponse, identity, path=["response"])
 
     @pytest.mark.skip(reason="Mock server tests are disabled")
     @parametrize
@@ -103,7 +106,7 @@ class TestIdentities:
             assert response.http_request.headers.get("X-Stainless-Lang") == "python"
 
             identity = response.parse()
-            assert_matches_type(PrismObjectProperties, identity, path=["response"])
+            assert_matches_type(IdentityUpdateResponse, identity, path=["response"])
 
         assert cast(Any, response.is_closed) is True
 
@@ -259,7 +262,7 @@ class TestIdentities:
         identity = client.prism.objects.identities.get(
             identity_id="182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
         )
-        assert_matches_type(PrismObjectProperties, identity, path=["response"])
+        assert_matches_type(IdentityGetResponse, identity, path=["response"])
 
     @pytest.mark.skip(reason="Mock server tests are disabled")
     @parametrize
@@ -271,7 +274,7 @@ class TestIdentities:
         assert response.is_closed is True
         assert response.http_request.headers.get("X-Stainless-Lang") == "python"
         identity = response.parse()
-        assert_matches_type(PrismObjectProperties, identity, path=["response"])
+        assert_matches_type(IdentityGetResponse, identity, path=["response"])
 
     @pytest.mark.skip(reason="Mock server tests are disabled")
     @parametrize
@@ -283,7 +286,7 @@ class TestIdentities:
             assert response.http_request.headers.get("X-Stainless-Lang") == "python"
 
             identity = response.parse()
-            assert_matches_type(PrismObjectProperties, identity, path=["response"])
+            assert_matches_type(IdentityGetResponse, identity, path=["response"])
 
         assert cast(Any, response.is_closed) is True
 
@@ -355,7 +358,7 @@ class TestIdentities:
         identity = client.prism.objects.identities.restore(
             identity_id="182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
         )
-        assert_matches_type(PrismObjectProperties, identity, path=["response"])
+        assert_matches_type(IdentityRestoreResponse, identity, path=["response"])
 
     @pytest.mark.skip(reason="Mock server tests are disabled")
     @parametrize
@@ -367,7 +370,7 @@ class TestIdentities:
         assert response.is_closed is True
         assert response.http_request.headers.get("X-Stainless-Lang") == "python"
         identity = response.parse()
-        assert_matches_type(PrismObjectProperties, identity, path=["response"])
+        assert_matches_type(IdentityRestoreResponse, identity, path=["response"])
 
     @pytest.mark.skip(reason="Mock server tests are disabled")
     @parametrize
@@ -379,7 +382,7 @@ class TestIdentities:
             assert response.http_request.headers.get("X-Stainless-Lang") == "python"
 
             identity = response.parse()
-            assert_matches_type(PrismObjectProperties, identity, path=["response"])
+            assert_matches_type(IdentityRestoreResponse, identity, path=["response"])
 
         assert cast(Any, response.is_closed) is True
 
@@ -401,7 +404,7 @@ class TestAsyncIdentities:
     @parametrize
     async def test_method_create(self, async_client: AsyncMicro) -> None:
         identity = await async_client.prism.objects.identities.create()
-        assert_matches_type(PrismObjectProperties, identity, path=["response"])
+        assert_matches_type(IdentityCreateResponse, identity, path=["response"])
 
     @pytest.mark.skip(reason="Mock server tests are disabled")
     @parametrize
@@ -412,7 +415,7 @@ class TestAsyncIdentities:
             default={"foo": "bar"},
             extended={},
         )
-        assert_matches_type(PrismObjectProperties, identity, path=["response"])
+        assert_matches_type(IdentityCreateResponse, identity, path=["response"])
 
     @pytest.mark.skip(reason="Mock server tests are disabled")
     @parametrize
@@ -422,7 +425,7 @@ class TestAsyncIdentities:
         assert response.is_closed is True
         assert response.http_request.headers.get("X-Stainless-Lang") == "python"
         identity = await response.parse()
-        assert_matches_type(PrismObjectProperties, identity, path=["response"])
+        assert_matches_type(IdentityCreateResponse, identity, path=["response"])
 
     @pytest.mark.skip(reason="Mock server tests are disabled")
     @parametrize
@@ -432,7 +435,7 @@ class TestAsyncIdentities:
             assert response.http_request.headers.get("X-Stainless-Lang") == "python"
 
             identity = await response.parse()
-            assert_matches_type(PrismObjectProperties, identity, path=["response"])
+            assert_matches_type(IdentityCreateResponse, identity, path=["response"])
 
         assert cast(Any, response.is_closed) is True
 
@@ -442,7 +445,7 @@ class TestAsyncIdentities:
         identity = await async_client.prism.objects.identities.update(
             identity_id="182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
         )
-        assert_matches_type(PrismObjectProperties, identity, path=["response"])
+        assert_matches_type(IdentityUpdateResponse, identity, path=["response"])
 
     @pytest.mark.skip(reason="Mock server tests are disabled")
     @parametrize
@@ -454,7 +457,7 @@ class TestAsyncIdentities:
             default={"foo": "bar"},
             extended={},
         )
-        assert_matches_type(PrismObjectProperties, identity, path=["response"])
+        assert_matches_type(IdentityUpdateResponse, identity, path=["response"])
 
     @pytest.mark.skip(reason="Mock server tests are disabled")
     @parametrize
@@ -466,7 +469,7 @@ class TestAsyncIdentities:
         assert response.is_closed is True
         assert response.http_request.headers.get("X-Stainless-Lang") == "python"
         identity = await response.parse()
-        assert_matches_type(PrismObjectProperties, identity, path=["response"])
+        assert_matches_type(IdentityUpdateResponse, identity, path=["response"])
 
     @pytest.mark.skip(reason="Mock server tests are disabled")
     @parametrize
@@ -478,7 +481,7 @@ class TestAsyncIdentities:
             assert response.http_request.headers.get("X-Stainless-Lang") == "python"
 
             identity = await response.parse()
-            assert_matches_type(PrismObjectProperties, identity, path=["response"])
+            assert_matches_type(IdentityUpdateResponse, identity, path=["response"])
 
         assert cast(Any, response.is_closed) is True
 
@@ -634,7 +637,7 @@ class TestAsyncIdentities:
         identity = await async_client.prism.objects.identities.get(
             identity_id="182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
         )
-        assert_matches_type(PrismObjectProperties, identity, path=["response"])
+        assert_matches_type(IdentityGetResponse, identity, path=["response"])
 
     @pytest.mark.skip(reason="Mock server tests are disabled")
     @parametrize
@@ -646,7 +649,7 @@ class TestAsyncIdentities:
         assert response.is_closed is True
         assert response.http_request.headers.get("X-Stainless-Lang") == "python"
         identity = await response.parse()
-        assert_matches_type(PrismObjectProperties, identity, path=["response"])
+        assert_matches_type(IdentityGetResponse, identity, path=["response"])
 
     @pytest.mark.skip(reason="Mock server tests are disabled")
     @parametrize
@@ -658,7 +661,7 @@ class TestAsyncIdentities:
             assert response.http_request.headers.get("X-Stainless-Lang") == "python"
 
             identity = await response.parse()
-            assert_matches_type(PrismObjectProperties, identity, path=["response"])
+            assert_matches_type(IdentityGetResponse, identity, path=["response"])
 
         assert cast(Any, response.is_closed) is True
 
@@ -730,7 +733,7 @@ class TestAsyncIdentities:
         identity = await async_client.prism.objects.identities.restore(
             identity_id="182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
         )
-        assert_matches_type(PrismObjectProperties, identity, path=["response"])
+        assert_matches_type(IdentityRestoreResponse, identity, path=["response"])
 
     @pytest.mark.skip(reason="Mock server tests are disabled")
     @parametrize
@@ -742,7 +745,7 @@ class TestAsyncIdentities:
         assert response.is_closed is True
         assert response.http_request.headers.get("X-Stainless-Lang") == "python"
         identity = await response.parse()
-        assert_matches_type(PrismObjectProperties, identity, path=["response"])
+        assert_matches_type(IdentityRestoreResponse, identity, path=["response"])
 
     @pytest.mark.skip(reason="Mock server tests are disabled")
     @parametrize
@@ -754,7 +757,7 @@ class TestAsyncIdentities:
             assert response.http_request.headers.get("X-Stainless-Lang") == "python"
 
             identity = await response.parse()
-            assert_matches_type(PrismObjectProperties, identity, path=["response"])
+            assert_matches_type(IdentityRestoreResponse, identity, path=["response"])
 
         assert cast(Any, response.is_closed) is True
 
