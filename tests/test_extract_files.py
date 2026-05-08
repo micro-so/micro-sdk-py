@@ -4,8 +4,8 @@ from typing import Sequence
 
 import pytest
 
-from micro._types import FileTypes, ArrayFormat
-from micro._utils import extract_files
+from micro_so._types import FileTypes, ArrayFormat
+from micro_so._utils import extract_files
 
 
 def test_removes_files_from_input() -> None:

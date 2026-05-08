@@ -4,7 +4,7 @@ from typing import Any
 
 import pytest
 
-from micro._utils._path import path_template
+from micro_so._utils._path import path_template
 
 
 @pytest.mark.parametrize(

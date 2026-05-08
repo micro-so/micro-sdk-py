@@ -7,9 +7,9 @@ import pytest
 import pydantic
 from pydantic import Field
 
-from micro._utils import PropertyInfo
-from micro._compat import PYDANTIC_V1, parse_obj, model_dump, model_json
-from micro._models import DISCRIMINATOR_CACHE, BaseModel, construct_type
+from micro_so._utils import PropertyInfo
+from micro_so._compat import PYDANTIC_V1, parse_obj, model_dump, model_json
+from micro_so._models import DISCRIMINATOR_CACHE, BaseModel, construct_type
 
 
 class BasicModel(BaseModel):

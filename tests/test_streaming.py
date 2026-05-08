@@ -5,8 +5,8 @@ from typing import Iterator, AsyncIterator
 import httpx
 import pytest
 
-from micro import Micro, AsyncMicro
-from micro._streaming import Stream, AsyncStream, ServerSentEvent
+from micro_so import Micro, AsyncMicro
+from micro_so._streaming import Stream, AsyncStream, ServerSentEvent
 
 
 @pytest.mark.asyncio
