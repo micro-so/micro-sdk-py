@@ -1,7 +1,7 @@
 # Micro Python API library
 
 <!-- prettier-ignore -->
-[![PyPI version](https://img.shields.io/pypi/v/micro-so.svg?label=pypi%20(stable))](https://pypi.org/project/micro-so/)
+[![PyPI version](https://img.shields.io/pypi/v/micro_so.svg?label=pypi%20(stable))](https://pypi.org/project/micro_so/)
 
 The Micro Python library provides convenient access to the Micro REST API from any Python 3.9+
 application. The library includes type definitions for all request params and response fields,
@@ -30,7 +30,7 @@ pip install git+ssh://git@github.com/micro-so/micro-sdk-py.git
 ```
 
 > [!NOTE]
-> Once this package is [published to PyPI](https://www.stainless.com/docs/guides/publish), this will become: `pip install micro-so`
+> Once this package is [published to PyPI](https://www.stainless.com/docs/guides/publish), this will become: `pip install micro_so`
 
 ## Usage
 
@@ -91,7 +91,7 @@ You can enable this by installing `aiohttp`:
 
 ```sh
 # install from the production repo
-pip install 'micro-so[aiohttp] @ git+ssh://git@github.com/micro-so/micro-sdk-py.git'
+pip install 'micro_so[aiohttp] @ git+ssh://git@github.com/micro-so/micro-sdk-py.git'
 ```
 
 Then you can enable it by instantiating the client with `http_client=DefaultAioHttpClient()`:
