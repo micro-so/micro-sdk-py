@@ -10,8 +10,12 @@ import pytest
 from micro_so import Micro, AsyncMicro
 from tests.utils import assert_matches_type
 from micro_so.types.prism.objects import (
+    OrganizationGetResponse,
     OrganizationQueryResponse,
     OrganizationCreateResponse,
+    OrganizationUpdateResponse,
+    OrganizationRestoreResponse,
+    OrganizationDuplicateResponse,
     OrganizationBulkCreateResponse,
 )
 
@@ -59,6 +63,102 @@ class TestOrganizations:
             assert_matches_type(OrganizationCreateResponse, organization, path=["response"])
 
         assert cast(Any, response.is_closed) is True
+
+    @pytest.mark.skip(reason="Mock server tests are disabled")
+    @parametrize
+    def test_method_update(self, client: Micro) -> None:
+        organization = client.prism.objects.organizations.update(
+            organization_id="182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
+        )
+        assert_matches_type(OrganizationUpdateResponse, organization, path=["response"])
+
+    @pytest.mark.skip(reason="Mock server tests are disabled")
+    @parametrize
+    def test_method_update_with_all_params(self, client: Micro) -> None:
+        organization = client.prism.objects.organizations.update(
+            organization_id="182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
+            id="182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
+            crm={},
+            default={"foo": "bar"},
+            extended={},
+        )
+        assert_matches_type(OrganizationUpdateResponse, organization, path=["response"])
+
+    @pytest.mark.skip(reason="Mock server tests are disabled")
+    @parametrize
+    def test_raw_response_update(self, client: Micro) -> None:
+        response = client.prism.objects.organizations.with_raw_response.update(
+            organization_id="182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
+        )
+
+        assert response.is_closed is True
+        assert response.http_request.headers.get("X-Stainless-Lang") == "python"
+        organization = response.parse()
+        assert_matches_type(OrganizationUpdateResponse, organization, path=["response"])
+
+    @pytest.mark.skip(reason="Mock server tests are disabled")
+    @parametrize
+    def test_streaming_response_update(self, client: Micro) -> None:
+        with client.prism.objects.organizations.with_streaming_response.update(
+            organization_id="182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
+        ) as response:
+            assert not response.is_closed
+            assert response.http_request.headers.get("X-Stainless-Lang") == "python"
+
+            organization = response.parse()
+            assert_matches_type(OrganizationUpdateResponse, organization, path=["response"])
+
+        assert cast(Any, response.is_closed) is True
+
+    @pytest.mark.skip(reason="Mock server tests are disabled")
+    @parametrize
+    def test_path_params_update(self, client: Micro) -> None:
+        with pytest.raises(ValueError, match=r"Expected a non-empty value for `organization_id` but received ''"):
+            client.prism.objects.organizations.with_raw_response.update(
+                organization_id="",
+            )
+
+    @pytest.mark.skip(reason="Mock server tests are disabled")
+    @parametrize
+    def test_method_delete(self, client: Micro) -> None:
+        organization = client.prism.objects.organizations.delete(
+            organization_id="182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
+        )
+        assert organization is None
+
+    @pytest.mark.skip(reason="Mock server tests are disabled")
+    @parametrize
+    def test_raw_response_delete(self, client: Micro) -> None:
+        response = client.prism.objects.organizations.with_raw_response.delete(
+            organization_id="182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
+        )
+
+        assert response.is_closed is True
+        assert response.http_request.headers.get("X-Stainless-Lang") == "python"
+        organization = response.parse()
+        assert organization is None
+
+    @pytest.mark.skip(reason="Mock server tests are disabled")
+    @parametrize
+    def test_streaming_response_delete(self, client: Micro) -> None:
+        with client.prism.objects.organizations.with_streaming_response.delete(
+            organization_id="182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
+        ) as response:
+            assert not response.is_closed
+            assert response.http_request.headers.get("X-Stainless-Lang") == "python"
+
+            organization = response.parse()
+            assert organization is None
+
+        assert cast(Any, response.is_closed) is True
+
+    @pytest.mark.skip(reason="Mock server tests are disabled")
+    @parametrize
+    def test_path_params_delete(self, client: Micro) -> None:
+        with pytest.raises(ValueError, match=r"Expected a non-empty value for `organization_id` but received ''"):
+            client.prism.objects.organizations.with_raw_response.delete(
+                organization_id="",
+            )
 
     @pytest.mark.skip(reason="Mock server tests are disabled")
     @parametrize
@@ -116,6 +216,90 @@ class TestOrganizations:
 
     @pytest.mark.skip(reason="Mock server tests are disabled")
     @parametrize
+    def test_method_duplicate(self, client: Micro) -> None:
+        organization = client.prism.objects.organizations.duplicate(
+            organization_id="182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
+        )
+        assert_matches_type(OrganizationDuplicateResponse, organization, path=["response"])
+
+    @pytest.mark.skip(reason="Mock server tests are disabled")
+    @parametrize
+    def test_raw_response_duplicate(self, client: Micro) -> None:
+        response = client.prism.objects.organizations.with_raw_response.duplicate(
+            organization_id="182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
+        )
+
+        assert response.is_closed is True
+        assert response.http_request.headers.get("X-Stainless-Lang") == "python"
+        organization = response.parse()
+        assert_matches_type(OrganizationDuplicateResponse, organization, path=["response"])
+
+    @pytest.mark.skip(reason="Mock server tests are disabled")
+    @parametrize
+    def test_streaming_response_duplicate(self, client: Micro) -> None:
+        with client.prism.objects.organizations.with_streaming_response.duplicate(
+            organization_id="182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
+        ) as response:
+            assert not response.is_closed
+            assert response.http_request.headers.get("X-Stainless-Lang") == "python"
+
+            organization = response.parse()
+            assert_matches_type(OrganizationDuplicateResponse, organization, path=["response"])
+
+        assert cast(Any, response.is_closed) is True
+
+    @pytest.mark.skip(reason="Mock server tests are disabled")
+    @parametrize
+    def test_path_params_duplicate(self, client: Micro) -> None:
+        with pytest.raises(ValueError, match=r"Expected a non-empty value for `organization_id` but received ''"):
+            client.prism.objects.organizations.with_raw_response.duplicate(
+                organization_id="",
+            )
+
+    @pytest.mark.skip(reason="Mock server tests are disabled")
+    @parametrize
+    def test_method_get(self, client: Micro) -> None:
+        organization = client.prism.objects.organizations.get(
+            organization_id="182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
+        )
+        assert_matches_type(OrganizationGetResponse, organization, path=["response"])
+
+    @pytest.mark.skip(reason="Mock server tests are disabled")
+    @parametrize
+    def test_raw_response_get(self, client: Micro) -> None:
+        response = client.prism.objects.organizations.with_raw_response.get(
+            organization_id="182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
+        )
+
+        assert response.is_closed is True
+        assert response.http_request.headers.get("X-Stainless-Lang") == "python"
+        organization = response.parse()
+        assert_matches_type(OrganizationGetResponse, organization, path=["response"])
+
+    @pytest.mark.skip(reason="Mock server tests are disabled")
+    @parametrize
+    def test_streaming_response_get(self, client: Micro) -> None:
+        with client.prism.objects.organizations.with_streaming_response.get(
+            organization_id="182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
+        ) as response:
+            assert not response.is_closed
+            assert response.http_request.headers.get("X-Stainless-Lang") == "python"
+
+            organization = response.parse()
+            assert_matches_type(OrganizationGetResponse, organization, path=["response"])
+
+        assert cast(Any, response.is_closed) is True
+
+    @pytest.mark.skip(reason="Mock server tests are disabled")
+    @parametrize
+    def test_path_params_get(self, client: Micro) -> None:
+        with pytest.raises(ValueError, match=r"Expected a non-empty value for `organization_id` but received ''"):
+            client.prism.objects.organizations.with_raw_response.get(
+                organization_id="",
+            )
+
+    @pytest.mark.skip(reason="Mock server tests are disabled")
+    @parametrize
     def test_method_query(self, client: Micro) -> None:
         organization = client.prism.objects.organizations.query(
             query={"select": ["string"]},
@@ -168,6 +352,48 @@ class TestOrganizations:
 
         assert cast(Any, response.is_closed) is True
 
+    @pytest.mark.skip(reason="Mock server tests are disabled")
+    @parametrize
+    def test_method_restore(self, client: Micro) -> None:
+        organization = client.prism.objects.organizations.restore(
+            organization_id="182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
+        )
+        assert_matches_type(OrganizationRestoreResponse, organization, path=["response"])
+
+    @pytest.mark.skip(reason="Mock server tests are disabled")
+    @parametrize
+    def test_raw_response_restore(self, client: Micro) -> None:
+        response = client.prism.objects.organizations.with_raw_response.restore(
+            organization_id="182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
+        )
+
+        assert response.is_closed is True
+        assert response.http_request.headers.get("X-Stainless-Lang") == "python"
+        organization = response.parse()
+        assert_matches_type(OrganizationRestoreResponse, organization, path=["response"])
+
+    @pytest.mark.skip(reason="Mock server tests are disabled")
+    @parametrize
+    def test_streaming_response_restore(self, client: Micro) -> None:
+        with client.prism.objects.organizations.with_streaming_response.restore(
+            organization_id="182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
+        ) as response:
+            assert not response.is_closed
+            assert response.http_request.headers.get("X-Stainless-Lang") == "python"
+
+            organization = response.parse()
+            assert_matches_type(OrganizationRestoreResponse, organization, path=["response"])
+
+        assert cast(Any, response.is_closed) is True
+
+    @pytest.mark.skip(reason="Mock server tests are disabled")
+    @parametrize
+    def test_path_params_restore(self, client: Micro) -> None:
+        with pytest.raises(ValueError, match=r"Expected a non-empty value for `organization_id` but received ''"):
+            client.prism.objects.organizations.with_raw_response.restore(
+                organization_id="",
+            )
+
 
 class TestAsyncOrganizations:
     parametrize = pytest.mark.parametrize(
@@ -212,6 +438,102 @@ class TestAsyncOrganizations:
             assert_matches_type(OrganizationCreateResponse, organization, path=["response"])
 
         assert cast(Any, response.is_closed) is True
+
+    @pytest.mark.skip(reason="Mock server tests are disabled")
+    @parametrize
+    async def test_method_update(self, async_client: AsyncMicro) -> None:
+        organization = await async_client.prism.objects.organizations.update(
+            organization_id="182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
+        )
+        assert_matches_type(OrganizationUpdateResponse, organization, path=["response"])
+
+    @pytest.mark.skip(reason="Mock server tests are disabled")
+    @parametrize
+    async def test_method_update_with_all_params(self, async_client: AsyncMicro) -> None:
+        organization = await async_client.prism.objects.organizations.update(
+            organization_id="182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
+            id="182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
+            crm={},
+            default={"foo": "bar"},
+            extended={},
+        )
+        assert_matches_type(OrganizationUpdateResponse, organization, path=["response"])
+
+    @pytest.mark.skip(reason="Mock server tests are disabled")
+    @parametrize
+    async def test_raw_response_update(self, async_client: AsyncMicro) -> None:
+        response = await async_client.prism.objects.organizations.with_raw_response.update(
+            organization_id="182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
+        )
+
+        assert response.is_closed is True
+        assert response.http_request.headers.get("X-Stainless-Lang") == "python"
+        organization = await response.parse()
+        assert_matches_type(OrganizationUpdateResponse, organization, path=["response"])
+
+    @pytest.mark.skip(reason="Mock server tests are disabled")
+    @parametrize
+    async def test_streaming_response_update(self, async_client: AsyncMicro) -> None:
+        async with async_client.prism.objects.organizations.with_streaming_response.update(
+            organization_id="182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
+        ) as response:
+            assert not response.is_closed
+            assert response.http_request.headers.get("X-Stainless-Lang") == "python"
+
+            organization = await response.parse()
+            assert_matches_type(OrganizationUpdateResponse, organization, path=["response"])
+
+        assert cast(Any, response.is_closed) is True
+
+    @pytest.mark.skip(reason="Mock server tests are disabled")
+    @parametrize
+    async def test_path_params_update(self, async_client: AsyncMicro) -> None:
+        with pytest.raises(ValueError, match=r"Expected a non-empty value for `organization_id` but received ''"):
+            await async_client.prism.objects.organizations.with_raw_response.update(
+                organization_id="",
+            )
+
+    @pytest.mark.skip(reason="Mock server tests are disabled")
+    @parametrize
+    async def test_method_delete(self, async_client: AsyncMicro) -> None:
+        organization = await async_client.prism.objects.organizations.delete(
+            organization_id="182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
+        )
+        assert organization is None
+
+    @pytest.mark.skip(reason="Mock server tests are disabled")
+    @parametrize
+    async def test_raw_response_delete(self, async_client: AsyncMicro) -> None:
+        response = await async_client.prism.objects.organizations.with_raw_response.delete(
+            organization_id="182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
+        )
+
+        assert response.is_closed is True
+        assert response.http_request.headers.get("X-Stainless-Lang") == "python"
+        organization = await response.parse()
+        assert organization is None
+
+    @pytest.mark.skip(reason="Mock server tests are disabled")
+    @parametrize
+    async def test_streaming_response_delete(self, async_client: AsyncMicro) -> None:
+        async with async_client.prism.objects.organizations.with_streaming_response.delete(
+            organization_id="182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
+        ) as response:
+            assert not response.is_closed
+            assert response.http_request.headers.get("X-Stainless-Lang") == "python"
+
+            organization = await response.parse()
+            assert organization is None
+
+        assert cast(Any, response.is_closed) is True
+
+    @pytest.mark.skip(reason="Mock server tests are disabled")
+    @parametrize
+    async def test_path_params_delete(self, async_client: AsyncMicro) -> None:
+        with pytest.raises(ValueError, match=r"Expected a non-empty value for `organization_id` but received ''"):
+            await async_client.prism.objects.organizations.with_raw_response.delete(
+                organization_id="",
+            )
 
     @pytest.mark.skip(reason="Mock server tests are disabled")
     @parametrize
@@ -269,6 +591,90 @@ class TestAsyncOrganizations:
 
     @pytest.mark.skip(reason="Mock server tests are disabled")
     @parametrize
+    async def test_method_duplicate(self, async_client: AsyncMicro) -> None:
+        organization = await async_client.prism.objects.organizations.duplicate(
+            organization_id="182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
+        )
+        assert_matches_type(OrganizationDuplicateResponse, organization, path=["response"])
+
+    @pytest.mark.skip(reason="Mock server tests are disabled")
+    @parametrize
+    async def test_raw_response_duplicate(self, async_client: AsyncMicro) -> None:
+        response = await async_client.prism.objects.organizations.with_raw_response.duplicate(
+            organization_id="182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
+        )
+
+        assert response.is_closed is True
+        assert response.http_request.headers.get("X-Stainless-Lang") == "python"
+        organization = await response.parse()
+        assert_matches_type(OrganizationDuplicateResponse, organization, path=["response"])
+
+    @pytest.mark.skip(reason="Mock server tests are disabled")
+    @parametrize
+    async def test_streaming_response_duplicate(self, async_client: AsyncMicro) -> None:
+        async with async_client.prism.objects.organizations.with_streaming_response.duplicate(
+            organization_id="182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
+        ) as response:
+            assert not response.is_closed
+            assert response.http_request.headers.get("X-Stainless-Lang") == "python"
+
+            organization = await response.parse()
+            assert_matches_type(OrganizationDuplicateResponse, organization, path=["response"])
+
+        assert cast(Any, response.is_closed) is True
+
+    @pytest.mark.skip(reason="Mock server tests are disabled")
+    @parametrize
+    async def test_path_params_duplicate(self, async_client: AsyncMicro) -> None:
+        with pytest.raises(ValueError, match=r"Expected a non-empty value for `organization_id` but received ''"):
+            await async_client.prism.objects.organizations.with_raw_response.duplicate(
+                organization_id="",
+            )
+
+    @pytest.mark.skip(reason="Mock server tests are disabled")
+    @parametrize
+    async def test_method_get(self, async_client: AsyncMicro) -> None:
+        organization = await async_client.prism.objects.organizations.get(
+            organization_id="182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
+        )
+        assert_matches_type(OrganizationGetResponse, organization, path=["response"])
+
+    @pytest.mark.skip(reason="Mock server tests are disabled")
+    @parametrize
+    async def test_raw_response_get(self, async_client: AsyncMicro) -> None:
+        response = await async_client.prism.objects.organizations.with_raw_response.get(
+            organization_id="182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
+        )
+
+        assert response.is_closed is True
+        assert response.http_request.headers.get("X-Stainless-Lang") == "python"
+        organization = await response.parse()
+        assert_matches_type(OrganizationGetResponse, organization, path=["response"])
+
+    @pytest.mark.skip(reason="Mock server tests are disabled")
+    @parametrize
+    async def test_streaming_response_get(self, async_client: AsyncMicro) -> None:
+        async with async_client.prism.objects.organizations.with_streaming_response.get(
+            organization_id="182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
+        ) as response:
+            assert not response.is_closed
+            assert response.http_request.headers.get("X-Stainless-Lang") == "python"
+
+            organization = await response.parse()
+            assert_matches_type(OrganizationGetResponse, organization, path=["response"])
+
+        assert cast(Any, response.is_closed) is True
+
+    @pytest.mark.skip(reason="Mock server tests are disabled")
+    @parametrize
+    async def test_path_params_get(self, async_client: AsyncMicro) -> None:
+        with pytest.raises(ValueError, match=r"Expected a non-empty value for `organization_id` but received ''"):
+            await async_client.prism.objects.organizations.with_raw_response.get(
+                organization_id="",
+            )
+
+    @pytest.mark.skip(reason="Mock server tests are disabled")
+    @parametrize
     async def test_method_query(self, async_client: AsyncMicro) -> None:
         organization = await async_client.prism.objects.organizations.query(
             query={"select": ["string"]},
@@ -320,3 +726,45 @@ class TestAsyncOrganizations:
             assert_matches_type(OrganizationQueryResponse, organization, path=["response"])
 
         assert cast(Any, response.is_closed) is True
+
+    @pytest.mark.skip(reason="Mock server tests are disabled")
+    @parametrize
+    async def test_method_restore(self, async_client: AsyncMicro) -> None:
+        organization = await async_client.prism.objects.organizations.restore(
+            organization_id="182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
+        )
+        assert_matches_type(OrganizationRestoreResponse, organization, path=["response"])
+
+    @pytest.mark.skip(reason="Mock server tests are disabled")
+    @parametrize
+    async def test_raw_response_restore(self, async_client: AsyncMicro) -> None:
+        response = await async_client.prism.objects.organizations.with_raw_response.restore(
+            organization_id="182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
+        )
+
+        assert response.is_closed is True
+        assert response.http_request.headers.get("X-Stainless-Lang") == "python"
+        organization = await response.parse()
+        assert_matches_type(OrganizationRestoreResponse, organization, path=["response"])
+
+    @pytest.mark.skip(reason="Mock server tests are disabled")
+    @parametrize
+    async def test_streaming_response_restore(self, async_client: AsyncMicro) -> None:
+        async with async_client.prism.objects.organizations.with_streaming_response.restore(
+            organization_id="182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
+        ) as response:
+            assert not response.is_closed
+            assert response.http_request.headers.get("X-Stainless-Lang") == "python"
+
+            organization = await response.parse()
+            assert_matches_type(OrganizationRestoreResponse, organization, path=["response"])
+
+        assert cast(Any, response.is_closed) is True
+
+    @pytest.mark.skip(reason="Mock server tests are disabled")
+    @parametrize
+    async def test_path_params_restore(self, async_client: AsyncMicro) -> None:
+        with pytest.raises(ValueError, match=r"Expected a non-empty value for `organization_id` but received ''"):
+            await async_client.prism.objects.organizations.with_raw_response.restore(
+                organization_id="",
+            )
