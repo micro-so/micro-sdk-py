@@ -347,7 +347,7 @@ class IdentitiesResource(SyncAPIResource):
         timeout: float | httpx.Timeout | None | NotGiven = not_given,
     ) -> IdentityQueryResponse:
         """
-        Query v2
+        Query
 
         Args:
           extra_headers: Send extra headers
@@ -733,7 +733,7 @@ class AsyncIdentitiesResource(AsyncAPIResource):
         timeout: float | httpx.Timeout | None | NotGiven = not_given,
     ) -> IdentityQueryResponse:
         """
-        Query v2
+        Query
 
         Args:
           extra_headers: Send extra headers

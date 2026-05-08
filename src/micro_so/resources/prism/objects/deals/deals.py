@@ -352,7 +352,7 @@ class DealsResource(SyncAPIResource):
         timeout: float | httpx.Timeout | None | NotGiven = not_given,
     ) -> DealQueryResponse:
         """
-        Query v2
+        Query
 
         Args:
           extra_headers: Send extra headers
@@ -738,7 +738,7 @@ class AsyncDealsResource(AsyncAPIResource):
         timeout: float | httpx.Timeout | None | NotGiven = not_given,
     ) -> DealQueryResponse:
         """
-        Query v2
+        Query
 
         Args:
           extra_headers: Send extra headers
