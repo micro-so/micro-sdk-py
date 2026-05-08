@@ -28,16 +28,25 @@ Types:
 from micro_so.types.prism.objects import (
     Contact,
     ContactCreateResponse,
+    ContactUpdateResponse,
     ContactBulkCreateResponse,
+    ContactDuplicateResponse,
+    ContactGetResponse,
     ContactQueryResponse,
+    ContactRestoreResponse,
 )
 ```
 
 Methods:
 
 - <code title="post /v2/prism/{teamId}/contact">client.prism.objects.contacts.<a href="./src/micro_so/resources/prism/objects/contacts.py">create</a>(\*, team_id, \*\*<a href="src/micro_so/types/prism/objects/contact_create_params.py">params</a>) -> <a href="./src/micro_so/types/prism/objects/contact_create_response.py">ContactCreateResponse</a></code>
+- <code title="patch /v2/prism/{teamId}/contact/{contactId}">client.prism.objects.contacts.<a href="./src/micro_so/resources/prism/objects/contacts.py">update</a>(contact_id, \*, team_id, \*\*<a href="src/micro_so/types/prism/objects/contact_update_params.py">params</a>) -> <a href="./src/micro_so/types/prism/objects/contact_update_response.py">ContactUpdateResponse</a></code>
+- <code title="delete /v2/prism/{teamId}/contact/{contactId}">client.prism.objects.contacts.<a href="./src/micro_so/resources/prism/objects/contacts.py">delete</a>(contact_id, \*, team_id) -> None</code>
 - <code title="post /v2/prism/{teamId}/contact/import">client.prism.objects.contacts.<a href="./src/micro_so/resources/prism/objects/contacts.py">bulk_create</a>(\*, team_id, \*\*<a href="src/micro_so/types/prism/objects/contact_bulk_create_params.py">params</a>) -> <a href="./src/micro_so/types/prism/objects/contact_bulk_create_response.py">ContactBulkCreateResponse</a></code>
+- <code title="post /v2/prism/{teamId}/contact/{contactId}/duplicate">client.prism.objects.contacts.<a href="./src/micro_so/resources/prism/objects/contacts.py">duplicate</a>(contact_id, \*, team_id) -> <a href="./src/micro_so/types/prism/objects/contact_duplicate_response.py">ContactDuplicateResponse</a></code>
+- <code title="get /v2/prism/{teamId}/contact/{contactId}">client.prism.objects.contacts.<a href="./src/micro_so/resources/prism/objects/contacts.py">get</a>(contact_id, \*, team_id) -> <a href="./src/micro_so/types/prism/objects/contact_get_response.py">ContactGetResponse</a></code>
 - <code title="post /v2/prism/query/{teamId}/contact">client.prism.objects.contacts.<a href="./src/micro_so/resources/prism/objects/contacts.py">query</a>(\*, team_id, \*\*<a href="src/micro_so/types/prism/objects/contact_query_params.py">params</a>) -> <a href="./src/micro_so/types/prism/objects/contact_query_response.py">ContactQueryResponse</a></code>
+- <code title="post /v2/prism/{teamId}/contact/{contactId}/restore">client.prism.objects.contacts.<a href="./src/micro_so/resources/prism/objects/contacts.py">restore</a>(contact_id, \*, team_id) -> <a href="./src/micro_so/types/prism/objects/contact_restore_response.py">ContactRestoreResponse</a></code>
 
 ### Organizations
 
@@ -47,16 +56,25 @@ Types:
 from micro_so.types.prism.objects import (
     Organization,
     OrganizationCreateResponse,
+    OrganizationUpdateResponse,
     OrganizationBulkCreateResponse,
+    OrganizationDuplicateResponse,
+    OrganizationGetResponse,
     OrganizationQueryResponse,
+    OrganizationRestoreResponse,
 )
 ```
 
 Methods:
 
 - <code title="post /v2/prism/{teamId}/organization">client.prism.objects.organizations.<a href="./src/micro_so/resources/prism/objects/organizations.py">create</a>(\*, team_id, \*\*<a href="src/micro_so/types/prism/objects/organization_create_params.py">params</a>) -> <a href="./src/micro_so/types/prism/objects/organization_create_response.py">OrganizationCreateResponse</a></code>
+- <code title="patch /v2/prism/{teamId}/organization/{organizationId}">client.prism.objects.organizations.<a href="./src/micro_so/resources/prism/objects/organizations.py">update</a>(organization_id, \*, team_id, \*\*<a href="src/micro_so/types/prism/objects/organization_update_params.py">params</a>) -> <a href="./src/micro_so/types/prism/objects/organization_update_response.py">OrganizationUpdateResponse</a></code>
+- <code title="delete /v2/prism/{teamId}/organization/{organizationId}">client.prism.objects.organizations.<a href="./src/micro_so/resources/prism/objects/organizations.py">delete</a>(organization_id, \*, team_id) -> None</code>
 - <code title="post /v2/prism/{teamId}/organization/import">client.prism.objects.organizations.<a href="./src/micro_so/resources/prism/objects/organizations.py">bulk_create</a>(\*, team_id, \*\*<a href="src/micro_so/types/prism/objects/organization_bulk_create_params.py">params</a>) -> <a href="./src/micro_so/types/prism/objects/organization_bulk_create_response.py">OrganizationBulkCreateResponse</a></code>
+- <code title="post /v2/prism/{teamId}/organization/{organizationId}/duplicate">client.prism.objects.organizations.<a href="./src/micro_so/resources/prism/objects/organizations.py">duplicate</a>(organization_id, \*, team_id) -> <a href="./src/micro_so/types/prism/objects/organization_duplicate_response.py">OrganizationDuplicateResponse</a></code>
+- <code title="get /v2/prism/{teamId}/organization/{organizationId}">client.prism.objects.organizations.<a href="./src/micro_so/resources/prism/objects/organizations.py">get</a>(organization_id, \*, team_id) -> <a href="./src/micro_so/types/prism/objects/organization_get_response.py">OrganizationGetResponse</a></code>
 - <code title="post /v2/prism/query/{teamId}/organization">client.prism.objects.organizations.<a href="./src/micro_so/resources/prism/objects/organizations.py">query</a>(\*, team_id, \*\*<a href="src/micro_so/types/prism/objects/organization_query_params.py">params</a>) -> <a href="./src/micro_so/types/prism/objects/organization_query_response.py">OrganizationQueryResponse</a></code>
+- <code title="post /v2/prism/{teamId}/organization/{organizationId}/restore">client.prism.objects.organizations.<a href="./src/micro_so/resources/prism/objects/organizations.py">restore</a>(organization_id, \*, team_id) -> <a href="./src/micro_so/types/prism/objects/organization_restore_response.py">OrganizationRestoreResponse</a></code>
 
 ### Identities
 
