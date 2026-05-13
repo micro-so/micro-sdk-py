@@ -30,8 +30,6 @@ class ViewCreateParams(TypedDict, total=False):
 
     created_at: str
 
-    crm_id: Optional[str]
-
     filter: Iterable[Dict[str, object]]
     """Each entry is { slug: { comparator: value } }"""
 
@@ -45,6 +43,8 @@ class ViewCreateParams(TypedDict, total=False):
     group_sort: Optional[str]
 
     icon: Optional[str]
+
+    list_id: Optional[str]
 
     select: SequenceNotStr[str]
     """Property slugs (dot-paths permitted for refs)"""

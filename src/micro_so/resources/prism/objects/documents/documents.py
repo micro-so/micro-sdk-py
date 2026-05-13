@@ -71,10 +71,8 @@ class DocumentsResource(SyncAPIResource):
         self,
         *,
         team_id: str | None = None,
-        id: str | Omit = omit,
-        crm: object | Omit = omit,
         default: Dict[str, object] | Omit = omit,
-        extended: object | Omit = omit,
+        list: object | Omit = omit,
         # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
         # The extra values given here take precedence over values defined on the client or passed to this method.
         extra_headers: Headers | None = None,
@@ -107,10 +105,8 @@ class DocumentsResource(SyncAPIResource):
             path_template("/v2/prism/{team_id}/document", team_id=team_id),
             body=maybe_transform(
                 {
-                    "id": id,
-                    "crm": crm,
                     "default": default,
-                    "extended": extended,
+                    "list": list,
                 },
                 document_create_params.DocumentCreateParams,
             ),
@@ -125,10 +121,8 @@ class DocumentsResource(SyncAPIResource):
         document_id: str,
         *,
         team_id: str | None = None,
-        id: str | Omit = omit,
-        crm: object | Omit = omit,
         default: Dict[str, object] | Omit = omit,
-        extended: object | Omit = omit,
+        list: object | Omit = omit,
         # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
         # The extra values given here take precedence over values defined on the client or passed to this method.
         extra_headers: Headers | None = None,
@@ -163,10 +157,8 @@ class DocumentsResource(SyncAPIResource):
             path_template("/v2/prism/{team_id}/document/{document_id}", team_id=team_id, document_id=document_id),
             body=maybe_transform(
                 {
-                    "id": id,
-                    "crm": crm,
                     "default": default,
-                    "extended": extended,
+                    "list": list,
                 },
                 document_update_params.DocumentUpdateParams,
             ),
@@ -461,10 +453,8 @@ class AsyncDocumentsResource(AsyncAPIResource):
         self,
         *,
         team_id: str | None = None,
-        id: str | Omit = omit,
-        crm: object | Omit = omit,
         default: Dict[str, object] | Omit = omit,
-        extended: object | Omit = omit,
+        list: object | Omit = omit,
         # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
         # The extra values given here take precedence over values defined on the client or passed to this method.
         extra_headers: Headers | None = None,
@@ -497,10 +487,8 @@ class AsyncDocumentsResource(AsyncAPIResource):
             path_template("/v2/prism/{team_id}/document", team_id=team_id),
             body=await async_maybe_transform(
                 {
-                    "id": id,
-                    "crm": crm,
                     "default": default,
-                    "extended": extended,
+                    "list": list,
                 },
                 document_create_params.DocumentCreateParams,
             ),
@@ -515,10 +503,8 @@ class AsyncDocumentsResource(AsyncAPIResource):
         document_id: str,
         *,
         team_id: str | None = None,
-        id: str | Omit = omit,
-        crm: object | Omit = omit,
         default: Dict[str, object] | Omit = omit,
-        extended: object | Omit = omit,
+        list: object | Omit = omit,
         # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
         # The extra values given here take precedence over values defined on the client or passed to this method.
         extra_headers: Headers | None = None,
@@ -553,10 +539,8 @@ class AsyncDocumentsResource(AsyncAPIResource):
             path_template("/v2/prism/{team_id}/document/{document_id}", team_id=team_id, document_id=document_id),
             body=await async_maybe_transform(
                 {
-                    "id": id,
-                    "crm": crm,
                     "default": default,
-                    "extended": extended,
+                    "list": list,
                 },
                 document_update_params.DocumentUpdateParams,
             ),

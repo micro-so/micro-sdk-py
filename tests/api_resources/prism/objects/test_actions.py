@@ -35,10 +35,8 @@ class TestActions:
     @parametrize
     def test_method_create_with_all_params(self, client: Micro) -> None:
         action = client.prism.objects.actions.create(
-            id="182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
-            crm={},
             default={"foo": "bar"},
-            extended={},
+            list={},
         )
         assert_matches_type(ActionCreateResponse, action, path=["response"])
 
@@ -77,10 +75,8 @@ class TestActions:
     def test_method_update_with_all_params(self, client: Micro) -> None:
         action = client.prism.objects.actions.update(
             action_id="182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
-            id="182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
-            crm={},
             default={"foo": "bar"},
-            extended={},
+            list={},
         )
         assert_matches_type(ActionUpdateResponse, action, path=["response"])
 
@@ -174,16 +170,14 @@ class TestActions:
         action = client.prism.objects.actions.bulk_create(
             objects=[
                 {
-                    "id": "182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
-                    "crm": {},
                     "default": {"foo": "bar"},
-                    "extended": {},
+                    "list": {},
                 }
             ],
             options={
                 "case_insensitive": True,
-                "crm_id": "182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
                 "dedupe_by": "dedupe_by",
+                "list_id": "182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
             },
         )
         assert_matches_type(ActionBulkCreateResponse, action, path=["response"])
@@ -313,9 +307,9 @@ class TestActions:
             query={
                 "select": ["string"],
                 "combinator": "AND",
-                "crm_id": "182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
-                "filter": [{"foo": {"foo": "string"}}],
+                "filter": [{"foo": {"api_empty": "string"}}],
                 "limit": 1,
+                "list_id": "182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
                 "page": 0,
                 "sort": [{"foo": "asc"}],
             },
@@ -410,10 +404,8 @@ class TestAsyncActions:
     @parametrize
     async def test_method_create_with_all_params(self, async_client: AsyncMicro) -> None:
         action = await async_client.prism.objects.actions.create(
-            id="182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
-            crm={},
             default={"foo": "bar"},
-            extended={},
+            list={},
         )
         assert_matches_type(ActionCreateResponse, action, path=["response"])
 
@@ -452,10 +444,8 @@ class TestAsyncActions:
     async def test_method_update_with_all_params(self, async_client: AsyncMicro) -> None:
         action = await async_client.prism.objects.actions.update(
             action_id="182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
-            id="182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
-            crm={},
             default={"foo": "bar"},
-            extended={},
+            list={},
         )
         assert_matches_type(ActionUpdateResponse, action, path=["response"])
 
@@ -549,16 +539,14 @@ class TestAsyncActions:
         action = await async_client.prism.objects.actions.bulk_create(
             objects=[
                 {
-                    "id": "182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
-                    "crm": {},
                     "default": {"foo": "bar"},
-                    "extended": {},
+                    "list": {},
                 }
             ],
             options={
                 "case_insensitive": True,
-                "crm_id": "182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
                 "dedupe_by": "dedupe_by",
+                "list_id": "182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
             },
         )
         assert_matches_type(ActionBulkCreateResponse, action, path=["response"])
@@ -688,9 +676,9 @@ class TestAsyncActions:
             query={
                 "select": ["string"],
                 "combinator": "AND",
-                "crm_id": "182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
-                "filter": [{"foo": {"foo": "string"}}],
+                "filter": [{"foo": {"api_empty": "string"}}],
                 "limit": 1,
+                "list_id": "182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
                 "page": 0,
                 "sort": [{"foo": "asc"}],
             },

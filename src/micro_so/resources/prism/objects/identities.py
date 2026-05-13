@@ -59,10 +59,8 @@ class IdentitiesResource(SyncAPIResource):
         self,
         *,
         team_id: str | None = None,
-        id: str | Omit = omit,
-        crm: object | Omit = omit,
         default: Dict[str, object] | Omit = omit,
-        extended: object | Omit = omit,
+        list: object | Omit = omit,
         # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
         # The extra values given here take precedence over values defined on the client or passed to this method.
         extra_headers: Headers | None = None,
@@ -95,10 +93,8 @@ class IdentitiesResource(SyncAPIResource):
             path_template("/v2/prism/{team_id}/identity", team_id=team_id),
             body=maybe_transform(
                 {
-                    "id": id,
-                    "crm": crm,
                     "default": default,
-                    "extended": extended,
+                    "list": list,
                 },
                 identity_create_params.IdentityCreateParams,
             ),
@@ -113,10 +109,8 @@ class IdentitiesResource(SyncAPIResource):
         identity_id: str,
         *,
         team_id: str | None = None,
-        id: str | Omit = omit,
-        crm: object | Omit = omit,
         default: Dict[str, object] | Omit = omit,
-        extended: object | Omit = omit,
+        list: object | Omit = omit,
         # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
         # The extra values given here take precedence over values defined on the client or passed to this method.
         extra_headers: Headers | None = None,
@@ -151,10 +145,8 @@ class IdentitiesResource(SyncAPIResource):
             path_template("/v2/prism/{team_id}/identity/{identity_id}", team_id=team_id, identity_id=identity_id),
             body=maybe_transform(
                 {
-                    "id": id,
-                    "crm": crm,
                     "default": default,
-                    "extended": extended,
+                    "list": list,
                 },
                 identity_update_params.IdentityUpdateParams,
             ),
@@ -445,10 +437,8 @@ class AsyncIdentitiesResource(AsyncAPIResource):
         self,
         *,
         team_id: str | None = None,
-        id: str | Omit = omit,
-        crm: object | Omit = omit,
         default: Dict[str, object] | Omit = omit,
-        extended: object | Omit = omit,
+        list: object | Omit = omit,
         # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
         # The extra values given here take precedence over values defined on the client or passed to this method.
         extra_headers: Headers | None = None,
@@ -481,10 +471,8 @@ class AsyncIdentitiesResource(AsyncAPIResource):
             path_template("/v2/prism/{team_id}/identity", team_id=team_id),
             body=await async_maybe_transform(
                 {
-                    "id": id,
-                    "crm": crm,
                     "default": default,
-                    "extended": extended,
+                    "list": list,
                 },
                 identity_create_params.IdentityCreateParams,
             ),
@@ -499,10 +487,8 @@ class AsyncIdentitiesResource(AsyncAPIResource):
         identity_id: str,
         *,
         team_id: str | None = None,
-        id: str | Omit = omit,
-        crm: object | Omit = omit,
         default: Dict[str, object] | Omit = omit,
-        extended: object | Omit = omit,
+        list: object | Omit = omit,
         # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
         # The extra values given here take precedence over values defined on the client or passed to this method.
         extra_headers: Headers | None = None,
@@ -537,10 +523,8 @@ class AsyncIdentitiesResource(AsyncAPIResource):
             path_template("/v2/prism/{team_id}/identity/{identity_id}", team_id=team_id, identity_id=identity_id),
             body=await async_maybe_transform(
                 {
-                    "id": id,
-                    "crm": crm,
                     "default": default,
-                    "extended": extended,
+                    "list": list,
                 },
                 identity_update_params.IdentityUpdateParams,
             ),

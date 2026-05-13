@@ -9,10 +9,6 @@ __all__ = ["PrismObjectPropertiesParam"]
 
 
 class PrismObjectPropertiesParam(TypedDict, total=False):
-    id: str
-
-    crm: object
-
     default: Dict[str, object]
     """Properties keyed by property slug.
 
@@ -21,4 +17,4 @@ class PrismObjectPropertiesParam(TypedDict, total=False):
     write; option slugs are returned on read.
     """
 
-    extended: object
+    list: object

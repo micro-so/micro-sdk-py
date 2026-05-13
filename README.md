@@ -40,8 +40,6 @@ from micro_so import Micro
 client = Micro(
     team_id="My Team ID",
     api_key=os.environ.get("MICRO_API_KEY"),  # This is the default and can be omitted
-    # defaults to "staging".
-    environment="production",
 )
 
 response = client.prism.objects.deals.query(
@@ -67,8 +65,6 @@ from micro_so import AsyncMicro
 client = AsyncMicro(
     team_id="My Team ID",
     api_key=os.environ.get("MICRO_API_KEY"),  # This is the default and can be omitted
-    # defaults to "staging".
-    environment="production",
 )
 
 

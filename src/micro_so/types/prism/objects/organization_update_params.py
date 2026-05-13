@@ -13,10 +13,6 @@ __all__ = ["OrganizationUpdateParams"]
 class OrganizationUpdateParams(TypedDict, total=False):
     team_id: Annotated[str, PropertyInfo(alias="teamId")]
 
-    id: str
-
-    crm: object
-
     default: Dict[str, object]
     """Properties keyed by property slug.
 
@@ -25,4 +21,4 @@ class OrganizationUpdateParams(TypedDict, total=False):
     write; option slugs are returned on read.
     """
 
-    extended: object
+    list: object

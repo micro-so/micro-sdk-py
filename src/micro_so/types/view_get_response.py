@@ -29,8 +29,6 @@ class ViewGetResponse(BaseModel):
 
     created_at: Optional[str] = None
 
-    crm_id: Optional[str] = None
-
     filter: Optional[List[Dict[str, object]]] = None
     """Each entry is { slug: { comparator: value } }"""
 
@@ -44,6 +42,8 @@ class ViewGetResponse(BaseModel):
     group_sort: Optional[str] = None
 
     icon: Optional[str] = None
+
+    list_id: Optional[str] = None
 
     select: Optional[List[str]] = None
     """Property slugs (dot-paths permitted for refs)"""
