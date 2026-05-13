@@ -24,8 +24,8 @@ class Options(TypedDict, total=False):
     case_insensitive: Annotated[bool, PropertyInfo(alias="caseInsensitive")]
     """Whether deduplication should be case insensitive"""
 
-    crm_id: str
-    """App/CRM ID for context (optional)"""
-
     dedupe_by: str
     """Property slug to deduplicate on"""
+
+    list_id: str
+    """App/CRM ID for context (optional)"""

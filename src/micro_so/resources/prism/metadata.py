@@ -59,7 +59,7 @@ class MetadataResource(SyncAPIResource):
         *,
         team_id: str | None = None,
         autofill: bool | Omit = omit,
-        crm_id: str | Omit = omit,
+        list_id: str | Omit = omit,
         term: str | Omit = omit,
         # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
         # The extra values given here take precedence over values defined on the client or passed to this method.
@@ -98,7 +98,7 @@ class MetadataResource(SyncAPIResource):
                 query=maybe_transform(
                     {
                         "autofill": autofill,
-                        "crm_id": crm_id,
+                        "list_id": list_id,
                         "term": term,
                     },
                     metadata_list_params.MetadataListParams,
@@ -144,7 +144,7 @@ class AsyncMetadataResource(AsyncAPIResource):
         *,
         team_id: str | None = None,
         autofill: bool | Omit = omit,
-        crm_id: str | Omit = omit,
+        list_id: str | Omit = omit,
         term: str | Omit = omit,
         # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
         # The extra values given here take precedence over values defined on the client or passed to this method.
@@ -183,7 +183,7 @@ class AsyncMetadataResource(AsyncAPIResource):
                 query=await async_maybe_transform(
                     {
                         "autofill": autofill,
-                        "crm_id": crm_id,
+                        "list_id": list_id,
                         "term": term,
                     },
                     metadata_list_params.MetadataListParams,

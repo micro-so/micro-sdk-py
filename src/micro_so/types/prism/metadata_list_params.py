@@ -14,6 +14,6 @@ class MetadataListParams(TypedDict, total=False):
 
     autofill: bool
 
-    crm_id: Annotated[str, PropertyInfo(alias="crmId")]
+    list_id: Annotated[str, PropertyInfo(alias="listId")]
 
     term: str
