@@ -1,5 +1,24 @@
 # Changelog
 
+## 0.3.0 (2026-05-13)
+
+Full Changelog: [v0.2.4...v0.3.0](https://github.com/micro-so/micro-sdk-py/compare/v0.2.4...v0.3.0)
+
+### Features
+
+* **api:** api update ([b96dc55](https://github.com/micro-so/micro-sdk-py/commit/b96dc55327afcf2135101ba9fcde05e85ba5f784))
+* **internal/types:** support eagerly validating pydantic iterators ([e76ed42](https://github.com/micro-so/micro-sdk-py/commit/e76ed42f1bbf65896df44b7735b4c21d492d5620))
+
+
+### Bug Fixes
+
+* **client:** add missing f-string prefix in file type error message ([34dbce2](https://github.com/micro-so/micro-sdk-py/commit/34dbce2510214e6b0fbbaedbcdbfe67e9bd84579))
+
+
+### Chores
+
+* remove custom code ([06c3b4f](https://github.com/micro-so/micro-sdk-py/commit/06c3b4fcaf9de00dbe1f659b01009c0baac1a034))
+
 ## 0.2.4 (2026-05-09)
 
 Full Changelog: [v0.2.3...v0.2.4](https://github.com/micro-so/micro-sdk-py/compare/v0.2.3...v0.2.4)

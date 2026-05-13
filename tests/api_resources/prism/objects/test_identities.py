@@ -35,10 +35,8 @@ class TestIdentities:
     @parametrize
     def test_method_create_with_all_params(self, client: Micro) -> None:
         identity = client.prism.objects.identities.create(
-            id="182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
-            crm={},
             default={"foo": "bar"},
-            extended={},
+            list={},
         )
         assert_matches_type(IdentityCreateResponse, identity, path=["response"])
 
@@ -77,10 +75,8 @@ class TestIdentities:
     def test_method_update_with_all_params(self, client: Micro) -> None:
         identity = client.prism.objects.identities.update(
             identity_id="182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
-            id="182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
-            crm={},
             default={"foo": "bar"},
-            extended={},
+            list={},
         )
         assert_matches_type(IdentityUpdateResponse, identity, path=["response"])
 
@@ -174,16 +170,14 @@ class TestIdentities:
         identity = client.prism.objects.identities.bulk_create(
             objects=[
                 {
-                    "id": "182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
-                    "crm": {},
                     "default": {"foo": "bar"},
-                    "extended": {},
+                    "list": {},
                 }
             ],
             options={
                 "case_insensitive": True,
-                "crm_id": "182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
                 "dedupe_by": "dedupe_by",
+                "list_id": "182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
             },
         )
         assert_matches_type(IdentityBulkCreateResponse, identity, path=["response"])
@@ -313,9 +307,9 @@ class TestIdentities:
             query={
                 "select": ["string"],
                 "combinator": "AND",
-                "crm_id": "182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
-                "filter": [{"foo": {"foo": "string"}}],
+                "filter": [{"foo": {"api_empty": "string"}}],
                 "limit": 1,
+                "list_id": "182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
                 "page": 0,
                 "sort": [{"foo": "asc"}],
             },
@@ -410,10 +404,8 @@ class TestAsyncIdentities:
     @parametrize
     async def test_method_create_with_all_params(self, async_client: AsyncMicro) -> None:
         identity = await async_client.prism.objects.identities.create(
-            id="182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
-            crm={},
             default={"foo": "bar"},
-            extended={},
+            list={},
         )
         assert_matches_type(IdentityCreateResponse, identity, path=["response"])
 
@@ -452,10 +444,8 @@ class TestAsyncIdentities:
     async def test_method_update_with_all_params(self, async_client: AsyncMicro) -> None:
         identity = await async_client.prism.objects.identities.update(
             identity_id="182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
-            id="182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
-            crm={},
             default={"foo": "bar"},
-            extended={},
+            list={},
         )
         assert_matches_type(IdentityUpdateResponse, identity, path=["response"])
 
@@ -549,16 +539,14 @@ class TestAsyncIdentities:
         identity = await async_client.prism.objects.identities.bulk_create(
             objects=[
                 {
-                    "id": "182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
-                    "crm": {},
                     "default": {"foo": "bar"},
-                    "extended": {},
+                    "list": {},
                 }
             ],
             options={
                 "case_insensitive": True,
-                "crm_id": "182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
                 "dedupe_by": "dedupe_by",
+                "list_id": "182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
             },
         )
         assert_matches_type(IdentityBulkCreateResponse, identity, path=["response"])
@@ -688,9 +676,9 @@ class TestAsyncIdentities:
             query={
                 "select": ["string"],
                 "combinator": "AND",
-                "crm_id": "182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
-                "filter": [{"foo": {"foo": "string"}}],
+                "filter": [{"foo": {"api_empty": "string"}}],
                 "limit": 1,
+                "list_id": "182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
                 "page": 0,
                 "sort": [{"foo": "asc"}],
             },

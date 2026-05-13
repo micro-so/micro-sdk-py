@@ -3,12 +3,25 @@
 from __future__ import annotations
 
 from typing import Dict, Union, Iterable
-from typing_extensions import Literal, Required, Annotated, TypedDict
+from typing_extensions import Literal, Required, Annotated, TypeAlias, TypedDict
 
 from ...._types import SequenceNotStr
 from ...._utils import PropertyInfo
 
-__all__ = ["OrganizationQueryParams", "Query"]
+__all__ = [
+    "OrganizationQueryParams",
+    "Query",
+    "QueryFilterQueryFilterItem",
+    "QueryFilterQueryFilterItemapi_empty",
+    "QueryFilterQueryFilterItemLikeRegex",
+    "QueryFilterQueryFilterItemBeginsWith",
+    "QueryFilterQueryFilterItemEndsWith",
+    "QueryFilterQueryFilterItemNotContains",
+    "QueryFilterQueryFilterItemExists",
+    "QueryFilterQueryFilterItemNotExists",
+    "QueryFilterQueryFilterItemIn",
+    "QueryFilterQueryFilterItemNotIn",
+]
 
 
 class OrganizationQueryParams(TypedDict, total=False):
@@ -25,6 +38,69 @@ class OrganizationQueryParams(TypedDict, total=False):
     sources: SequenceNotStr[str]
 
 
+class QueryFilterQueryFilterItemapi_empty(TypedDict, total=False):
+    api_empty: Required[Annotated[Union[str, bool], PropertyInfo(alias="=")]]
+
+
+class QueryFilterQueryFilterItemLikeRegex(TypedDict, total=False):
+    like_regex: Required[str]
+
+
+class QueryFilterQueryFilterItemBeginsWith(TypedDict, total=False):
+    begins_with: Required[str]
+
+
+class QueryFilterQueryFilterItemEndsWith(TypedDict, total=False):
+    ends_with: Required[str]
+
+
+class QueryFilterQueryFilterItemNotContains(TypedDict, total=False):
+    not_contains: Required[str]
+
+
+class QueryFilterQueryFilterItemExists(TypedDict, total=False):
+    exists: Required[bool]
+
+
+class QueryFilterQueryFilterItemNotExists(TypedDict, total=False):
+    not_exists: Required[bool]
+
+
+_QueryFilterQueryFilterItemInReservedKeywords = TypedDict(
+    "_QueryFilterQueryFilterItemInReservedKeywords",
+    {
+        "in": SequenceNotStr[str],
+    },
+    total=False,
+)
+
+
+class QueryFilterQueryFilterItemIn(_QueryFilterQueryFilterItemInReservedKeywords, total=False):
+    pass
+
+
+class QueryFilterQueryFilterItemNotIn(TypedDict, total=False):
+    not_in: Required[SequenceNotStr[str]]
+
+
+QueryFilterQueryFilterItem: TypeAlias = Union[
+    QueryFilterQueryFilterItemapi_empty,
+    QueryFilterQueryFilterItemapi_empty,
+    QueryFilterQueryFilterItemapi_empty,
+    QueryFilterQueryFilterItemapi_empty,
+    QueryFilterQueryFilterItemapi_empty,
+    QueryFilterQueryFilterItemapi_empty,
+    QueryFilterQueryFilterItemLikeRegex,
+    QueryFilterQueryFilterItemBeginsWith,
+    QueryFilterQueryFilterItemEndsWith,
+    QueryFilterQueryFilterItemNotContains,
+    QueryFilterQueryFilterItemExists,
+    QueryFilterQueryFilterItemNotExists,
+    QueryFilterQueryFilterItemIn,
+    QueryFilterQueryFilterItemNotIn,
+]
+
+
 class Query(TypedDict, total=False):
     select: Required[SequenceNotStr[str]]
     """Property slugs to select.
@@ -35,15 +111,15 @@ class Query(TypedDict, total=False):
     combinator: Literal["AND", "OR"]
     """Logical operator for combining filters"""
 
-    crm_id: str
-
-    filter: Iterable[Dict[str, Dict[str, Union[str, bool, SequenceNotStr[str]]]]]
+    filter: Iterable[Dict[str, QueryFilterQueryFilterItem]]
     """Filters as [{ slug: { operator: value } }].
 
     For select/multiselect properties, values may be option slugs or option UUIDs.
     """
 
     limit: int
+
+    list_id: str
 
     page: int
 

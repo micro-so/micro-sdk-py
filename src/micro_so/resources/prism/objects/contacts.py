@@ -59,10 +59,8 @@ class ContactsResource(SyncAPIResource):
         self,
         *,
         team_id: str | None = None,
-        id: str | Omit = omit,
-        crm: object | Omit = omit,
         default: Dict[str, object] | Omit = omit,
-        extended: object | Omit = omit,
+        list: object | Omit = omit,
         # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
         # The extra values given here take precedence over values defined on the client or passed to this method.
         extra_headers: Headers | None = None,
@@ -95,10 +93,8 @@ class ContactsResource(SyncAPIResource):
             path_template("/v2/prism/{team_id}/contact", team_id=team_id),
             body=maybe_transform(
                 {
-                    "id": id,
-                    "crm": crm,
                     "default": default,
-                    "extended": extended,
+                    "list": list,
                 },
                 contact_create_params.ContactCreateParams,
             ),
@@ -113,10 +109,8 @@ class ContactsResource(SyncAPIResource):
         contact_id: str,
         *,
         team_id: str | None = None,
-        id: str | Omit = omit,
-        crm: object | Omit = omit,
         default: Dict[str, object] | Omit = omit,
-        extended: object | Omit = omit,
+        list: object | Omit = omit,
         # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
         # The extra values given here take precedence over values defined on the client or passed to this method.
         extra_headers: Headers | None = None,
@@ -151,10 +145,8 @@ class ContactsResource(SyncAPIResource):
             path_template("/v2/prism/{team_id}/contact/{contact_id}", team_id=team_id, contact_id=contact_id),
             body=maybe_transform(
                 {
-                    "id": id,
-                    "crm": crm,
                     "default": default,
-                    "extended": extended,
+                    "list": list,
                 },
                 contact_update_params.ContactUpdateParams,
             ),
@@ -441,10 +433,8 @@ class AsyncContactsResource(AsyncAPIResource):
         self,
         *,
         team_id: str | None = None,
-        id: str | Omit = omit,
-        crm: object | Omit = omit,
         default: Dict[str, object] | Omit = omit,
-        extended: object | Omit = omit,
+        list: object | Omit = omit,
         # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
         # The extra values given here take precedence over values defined on the client or passed to this method.
         extra_headers: Headers | None = None,
@@ -477,10 +467,8 @@ class AsyncContactsResource(AsyncAPIResource):
             path_template("/v2/prism/{team_id}/contact", team_id=team_id),
             body=await async_maybe_transform(
                 {
-                    "id": id,
-                    "crm": crm,
                     "default": default,
-                    "extended": extended,
+                    "list": list,
                 },
                 contact_create_params.ContactCreateParams,
             ),
@@ -495,10 +483,8 @@ class AsyncContactsResource(AsyncAPIResource):
         contact_id: str,
         *,
         team_id: str | None = None,
-        id: str | Omit = omit,
-        crm: object | Omit = omit,
         default: Dict[str, object] | Omit = omit,
-        extended: object | Omit = omit,
+        list: object | Omit = omit,
         # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
         # The extra values given here take precedence over values defined on the client or passed to this method.
         extra_headers: Headers | None = None,
@@ -533,10 +519,8 @@ class AsyncContactsResource(AsyncAPIResource):
             path_template("/v2/prism/{team_id}/contact/{contact_id}", team_id=team_id, contact_id=contact_id),
             body=await async_maybe_transform(
                 {
-                    "id": id,
-                    "crm": crm,
                     "default": default,
-                    "extended": extended,
+                    "list": list,
                 },
                 contact_update_params.ContactUpdateParams,
             ),

@@ -35,10 +35,8 @@ class TestContacts:
     @parametrize
     def test_method_create_with_all_params(self, client: Micro) -> None:
         contact = client.prism.objects.contacts.create(
-            id="182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
-            crm={},
             default={"foo": "bar"},
-            extended={},
+            list={},
         )
         assert_matches_type(ContactCreateResponse, contact, path=["response"])
 
@@ -77,10 +75,8 @@ class TestContacts:
     def test_method_update_with_all_params(self, client: Micro) -> None:
         contact = client.prism.objects.contacts.update(
             contact_id="182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
-            id="182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
-            crm={},
             default={"foo": "bar"},
-            extended={},
+            list={},
         )
         assert_matches_type(ContactUpdateResponse, contact, path=["response"])
 
@@ -174,16 +170,14 @@ class TestContacts:
         contact = client.prism.objects.contacts.bulk_create(
             objects=[
                 {
-                    "id": "182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
-                    "crm": {},
                     "default": {"foo": "bar"},
-                    "extended": {},
+                    "list": {},
                 }
             ],
             options={
                 "case_insensitive": True,
-                "crm_id": "182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
                 "dedupe_by": "dedupe_by",
+                "list_id": "182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
             },
         )
         assert_matches_type(ContactBulkCreateResponse, contact, path=["response"])
@@ -313,9 +307,9 @@ class TestContacts:
             query={
                 "select": ["string"],
                 "combinator": "AND",
-                "crm_id": "182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
-                "filter": [{"foo": {"foo": "string"}}],
+                "filter": [{"foo": {"api_empty": "string"}}],
                 "limit": 1,
+                "list_id": "182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
                 "page": 0,
                 "sort": [{"foo": "asc"}],
             },
@@ -410,10 +404,8 @@ class TestAsyncContacts:
     @parametrize
     async def test_method_create_with_all_params(self, async_client: AsyncMicro) -> None:
         contact = await async_client.prism.objects.contacts.create(
-            id="182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
-            crm={},
             default={"foo": "bar"},
-            extended={},
+            list={},
         )
         assert_matches_type(ContactCreateResponse, contact, path=["response"])
 
@@ -452,10 +444,8 @@ class TestAsyncContacts:
     async def test_method_update_with_all_params(self, async_client: AsyncMicro) -> None:
         contact = await async_client.prism.objects.contacts.update(
             contact_id="182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
-            id="182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
-            crm={},
             default={"foo": "bar"},
-            extended={},
+            list={},
         )
         assert_matches_type(ContactUpdateResponse, contact, path=["response"])
 
@@ -549,16 +539,14 @@ class TestAsyncContacts:
         contact = await async_client.prism.objects.contacts.bulk_create(
             objects=[
                 {
-                    "id": "182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
-                    "crm": {},
                     "default": {"foo": "bar"},
-                    "extended": {},
+                    "list": {},
                 }
             ],
             options={
                 "case_insensitive": True,
-                "crm_id": "182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
                 "dedupe_by": "dedupe_by",
+                "list_id": "182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
             },
         )
         assert_matches_type(ContactBulkCreateResponse, contact, path=["response"])
@@ -688,9 +676,9 @@ class TestAsyncContacts:
             query={
                 "select": ["string"],
                 "combinator": "AND",
-                "crm_id": "182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
-                "filter": [{"foo": {"foo": "string"}}],
+                "filter": [{"foo": {"api_empty": "string"}}],
                 "limit": 1,
+                "list_id": "182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
                 "page": 0,
                 "sort": [{"foo": "asc"}],
             },

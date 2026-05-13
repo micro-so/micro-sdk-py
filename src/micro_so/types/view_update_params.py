@@ -29,8 +29,6 @@ class ViewUpdateParams(TypedDict, total=False):
 
     combinator: Literal["AND", "OR"]
 
-    crm_id: Optional[str]
-
     filter: Iterable[Dict[str, object]]
 
     group_by: Optional[str]
@@ -42,6 +40,8 @@ class ViewUpdateParams(TypedDict, total=False):
     group_sort: Optional[str]
 
     icon: Optional[str]
+
+    list_id: Optional[str]
 
     name: str
 

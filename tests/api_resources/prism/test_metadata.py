@@ -31,7 +31,7 @@ class TestMetadata:
         metadata = client.prism.metadata.list(
             object_type="deal",
             autofill=True,
-            crm_id="182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
+            list_id="182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
             term="term",
         )
         assert_matches_type(MetadataListResponse, metadata, path=["response"])
@@ -82,7 +82,7 @@ class TestAsyncMetadata:
         metadata = await async_client.prism.metadata.list(
             object_type="deal",
             autofill=True,
-            crm_id="182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
+            list_id="182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
             term="term",
         )
         assert_matches_type(MetadataListResponse, metadata, path=["response"])

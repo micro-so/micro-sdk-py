@@ -12,12 +12,10 @@ class Data(BaseModel):
 
     id: str
 
-    crm: Optional[object] = None
-
     default: Optional[Dict[str, object]] = None
     """Properties keyed by property slug."""
 
-    extended: Optional[object] = None
+    list: Optional[object] = None
 
 
 class DocumentQueryResponse(BaseModel):

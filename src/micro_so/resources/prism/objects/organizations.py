@@ -59,10 +59,8 @@ class OrganizationsResource(SyncAPIResource):
         self,
         *,
         team_id: str | None = None,
-        id: str | Omit = omit,
-        crm: object | Omit = omit,
         default: Dict[str, object] | Omit = omit,
-        extended: object | Omit = omit,
+        list: object | Omit = omit,
         # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
         # The extra values given here take precedence over values defined on the client or passed to this method.
         extra_headers: Headers | None = None,
@@ -95,10 +93,8 @@ class OrganizationsResource(SyncAPIResource):
             path_template("/v2/prism/{team_id}/organization", team_id=team_id),
             body=maybe_transform(
                 {
-                    "id": id,
-                    "crm": crm,
                     "default": default,
-                    "extended": extended,
+                    "list": list,
                 },
                 organization_create_params.OrganizationCreateParams,
             ),
@@ -113,10 +109,8 @@ class OrganizationsResource(SyncAPIResource):
         organization_id: str,
         *,
         team_id: str | None = None,
-        id: str | Omit = omit,
-        crm: object | Omit = omit,
         default: Dict[str, object] | Omit = omit,
-        extended: object | Omit = omit,
+        list: object | Omit = omit,
         # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
         # The extra values given here take precedence over values defined on the client or passed to this method.
         extra_headers: Headers | None = None,
@@ -153,10 +147,8 @@ class OrganizationsResource(SyncAPIResource):
             ),
             body=maybe_transform(
                 {
-                    "id": id,
-                    "crm": crm,
                     "default": default,
-                    "extended": extended,
+                    "list": list,
                 },
                 organization_update_params.OrganizationUpdateParams,
             ),
@@ -455,10 +447,8 @@ class AsyncOrganizationsResource(AsyncAPIResource):
         self,
         *,
         team_id: str | None = None,
-        id: str | Omit = omit,
-        crm: object | Omit = omit,
         default: Dict[str, object] | Omit = omit,
-        extended: object | Omit = omit,
+        list: object | Omit = omit,
         # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
         # The extra values given here take precedence over values defined on the client or passed to this method.
         extra_headers: Headers | None = None,
@@ -491,10 +481,8 @@ class AsyncOrganizationsResource(AsyncAPIResource):
             path_template("/v2/prism/{team_id}/organization", team_id=team_id),
             body=await async_maybe_transform(
                 {
-                    "id": id,
-                    "crm": crm,
                     "default": default,
-                    "extended": extended,
+                    "list": list,
                 },
                 organization_create_params.OrganizationCreateParams,
             ),
@@ -509,10 +497,8 @@ class AsyncOrganizationsResource(AsyncAPIResource):
         organization_id: str,
         *,
         team_id: str | None = None,
-        id: str | Omit = omit,
-        crm: object | Omit = omit,
         default: Dict[str, object] | Omit = omit,
-        extended: object | Omit = omit,
+        list: object | Omit = omit,
         # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
         # The extra values given here take precedence over values defined on the client or passed to this method.
         extra_headers: Headers | None = None,
@@ -549,10 +535,8 @@ class AsyncOrganizationsResource(AsyncAPIResource):
             ),
             body=await async_maybe_transform(
                 {
-                    "id": id,
-                    "crm": crm,
                     "default": default,
-                    "extended": extended,
+                    "list": list,
                 },
                 organization_update_params.OrganizationUpdateParams,
             ),
