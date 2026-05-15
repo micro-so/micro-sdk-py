@@ -12,7 +12,12 @@ __all__ = [
     "ContactQueryParams",
     "Query",
     "QueryFilterQueryFilterItem",
-    "QueryFilterQueryFilterItemapi_empty",
+    "QueryFilterQueryFilterItemPrismQueryFilterEq",
+    "QueryFilterQueryFilterItemPrismQueryFilterNe",
+    "QueryFilterQueryFilterItemPrismQueryFilterLt",
+    "QueryFilterQueryFilterItemPrismQueryFilterGt",
+    "QueryFilterQueryFilterItemPrismQueryFilterLte",
+    "QueryFilterQueryFilterItemPrismQueryFilterGte",
     "QueryFilterQueryFilterItemLikeRegex",
     "QueryFilterQueryFilterItemBeginsWith",
     "QueryFilterQueryFilterItemEndsWith",
@@ -38,8 +43,28 @@ class ContactQueryParams(TypedDict, total=False):
     sources: SequenceNotStr[str]
 
 
-class QueryFilterQueryFilterItemapi_empty(TypedDict, total=False):
+class QueryFilterQueryFilterItemPrismQueryFilterEq(TypedDict, total=False):
     api_empty: Required[Annotated[Union[str, bool], PropertyInfo(alias="=")]]
+
+
+class QueryFilterQueryFilterItemPrismQueryFilterNe(TypedDict, total=False):
+    api_empty: Required[Annotated[Union[str, bool], PropertyInfo(alias="!=")]]
+
+
+class QueryFilterQueryFilterItemPrismQueryFilterLt(TypedDict, total=False):
+    api_empty: Required[Annotated[str, PropertyInfo(alias="<")]]
+
+
+class QueryFilterQueryFilterItemPrismQueryFilterGt(TypedDict, total=False):
+    api_empty: Required[Annotated[str, PropertyInfo(alias=">")]]
+
+
+class QueryFilterQueryFilterItemPrismQueryFilterLte(TypedDict, total=False):
+    api_empty: Required[Annotated[str, PropertyInfo(alias="<=")]]
+
+
+class QueryFilterQueryFilterItemPrismQueryFilterGte(TypedDict, total=False):
+    api_empty: Required[Annotated[str, PropertyInfo(alias=">=")]]
 
 
 class QueryFilterQueryFilterItemLikeRegex(TypedDict, total=False):
@@ -84,12 +109,12 @@ class QueryFilterQueryFilterItemNotIn(TypedDict, total=False):
 
 
 QueryFilterQueryFilterItem: TypeAlias = Union[
-    QueryFilterQueryFilterItemapi_empty,
-    QueryFilterQueryFilterItemapi_empty,
-    QueryFilterQueryFilterItemapi_empty,
-    QueryFilterQueryFilterItemapi_empty,
-    QueryFilterQueryFilterItemapi_empty,
-    QueryFilterQueryFilterItemapi_empty,
+    QueryFilterQueryFilterItemPrismQueryFilterEq,
+    QueryFilterQueryFilterItemPrismQueryFilterNe,
+    QueryFilterQueryFilterItemPrismQueryFilterLt,
+    QueryFilterQueryFilterItemPrismQueryFilterGt,
+    QueryFilterQueryFilterItemPrismQueryFilterLte,
+    QueryFilterQueryFilterItemPrismQueryFilterGte,
     QueryFilterQueryFilterItemLikeRegex,
     QueryFilterQueryFilterItemBeginsWith,
     QueryFilterQueryFilterItemEndsWith,
