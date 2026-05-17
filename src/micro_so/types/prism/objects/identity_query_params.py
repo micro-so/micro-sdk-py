@@ -18,7 +18,7 @@ __all__ = [
     "QueryFilterQueryFilterItemPrismQueryFilterGt",
     "QueryFilterQueryFilterItemPrismQueryFilterLte",
     "QueryFilterQueryFilterItemPrismQueryFilterGte",
-    "QueryFilterQueryFilterItemLikeRegex",
+    "QueryFilterQueryFilterItemContains",
     "QueryFilterQueryFilterItemBeginsWith",
     "QueryFilterQueryFilterItemEndsWith",
     "QueryFilterQueryFilterItemNotContains",
@@ -67,8 +67,8 @@ class QueryFilterQueryFilterItemPrismQueryFilterGte(TypedDict, total=False):
     api_empty: Required[Annotated[str, PropertyInfo(alias=">=")]]
 
 
-class QueryFilterQueryFilterItemLikeRegex(TypedDict, total=False):
-    like_regex: Required[str]
+class QueryFilterQueryFilterItemContains(TypedDict, total=False):
+    contains: Required[Union[str, bool, SequenceNotStr[str]]]
 
 
 class QueryFilterQueryFilterItemBeginsWith(TypedDict, total=False):
@@ -115,7 +115,7 @@ QueryFilterQueryFilterItem: TypeAlias = Union[
     QueryFilterQueryFilterItemPrismQueryFilterGt,
     QueryFilterQueryFilterItemPrismQueryFilterLte,
     QueryFilterQueryFilterItemPrismQueryFilterGte,
-    QueryFilterQueryFilterItemLikeRegex,
+    QueryFilterQueryFilterItemContains,
     QueryFilterQueryFilterItemBeginsWith,
     QueryFilterQueryFilterItemEndsWith,
     QueryFilterQueryFilterItemNotContains,
@@ -130,7 +130,8 @@ class Query(TypedDict, total=False):
     select: Required[SequenceNotStr[str]]
     """Property slugs to select.
 
-    Use dot notation for relationships (e.g. attendee.contact.first_name)
+    Use dot notation for relationships (e.g. attendee.contact.first_name). `id` is
+    always returned at the top level of each row and does not need to be selected.
     """
 
     combinator: Literal["AND", "OR"]
@@ -143,6 +144,10 @@ class Query(TypedDict, total=False):
     """
 
     limit: int
+    """Maximum number of rows to return.
+
+    Capped server-side at 50; requests above the cap are rejected.
+    """
 
     list_id: str
 
