@@ -1,5 +1,14 @@
 # Changelog
 
+## 0.4.0 (2026-05-17)
+
+Full Changelog: [v0.3.0...v0.4.0](https://github.com/micro-so/micro-sdk-py/compare/v0.3.0...v0.4.0)
+
+### Features
+
+* **api:** api update ([83d2220](https://github.com/micro-so/micro-sdk-py/commit/83d2220b1f056a8f0d82782139d4fcfd09546cc4))
+* **api:** api update ([114898d](https://github.com/micro-so/micro-sdk-py/commit/114898d209411db6fa442cad22137b03746ef868))
+
 ## 0.3.0 (2026-05-13)
 
 Full Changelog: [v0.2.4...v0.3.0](https://github.com/micro-so/micro-sdk-py/compare/v0.2.4...v0.3.0)
