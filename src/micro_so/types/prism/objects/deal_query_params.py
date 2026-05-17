@@ -12,8 +12,13 @@ __all__ = [
     "DealQueryParams",
     "Query",
     "QueryFilterQueryFilterItem",
-    "QueryFilterQueryFilterItemapi_empty",
-    "QueryFilterQueryFilterItemLikeRegex",
+    "QueryFilterQueryFilterItemPrismQueryFilterEq",
+    "QueryFilterQueryFilterItemPrismQueryFilterNe",
+    "QueryFilterQueryFilterItemPrismQueryFilterLt",
+    "QueryFilterQueryFilterItemPrismQueryFilterGt",
+    "QueryFilterQueryFilterItemPrismQueryFilterLte",
+    "QueryFilterQueryFilterItemPrismQueryFilterGte",
+    "QueryFilterQueryFilterItemContains",
     "QueryFilterQueryFilterItemBeginsWith",
     "QueryFilterQueryFilterItemEndsWith",
     "QueryFilterQueryFilterItemNotContains",
@@ -38,12 +43,32 @@ class DealQueryParams(TypedDict, total=False):
     sources: SequenceNotStr[str]
 
 
-class QueryFilterQueryFilterItemapi_empty(TypedDict, total=False):
+class QueryFilterQueryFilterItemPrismQueryFilterEq(TypedDict, total=False):
     api_empty: Required[Annotated[Union[str, bool], PropertyInfo(alias="=")]]
 
 
-class QueryFilterQueryFilterItemLikeRegex(TypedDict, total=False):
-    like_regex: Required[str]
+class QueryFilterQueryFilterItemPrismQueryFilterNe(TypedDict, total=False):
+    api_empty: Required[Annotated[Union[str, bool], PropertyInfo(alias="!=")]]
+
+
+class QueryFilterQueryFilterItemPrismQueryFilterLt(TypedDict, total=False):
+    api_empty: Required[Annotated[str, PropertyInfo(alias="<")]]
+
+
+class QueryFilterQueryFilterItemPrismQueryFilterGt(TypedDict, total=False):
+    api_empty: Required[Annotated[str, PropertyInfo(alias=">")]]
+
+
+class QueryFilterQueryFilterItemPrismQueryFilterLte(TypedDict, total=False):
+    api_empty: Required[Annotated[str, PropertyInfo(alias="<=")]]
+
+
+class QueryFilterQueryFilterItemPrismQueryFilterGte(TypedDict, total=False):
+    api_empty: Required[Annotated[str, PropertyInfo(alias=">=")]]
+
+
+class QueryFilterQueryFilterItemContains(TypedDict, total=False):
+    contains: Required[Union[str, bool, SequenceNotStr[str]]]
 
 
 class QueryFilterQueryFilterItemBeginsWith(TypedDict, total=False):
@@ -84,13 +109,13 @@ class QueryFilterQueryFilterItemNotIn(TypedDict, total=False):
 
 
 QueryFilterQueryFilterItem: TypeAlias = Union[
-    QueryFilterQueryFilterItemapi_empty,
-    QueryFilterQueryFilterItemapi_empty,
-    QueryFilterQueryFilterItemapi_empty,
-    QueryFilterQueryFilterItemapi_empty,
-    QueryFilterQueryFilterItemapi_empty,
-    QueryFilterQueryFilterItemapi_empty,
-    QueryFilterQueryFilterItemLikeRegex,
+    QueryFilterQueryFilterItemPrismQueryFilterEq,
+    QueryFilterQueryFilterItemPrismQueryFilterNe,
+    QueryFilterQueryFilterItemPrismQueryFilterLt,
+    QueryFilterQueryFilterItemPrismQueryFilterGt,
+    QueryFilterQueryFilterItemPrismQueryFilterLte,
+    QueryFilterQueryFilterItemPrismQueryFilterGte,
+    QueryFilterQueryFilterItemContains,
     QueryFilterQueryFilterItemBeginsWith,
     QueryFilterQueryFilterItemEndsWith,
     QueryFilterQueryFilterItemNotContains,
@@ -105,7 +130,8 @@ class Query(TypedDict, total=False):
     select: Required[SequenceNotStr[str]]
     """Property slugs to select.
 
-    Use dot notation for relationships (e.g. attendee.contact.first_name)
+    Use dot notation for relationships (e.g. attendee.contact.first_name). `id` is
+    always returned at the top level of each row and does not need to be selected.
     """
 
     combinator: Literal["AND", "OR"]
@@ -118,6 +144,10 @@ class Query(TypedDict, total=False):
     """
 
     limit: int
+    """Maximum number of rows to return.
+
+    Capped server-side at 50; requests above the cap are rejected.
+    """
 
     list_id: str
 
