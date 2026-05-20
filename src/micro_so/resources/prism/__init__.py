@@ -8,6 +8,14 @@ from .prism import (
     PrismResourceWithStreamingResponse,
     AsyncPrismResourceWithStreamingResponse,
 )
+from .imports import (
+    ImportsResource,
+    AsyncImportsResource,
+    ImportsResourceWithRawResponse,
+    AsyncImportsResourceWithRawResponse,
+    ImportsResourceWithStreamingResponse,
+    AsyncImportsResourceWithStreamingResponse,
+)
 from .objects import (
     ObjectsResource,
     AsyncObjectsResource,
@@ -16,22 +24,28 @@ from .objects import (
     ObjectsResourceWithStreamingResponse,
     AsyncObjectsResourceWithStreamingResponse,
 )
-from .metadata import (
-    MetadataResource,
-    AsyncMetadataResource,
-    MetadataResourceWithRawResponse,
-    AsyncMetadataResourceWithRawResponse,
-    MetadataResourceWithStreamingResponse,
-    AsyncMetadataResourceWithStreamingResponse,
+from .properties import (
+    PropertiesResource,
+    AsyncPropertiesResource,
+    PropertiesResourceWithRawResponse,
+    AsyncPropertiesResourceWithRawResponse,
+    PropertiesResourceWithStreamingResponse,
+    AsyncPropertiesResourceWithStreamingResponse,
 )
 
 __all__ = [
-    "MetadataResource",
-    "AsyncMetadataResource",
-    "MetadataResourceWithRawResponse",
-    "AsyncMetadataResourceWithRawResponse",
-    "MetadataResourceWithStreamingResponse",
-    "AsyncMetadataResourceWithStreamingResponse",
+    "PropertiesResource",
+    "AsyncPropertiesResource",
+    "PropertiesResourceWithRawResponse",
+    "AsyncPropertiesResourceWithRawResponse",
+    "PropertiesResourceWithStreamingResponse",
+    "AsyncPropertiesResourceWithStreamingResponse",
+    "ImportsResource",
+    "AsyncImportsResource",
+    "ImportsResourceWithRawResponse",
+    "AsyncImportsResourceWithRawResponse",
+    "ImportsResourceWithStreamingResponse",
+    "AsyncImportsResourceWithStreamingResponse",
     "ObjectsResource",
     "AsyncObjectsResource",
     "ObjectsResourceWithRawResponse",

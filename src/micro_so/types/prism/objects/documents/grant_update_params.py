@@ -18,3 +18,5 @@ class GrantUpdateParams(TypedDict, total=False):
     body_team_id: Annotated[Dict[str, Literal["a", "r", "w"]], PropertyInfo(alias="team_id")]
 
     user_id: Iterable[Dict[str, Literal["a", "r", "w"]]]
+
+    idempotency_key: Annotated[str, PropertyInfo(alias="Idempotency-Key")]

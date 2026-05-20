@@ -33,6 +33,7 @@ class TestGrant:
             team_group_id=[{"foo": "a"}],
             body_team_id={"foo": "a"},
             user_id=[{"foo": "a"}],
+            idempotency_key="x",
         )
         assert_matches_type(GrantUpdateResponse, grant, path=["response"])
 
@@ -134,6 +135,7 @@ class TestAsyncGrant:
             team_group_id=[{"foo": "a"}],
             body_team_id={"foo": "a"},
             user_id=[{"foo": "a"}],
+            idempotency_key="x",
         )
         assert_matches_type(GrantUpdateResponse, grant, path=["response"])
 

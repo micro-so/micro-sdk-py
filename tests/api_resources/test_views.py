@@ -57,6 +57,7 @@ class TestViews:
             body_team_id="182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
             updated_at="updated_at",
             user_id="user_id",
+            idempotency_key="x",
         )
         assert_matches_type(ViewCreateResponse, view, path=["response"])
 
@@ -123,6 +124,7 @@ class TestViews:
             body_team_id="182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
             user_id="user_id",
             view_type="view_type",
+            idempotency_key="x",
         )
         assert_matches_type(ViewUpdateResponse, view, path=["response"])
 
@@ -220,6 +222,19 @@ class TestViews:
 
     @pytest.mark.skip(reason="Mock server tests are disabled")
     @parametrize
+    def test_method_get_with_all_params(self, client: Micro) -> None:
+        view = client.views.get(
+            view_id="182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
+            view_object_type="action",
+            cursor="cursor",
+            include="records",
+            limit=0,
+            page=1,
+        )
+        assert_matches_type(ViewGetResponse, view, path=["response"])
+
+    @pytest.mark.skip(reason="Mock server tests are disabled")
+    @parametrize
     def test_raw_response_get(self, client: Micro) -> None:
         response = client.views.with_raw_response.get(
             view_id="182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
@@ -297,6 +312,7 @@ class TestAsyncViews:
             body_team_id="182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
             updated_at="updated_at",
             user_id="user_id",
+            idempotency_key="x",
         )
         assert_matches_type(ViewCreateResponse, view, path=["response"])
 
@@ -363,6 +379,7 @@ class TestAsyncViews:
             body_team_id="182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
             user_id="user_id",
             view_type="view_type",
+            idempotency_key="x",
         )
         assert_matches_type(ViewUpdateResponse, view, path=["response"])
 
@@ -455,6 +472,19 @@ class TestAsyncViews:
         view = await async_client.views.get(
             view_id="182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
             view_object_type="action",
+        )
+        assert_matches_type(ViewGetResponse, view, path=["response"])
+
+    @pytest.mark.skip(reason="Mock server tests are disabled")
+    @parametrize
+    async def test_method_get_with_all_params(self, async_client: AsyncMicro) -> None:
+        view = await async_client.views.get(
+            view_id="182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
+            view_object_type="action",
+            cursor="cursor",
+            include="records",
+            limit=0,
+            page=1,
         )
         assert_matches_type(ViewGetResponse, view, path=["response"])
 

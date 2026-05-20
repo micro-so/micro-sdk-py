@@ -2,6 +2,7 @@
 
 from __future__ import annotations
 
+from .view_get_params import ViewGetParams as ViewGetParams
 from .view_get_response import ViewGetResponse as ViewGetResponse
 from .view_create_params import ViewCreateParams as ViewCreateParams
 from .view_update_params import ViewUpdateParams as ViewUpdateParams

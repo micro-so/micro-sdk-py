@@ -15,7 +15,7 @@ from .grant import (
     AsyncGrantResourceWithStreamingResponse,
 )
 from ....._types import Body, Omit, Query, Headers, NoneType, NotGiven, SequenceNotStr, omit, not_given
-from ....._utils import path_template, maybe_transform, async_maybe_transform
+from ....._utils import path_template, maybe_transform, strip_not_given, async_maybe_transform
 from ....._compat import cached_property
 from ....._resource import SyncAPIResource, AsyncAPIResource
 from ....._response import (
@@ -25,15 +25,33 @@ from ....._response import (
     async_to_streamed_response_wrapper,
 )
 from ....._base_client import make_request_options
-from .....types.prism.objects import deal_query_params, deal_create_params, deal_update_params, deal_bulk_create_params
+from .....types.prism.objects import (
+    deal_get_params,
+    deal_find_params,
+    deal_list_params,
+    deal_count_params,
+    deal_query_params,
+    deal_create_params,
+    deal_update_params,
+    deal_upsert_params,
+    deal_bulk_create_params,
+    deal_bulk_delete_params,
+    deal_bulk_update_params,
+)
 from .....types.prism_object_properties_param import PrismObjectPropertiesParam
 from .....types.prism.objects.deal_get_response import DealGetResponse
+from .....types.prism.objects.deal_find_response import DealFindResponse
+from .....types.prism.objects.deal_list_response import DealListResponse
+from .....types.prism.objects.deal_count_response import DealCountResponse
 from .....types.prism.objects.deal_query_response import DealQueryResponse
 from .....types.prism.objects.deal_create_response import DealCreateResponse
 from .....types.prism.objects.deal_update_response import DealUpdateResponse
+from .....types.prism.objects.deal_upsert_response import DealUpsertResponse
 from .....types.prism.objects.deal_restore_response import DealRestoreResponse
 from .....types.prism.objects.deal_duplicate_response import DealDuplicateResponse
 from .....types.prism.objects.deal_bulk_create_response import DealBulkCreateResponse
+from .....types.prism.objects.deal_bulk_delete_response import DealBulkDeleteResponse
+from .....types.prism.objects.deal_bulk_update_response import DealBulkUpdateResponse
 
 __all__ = ["DealsResource", "AsyncDealsResource"]
 
@@ -68,6 +86,7 @@ class DealsResource(SyncAPIResource):
         team_id: str | None = None,
         default: Dict[str, object] | Omit = omit,
         list: object | Omit = omit,
+        idempotency_key: str | Omit = omit,
         # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
         # The extra values given here take precedence over values defined on the client or passed to this method.
         extra_headers: Headers | None = None,
@@ -96,6 +115,7 @@ class DealsResource(SyncAPIResource):
             team_id = self._client._get_team_id_path_param()
         if not team_id:
             raise ValueError(f"Expected a non-empty value for `team_id` but received {team_id!r}")
+        extra_headers = {**strip_not_given({"Idempotency-Key": idempotency_key}), **(extra_headers or {})}
         return self._post(
             path_template("/v2/prism/{team_id}/deal", team_id=team_id),
             body=maybe_transform(
@@ -118,6 +138,8 @@ class DealsResource(SyncAPIResource):
         team_id: str | None = None,
         default: Dict[str, object] | Omit = omit,
         list: object | Omit = omit,
+        idempotency_key: str | Omit = omit,
+        if_match: str | Omit = omit,
         # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
         # The extra values given here take precedence over values defined on the client or passed to this method.
         extra_headers: Headers | None = None,
@@ -148,6 +170,15 @@ class DealsResource(SyncAPIResource):
             raise ValueError(f"Expected a non-empty value for `team_id` but received {team_id!r}")
         if not deal_id:
             raise ValueError(f"Expected a non-empty value for `deal_id` but received {deal_id!r}")
+        extra_headers = {
+            **strip_not_given(
+                {
+                    "Idempotency-Key": idempotency_key,
+                    "If-Match": if_match,
+                }
+            ),
+            **(extra_headers or {}),
+        }
         return self._patch(
             path_template("/v2/prism/{team_id}/deal/{deal_id}", team_id=team_id, deal_id=deal_id),
             body=maybe_transform(
@@ -163,11 +194,95 @@ class DealsResource(SyncAPIResource):
             cast_to=DealUpdateResponse,
         )
 
+    def list(
+        self,
+        *,
+        team_id: str | None = None,
+        cursor: str | Omit = omit,
+        deleted: bool | Omit = omit,
+        include_total: bool | Omit = omit,
+        limit: int | Omit = omit,
+        list_id: str | Omit = omit,
+        select: str | Omit = omit,
+        sort: str | Omit = omit,
+        # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
+        # The extra values given here take precedence over values defined on the client or passed to this method.
+        extra_headers: Headers | None = None,
+        extra_query: Query | None = None,
+        extra_body: Body | None = None,
+        timeout: float | httpx.Timeout | None | NotGiven = not_given,
+    ) -> DealListResponse:
+        """Convenience list endpoint.
+
+        Equivalent to
+        `POST /v2/prism/{teamId}/{objectType}/query` with an empty body, plus
+        query-string sugar for the common cases. Any unrecognized query parameter is
+        interpreted as an equality filter on a property of that name; pass arrays for
+        `in`. Values are received as strings, so non-string property filters via this
+        endpoint may not work — use the `query` endpoint for typed comparisons or
+        anything beyond simple equality.
+
+        Args:
+          cursor: Opaque cursor from a previous response's `next_cursor`. Pass it back unchanged
+              to fetch the next page.
+
+          deleted: Include soft-deleted records. Pass the literal string `true`.
+
+          include_total: When set to `true`, the response includes a `total` field with the unpaginated
+              row count. Costs an extra pass; prefer `GET .../count` for the unfiltered total.
+
+          limit: Maximum number of rows to return. Capped server-side at 50.
+
+          list_id: Scope properties to a specific list/app.
+
+          select: Comma-separated property slugs to return. Use dot notation for relationships.
+              `id` is always returned at the top level. Defaults to all properties.
+
+          sort:
+              Comma-separated list of slugs. Prefix with `-` for descending. Example:
+              `sort=-updated_at,name`.
+
+          extra_headers: Send extra headers
+
+          extra_query: Add additional query parameters to the request
+
+          extra_body: Add additional JSON properties to the request
+
+          timeout: Override the client-level default timeout for this request, in seconds
+        """
+        if team_id is None:
+            team_id = self._client._get_team_id_path_param()
+        if not team_id:
+            raise ValueError(f"Expected a non-empty value for `team_id` but received {team_id!r}")
+        return self._get(
+            path_template("/v2/prism/{team_id}/deal", team_id=team_id),
+            options=make_request_options(
+                extra_headers=extra_headers,
+                extra_query=extra_query,
+                extra_body=extra_body,
+                timeout=timeout,
+                query=maybe_transform(
+                    {
+                        "cursor": cursor,
+                        "deleted": deleted,
+                        "include_total": include_total,
+                        "limit": limit,
+                        "list_id": list_id,
+                        "select": select,
+                        "sort": sort,
+                    },
+                    deal_list_params.DealListParams,
+                ),
+            ),
+            cast_to=DealListResponse,
+        )
+
     def delete(
         self,
         deal_id: str,
         *,
         team_id: str | None = None,
+        if_match: str | Omit = omit,
         # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
         # The extra values given here take precedence over values defined on the client or passed to this method.
         extra_headers: Headers | None = None,
@@ -194,6 +309,7 @@ class DealsResource(SyncAPIResource):
         if not deal_id:
             raise ValueError(f"Expected a non-empty value for `deal_id` but received {deal_id!r}")
         extra_headers = {"Accept": "*/*", **(extra_headers or {})}
+        extra_headers = {**strip_not_given({"If-Match": if_match}), **(extra_headers or {})}
         return self._delete(
             path_template("/v2/prism/{team_id}/deal/{deal_id}", team_id=team_id, deal_id=deal_id),
             options=make_request_options(
@@ -208,6 +324,7 @@ class DealsResource(SyncAPIResource):
         team_id: str | None = None,
         objects: Iterable[PrismObjectPropertiesParam],
         options: deal_bulk_create_params.Options | Omit = omit,
+        idempotency_key: str | Omit = omit,
         # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
         # The extra values given here take precedence over values defined on the client or passed to this method.
         extra_headers: Headers | None = None,
@@ -218,8 +335,10 @@ class DealsResource(SyncAPIResource):
         """Import multiple objects in batch.
 
         Properties are keyed by slug. Automatically
-        routes based on size: <100 records sync (immediate response), >=100 records
-        async (S3/Lambda with WebSocket progress)
+        routes based on size: small batches complete synchronously and return 200 with
+        the final `ImportJob`; large batches start an async job, return 202 with
+        `status: processing` and a `Location` header, and can be polled via
+        `GET /v2/prism/{teamId}/imports/{jobId}`.
 
         Args:
           objects: Array of objects to import with property values keyed by slug
@@ -236,6 +355,7 @@ class DealsResource(SyncAPIResource):
             team_id = self._client._get_team_id_path_param()
         if not team_id:
             raise ValueError(f"Expected a non-empty value for `team_id` but received {team_id!r}")
+        extra_headers = {**strip_not_given({"Idempotency-Key": idempotency_key}), **(extra_headers or {})}
         return self._post(
             path_template("/v2/prism/{team_id}/deal/import", team_id=team_id),
             body=maybe_transform(
@@ -251,11 +371,140 @@ class DealsResource(SyncAPIResource):
             cast_to=DealBulkCreateResponse,
         )
 
+    def bulk_delete(
+        self,
+        *,
+        team_id: str | None = None,
+        ids: SequenceNotStr[str],
+        idempotency_key: str | Omit = omit,
+        # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
+        # The extra values given here take precedence over values defined on the client or passed to this method.
+        extra_headers: Headers | None = None,
+        extra_query: Query | None = None,
+        extra_body: Body | None = None,
+        timeout: float | httpx.Timeout | None | NotGiven = not_given,
+    ) -> DealBulkDeleteResponse:
+        """Soft-delete up to 100 records in a single call.
+
+        Same partial-success contract as
+        batch/update.
+
+        Args:
+          extra_headers: Send extra headers
+
+          extra_query: Add additional query parameters to the request
+
+          extra_body: Add additional JSON properties to the request
+
+          timeout: Override the client-level default timeout for this request, in seconds
+        """
+        if team_id is None:
+            team_id = self._client._get_team_id_path_param()
+        if not team_id:
+            raise ValueError(f"Expected a non-empty value for `team_id` but received {team_id!r}")
+        extra_headers = {**strip_not_given({"Idempotency-Key": idempotency_key}), **(extra_headers or {})}
+        return self._post(
+            path_template("/v2/prism/{team_id}/deal/batch/delete", team_id=team_id),
+            body=maybe_transform({"ids": ids}, deal_bulk_delete_params.DealBulkDeleteParams),
+            options=make_request_options(
+                extra_headers=extra_headers, extra_query=extra_query, extra_body=extra_body, timeout=timeout
+            ),
+            cast_to=DealBulkDeleteResponse,
+        )
+
+    def bulk_update(
+        self,
+        *,
+        team_id: str | None = None,
+        items: Iterable[deal_bulk_update_params.Item],
+        idempotency_key: str | Omit = omit,
+        # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
+        # The extra values given here take precedence over values defined on the client or passed to this method.
+        extra_headers: Headers | None = None,
+        extra_query: Query | None = None,
+        extra_body: Body | None = None,
+        timeout: float | httpx.Timeout | None | NotGiven = not_given,
+    ) -> DealBulkUpdateResponse:
+        """Patch up to 100 records in a single call.
+
+        Each item is attempted independently —
+        failures don't abort the batch. Inspect `results[].status` per item.
+
+        Args:
+          extra_headers: Send extra headers
+
+          extra_query: Add additional query parameters to the request
+
+          extra_body: Add additional JSON properties to the request
+
+          timeout: Override the client-level default timeout for this request, in seconds
+        """
+        if team_id is None:
+            team_id = self._client._get_team_id_path_param()
+        if not team_id:
+            raise ValueError(f"Expected a non-empty value for `team_id` but received {team_id!r}")
+        extra_headers = {**strip_not_given({"Idempotency-Key": idempotency_key}), **(extra_headers or {})}
+        return self._post(
+            path_template("/v2/prism/{team_id}/deal/batch/update", team_id=team_id),
+            body=maybe_transform({"items": items}, deal_bulk_update_params.DealBulkUpdateParams),
+            options=make_request_options(
+                extra_headers=extra_headers, extra_query=extra_query, extra_body=extra_body, timeout=timeout
+            ),
+            cast_to=DealBulkUpdateResponse,
+        )
+
+    def count(
+        self,
+        *,
+        team_id: str | None = None,
+        list_id: str | Omit = omit,
+        # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
+        # The extra values given here take precedence over values defined on the client or passed to this method.
+        extra_headers: Headers | None = None,
+        extra_query: Query | None = None,
+        extra_body: Body | None = None,
+        timeout: float | httpx.Timeout | None | NotGiven = not_given,
+    ) -> DealCountResponse:
+        """
+        Returns the total number of records of this object type that the caller can see.
+        Avoids the page-overshoot anti-pattern — clients no longer need to keep paging
+        until `has_more` flips false to discover the total. Currently does not apply
+        query filters; for a filtered total, pass `include_total: true` in a POST
+        `/query` body.
+
+        Args:
+          list_id: Scope the count to a specific list/app.
+
+          extra_headers: Send extra headers
+
+          extra_query: Add additional query parameters to the request
+
+          extra_body: Add additional JSON properties to the request
+
+          timeout: Override the client-level default timeout for this request, in seconds
+        """
+        if team_id is None:
+            team_id = self._client._get_team_id_path_param()
+        if not team_id:
+            raise ValueError(f"Expected a non-empty value for `team_id` but received {team_id!r}")
+        return self._get(
+            path_template("/v2/prism/{team_id}/deal/count", team_id=team_id),
+            options=make_request_options(
+                extra_headers=extra_headers,
+                extra_query=extra_query,
+                extra_body=extra_body,
+                timeout=timeout,
+                query=maybe_transform({"list_id": list_id}, deal_count_params.DealCountParams),
+            ),
+            cast_to=DealCountResponse,
+        )
+
     def duplicate(
         self,
         deal_id: str,
         *,
         team_id: str | None = None,
+        idempotency_key: str | Omit = omit,
         # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
         # The extra values given here take precedence over values defined on the client or passed to this method.
         extra_headers: Headers | None = None,
@@ -281,6 +530,7 @@ class DealsResource(SyncAPIResource):
             raise ValueError(f"Expected a non-empty value for `team_id` but received {team_id!r}")
         if not deal_id:
             raise ValueError(f"Expected a non-empty value for `deal_id` but received {deal_id!r}")
+        extra_headers = {**strip_not_given({"Idempotency-Key": idempotency_key}), **(extra_headers or {})}
         return self._post(
             path_template("/v2/prism/{team_id}/deal/{deal_id}/duplicate", team_id=team_id, deal_id=deal_id),
             options=make_request_options(
@@ -289,11 +539,62 @@ class DealsResource(SyncAPIResource):
             cast_to=DealDuplicateResponse,
         )
 
+    def find(
+        self,
+        value: str,
+        *,
+        team_id: str | None = None,
+        slug: str,
+        list_id: str | Omit = omit,
+        # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
+        # The extra values given here take precedence over values defined on the client or passed to this method.
+        extra_headers: Headers | None = None,
+        extra_query: Query | None = None,
+        extra_body: Body | None = None,
+        timeout: float | httpx.Timeout | None | NotGiven = not_given,
+    ) -> DealFindResponse:
+        """Returns the single record whose property `{slug}` equals `{value}`.
+
+        404 if
+        nothing matches; 409 if more than one record matches.
+
+        Args:
+          list_id: Scope the lookup to a specific list/app.
+
+          extra_headers: Send extra headers
+
+          extra_query: Add additional query parameters to the request
+
+          extra_body: Add additional JSON properties to the request
+
+          timeout: Override the client-level default timeout for this request, in seconds
+        """
+        if team_id is None:
+            team_id = self._client._get_team_id_path_param()
+        if not team_id:
+            raise ValueError(f"Expected a non-empty value for `team_id` but received {team_id!r}")
+        if not slug:
+            raise ValueError(f"Expected a non-empty value for `slug` but received {slug!r}")
+        if not value:
+            raise ValueError(f"Expected a non-empty value for `value` but received {value!r}")
+        return self._get(
+            path_template("/v2/prism/{team_id}/deal/by/{slug}/{value}", team_id=team_id, slug=slug, value=value),
+            options=make_request_options(
+                extra_headers=extra_headers,
+                extra_query=extra_query,
+                extra_body=extra_body,
+                timeout=timeout,
+                query=maybe_transform({"list_id": list_id}, deal_find_params.DealFindParams),
+            ),
+            cast_to=DealFindResponse,
+        )
+
     def get(
         self,
         deal_id: str,
         *,
         team_id: str | None = None,
+        select: str | Omit = omit,
         # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
         # The extra values given here take precedence over values defined on the client or passed to this method.
         extra_headers: Headers | None = None,
@@ -301,10 +602,14 @@ class DealsResource(SyncAPIResource):
         extra_body: Body | None = None,
         timeout: float | httpx.Timeout | None | NotGiven = not_given,
     ) -> DealGetResponse:
-        """
-        Get object
+        """Get object
 
         Args:
+          select: Comma-separated property slugs to return.
+
+        Use dot notation for relationships.
+              `id` is always returned at the top level. Defaults to all properties.
+
           extra_headers: Send extra headers
 
           extra_query: Add additional query parameters to the request
@@ -322,7 +627,11 @@ class DealsResource(SyncAPIResource):
         return self._get(
             path_template("/v2/prism/{team_id}/deal/{deal_id}", team_id=team_id, deal_id=deal_id),
             options=make_request_options(
-                extra_headers=extra_headers, extra_query=extra_query, extra_body=extra_body, timeout=timeout
+                extra_headers=extra_headers,
+                extra_query=extra_query,
+                extra_body=extra_body,
+                timeout=timeout,
+                query=maybe_transform({"select": select}, deal_get_params.DealGetParams),
             ),
             cast_to=DealGetResponse,
         )
@@ -334,7 +643,9 @@ class DealsResource(SyncAPIResource):
         query: deal_query_params.Query,
         id: Union[str, SequenceNotStr[str]] | Omit = omit,
         boxes: SequenceNotStr[str] | Omit = omit,
+        cursor: str | Omit = omit,
         deleted: bool | Omit = omit,
+        include_total: bool | Omit = omit,
         sources: SequenceNotStr[str] | Omit = omit,
         # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
         # The extra values given here take precedence over values defined on the client or passed to this method.
@@ -347,6 +658,13 @@ class DealsResource(SyncAPIResource):
         Query
 
         Args:
+          cursor: Alternative location for the opaque cursor (sibling of `query`). Use whichever
+              feels more natural; if both are present, `query.cursor` wins.
+
+          include_total: When true, the response includes a `total` field with the unpaginated row count.
+              Costs an additional pass over the result set — for unfiltered totals prefer
+              `GET /v2/prism/{teamId}/{objectType}/count` instead.
+
           extra_headers: Send extra headers
 
           extra_query: Add additional query parameters to the request
@@ -360,13 +678,15 @@ class DealsResource(SyncAPIResource):
         if not team_id:
             raise ValueError(f"Expected a non-empty value for `team_id` but received {team_id!r}")
         return self._post(
-            path_template("/v2/prism/query/{team_id}/deal", team_id=team_id),
+            path_template("/v2/prism/{team_id}/deal/query", team_id=team_id),
             body=maybe_transform(
                 {
                     "query": query,
                     "id": id,
                     "boxes": boxes,
+                    "cursor": cursor,
                     "deleted": deleted,
+                    "include_total": include_total,
                     "sources": sources,
                 },
                 deal_query_params.DealQueryParams,
@@ -382,6 +702,7 @@ class DealsResource(SyncAPIResource):
         deal_id: str,
         *,
         team_id: str | None = None,
+        idempotency_key: str | Omit = omit,
         # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
         # The extra values given here take precedence over values defined on the client or passed to this method.
         extra_headers: Headers | None = None,
@@ -407,12 +728,73 @@ class DealsResource(SyncAPIResource):
             raise ValueError(f"Expected a non-empty value for `team_id` but received {team_id!r}")
         if not deal_id:
             raise ValueError(f"Expected a non-empty value for `deal_id` but received {deal_id!r}")
+        extra_headers = {**strip_not_given({"Idempotency-Key": idempotency_key}), **(extra_headers or {})}
         return self._post(
             path_template("/v2/prism/{team_id}/deal/{deal_id}/restore", team_id=team_id, deal_id=deal_id),
             options=make_request_options(
                 extra_headers=extra_headers, extra_query=extra_query, extra_body=extra_body, timeout=timeout
             ),
             cast_to=DealRestoreResponse,
+        )
+
+    def upsert(
+        self,
+        value: str,
+        *,
+        team_id: str | None = None,
+        slug: str,
+        default: Dict[str, object] | Omit = omit,
+        list: object | Omit = omit,
+        idempotency_key: str | Omit = omit,
+        # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
+        # The extra values given here take precedence over values defined on the client or passed to this method.
+        extra_headers: Headers | None = None,
+        extra_query: Query | None = None,
+        extra_body: Body | None = None,
+        timeout: float | httpx.Timeout | None | NotGiven = not_given,
+    ) -> DealUpsertResponse:
+        """Idempotent create-or-update keyed on `{slug}={value}`.
+
+        If exactly one record
+        matches, it is patched and 200 is returned. If none match, a new record is
+        created (with the lookup property set if absent) and 201 is returned. If
+        multiple records match, 409 is returned and you should patch by id instead.
+
+        Args:
+          default: Properties keyed by property slug. Values can be strings, numbers, booleans,
+              arrays, or null. For select/multiselect properties, values may be option slugs
+              or option UUIDs on write; option slugs are returned on read.
+
+          extra_headers: Send extra headers
+
+          extra_query: Add additional query parameters to the request
+
+          extra_body: Add additional JSON properties to the request
+
+          timeout: Override the client-level default timeout for this request, in seconds
+        """
+        if team_id is None:
+            team_id = self._client._get_team_id_path_param()
+        if not team_id:
+            raise ValueError(f"Expected a non-empty value for `team_id` but received {team_id!r}")
+        if not slug:
+            raise ValueError(f"Expected a non-empty value for `slug` but received {slug!r}")
+        if not value:
+            raise ValueError(f"Expected a non-empty value for `value` but received {value!r}")
+        extra_headers = {**strip_not_given({"Idempotency-Key": idempotency_key}), **(extra_headers or {})}
+        return self._put(
+            path_template("/v2/prism/{team_id}/deal/by/{slug}/{value}", team_id=team_id, slug=slug, value=value),
+            body=maybe_transform(
+                {
+                    "default": default,
+                    "list": list,
+                },
+                deal_upsert_params.DealUpsertParams,
+            ),
+            options=make_request_options(
+                extra_headers=extra_headers, extra_query=extra_query, extra_body=extra_body, timeout=timeout
+            ),
+            cast_to=DealUpsertResponse,
         )
 
 
@@ -446,6 +828,7 @@ class AsyncDealsResource(AsyncAPIResource):
         team_id: str | None = None,
         default: Dict[str, object] | Omit = omit,
         list: object | Omit = omit,
+        idempotency_key: str | Omit = omit,
         # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
         # The extra values given here take precedence over values defined on the client or passed to this method.
         extra_headers: Headers | None = None,
@@ -474,6 +857,7 @@ class AsyncDealsResource(AsyncAPIResource):
             team_id = self._client._get_team_id_path_param()
         if not team_id:
             raise ValueError(f"Expected a non-empty value for `team_id` but received {team_id!r}")
+        extra_headers = {**strip_not_given({"Idempotency-Key": idempotency_key}), **(extra_headers or {})}
         return await self._post(
             path_template("/v2/prism/{team_id}/deal", team_id=team_id),
             body=await async_maybe_transform(
@@ -496,6 +880,8 @@ class AsyncDealsResource(AsyncAPIResource):
         team_id: str | None = None,
         default: Dict[str, object] | Omit = omit,
         list: object | Omit = omit,
+        idempotency_key: str | Omit = omit,
+        if_match: str | Omit = omit,
         # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
         # The extra values given here take precedence over values defined on the client or passed to this method.
         extra_headers: Headers | None = None,
@@ -526,6 +912,15 @@ class AsyncDealsResource(AsyncAPIResource):
             raise ValueError(f"Expected a non-empty value for `team_id` but received {team_id!r}")
         if not deal_id:
             raise ValueError(f"Expected a non-empty value for `deal_id` but received {deal_id!r}")
+        extra_headers = {
+            **strip_not_given(
+                {
+                    "Idempotency-Key": idempotency_key,
+                    "If-Match": if_match,
+                }
+            ),
+            **(extra_headers or {}),
+        }
         return await self._patch(
             path_template("/v2/prism/{team_id}/deal/{deal_id}", team_id=team_id, deal_id=deal_id),
             body=await async_maybe_transform(
@@ -541,11 +936,95 @@ class AsyncDealsResource(AsyncAPIResource):
             cast_to=DealUpdateResponse,
         )
 
+    async def list(
+        self,
+        *,
+        team_id: str | None = None,
+        cursor: str | Omit = omit,
+        deleted: bool | Omit = omit,
+        include_total: bool | Omit = omit,
+        limit: int | Omit = omit,
+        list_id: str | Omit = omit,
+        select: str | Omit = omit,
+        sort: str | Omit = omit,
+        # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
+        # The extra values given here take precedence over values defined on the client or passed to this method.
+        extra_headers: Headers | None = None,
+        extra_query: Query | None = None,
+        extra_body: Body | None = None,
+        timeout: float | httpx.Timeout | None | NotGiven = not_given,
+    ) -> DealListResponse:
+        """Convenience list endpoint.
+
+        Equivalent to
+        `POST /v2/prism/{teamId}/{objectType}/query` with an empty body, plus
+        query-string sugar for the common cases. Any unrecognized query parameter is
+        interpreted as an equality filter on a property of that name; pass arrays for
+        `in`. Values are received as strings, so non-string property filters via this
+        endpoint may not work — use the `query` endpoint for typed comparisons or
+        anything beyond simple equality.
+
+        Args:
+          cursor: Opaque cursor from a previous response's `next_cursor`. Pass it back unchanged
+              to fetch the next page.
+
+          deleted: Include soft-deleted records. Pass the literal string `true`.
+
+          include_total: When set to `true`, the response includes a `total` field with the unpaginated
+              row count. Costs an extra pass; prefer `GET .../count` for the unfiltered total.
+
+          limit: Maximum number of rows to return. Capped server-side at 50.
+
+          list_id: Scope properties to a specific list/app.
+
+          select: Comma-separated property slugs to return. Use dot notation for relationships.
+              `id` is always returned at the top level. Defaults to all properties.
+
+          sort:
+              Comma-separated list of slugs. Prefix with `-` for descending. Example:
+              `sort=-updated_at,name`.
+
+          extra_headers: Send extra headers
+
+          extra_query: Add additional query parameters to the request
+
+          extra_body: Add additional JSON properties to the request
+
+          timeout: Override the client-level default timeout for this request, in seconds
+        """
+        if team_id is None:
+            team_id = self._client._get_team_id_path_param()
+        if not team_id:
+            raise ValueError(f"Expected a non-empty value for `team_id` but received {team_id!r}")
+        return await self._get(
+            path_template("/v2/prism/{team_id}/deal", team_id=team_id),
+            options=make_request_options(
+                extra_headers=extra_headers,
+                extra_query=extra_query,
+                extra_body=extra_body,
+                timeout=timeout,
+                query=await async_maybe_transform(
+                    {
+                        "cursor": cursor,
+                        "deleted": deleted,
+                        "include_total": include_total,
+                        "limit": limit,
+                        "list_id": list_id,
+                        "select": select,
+                        "sort": sort,
+                    },
+                    deal_list_params.DealListParams,
+                ),
+            ),
+            cast_to=DealListResponse,
+        )
+
     async def delete(
         self,
         deal_id: str,
         *,
         team_id: str | None = None,
+        if_match: str | Omit = omit,
         # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
         # The extra values given here take precedence over values defined on the client or passed to this method.
         extra_headers: Headers | None = None,
@@ -572,6 +1051,7 @@ class AsyncDealsResource(AsyncAPIResource):
         if not deal_id:
             raise ValueError(f"Expected a non-empty value for `deal_id` but received {deal_id!r}")
         extra_headers = {"Accept": "*/*", **(extra_headers or {})}
+        extra_headers = {**strip_not_given({"If-Match": if_match}), **(extra_headers or {})}
         return await self._delete(
             path_template("/v2/prism/{team_id}/deal/{deal_id}", team_id=team_id, deal_id=deal_id),
             options=make_request_options(
@@ -586,6 +1066,7 @@ class AsyncDealsResource(AsyncAPIResource):
         team_id: str | None = None,
         objects: Iterable[PrismObjectPropertiesParam],
         options: deal_bulk_create_params.Options | Omit = omit,
+        idempotency_key: str | Omit = omit,
         # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
         # The extra values given here take precedence over values defined on the client or passed to this method.
         extra_headers: Headers | None = None,
@@ -596,8 +1077,10 @@ class AsyncDealsResource(AsyncAPIResource):
         """Import multiple objects in batch.
 
         Properties are keyed by slug. Automatically
-        routes based on size: <100 records sync (immediate response), >=100 records
-        async (S3/Lambda with WebSocket progress)
+        routes based on size: small batches complete synchronously and return 200 with
+        the final `ImportJob`; large batches start an async job, return 202 with
+        `status: processing` and a `Location` header, and can be polled via
+        `GET /v2/prism/{teamId}/imports/{jobId}`.
 
         Args:
           objects: Array of objects to import with property values keyed by slug
@@ -614,6 +1097,7 @@ class AsyncDealsResource(AsyncAPIResource):
             team_id = self._client._get_team_id_path_param()
         if not team_id:
             raise ValueError(f"Expected a non-empty value for `team_id` but received {team_id!r}")
+        extra_headers = {**strip_not_given({"Idempotency-Key": idempotency_key}), **(extra_headers or {})}
         return await self._post(
             path_template("/v2/prism/{team_id}/deal/import", team_id=team_id),
             body=await async_maybe_transform(
@@ -629,11 +1113,140 @@ class AsyncDealsResource(AsyncAPIResource):
             cast_to=DealBulkCreateResponse,
         )
 
+    async def bulk_delete(
+        self,
+        *,
+        team_id: str | None = None,
+        ids: SequenceNotStr[str],
+        idempotency_key: str | Omit = omit,
+        # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
+        # The extra values given here take precedence over values defined on the client or passed to this method.
+        extra_headers: Headers | None = None,
+        extra_query: Query | None = None,
+        extra_body: Body | None = None,
+        timeout: float | httpx.Timeout | None | NotGiven = not_given,
+    ) -> DealBulkDeleteResponse:
+        """Soft-delete up to 100 records in a single call.
+
+        Same partial-success contract as
+        batch/update.
+
+        Args:
+          extra_headers: Send extra headers
+
+          extra_query: Add additional query parameters to the request
+
+          extra_body: Add additional JSON properties to the request
+
+          timeout: Override the client-level default timeout for this request, in seconds
+        """
+        if team_id is None:
+            team_id = self._client._get_team_id_path_param()
+        if not team_id:
+            raise ValueError(f"Expected a non-empty value for `team_id` but received {team_id!r}")
+        extra_headers = {**strip_not_given({"Idempotency-Key": idempotency_key}), **(extra_headers or {})}
+        return await self._post(
+            path_template("/v2/prism/{team_id}/deal/batch/delete", team_id=team_id),
+            body=await async_maybe_transform({"ids": ids}, deal_bulk_delete_params.DealBulkDeleteParams),
+            options=make_request_options(
+                extra_headers=extra_headers, extra_query=extra_query, extra_body=extra_body, timeout=timeout
+            ),
+            cast_to=DealBulkDeleteResponse,
+        )
+
+    async def bulk_update(
+        self,
+        *,
+        team_id: str | None = None,
+        items: Iterable[deal_bulk_update_params.Item],
+        idempotency_key: str | Omit = omit,
+        # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
+        # The extra values given here take precedence over values defined on the client or passed to this method.
+        extra_headers: Headers | None = None,
+        extra_query: Query | None = None,
+        extra_body: Body | None = None,
+        timeout: float | httpx.Timeout | None | NotGiven = not_given,
+    ) -> DealBulkUpdateResponse:
+        """Patch up to 100 records in a single call.
+
+        Each item is attempted independently —
+        failures don't abort the batch. Inspect `results[].status` per item.
+
+        Args:
+          extra_headers: Send extra headers
+
+          extra_query: Add additional query parameters to the request
+
+          extra_body: Add additional JSON properties to the request
+
+          timeout: Override the client-level default timeout for this request, in seconds
+        """
+        if team_id is None:
+            team_id = self._client._get_team_id_path_param()
+        if not team_id:
+            raise ValueError(f"Expected a non-empty value for `team_id` but received {team_id!r}")
+        extra_headers = {**strip_not_given({"Idempotency-Key": idempotency_key}), **(extra_headers or {})}
+        return await self._post(
+            path_template("/v2/prism/{team_id}/deal/batch/update", team_id=team_id),
+            body=await async_maybe_transform({"items": items}, deal_bulk_update_params.DealBulkUpdateParams),
+            options=make_request_options(
+                extra_headers=extra_headers, extra_query=extra_query, extra_body=extra_body, timeout=timeout
+            ),
+            cast_to=DealBulkUpdateResponse,
+        )
+
+    async def count(
+        self,
+        *,
+        team_id: str | None = None,
+        list_id: str | Omit = omit,
+        # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
+        # The extra values given here take precedence over values defined on the client or passed to this method.
+        extra_headers: Headers | None = None,
+        extra_query: Query | None = None,
+        extra_body: Body | None = None,
+        timeout: float | httpx.Timeout | None | NotGiven = not_given,
+    ) -> DealCountResponse:
+        """
+        Returns the total number of records of this object type that the caller can see.
+        Avoids the page-overshoot anti-pattern — clients no longer need to keep paging
+        until `has_more` flips false to discover the total. Currently does not apply
+        query filters; for a filtered total, pass `include_total: true` in a POST
+        `/query` body.
+
+        Args:
+          list_id: Scope the count to a specific list/app.
+
+          extra_headers: Send extra headers
+
+          extra_query: Add additional query parameters to the request
+
+          extra_body: Add additional JSON properties to the request
+
+          timeout: Override the client-level default timeout for this request, in seconds
+        """
+        if team_id is None:
+            team_id = self._client._get_team_id_path_param()
+        if not team_id:
+            raise ValueError(f"Expected a non-empty value for `team_id` but received {team_id!r}")
+        return await self._get(
+            path_template("/v2/prism/{team_id}/deal/count", team_id=team_id),
+            options=make_request_options(
+                extra_headers=extra_headers,
+                extra_query=extra_query,
+                extra_body=extra_body,
+                timeout=timeout,
+                query=await async_maybe_transform({"list_id": list_id}, deal_count_params.DealCountParams),
+            ),
+            cast_to=DealCountResponse,
+        )
+
     async def duplicate(
         self,
         deal_id: str,
         *,
         team_id: str | None = None,
+        idempotency_key: str | Omit = omit,
         # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
         # The extra values given here take precedence over values defined on the client or passed to this method.
         extra_headers: Headers | None = None,
@@ -659,6 +1272,7 @@ class AsyncDealsResource(AsyncAPIResource):
             raise ValueError(f"Expected a non-empty value for `team_id` but received {team_id!r}")
         if not deal_id:
             raise ValueError(f"Expected a non-empty value for `deal_id` but received {deal_id!r}")
+        extra_headers = {**strip_not_given({"Idempotency-Key": idempotency_key}), **(extra_headers or {})}
         return await self._post(
             path_template("/v2/prism/{team_id}/deal/{deal_id}/duplicate", team_id=team_id, deal_id=deal_id),
             options=make_request_options(
@@ -667,11 +1281,62 @@ class AsyncDealsResource(AsyncAPIResource):
             cast_to=DealDuplicateResponse,
         )
 
+    async def find(
+        self,
+        value: str,
+        *,
+        team_id: str | None = None,
+        slug: str,
+        list_id: str | Omit = omit,
+        # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
+        # The extra values given here take precedence over values defined on the client or passed to this method.
+        extra_headers: Headers | None = None,
+        extra_query: Query | None = None,
+        extra_body: Body | None = None,
+        timeout: float | httpx.Timeout | None | NotGiven = not_given,
+    ) -> DealFindResponse:
+        """Returns the single record whose property `{slug}` equals `{value}`.
+
+        404 if
+        nothing matches; 409 if more than one record matches.
+
+        Args:
+          list_id: Scope the lookup to a specific list/app.
+
+          extra_headers: Send extra headers
+
+          extra_query: Add additional query parameters to the request
+
+          extra_body: Add additional JSON properties to the request
+
+          timeout: Override the client-level default timeout for this request, in seconds
+        """
+        if team_id is None:
+            team_id = self._client._get_team_id_path_param()
+        if not team_id:
+            raise ValueError(f"Expected a non-empty value for `team_id` but received {team_id!r}")
+        if not slug:
+            raise ValueError(f"Expected a non-empty value for `slug` but received {slug!r}")
+        if not value:
+            raise ValueError(f"Expected a non-empty value for `value` but received {value!r}")
+        return await self._get(
+            path_template("/v2/prism/{team_id}/deal/by/{slug}/{value}", team_id=team_id, slug=slug, value=value),
+            options=make_request_options(
+                extra_headers=extra_headers,
+                extra_query=extra_query,
+                extra_body=extra_body,
+                timeout=timeout,
+                query=await async_maybe_transform({"list_id": list_id}, deal_find_params.DealFindParams),
+            ),
+            cast_to=DealFindResponse,
+        )
+
     async def get(
         self,
         deal_id: str,
         *,
         team_id: str | None = None,
+        select: str | Omit = omit,
         # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
         # The extra values given here take precedence over values defined on the client or passed to this method.
         extra_headers: Headers | None = None,
@@ -679,10 +1344,14 @@ class AsyncDealsResource(AsyncAPIResource):
         extra_body: Body | None = None,
         timeout: float | httpx.Timeout | None | NotGiven = not_given,
     ) -> DealGetResponse:
-        """
-        Get object
+        """Get object
 
         Args:
+          select: Comma-separated property slugs to return.
+
+        Use dot notation for relationships.
+              `id` is always returned at the top level. Defaults to all properties.
+
           extra_headers: Send extra headers
 
           extra_query: Add additional query parameters to the request
@@ -700,7 +1369,11 @@ class AsyncDealsResource(AsyncAPIResource):
         return await self._get(
             path_template("/v2/prism/{team_id}/deal/{deal_id}", team_id=team_id, deal_id=deal_id),
             options=make_request_options(
-                extra_headers=extra_headers, extra_query=extra_query, extra_body=extra_body, timeout=timeout
+                extra_headers=extra_headers,
+                extra_query=extra_query,
+                extra_body=extra_body,
+                timeout=timeout,
+                query=await async_maybe_transform({"select": select}, deal_get_params.DealGetParams),
             ),
             cast_to=DealGetResponse,
         )
@@ -712,7 +1385,9 @@ class AsyncDealsResource(AsyncAPIResource):
         query: deal_query_params.Query,
         id: Union[str, SequenceNotStr[str]] | Omit = omit,
         boxes: SequenceNotStr[str] | Omit = omit,
+        cursor: str | Omit = omit,
         deleted: bool | Omit = omit,
+        include_total: bool | Omit = omit,
         sources: SequenceNotStr[str] | Omit = omit,
         # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
         # The extra values given here take precedence over values defined on the client or passed to this method.
@@ -725,6 +1400,13 @@ class AsyncDealsResource(AsyncAPIResource):
         Query
 
         Args:
+          cursor: Alternative location for the opaque cursor (sibling of `query`). Use whichever
+              feels more natural; if both are present, `query.cursor` wins.
+
+          include_total: When true, the response includes a `total` field with the unpaginated row count.
+              Costs an additional pass over the result set — for unfiltered totals prefer
+              `GET /v2/prism/{teamId}/{objectType}/count` instead.
+
           extra_headers: Send extra headers
 
           extra_query: Add additional query parameters to the request
@@ -738,13 +1420,15 @@ class AsyncDealsResource(AsyncAPIResource):
         if not team_id:
             raise ValueError(f"Expected a non-empty value for `team_id` but received {team_id!r}")
         return await self._post(
-            path_template("/v2/prism/query/{team_id}/deal", team_id=team_id),
+            path_template("/v2/prism/{team_id}/deal/query", team_id=team_id),
             body=await async_maybe_transform(
                 {
                     "query": query,
                     "id": id,
                     "boxes": boxes,
+                    "cursor": cursor,
                     "deleted": deleted,
+                    "include_total": include_total,
                     "sources": sources,
                 },
                 deal_query_params.DealQueryParams,
@@ -760,6 +1444,7 @@ class AsyncDealsResource(AsyncAPIResource):
         deal_id: str,
         *,
         team_id: str | None = None,
+        idempotency_key: str | Omit = omit,
         # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
         # The extra values given here take precedence over values defined on the client or passed to this method.
         extra_headers: Headers | None = None,
@@ -785,12 +1470,73 @@ class AsyncDealsResource(AsyncAPIResource):
             raise ValueError(f"Expected a non-empty value for `team_id` but received {team_id!r}")
         if not deal_id:
             raise ValueError(f"Expected a non-empty value for `deal_id` but received {deal_id!r}")
+        extra_headers = {**strip_not_given({"Idempotency-Key": idempotency_key}), **(extra_headers or {})}
         return await self._post(
             path_template("/v2/prism/{team_id}/deal/{deal_id}/restore", team_id=team_id, deal_id=deal_id),
             options=make_request_options(
                 extra_headers=extra_headers, extra_query=extra_query, extra_body=extra_body, timeout=timeout
             ),
             cast_to=DealRestoreResponse,
+        )
+
+    async def upsert(
+        self,
+        value: str,
+        *,
+        team_id: str | None = None,
+        slug: str,
+        default: Dict[str, object] | Omit = omit,
+        list: object | Omit = omit,
+        idempotency_key: str | Omit = omit,
+        # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
+        # The extra values given here take precedence over values defined on the client or passed to this method.
+        extra_headers: Headers | None = None,
+        extra_query: Query | None = None,
+        extra_body: Body | None = None,
+        timeout: float | httpx.Timeout | None | NotGiven = not_given,
+    ) -> DealUpsertResponse:
+        """Idempotent create-or-update keyed on `{slug}={value}`.
+
+        If exactly one record
+        matches, it is patched and 200 is returned. If none match, a new record is
+        created (with the lookup property set if absent) and 201 is returned. If
+        multiple records match, 409 is returned and you should patch by id instead.
+
+        Args:
+          default: Properties keyed by property slug. Values can be strings, numbers, booleans,
+              arrays, or null. For select/multiselect properties, values may be option slugs
+              or option UUIDs on write; option slugs are returned on read.
+
+          extra_headers: Send extra headers
+
+          extra_query: Add additional query parameters to the request
+
+          extra_body: Add additional JSON properties to the request
+
+          timeout: Override the client-level default timeout for this request, in seconds
+        """
+        if team_id is None:
+            team_id = self._client._get_team_id_path_param()
+        if not team_id:
+            raise ValueError(f"Expected a non-empty value for `team_id` but received {team_id!r}")
+        if not slug:
+            raise ValueError(f"Expected a non-empty value for `slug` but received {slug!r}")
+        if not value:
+            raise ValueError(f"Expected a non-empty value for `value` but received {value!r}")
+        extra_headers = {**strip_not_given({"Idempotency-Key": idempotency_key}), **(extra_headers or {})}
+        return await self._put(
+            path_template("/v2/prism/{team_id}/deal/by/{slug}/{value}", team_id=team_id, slug=slug, value=value),
+            body=await async_maybe_transform(
+                {
+                    "default": default,
+                    "list": list,
+                },
+                deal_upsert_params.DealUpsertParams,
+            ),
+            options=make_request_options(
+                extra_headers=extra_headers, extra_query=extra_query, extra_body=extra_body, timeout=timeout
+            ),
+            cast_to=DealUpsertResponse,
         )
 
 
@@ -804,14 +1550,29 @@ class DealsResourceWithRawResponse:
         self.update = to_raw_response_wrapper(
             deals.update,
         )
+        self.list = to_raw_response_wrapper(
+            deals.list,
+        )
         self.delete = to_raw_response_wrapper(
             deals.delete,
         )
         self.bulk_create = to_raw_response_wrapper(
             deals.bulk_create,
         )
+        self.bulk_delete = to_raw_response_wrapper(
+            deals.bulk_delete,
+        )
+        self.bulk_update = to_raw_response_wrapper(
+            deals.bulk_update,
+        )
+        self.count = to_raw_response_wrapper(
+            deals.count,
+        )
         self.duplicate = to_raw_response_wrapper(
             deals.duplicate,
+        )
+        self.find = to_raw_response_wrapper(
+            deals.find,
         )
         self.get = to_raw_response_wrapper(
             deals.get,
@@ -821,6 +1582,9 @@ class DealsResourceWithRawResponse:
         )
         self.restore = to_raw_response_wrapper(
             deals.restore,
+        )
+        self.upsert = to_raw_response_wrapper(
+            deals.upsert,
         )
 
     @cached_property
@@ -838,14 +1602,29 @@ class AsyncDealsResourceWithRawResponse:
         self.update = async_to_raw_response_wrapper(
             deals.update,
         )
+        self.list = async_to_raw_response_wrapper(
+            deals.list,
+        )
         self.delete = async_to_raw_response_wrapper(
             deals.delete,
         )
         self.bulk_create = async_to_raw_response_wrapper(
             deals.bulk_create,
         )
+        self.bulk_delete = async_to_raw_response_wrapper(
+            deals.bulk_delete,
+        )
+        self.bulk_update = async_to_raw_response_wrapper(
+            deals.bulk_update,
+        )
+        self.count = async_to_raw_response_wrapper(
+            deals.count,
+        )
         self.duplicate = async_to_raw_response_wrapper(
             deals.duplicate,
+        )
+        self.find = async_to_raw_response_wrapper(
+            deals.find,
         )
         self.get = async_to_raw_response_wrapper(
             deals.get,
@@ -855,6 +1634,9 @@ class AsyncDealsResourceWithRawResponse:
         )
         self.restore = async_to_raw_response_wrapper(
             deals.restore,
+        )
+        self.upsert = async_to_raw_response_wrapper(
+            deals.upsert,
         )
 
     @cached_property
@@ -872,14 +1654,29 @@ class DealsResourceWithStreamingResponse:
         self.update = to_streamed_response_wrapper(
             deals.update,
         )
+        self.list = to_streamed_response_wrapper(
+            deals.list,
+        )
         self.delete = to_streamed_response_wrapper(
             deals.delete,
         )
         self.bulk_create = to_streamed_response_wrapper(
             deals.bulk_create,
         )
+        self.bulk_delete = to_streamed_response_wrapper(
+            deals.bulk_delete,
+        )
+        self.bulk_update = to_streamed_response_wrapper(
+            deals.bulk_update,
+        )
+        self.count = to_streamed_response_wrapper(
+            deals.count,
+        )
         self.duplicate = to_streamed_response_wrapper(
             deals.duplicate,
+        )
+        self.find = to_streamed_response_wrapper(
+            deals.find,
         )
         self.get = to_streamed_response_wrapper(
             deals.get,
@@ -889,6 +1686,9 @@ class DealsResourceWithStreamingResponse:
         )
         self.restore = to_streamed_response_wrapper(
             deals.restore,
+        )
+        self.upsert = to_streamed_response_wrapper(
+            deals.upsert,
         )
 
     @cached_property
@@ -906,14 +1706,29 @@ class AsyncDealsResourceWithStreamingResponse:
         self.update = async_to_streamed_response_wrapper(
             deals.update,
         )
+        self.list = async_to_streamed_response_wrapper(
+            deals.list,
+        )
         self.delete = async_to_streamed_response_wrapper(
             deals.delete,
         )
         self.bulk_create = async_to_streamed_response_wrapper(
             deals.bulk_create,
         )
+        self.bulk_delete = async_to_streamed_response_wrapper(
+            deals.bulk_delete,
+        )
+        self.bulk_update = async_to_streamed_response_wrapper(
+            deals.bulk_update,
+        )
+        self.count = async_to_streamed_response_wrapper(
+            deals.count,
+        )
         self.duplicate = async_to_streamed_response_wrapper(
             deals.duplicate,
+        )
+        self.find = async_to_streamed_response_wrapper(
+            deals.find,
         )
         self.get = async_to_streamed_response_wrapper(
             deals.get,
@@ -923,6 +1738,9 @@ class AsyncDealsResourceWithStreamingResponse:
         )
         self.restore = async_to_streamed_response_wrapper(
             deals.restore,
+        )
+        self.upsert = async_to_streamed_response_wrapper(
+            deals.upsert,
         )
 
     @cached_property

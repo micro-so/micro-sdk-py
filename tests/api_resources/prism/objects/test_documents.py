@@ -11,12 +11,18 @@ from micro_so import Micro, AsyncMicro
 from tests.utils import assert_matches_type
 from micro_so.types.prism.objects import (
     DocumentGetResponse,
+    DocumentFindResponse,
+    DocumentListResponse,
+    DocumentCountResponse,
     DocumentQueryResponse,
     DocumentCreateResponse,
     DocumentUpdateResponse,
+    DocumentUpsertResponse,
     DocumentRestoreResponse,
     DocumentDuplicateResponse,
     DocumentBulkCreateResponse,
+    DocumentBulkDeleteResponse,
+    DocumentBulkUpdateResponse,
 )
 
 base_url = os.environ.get("TEST_API_BASE_URL", "http://127.0.0.1:4010")
@@ -37,6 +43,7 @@ class TestDocuments:
         document = client.prism.objects.documents.create(
             default={"foo": "bar"},
             list={},
+            idempotency_key="x",
         )
         assert_matches_type(DocumentCreateResponse, document, path=["response"])
 
@@ -77,6 +84,8 @@ class TestDocuments:
             document_id="182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
             default={"foo": "bar"},
             list={},
+            idempotency_key="x",
+            if_match="If-Match",
         )
         assert_matches_type(DocumentUpdateResponse, document, path=["response"])
 
@@ -116,9 +125,60 @@ class TestDocuments:
 
     @pytest.mark.skip(reason="Mock server tests are disabled")
     @parametrize
+    def test_method_list(self, client: Micro) -> None:
+        document = client.prism.objects.documents.list()
+        assert_matches_type(DocumentListResponse, document, path=["response"])
+
+    @pytest.mark.skip(reason="Mock server tests are disabled")
+    @parametrize
+    def test_method_list_with_all_params(self, client: Micro) -> None:
+        document = client.prism.objects.documents.list(
+            cursor="cursor",
+            deleted=True,
+            include_total=True,
+            limit=1,
+            list_id="182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
+            select="select",
+            sort="sort",
+        )
+        assert_matches_type(DocumentListResponse, document, path=["response"])
+
+    @pytest.mark.skip(reason="Mock server tests are disabled")
+    @parametrize
+    def test_raw_response_list(self, client: Micro) -> None:
+        response = client.prism.objects.documents.with_raw_response.list()
+
+        assert response.is_closed is True
+        assert response.http_request.headers.get("X-Stainless-Lang") == "python"
+        document = response.parse()
+        assert_matches_type(DocumentListResponse, document, path=["response"])
+
+    @pytest.mark.skip(reason="Mock server tests are disabled")
+    @parametrize
+    def test_streaming_response_list(self, client: Micro) -> None:
+        with client.prism.objects.documents.with_streaming_response.list() as response:
+            assert not response.is_closed
+            assert response.http_request.headers.get("X-Stainless-Lang") == "python"
+
+            document = response.parse()
+            assert_matches_type(DocumentListResponse, document, path=["response"])
+
+        assert cast(Any, response.is_closed) is True
+
+    @pytest.mark.skip(reason="Mock server tests are disabled")
+    @parametrize
     def test_method_delete(self, client: Micro) -> None:
         document = client.prism.objects.documents.delete(
             document_id="182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
+        )
+        assert document is None
+
+    @pytest.mark.skip(reason="Mock server tests are disabled")
+    @parametrize
+    def test_method_delete_with_all_params(self, client: Micro) -> None:
+        document = client.prism.objects.documents.delete(
+            document_id="182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
+            if_match="If-Match",
         )
         assert document is None
 
@@ -179,6 +239,7 @@ class TestDocuments:
                 "dedupe_by": "dedupe_by",
                 "list_id": "182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
             },
+            idempotency_key="x",
         )
         assert_matches_type(DocumentBulkCreateResponse, document, path=["response"])
 
@@ -210,9 +271,140 @@ class TestDocuments:
 
     @pytest.mark.skip(reason="Mock server tests are disabled")
     @parametrize
+    def test_method_bulk_delete(self, client: Micro) -> None:
+        document = client.prism.objects.documents.bulk_delete(
+            ids=["182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e"],
+        )
+        assert_matches_type(DocumentBulkDeleteResponse, document, path=["response"])
+
+    @pytest.mark.skip(reason="Mock server tests are disabled")
+    @parametrize
+    def test_method_bulk_delete_with_all_params(self, client: Micro) -> None:
+        document = client.prism.objects.documents.bulk_delete(
+            ids=["182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e"],
+            idempotency_key="x",
+        )
+        assert_matches_type(DocumentBulkDeleteResponse, document, path=["response"])
+
+    @pytest.mark.skip(reason="Mock server tests are disabled")
+    @parametrize
+    def test_raw_response_bulk_delete(self, client: Micro) -> None:
+        response = client.prism.objects.documents.with_raw_response.bulk_delete(
+            ids=["182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e"],
+        )
+
+        assert response.is_closed is True
+        assert response.http_request.headers.get("X-Stainless-Lang") == "python"
+        document = response.parse()
+        assert_matches_type(DocumentBulkDeleteResponse, document, path=["response"])
+
+    @pytest.mark.skip(reason="Mock server tests are disabled")
+    @parametrize
+    def test_streaming_response_bulk_delete(self, client: Micro) -> None:
+        with client.prism.objects.documents.with_streaming_response.bulk_delete(
+            ids=["182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e"],
+        ) as response:
+            assert not response.is_closed
+            assert response.http_request.headers.get("X-Stainless-Lang") == "python"
+
+            document = response.parse()
+            assert_matches_type(DocumentBulkDeleteResponse, document, path=["response"])
+
+        assert cast(Any, response.is_closed) is True
+
+    @pytest.mark.skip(reason="Mock server tests are disabled")
+    @parametrize
+    def test_method_bulk_update(self, client: Micro) -> None:
+        document = client.prism.objects.documents.bulk_update(
+            items=[{"id": "182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e"}],
+        )
+        assert_matches_type(DocumentBulkUpdateResponse, document, path=["response"])
+
+    @pytest.mark.skip(reason="Mock server tests are disabled")
+    @parametrize
+    def test_method_bulk_update_with_all_params(self, client: Micro) -> None:
+        document = client.prism.objects.documents.bulk_update(
+            items=[{"id": "182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e"}],
+            idempotency_key="x",
+        )
+        assert_matches_type(DocumentBulkUpdateResponse, document, path=["response"])
+
+    @pytest.mark.skip(reason="Mock server tests are disabled")
+    @parametrize
+    def test_raw_response_bulk_update(self, client: Micro) -> None:
+        response = client.prism.objects.documents.with_raw_response.bulk_update(
+            items=[{"id": "182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e"}],
+        )
+
+        assert response.is_closed is True
+        assert response.http_request.headers.get("X-Stainless-Lang") == "python"
+        document = response.parse()
+        assert_matches_type(DocumentBulkUpdateResponse, document, path=["response"])
+
+    @pytest.mark.skip(reason="Mock server tests are disabled")
+    @parametrize
+    def test_streaming_response_bulk_update(self, client: Micro) -> None:
+        with client.prism.objects.documents.with_streaming_response.bulk_update(
+            items=[{"id": "182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e"}],
+        ) as response:
+            assert not response.is_closed
+            assert response.http_request.headers.get("X-Stainless-Lang") == "python"
+
+            document = response.parse()
+            assert_matches_type(DocumentBulkUpdateResponse, document, path=["response"])
+
+        assert cast(Any, response.is_closed) is True
+
+    @pytest.mark.skip(reason="Mock server tests are disabled")
+    @parametrize
+    def test_method_count(self, client: Micro) -> None:
+        document = client.prism.objects.documents.count()
+        assert_matches_type(DocumentCountResponse, document, path=["response"])
+
+    @pytest.mark.skip(reason="Mock server tests are disabled")
+    @parametrize
+    def test_method_count_with_all_params(self, client: Micro) -> None:
+        document = client.prism.objects.documents.count(
+            list_id="182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
+        )
+        assert_matches_type(DocumentCountResponse, document, path=["response"])
+
+    @pytest.mark.skip(reason="Mock server tests are disabled")
+    @parametrize
+    def test_raw_response_count(self, client: Micro) -> None:
+        response = client.prism.objects.documents.with_raw_response.count()
+
+        assert response.is_closed is True
+        assert response.http_request.headers.get("X-Stainless-Lang") == "python"
+        document = response.parse()
+        assert_matches_type(DocumentCountResponse, document, path=["response"])
+
+    @pytest.mark.skip(reason="Mock server tests are disabled")
+    @parametrize
+    def test_streaming_response_count(self, client: Micro) -> None:
+        with client.prism.objects.documents.with_streaming_response.count() as response:
+            assert not response.is_closed
+            assert response.http_request.headers.get("X-Stainless-Lang") == "python"
+
+            document = response.parse()
+            assert_matches_type(DocumentCountResponse, document, path=["response"])
+
+        assert cast(Any, response.is_closed) is True
+
+    @pytest.mark.skip(reason="Mock server tests are disabled")
+    @parametrize
     def test_method_duplicate(self, client: Micro) -> None:
         document = client.prism.objects.documents.duplicate(
             document_id="182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
+        )
+        assert_matches_type(DocumentDuplicateResponse, document, path=["response"])
+
+    @pytest.mark.skip(reason="Mock server tests are disabled")
+    @parametrize
+    def test_method_duplicate_with_all_params(self, client: Micro) -> None:
+        document = client.prism.objects.documents.duplicate(
+            document_id="182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
+            idempotency_key="x",
         )
         assert_matches_type(DocumentDuplicateResponse, document, path=["response"])
 
@@ -252,9 +444,80 @@ class TestDocuments:
 
     @pytest.mark.skip(reason="Mock server tests are disabled")
     @parametrize
+    def test_method_find(self, client: Micro) -> None:
+        document = client.prism.objects.documents.find(
+            value="value",
+            slug="slug",
+        )
+        assert_matches_type(DocumentFindResponse, document, path=["response"])
+
+    @pytest.mark.skip(reason="Mock server tests are disabled")
+    @parametrize
+    def test_method_find_with_all_params(self, client: Micro) -> None:
+        document = client.prism.objects.documents.find(
+            value="value",
+            slug="slug",
+            list_id="182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
+        )
+        assert_matches_type(DocumentFindResponse, document, path=["response"])
+
+    @pytest.mark.skip(reason="Mock server tests are disabled")
+    @parametrize
+    def test_raw_response_find(self, client: Micro) -> None:
+        response = client.prism.objects.documents.with_raw_response.find(
+            value="value",
+            slug="slug",
+        )
+
+        assert response.is_closed is True
+        assert response.http_request.headers.get("X-Stainless-Lang") == "python"
+        document = response.parse()
+        assert_matches_type(DocumentFindResponse, document, path=["response"])
+
+    @pytest.mark.skip(reason="Mock server tests are disabled")
+    @parametrize
+    def test_streaming_response_find(self, client: Micro) -> None:
+        with client.prism.objects.documents.with_streaming_response.find(
+            value="value",
+            slug="slug",
+        ) as response:
+            assert not response.is_closed
+            assert response.http_request.headers.get("X-Stainless-Lang") == "python"
+
+            document = response.parse()
+            assert_matches_type(DocumentFindResponse, document, path=["response"])
+
+        assert cast(Any, response.is_closed) is True
+
+    @pytest.mark.skip(reason="Mock server tests are disabled")
+    @parametrize
+    def test_path_params_find(self, client: Micro) -> None:
+        with pytest.raises(ValueError, match=r"Expected a non-empty value for `slug` but received ''"):
+            client.prism.objects.documents.with_raw_response.find(
+                value="value",
+                slug="",
+            )
+
+        with pytest.raises(ValueError, match=r"Expected a non-empty value for `value` but received ''"):
+            client.prism.objects.documents.with_raw_response.find(
+                value="",
+                slug="slug",
+            )
+
+    @pytest.mark.skip(reason="Mock server tests are disabled")
+    @parametrize
     def test_method_get(self, client: Micro) -> None:
         document = client.prism.objects.documents.get(
             document_id="182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
+        )
+        assert_matches_type(DocumentGetResponse, document, path=["response"])
+
+    @pytest.mark.skip(reason="Mock server tests are disabled")
+    @parametrize
+    def test_method_get_with_all_params(self, client: Micro) -> None:
+        document = client.prism.objects.documents.get(
+            document_id="182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
+            select="select",
         )
         assert_matches_type(DocumentGetResponse, document, path=["response"])
 
@@ -307,6 +570,7 @@ class TestDocuments:
             query={
                 "select": ["string"],
                 "combinator": "AND",
+                "cursor": "cursor",
                 "filter": [{"foo": {"api_empty": "string"}}],
                 "limit": 1,
                 "list_id": "182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
@@ -315,7 +579,9 @@ class TestDocuments:
             },
             id="182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
             boxes=["string"],
+            cursor="cursor",
             deleted=True,
+            include_total=True,
             sources=["182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e"],
         )
         assert_matches_type(DocumentQueryResponse, document, path=["response"])
@@ -356,6 +622,15 @@ class TestDocuments:
 
     @pytest.mark.skip(reason="Mock server tests are disabled")
     @parametrize
+    def test_method_restore_with_all_params(self, client: Micro) -> None:
+        document = client.prism.objects.documents.restore(
+            document_id="182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
+            idempotency_key="x",
+        )
+        assert_matches_type(DocumentRestoreResponse, document, path=["response"])
+
+    @pytest.mark.skip(reason="Mock server tests are disabled")
+    @parametrize
     def test_raw_response_restore(self, client: Micro) -> None:
         response = client.prism.objects.documents.with_raw_response.restore(
             document_id="182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
@@ -388,6 +663,70 @@ class TestDocuments:
                 document_id="",
             )
 
+    @pytest.mark.skip(reason="Mock server tests are disabled")
+    @parametrize
+    def test_method_upsert(self, client: Micro) -> None:
+        document = client.prism.objects.documents.upsert(
+            value="value",
+            slug="slug",
+        )
+        assert_matches_type(DocumentUpsertResponse, document, path=["response"])
+
+    @pytest.mark.skip(reason="Mock server tests are disabled")
+    @parametrize
+    def test_method_upsert_with_all_params(self, client: Micro) -> None:
+        document = client.prism.objects.documents.upsert(
+            value="value",
+            slug="slug",
+            default={"foo": "bar"},
+            list={},
+            idempotency_key="x",
+        )
+        assert_matches_type(DocumentUpsertResponse, document, path=["response"])
+
+    @pytest.mark.skip(reason="Mock server tests are disabled")
+    @parametrize
+    def test_raw_response_upsert(self, client: Micro) -> None:
+        response = client.prism.objects.documents.with_raw_response.upsert(
+            value="value",
+            slug="slug",
+        )
+
+        assert response.is_closed is True
+        assert response.http_request.headers.get("X-Stainless-Lang") == "python"
+        document = response.parse()
+        assert_matches_type(DocumentUpsertResponse, document, path=["response"])
+
+    @pytest.mark.skip(reason="Mock server tests are disabled")
+    @parametrize
+    def test_streaming_response_upsert(self, client: Micro) -> None:
+        with client.prism.objects.documents.with_streaming_response.upsert(
+            value="value",
+            slug="slug",
+        ) as response:
+            assert not response.is_closed
+            assert response.http_request.headers.get("X-Stainless-Lang") == "python"
+
+            document = response.parse()
+            assert_matches_type(DocumentUpsertResponse, document, path=["response"])
+
+        assert cast(Any, response.is_closed) is True
+
+    @pytest.mark.skip(reason="Mock server tests are disabled")
+    @parametrize
+    def test_path_params_upsert(self, client: Micro) -> None:
+        with pytest.raises(ValueError, match=r"Expected a non-empty value for `slug` but received ''"):
+            client.prism.objects.documents.with_raw_response.upsert(
+                value="value",
+                slug="",
+            )
+
+        with pytest.raises(ValueError, match=r"Expected a non-empty value for `value` but received ''"):
+            client.prism.objects.documents.with_raw_response.upsert(
+                value="",
+                slug="slug",
+            )
+
 
 class TestAsyncDocuments:
     parametrize = pytest.mark.parametrize(
@@ -406,6 +745,7 @@ class TestAsyncDocuments:
         document = await async_client.prism.objects.documents.create(
             default={"foo": "bar"},
             list={},
+            idempotency_key="x",
         )
         assert_matches_type(DocumentCreateResponse, document, path=["response"])
 
@@ -446,6 +786,8 @@ class TestAsyncDocuments:
             document_id="182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
             default={"foo": "bar"},
             list={},
+            idempotency_key="x",
+            if_match="If-Match",
         )
         assert_matches_type(DocumentUpdateResponse, document, path=["response"])
 
@@ -485,9 +827,60 @@ class TestAsyncDocuments:
 
     @pytest.mark.skip(reason="Mock server tests are disabled")
     @parametrize
+    async def test_method_list(self, async_client: AsyncMicro) -> None:
+        document = await async_client.prism.objects.documents.list()
+        assert_matches_type(DocumentListResponse, document, path=["response"])
+
+    @pytest.mark.skip(reason="Mock server tests are disabled")
+    @parametrize
+    async def test_method_list_with_all_params(self, async_client: AsyncMicro) -> None:
+        document = await async_client.prism.objects.documents.list(
+            cursor="cursor",
+            deleted=True,
+            include_total=True,
+            limit=1,
+            list_id="182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
+            select="select",
+            sort="sort",
+        )
+        assert_matches_type(DocumentListResponse, document, path=["response"])
+
+    @pytest.mark.skip(reason="Mock server tests are disabled")
+    @parametrize
+    async def test_raw_response_list(self, async_client: AsyncMicro) -> None:
+        response = await async_client.prism.objects.documents.with_raw_response.list()
+
+        assert response.is_closed is True
+        assert response.http_request.headers.get("X-Stainless-Lang") == "python"
+        document = await response.parse()
+        assert_matches_type(DocumentListResponse, document, path=["response"])
+
+    @pytest.mark.skip(reason="Mock server tests are disabled")
+    @parametrize
+    async def test_streaming_response_list(self, async_client: AsyncMicro) -> None:
+        async with async_client.prism.objects.documents.with_streaming_response.list() as response:
+            assert not response.is_closed
+            assert response.http_request.headers.get("X-Stainless-Lang") == "python"
+
+            document = await response.parse()
+            assert_matches_type(DocumentListResponse, document, path=["response"])
+
+        assert cast(Any, response.is_closed) is True
+
+    @pytest.mark.skip(reason="Mock server tests are disabled")
+    @parametrize
     async def test_method_delete(self, async_client: AsyncMicro) -> None:
         document = await async_client.prism.objects.documents.delete(
             document_id="182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
+        )
+        assert document is None
+
+    @pytest.mark.skip(reason="Mock server tests are disabled")
+    @parametrize
+    async def test_method_delete_with_all_params(self, async_client: AsyncMicro) -> None:
+        document = await async_client.prism.objects.documents.delete(
+            document_id="182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
+            if_match="If-Match",
         )
         assert document is None
 
@@ -548,6 +941,7 @@ class TestAsyncDocuments:
                 "dedupe_by": "dedupe_by",
                 "list_id": "182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
             },
+            idempotency_key="x",
         )
         assert_matches_type(DocumentBulkCreateResponse, document, path=["response"])
 
@@ -579,9 +973,140 @@ class TestAsyncDocuments:
 
     @pytest.mark.skip(reason="Mock server tests are disabled")
     @parametrize
+    async def test_method_bulk_delete(self, async_client: AsyncMicro) -> None:
+        document = await async_client.prism.objects.documents.bulk_delete(
+            ids=["182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e"],
+        )
+        assert_matches_type(DocumentBulkDeleteResponse, document, path=["response"])
+
+    @pytest.mark.skip(reason="Mock server tests are disabled")
+    @parametrize
+    async def test_method_bulk_delete_with_all_params(self, async_client: AsyncMicro) -> None:
+        document = await async_client.prism.objects.documents.bulk_delete(
+            ids=["182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e"],
+            idempotency_key="x",
+        )
+        assert_matches_type(DocumentBulkDeleteResponse, document, path=["response"])
+
+    @pytest.mark.skip(reason="Mock server tests are disabled")
+    @parametrize
+    async def test_raw_response_bulk_delete(self, async_client: AsyncMicro) -> None:
+        response = await async_client.prism.objects.documents.with_raw_response.bulk_delete(
+            ids=["182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e"],
+        )
+
+        assert response.is_closed is True
+        assert response.http_request.headers.get("X-Stainless-Lang") == "python"
+        document = await response.parse()
+        assert_matches_type(DocumentBulkDeleteResponse, document, path=["response"])
+
+    @pytest.mark.skip(reason="Mock server tests are disabled")
+    @parametrize
+    async def test_streaming_response_bulk_delete(self, async_client: AsyncMicro) -> None:
+        async with async_client.prism.objects.documents.with_streaming_response.bulk_delete(
+            ids=["182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e"],
+        ) as response:
+            assert not response.is_closed
+            assert response.http_request.headers.get("X-Stainless-Lang") == "python"
+
+            document = await response.parse()
+            assert_matches_type(DocumentBulkDeleteResponse, document, path=["response"])
+
+        assert cast(Any, response.is_closed) is True
+
+    @pytest.mark.skip(reason="Mock server tests are disabled")
+    @parametrize
+    async def test_method_bulk_update(self, async_client: AsyncMicro) -> None:
+        document = await async_client.prism.objects.documents.bulk_update(
+            items=[{"id": "182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e"}],
+        )
+        assert_matches_type(DocumentBulkUpdateResponse, document, path=["response"])
+
+    @pytest.mark.skip(reason="Mock server tests are disabled")
+    @parametrize
+    async def test_method_bulk_update_with_all_params(self, async_client: AsyncMicro) -> None:
+        document = await async_client.prism.objects.documents.bulk_update(
+            items=[{"id": "182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e"}],
+            idempotency_key="x",
+        )
+        assert_matches_type(DocumentBulkUpdateResponse, document, path=["response"])
+
+    @pytest.mark.skip(reason="Mock server tests are disabled")
+    @parametrize
+    async def test_raw_response_bulk_update(self, async_client: AsyncMicro) -> None:
+        response = await async_client.prism.objects.documents.with_raw_response.bulk_update(
+            items=[{"id": "182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e"}],
+        )
+
+        assert response.is_closed is True
+        assert response.http_request.headers.get("X-Stainless-Lang") == "python"
+        document = await response.parse()
+        assert_matches_type(DocumentBulkUpdateResponse, document, path=["response"])
+
+    @pytest.mark.skip(reason="Mock server tests are disabled")
+    @parametrize
+    async def test_streaming_response_bulk_update(self, async_client: AsyncMicro) -> None:
+        async with async_client.prism.objects.documents.with_streaming_response.bulk_update(
+            items=[{"id": "182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e"}],
+        ) as response:
+            assert not response.is_closed
+            assert response.http_request.headers.get("X-Stainless-Lang") == "python"
+
+            document = await response.parse()
+            assert_matches_type(DocumentBulkUpdateResponse, document, path=["response"])
+
+        assert cast(Any, response.is_closed) is True
+
+    @pytest.mark.skip(reason="Mock server tests are disabled")
+    @parametrize
+    async def test_method_count(self, async_client: AsyncMicro) -> None:
+        document = await async_client.prism.objects.documents.count()
+        assert_matches_type(DocumentCountResponse, document, path=["response"])
+
+    @pytest.mark.skip(reason="Mock server tests are disabled")
+    @parametrize
+    async def test_method_count_with_all_params(self, async_client: AsyncMicro) -> None:
+        document = await async_client.prism.objects.documents.count(
+            list_id="182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
+        )
+        assert_matches_type(DocumentCountResponse, document, path=["response"])
+
+    @pytest.mark.skip(reason="Mock server tests are disabled")
+    @parametrize
+    async def test_raw_response_count(self, async_client: AsyncMicro) -> None:
+        response = await async_client.prism.objects.documents.with_raw_response.count()
+
+        assert response.is_closed is True
+        assert response.http_request.headers.get("X-Stainless-Lang") == "python"
+        document = await response.parse()
+        assert_matches_type(DocumentCountResponse, document, path=["response"])
+
+    @pytest.mark.skip(reason="Mock server tests are disabled")
+    @parametrize
+    async def test_streaming_response_count(self, async_client: AsyncMicro) -> None:
+        async with async_client.prism.objects.documents.with_streaming_response.count() as response:
+            assert not response.is_closed
+            assert response.http_request.headers.get("X-Stainless-Lang") == "python"
+
+            document = await response.parse()
+            assert_matches_type(DocumentCountResponse, document, path=["response"])
+
+        assert cast(Any, response.is_closed) is True
+
+    @pytest.mark.skip(reason="Mock server tests are disabled")
+    @parametrize
     async def test_method_duplicate(self, async_client: AsyncMicro) -> None:
         document = await async_client.prism.objects.documents.duplicate(
             document_id="182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
+        )
+        assert_matches_type(DocumentDuplicateResponse, document, path=["response"])
+
+    @pytest.mark.skip(reason="Mock server tests are disabled")
+    @parametrize
+    async def test_method_duplicate_with_all_params(self, async_client: AsyncMicro) -> None:
+        document = await async_client.prism.objects.documents.duplicate(
+            document_id="182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
+            idempotency_key="x",
         )
         assert_matches_type(DocumentDuplicateResponse, document, path=["response"])
 
@@ -621,9 +1146,80 @@ class TestAsyncDocuments:
 
     @pytest.mark.skip(reason="Mock server tests are disabled")
     @parametrize
+    async def test_method_find(self, async_client: AsyncMicro) -> None:
+        document = await async_client.prism.objects.documents.find(
+            value="value",
+            slug="slug",
+        )
+        assert_matches_type(DocumentFindResponse, document, path=["response"])
+
+    @pytest.mark.skip(reason="Mock server tests are disabled")
+    @parametrize
+    async def test_method_find_with_all_params(self, async_client: AsyncMicro) -> None:
+        document = await async_client.prism.objects.documents.find(
+            value="value",
+            slug="slug",
+            list_id="182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
+        )
+        assert_matches_type(DocumentFindResponse, document, path=["response"])
+
+    @pytest.mark.skip(reason="Mock server tests are disabled")
+    @parametrize
+    async def test_raw_response_find(self, async_client: AsyncMicro) -> None:
+        response = await async_client.prism.objects.documents.with_raw_response.find(
+            value="value",
+            slug="slug",
+        )
+
+        assert response.is_closed is True
+        assert response.http_request.headers.get("X-Stainless-Lang") == "python"
+        document = await response.parse()
+        assert_matches_type(DocumentFindResponse, document, path=["response"])
+
+    @pytest.mark.skip(reason="Mock server tests are disabled")
+    @parametrize
+    async def test_streaming_response_find(self, async_client: AsyncMicro) -> None:
+        async with async_client.prism.objects.documents.with_streaming_response.find(
+            value="value",
+            slug="slug",
+        ) as response:
+            assert not response.is_closed
+            assert response.http_request.headers.get("X-Stainless-Lang") == "python"
+
+            document = await response.parse()
+            assert_matches_type(DocumentFindResponse, document, path=["response"])
+
+        assert cast(Any, response.is_closed) is True
+
+    @pytest.mark.skip(reason="Mock server tests are disabled")
+    @parametrize
+    async def test_path_params_find(self, async_client: AsyncMicro) -> None:
+        with pytest.raises(ValueError, match=r"Expected a non-empty value for `slug` but received ''"):
+            await async_client.prism.objects.documents.with_raw_response.find(
+                value="value",
+                slug="",
+            )
+
+        with pytest.raises(ValueError, match=r"Expected a non-empty value for `value` but received ''"):
+            await async_client.prism.objects.documents.with_raw_response.find(
+                value="",
+                slug="slug",
+            )
+
+    @pytest.mark.skip(reason="Mock server tests are disabled")
+    @parametrize
     async def test_method_get(self, async_client: AsyncMicro) -> None:
         document = await async_client.prism.objects.documents.get(
             document_id="182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
+        )
+        assert_matches_type(DocumentGetResponse, document, path=["response"])
+
+    @pytest.mark.skip(reason="Mock server tests are disabled")
+    @parametrize
+    async def test_method_get_with_all_params(self, async_client: AsyncMicro) -> None:
+        document = await async_client.prism.objects.documents.get(
+            document_id="182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
+            select="select",
         )
         assert_matches_type(DocumentGetResponse, document, path=["response"])
 
@@ -676,6 +1272,7 @@ class TestAsyncDocuments:
             query={
                 "select": ["string"],
                 "combinator": "AND",
+                "cursor": "cursor",
                 "filter": [{"foo": {"api_empty": "string"}}],
                 "limit": 1,
                 "list_id": "182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
@@ -684,7 +1281,9 @@ class TestAsyncDocuments:
             },
             id="182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
             boxes=["string"],
+            cursor="cursor",
             deleted=True,
+            include_total=True,
             sources=["182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e"],
         )
         assert_matches_type(DocumentQueryResponse, document, path=["response"])
@@ -725,6 +1324,15 @@ class TestAsyncDocuments:
 
     @pytest.mark.skip(reason="Mock server tests are disabled")
     @parametrize
+    async def test_method_restore_with_all_params(self, async_client: AsyncMicro) -> None:
+        document = await async_client.prism.objects.documents.restore(
+            document_id="182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
+            idempotency_key="x",
+        )
+        assert_matches_type(DocumentRestoreResponse, document, path=["response"])
+
+    @pytest.mark.skip(reason="Mock server tests are disabled")
+    @parametrize
     async def test_raw_response_restore(self, async_client: AsyncMicro) -> None:
         response = await async_client.prism.objects.documents.with_raw_response.restore(
             document_id="182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
@@ -755,4 +1363,68 @@ class TestAsyncDocuments:
         with pytest.raises(ValueError, match=r"Expected a non-empty value for `document_id` but received ''"):
             await async_client.prism.objects.documents.with_raw_response.restore(
                 document_id="",
+            )
+
+    @pytest.mark.skip(reason="Mock server tests are disabled")
+    @parametrize
+    async def test_method_upsert(self, async_client: AsyncMicro) -> None:
+        document = await async_client.prism.objects.documents.upsert(
+            value="value",
+            slug="slug",
+        )
+        assert_matches_type(DocumentUpsertResponse, document, path=["response"])
+
+    @pytest.mark.skip(reason="Mock server tests are disabled")
+    @parametrize
+    async def test_method_upsert_with_all_params(self, async_client: AsyncMicro) -> None:
+        document = await async_client.prism.objects.documents.upsert(
+            value="value",
+            slug="slug",
+            default={"foo": "bar"},
+            list={},
+            idempotency_key="x",
+        )
+        assert_matches_type(DocumentUpsertResponse, document, path=["response"])
+
+    @pytest.mark.skip(reason="Mock server tests are disabled")
+    @parametrize
+    async def test_raw_response_upsert(self, async_client: AsyncMicro) -> None:
+        response = await async_client.prism.objects.documents.with_raw_response.upsert(
+            value="value",
+            slug="slug",
+        )
+
+        assert response.is_closed is True
+        assert response.http_request.headers.get("X-Stainless-Lang") == "python"
+        document = await response.parse()
+        assert_matches_type(DocumentUpsertResponse, document, path=["response"])
+
+    @pytest.mark.skip(reason="Mock server tests are disabled")
+    @parametrize
+    async def test_streaming_response_upsert(self, async_client: AsyncMicro) -> None:
+        async with async_client.prism.objects.documents.with_streaming_response.upsert(
+            value="value",
+            slug="slug",
+        ) as response:
+            assert not response.is_closed
+            assert response.http_request.headers.get("X-Stainless-Lang") == "python"
+
+            document = await response.parse()
+            assert_matches_type(DocumentUpsertResponse, document, path=["response"])
+
+        assert cast(Any, response.is_closed) is True
+
+    @pytest.mark.skip(reason="Mock server tests are disabled")
+    @parametrize
+    async def test_path_params_upsert(self, async_client: AsyncMicro) -> None:
+        with pytest.raises(ValueError, match=r"Expected a non-empty value for `slug` but received ''"):
+            await async_client.prism.objects.documents.with_raw_response.upsert(
+                value="value",
+                slug="",
+            )
+
+        with pytest.raises(ValueError, match=r"Expected a non-empty value for `value` but received ''"):
+            await async_client.prism.objects.documents.with_raw_response.upsert(
+                value="",
+                slug="slug",
             )

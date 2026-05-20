@@ -22,3 +22,7 @@ class ActionUpdateParams(TypedDict, total=False):
     """
 
     list: object
+
+    idempotency_key: Annotated[str, PropertyInfo(alias="Idempotency-Key")]
+
+    if_match: Annotated[str, PropertyInfo(alias="If-Match")]

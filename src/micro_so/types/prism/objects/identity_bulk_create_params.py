@@ -19,6 +19,8 @@ class IdentityBulkCreateParams(TypedDict, total=False):
 
     options: Options
 
+    idempotency_key: Annotated[str, PropertyInfo(alias="Idempotency-Key")]
+
 
 class Options(TypedDict, total=False):
     case_insensitive: Annotated[bool, PropertyInfo(alias="caseInsensitive")]

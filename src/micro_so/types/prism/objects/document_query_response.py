@@ -30,5 +30,24 @@ class Data(BaseModel):
 class DocumentQueryResponse(BaseModel):
     data: List[Data]
 
-    has_more: Optional[bool] = None
-    """True when the page returned the maximum number of rows; another page may exist."""
+    has_more: bool
+    """Accurate end-of-data signal.
+
+    False when this page contains the last record; true only when at least one more
+    record exists. (Implementation note: the server fetches one extra row internally
+    to determine this — clients never need to overshoot to discover the end.)
+    """
+
+    next_cursor: Optional[str] = None
+    """Opaque cursor pointing at the next page.
+
+    Pass it back unchanged in the request body (`cursor`) of the next call. Null
+    when `has_more` is false.
+    """
+
+    total: Optional[int] = None
+    """Only populated when the request set `include_total: true`.
+
+    Total number of records matching the query, ignoring pagination. Opt-in because
+    it costs an additional pass over the result set.
+    """

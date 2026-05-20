@@ -7,7 +7,7 @@ from typing_extensions import Literal
 import httpx
 
 from ..._types import Body, Omit, Query, Headers, NoneType, NotGiven, SequenceNotStr, omit, not_given
-from ..._utils import path_template, maybe_transform, async_maybe_transform
+from ..._utils import path_template, maybe_transform, strip_not_given, async_maybe_transform
 from ..._compat import cached_property
 from ..._resource import SyncAPIResource, AsyncAPIResource
 from ..._response import (
@@ -49,6 +49,7 @@ class RecordsResource(SyncAPIResource):
         *,
         team_id: str | None = None,
         view_object_type: Literal["action", "deal", "document", "event", "identity", "organization"],
+        cursor: str | Omit = omit,
         limit: int | Omit = omit,
         page: int | Omit = omit,
         # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
@@ -63,6 +64,12 @@ class RecordsResource(SyncAPIResource):
         overlaid first)
 
         Args:
+          cursor: Opaque cursor from a previous response's `next_cursor`. Pass it back unchanged
+              to fetch the next page. When set, `page` and `limit` are derived from the
+              cursor.
+
+          page: Page number (1-based). Prefer `cursor`.
+
           extra_headers: Send extra headers
 
           extra_query: Add additional query parameters to the request
@@ -81,7 +88,7 @@ class RecordsResource(SyncAPIResource):
             raise ValueError(f"Expected a non-empty value for `view_id` but received {view_id!r}")
         return self._get(
             path_template(
-                "/v2/prism/{team_id}/view/{view_object_type}/{view_id}/records",
+                "/v2/prism/{team_id}/{view_object_type}/views/{view_id}/records",
                 team_id=team_id,
                 view_object_type=view_object_type,
                 view_id=view_id,
@@ -93,6 +100,7 @@ class RecordsResource(SyncAPIResource):
                 timeout=timeout,
                 query=maybe_transform(
                     {
+                        "cursor": cursor,
                         "limit": limit,
                         "page": page,
                     },
@@ -109,6 +117,7 @@ class RecordsResource(SyncAPIResource):
         team_id: str | None = None,
         view_object_type: Literal["action", "deal", "document", "event", "identity", "organization"],
         view_id: str,
+        idempotency_key: str | Omit = omit,
         # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
         # The extra values given here take precedence over values defined on the client or passed to this method.
         extra_headers: Headers | None = None,
@@ -139,9 +148,10 @@ class RecordsResource(SyncAPIResource):
         if not object_id:
             raise ValueError(f"Expected a non-empty value for `object_id` but received {object_id!r}")
         extra_headers = {"Accept": "*/*", **(extra_headers or {})}
+        extra_headers = {**strip_not_given({"Idempotency-Key": idempotency_key}), **(extra_headers or {})}
         return self._post(
             path_template(
-                "/v2/prism/{team_id}/view/{view_object_type}/{view_id}/records/{object_id}",
+                "/v2/prism/{team_id}/{view_object_type}/views/{view_id}/records/{object_id}",
                 team_id=team_id,
                 view_object_type=view_object_type,
                 view_id=view_id,
@@ -160,6 +170,7 @@ class RecordsResource(SyncAPIResource):
         team_id: str | None = None,
         view_object_type: Literal["action", "deal", "document", "event", "identity", "organization"],
         object_ids: SequenceNotStr[str],
+        idempotency_key: str | Omit = omit,
         # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
         # The extra values given here take precedence over values defined on the client or passed to this method.
         extra_headers: Headers | None = None,
@@ -188,9 +199,10 @@ class RecordsResource(SyncAPIResource):
         if not view_id:
             raise ValueError(f"Expected a non-empty value for `view_id` but received {view_id!r}")
         extra_headers = {"Accept": "*/*", **(extra_headers or {})}
+        extra_headers = {**strip_not_given({"Idempotency-Key": idempotency_key}), **(extra_headers or {})}
         return self._patch(
             path_template(
-                "/v2/prism/{team_id}/view/{view_object_type}/{view_id}/records",
+                "/v2/prism/{team_id}/{view_object_type}/views/{view_id}/records",
                 team_id=team_id,
                 view_object_type=view_object_type,
                 view_id=view_id,
@@ -241,7 +253,7 @@ class RecordsResource(SyncAPIResource):
         extra_headers = {"Accept": "*/*", **(extra_headers or {})}
         return self._delete(
             path_template(
-                "/v2/prism/{team_id}/view/{view_object_type}/{view_id}/records/{object_id}",
+                "/v2/prism/{team_id}/{view_object_type}/views/{view_id}/records/{object_id}",
                 team_id=team_id,
                 view_object_type=view_object_type,
                 view_id=view_id,
@@ -280,6 +292,7 @@ class AsyncRecordsResource(AsyncAPIResource):
         *,
         team_id: str | None = None,
         view_object_type: Literal["action", "deal", "document", "event", "identity", "organization"],
+        cursor: str | Omit = omit,
         limit: int | Omit = omit,
         page: int | Omit = omit,
         # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
@@ -294,6 +307,12 @@ class AsyncRecordsResource(AsyncAPIResource):
         overlaid first)
 
         Args:
+          cursor: Opaque cursor from a previous response's `next_cursor`. Pass it back unchanged
+              to fetch the next page. When set, `page` and `limit` are derived from the
+              cursor.
+
+          page: Page number (1-based). Prefer `cursor`.
+
           extra_headers: Send extra headers
 
           extra_query: Add additional query parameters to the request
@@ -312,7 +331,7 @@ class AsyncRecordsResource(AsyncAPIResource):
             raise ValueError(f"Expected a non-empty value for `view_id` but received {view_id!r}")
         return await self._get(
             path_template(
-                "/v2/prism/{team_id}/view/{view_object_type}/{view_id}/records",
+                "/v2/prism/{team_id}/{view_object_type}/views/{view_id}/records",
                 team_id=team_id,
                 view_object_type=view_object_type,
                 view_id=view_id,
@@ -324,6 +343,7 @@ class AsyncRecordsResource(AsyncAPIResource):
                 timeout=timeout,
                 query=await async_maybe_transform(
                     {
+                        "cursor": cursor,
                         "limit": limit,
                         "page": page,
                     },
@@ -340,6 +360,7 @@ class AsyncRecordsResource(AsyncAPIResource):
         team_id: str | None = None,
         view_object_type: Literal["action", "deal", "document", "event", "identity", "organization"],
         view_id: str,
+        idempotency_key: str | Omit = omit,
         # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
         # The extra values given here take precedence over values defined on the client or passed to this method.
         extra_headers: Headers | None = None,
@@ -370,9 +391,10 @@ class AsyncRecordsResource(AsyncAPIResource):
         if not object_id:
             raise ValueError(f"Expected a non-empty value for `object_id` but received {object_id!r}")
         extra_headers = {"Accept": "*/*", **(extra_headers or {})}
+        extra_headers = {**strip_not_given({"Idempotency-Key": idempotency_key}), **(extra_headers or {})}
         return await self._post(
             path_template(
-                "/v2/prism/{team_id}/view/{view_object_type}/{view_id}/records/{object_id}",
+                "/v2/prism/{team_id}/{view_object_type}/views/{view_id}/records/{object_id}",
                 team_id=team_id,
                 view_object_type=view_object_type,
                 view_id=view_id,
@@ -391,6 +413,7 @@ class AsyncRecordsResource(AsyncAPIResource):
         team_id: str | None = None,
         view_object_type: Literal["action", "deal", "document", "event", "identity", "organization"],
         object_ids: SequenceNotStr[str],
+        idempotency_key: str | Omit = omit,
         # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
         # The extra values given here take precedence over values defined on the client or passed to this method.
         extra_headers: Headers | None = None,
@@ -419,9 +442,10 @@ class AsyncRecordsResource(AsyncAPIResource):
         if not view_id:
             raise ValueError(f"Expected a non-empty value for `view_id` but received {view_id!r}")
         extra_headers = {"Accept": "*/*", **(extra_headers or {})}
+        extra_headers = {**strip_not_given({"Idempotency-Key": idempotency_key}), **(extra_headers or {})}
         return await self._patch(
             path_template(
-                "/v2/prism/{team_id}/view/{view_object_type}/{view_id}/records",
+                "/v2/prism/{team_id}/{view_object_type}/views/{view_id}/records",
                 team_id=team_id,
                 view_object_type=view_object_type,
                 view_id=view_id,
@@ -472,7 +496,7 @@ class AsyncRecordsResource(AsyncAPIResource):
         extra_headers = {"Accept": "*/*", **(extra_headers or {})}
         return await self._delete(
             path_template(
-                "/v2/prism/{team_id}/view/{view_object_type}/{view_id}/records/{object_id}",
+                "/v2/prism/{team_id}/{view_object_type}/views/{view_id}/records/{object_id}",
                 team_id=team_id,
                 view_object_type=view_object_type,
                 view_id=view_id,

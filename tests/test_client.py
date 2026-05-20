@@ -943,7 +943,7 @@ class TestMicro:
     @mock.patch("micro_so._base_client.BaseClient._calculate_retry_timeout", _low_retry_timeout)
     @pytest.mark.respx(base_url=base_url)
     def test_retrying_timeout_errors_doesnt_leak(self, respx_mock: MockRouter, client: Micro) -> None:
-        respx_mock.post("/v2/prism/query/My Team ID/deal").mock(
+        respx_mock.post("/v2/prism/My Team ID/deal/query").mock(
             side_effect=httpx.TimeoutException("Test timeout error")
         )
 
@@ -955,7 +955,7 @@ class TestMicro:
     @mock.patch("micro_so._base_client.BaseClient._calculate_retry_timeout", _low_retry_timeout)
     @pytest.mark.respx(base_url=base_url)
     def test_retrying_status_errors_doesnt_leak(self, respx_mock: MockRouter, client: Micro) -> None:
-        respx_mock.post("/v2/prism/query/My Team ID/deal").mock(return_value=httpx.Response(500))
+        respx_mock.post("/v2/prism/My Team ID/deal/query").mock(return_value=httpx.Response(500))
 
         with pytest.raises(APIStatusError):
             client.prism.objects.deals.with_streaming_response.query(query={"select": ["string"]}).__enter__()
@@ -985,7 +985,7 @@ class TestMicro:
                 return httpx.Response(500)
             return httpx.Response(200)
 
-        respx_mock.post("/v2/prism/query/My Team ID/deal").mock(side_effect=retry_handler)
+        respx_mock.post("/v2/prism/My Team ID/deal/query").mock(side_effect=retry_handler)
 
         response = client.prism.objects.deals.with_raw_response.query(query={"select": ["string"]})
 
@@ -1007,7 +1007,7 @@ class TestMicro:
                 return httpx.Response(500)
             return httpx.Response(200)
 
-        respx_mock.post("/v2/prism/query/My Team ID/deal").mock(side_effect=retry_handler)
+        respx_mock.post("/v2/prism/My Team ID/deal/query").mock(side_effect=retry_handler)
 
         response = client.prism.objects.deals.with_raw_response.query(
             query={"select": ["string"]}, extra_headers={"x-stainless-retry-count": Omit()}
@@ -1032,7 +1032,7 @@ class TestMicro:
                 return httpx.Response(500)
             return httpx.Response(200)
 
-        respx_mock.post("/v2/prism/query/My Team ID/deal").mock(side_effect=retry_handler)
+        respx_mock.post("/v2/prism/My Team ID/deal/query").mock(side_effect=retry_handler)
 
         response = client.prism.objects.deals.with_raw_response.query(
             query={"select": ["string"]}, extra_headers={"x-stainless-retry-count": "42"}
@@ -1936,7 +1936,7 @@ class TestAsyncMicro:
     @mock.patch("micro_so._base_client.BaseClient._calculate_retry_timeout", _low_retry_timeout)
     @pytest.mark.respx(base_url=base_url)
     async def test_retrying_timeout_errors_doesnt_leak(self, respx_mock: MockRouter, async_client: AsyncMicro) -> None:
-        respx_mock.post("/v2/prism/query/My Team ID/deal").mock(
+        respx_mock.post("/v2/prism/My Team ID/deal/query").mock(
             side_effect=httpx.TimeoutException("Test timeout error")
         )
 
@@ -1950,7 +1950,7 @@ class TestAsyncMicro:
     @mock.patch("micro_so._base_client.BaseClient._calculate_retry_timeout", _low_retry_timeout)
     @pytest.mark.respx(base_url=base_url)
     async def test_retrying_status_errors_doesnt_leak(self, respx_mock: MockRouter, async_client: AsyncMicro) -> None:
-        respx_mock.post("/v2/prism/query/My Team ID/deal").mock(return_value=httpx.Response(500))
+        respx_mock.post("/v2/prism/My Team ID/deal/query").mock(return_value=httpx.Response(500))
 
         with pytest.raises(APIStatusError):
             await async_client.prism.objects.deals.with_streaming_response.query(
@@ -1982,7 +1982,7 @@ class TestAsyncMicro:
                 return httpx.Response(500)
             return httpx.Response(200)
 
-        respx_mock.post("/v2/prism/query/My Team ID/deal").mock(side_effect=retry_handler)
+        respx_mock.post("/v2/prism/My Team ID/deal/query").mock(side_effect=retry_handler)
 
         response = await client.prism.objects.deals.with_raw_response.query(query={"select": ["string"]})
 
@@ -2006,7 +2006,7 @@ class TestAsyncMicro:
                 return httpx.Response(500)
             return httpx.Response(200)
 
-        respx_mock.post("/v2/prism/query/My Team ID/deal").mock(side_effect=retry_handler)
+        respx_mock.post("/v2/prism/My Team ID/deal/query").mock(side_effect=retry_handler)
 
         response = await client.prism.objects.deals.with_raw_response.query(
             query={"select": ["string"]}, extra_headers={"x-stainless-retry-count": Omit()}
@@ -2031,7 +2031,7 @@ class TestAsyncMicro:
                 return httpx.Response(500)
             return httpx.Response(200)
 
-        respx_mock.post("/v2/prism/query/My Team ID/deal").mock(side_effect=retry_handler)
+        respx_mock.post("/v2/prism/My Team ID/deal/query").mock(side_effect=retry_handler)
 
         response = await client.prism.objects.deals.with_raw_response.query(
             query={"select": ["string"]}, extra_headers={"x-stainless-retry-count": "42"}
