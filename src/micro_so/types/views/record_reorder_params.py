@@ -21,3 +21,5 @@ class RecordReorderParams(TypedDict, total=False):
     ]
 
     object_ids: Required[SequenceNotStr[str]]
+
+    idempotency_key: Annotated[str, PropertyInfo(alias="Idempotency-Key")]

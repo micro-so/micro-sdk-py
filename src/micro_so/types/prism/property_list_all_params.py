@@ -6,14 +6,15 @@ from typing_extensions import Annotated, TypedDict
 
 from ..._utils import PropertyInfo
 
-__all__ = ["MetadataListParams"]
+__all__ = ["PropertyListAllParams"]
 
 
-class MetadataListParams(TypedDict, total=False):
+class PropertyListAllParams(TypedDict, total=False):
     team_id: Annotated[str, PropertyInfo(alias="teamId")]
 
     autofill: bool
 
-    list_id: Annotated[str, PropertyInfo(alias="listId")]
+    list_id: str
+    """Scope properties to a specific list/app."""
 
     term: str

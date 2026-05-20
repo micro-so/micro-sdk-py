@@ -24,6 +24,9 @@ __all__ = [
     "QueryFilterQueryFilterItemNotContains",
     "QueryFilterQueryFilterItemExists",
     "QueryFilterQueryFilterItemNotExists",
+    "QueryFilterQueryFilterItemIsNull",
+    "QueryFilterQueryFilterItemIsNotNull",
+    "QueryFilterQueryFilterItemBetween",
     "QueryFilterQueryFilterItemIn",
     "QueryFilterQueryFilterItemNotIn",
 ]
@@ -38,7 +41,20 @@ class IdentityQueryParams(TypedDict, total=False):
 
     boxes: SequenceNotStr[str]
 
+    cursor: str
+    """Alternative location for the opaque cursor (sibling of `query`).
+
+    Use whichever feels more natural; if both are present, `query.cursor` wins.
+    """
+
     deleted: bool
+
+    include_total: bool
+    """When true, the response includes a `total` field with the unpaginated row count.
+
+    Costs an additional pass over the result set — for unfiltered totals prefer
+    `GET /v2/prism/{teamId}/{objectType}/count` instead.
+    """
 
     sources: SequenceNotStr[str]
 
@@ -91,6 +107,18 @@ class QueryFilterQueryFilterItemNotExists(TypedDict, total=False):
     not_exists: Required[bool]
 
 
+class QueryFilterQueryFilterItemIsNull(TypedDict, total=False):
+    is_null: Required[Union[str, bool, SequenceNotStr[str]]]
+
+
+class QueryFilterQueryFilterItemIsNotNull(TypedDict, total=False):
+    is_not_null: Required[Union[str, bool, SequenceNotStr[str]]]
+
+
+class QueryFilterQueryFilterItemBetween(TypedDict, total=False):
+    between: Required[Union[str, bool, SequenceNotStr[str]]]
+
+
 _QueryFilterQueryFilterItemInReservedKeywords = TypedDict(
     "_QueryFilterQueryFilterItemInReservedKeywords",
     {
@@ -121,6 +149,9 @@ QueryFilterQueryFilterItem: TypeAlias = Union[
     QueryFilterQueryFilterItemNotContains,
     QueryFilterQueryFilterItemExists,
     QueryFilterQueryFilterItemNotExists,
+    QueryFilterQueryFilterItemIsNull,
+    QueryFilterQueryFilterItemIsNotNull,
+    QueryFilterQueryFilterItemBetween,
     QueryFilterQueryFilterItemIn,
     QueryFilterQueryFilterItemNotIn,
 ]
@@ -137,6 +168,13 @@ class Query(TypedDict, total=False):
     combinator: Literal["AND", "OR"]
     """Logical operator for combining filters"""
 
+    cursor: str
+    """Opaque cursor from a previous response's `next_cursor`.
+
+    Pass it back unchanged to fetch the next page. When set, `page` and `limit` are
+    derived from the cursor and any explicit values are ignored.
+    """
+
     filter: Iterable[Dict[str, QueryFilterQueryFilterItem]]
     """Filters as [{ slug: { operator: value } }].
 
@@ -152,6 +190,11 @@ class Query(TypedDict, total=False):
     list_id: str
 
     page: int
+    """Page number (1-based).
+
+    Prefer `cursor`. Page-number pagination drifts under concurrent writes; use it
+    only for one-shot exports.
+    """
 
     sort: Iterable[Dict[str, Literal["asc", "desc"]]]
     """Sort order as [{ slug: direction }]. Array order determines sort priority"""

@@ -56,3 +56,5 @@ class ViewUpdateParams(TypedDict, total=False):
     user_id: Optional[str]
 
     view_type: str
+
+    idempotency_key: Annotated[str, PropertyInfo(alias="Idempotency-Key")]

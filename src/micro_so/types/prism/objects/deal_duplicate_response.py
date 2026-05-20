@@ -1,6 +1,6 @@
 # File generated from our OpenAPI spec by Stainless. See CONTRIBUTING.md for details.
 
-from typing import Optional
+from typing import Dict, Optional
 
 from ...._models import BaseModel
 
@@ -8,4 +8,11 @@ __all__ = ["DealDuplicateResponse"]
 
 
 class DealDuplicateResponse(BaseModel):
-    id: Optional[str] = None
+    """Object returned by reads (get/create/patch/restore). id is always present."""
+
+    id: str
+
+    default: Optional[Dict[str, object]] = None
+    """Properties keyed by property slug."""
+
+    list: Optional[object] = None
