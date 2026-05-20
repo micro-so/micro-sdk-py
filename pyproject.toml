@@ -1,6 +1,6 @@
 [project]
 name = "micro_so"
-version = "0.4.0"
+version = "0.5.0"
 description = "The official Python library for the micro API"
 dynamic = ["readme"]
 license = "Apache-2.0"
