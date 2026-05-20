@@ -2,15 +2,23 @@
 
 from __future__ import annotations
 
-from .metadata import (
-    MetadataResource,
-    AsyncMetadataResource,
-    MetadataResourceWithRawResponse,
-    AsyncMetadataResourceWithRawResponse,
-    MetadataResourceWithStreamingResponse,
-    AsyncMetadataResourceWithStreamingResponse,
+from .imports import (
+    ImportsResource,
+    AsyncImportsResource,
+    ImportsResourceWithRawResponse,
+    AsyncImportsResourceWithRawResponse,
+    ImportsResourceWithStreamingResponse,
+    AsyncImportsResourceWithStreamingResponse,
 )
 from ..._compat import cached_property
+from .properties import (
+    PropertiesResource,
+    AsyncPropertiesResource,
+    PropertiesResourceWithRawResponse,
+    AsyncPropertiesResourceWithRawResponse,
+    PropertiesResourceWithStreamingResponse,
+    AsyncPropertiesResourceWithStreamingResponse,
+)
 from ..._resource import SyncAPIResource, AsyncAPIResource
 from .objects.objects import (
     ObjectsResource,
@@ -26,8 +34,12 @@ __all__ = ["PrismResource", "AsyncPrismResource"]
 
 class PrismResource(SyncAPIResource):
     @cached_property
-    def metadata(self) -> MetadataResource:
-        return MetadataResource(self._client)
+    def properties(self) -> PropertiesResource:
+        return PropertiesResource(self._client)
+
+    @cached_property
+    def imports(self) -> ImportsResource:
+        return ImportsResource(self._client)
 
     @cached_property
     def objects(self) -> ObjectsResource:
@@ -55,8 +67,12 @@ class PrismResource(SyncAPIResource):
 
 class AsyncPrismResource(AsyncAPIResource):
     @cached_property
-    def metadata(self) -> AsyncMetadataResource:
-        return AsyncMetadataResource(self._client)
+    def properties(self) -> AsyncPropertiesResource:
+        return AsyncPropertiesResource(self._client)
+
+    @cached_property
+    def imports(self) -> AsyncImportsResource:
+        return AsyncImportsResource(self._client)
 
     @cached_property
     def objects(self) -> AsyncObjectsResource:
@@ -87,8 +103,12 @@ class PrismResourceWithRawResponse:
         self._prism = prism
 
     @cached_property
-    def metadata(self) -> MetadataResourceWithRawResponse:
-        return MetadataResourceWithRawResponse(self._prism.metadata)
+    def properties(self) -> PropertiesResourceWithRawResponse:
+        return PropertiesResourceWithRawResponse(self._prism.properties)
+
+    @cached_property
+    def imports(self) -> ImportsResourceWithRawResponse:
+        return ImportsResourceWithRawResponse(self._prism.imports)
 
     @cached_property
     def objects(self) -> ObjectsResourceWithRawResponse:
@@ -100,8 +120,12 @@ class AsyncPrismResourceWithRawResponse:
         self._prism = prism
 
     @cached_property
-    def metadata(self) -> AsyncMetadataResourceWithRawResponse:
-        return AsyncMetadataResourceWithRawResponse(self._prism.metadata)
+    def properties(self) -> AsyncPropertiesResourceWithRawResponse:
+        return AsyncPropertiesResourceWithRawResponse(self._prism.properties)
+
+    @cached_property
+    def imports(self) -> AsyncImportsResourceWithRawResponse:
+        return AsyncImportsResourceWithRawResponse(self._prism.imports)
 
     @cached_property
     def objects(self) -> AsyncObjectsResourceWithRawResponse:
@@ -113,8 +137,12 @@ class PrismResourceWithStreamingResponse:
         self._prism = prism
 
     @cached_property
-    def metadata(self) -> MetadataResourceWithStreamingResponse:
-        return MetadataResourceWithStreamingResponse(self._prism.metadata)
+    def properties(self) -> PropertiesResourceWithStreamingResponse:
+        return PropertiesResourceWithStreamingResponse(self._prism.properties)
+
+    @cached_property
+    def imports(self) -> ImportsResourceWithStreamingResponse:
+        return ImportsResourceWithStreamingResponse(self._prism.imports)
 
     @cached_property
     def objects(self) -> ObjectsResourceWithStreamingResponse:
@@ -126,8 +154,12 @@ class AsyncPrismResourceWithStreamingResponse:
         self._prism = prism
 
     @cached_property
-    def metadata(self) -> AsyncMetadataResourceWithStreamingResponse:
-        return AsyncMetadataResourceWithStreamingResponse(self._prism.metadata)
+    def properties(self) -> AsyncPropertiesResourceWithStreamingResponse:
+        return AsyncPropertiesResourceWithStreamingResponse(self._prism.properties)
+
+    @cached_property
+    def imports(self) -> AsyncImportsResourceWithStreamingResponse:
+        return AsyncImportsResourceWithStreamingResponse(self._prism.imports)
 
     @cached_property
     def objects(self) -> AsyncObjectsResourceWithStreamingResponse:

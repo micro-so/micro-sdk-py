@@ -2,12 +2,12 @@
 
 from __future__ import annotations
 
-from typing import Dict, Union, Iterable, Optional
+from typing import Any, Dict, Union, Iterable, Optional, cast
 from typing_extensions import Literal
 
 import httpx
 
-from ...types import view_create_params, view_update_params
+from ...types import view_get_params, view_create_params, view_update_params
 from .records import (
     RecordsResource,
     AsyncRecordsResource,
@@ -17,7 +17,7 @@ from .records import (
     AsyncRecordsResourceWithStreamingResponse,
 )
 from ..._types import Body, Omit, Query, Headers, NoneType, NotGiven, SequenceNotStr, omit, not_given
-from ..._utils import path_template, maybe_transform, async_maybe_transform
+from ..._utils import path_template, maybe_transform, strip_not_given, async_maybe_transform
 from ..._compat import cached_property
 from ..._resource import SyncAPIResource, AsyncAPIResource
 from ..._response import (
@@ -84,6 +84,7 @@ class ViewsResource(SyncAPIResource):
         body_team_id: Optional[str] | Omit = omit,
         updated_at: Optional[str] | Omit = omit,
         user_id: Optional[str] | Omit = omit,
+        idempotency_key: str | Omit = omit,
         # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
         # The extra values given here take precedence over values defined on the client or passed to this method.
         extra_headers: Headers | None = None,
@@ -117,9 +118,10 @@ class ViewsResource(SyncAPIResource):
             raise ValueError(f"Expected a non-empty value for `path_team_id` but received {path_team_id!r}")
         if not view_object_type:
             raise ValueError(f"Expected a non-empty value for `view_object_type` but received {view_object_type!r}")
+        extra_headers = {**strip_not_given({"Idempotency-Key": idempotency_key}), **(extra_headers or {})}
         return self._post(
             path_template(
-                "/v2/prism/{path_team_id}/view/{view_object_type}",
+                "/v2/prism/{path_team_id}/{view_object_type}/views",
                 path_team_id=path_team_id,
                 view_object_type=view_object_type,
             ),
@@ -179,6 +181,7 @@ class ViewsResource(SyncAPIResource):
         body_team_id: Optional[str] | Omit = omit,
         user_id: Optional[str] | Omit = omit,
         view_type: str | Omit = omit,
+        idempotency_key: str | Omit = omit,
         # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
         # The extra values given here take precedence over values defined on the client or passed to this method.
         extra_headers: Headers | None = None,
@@ -207,9 +210,10 @@ class ViewsResource(SyncAPIResource):
             raise ValueError(f"Expected a non-empty value for `view_object_type` but received {view_object_type!r}")
         if not view_id:
             raise ValueError(f"Expected a non-empty value for `view_id` but received {view_id!r}")
+        extra_headers = {**strip_not_given({"Idempotency-Key": idempotency_key}), **(extra_headers or {})}
         return self._patch(
             path_template(
-                "/v2/prism/{path_team_id}/view/{view_object_type}/{view_id}",
+                "/v2/prism/{path_team_id}/{view_object_type}/views/{view_id}",
                 path_team_id=path_team_id,
                 view_object_type=view_object_type,
                 view_id=view_id,
@@ -279,7 +283,7 @@ class ViewsResource(SyncAPIResource):
         extra_headers = {"Accept": "*/*", **(extra_headers or {})}
         return self._delete(
             path_template(
-                "/v2/prism/{team_id}/view/{view_object_type}/{view_id}",
+                "/v2/prism/{team_id}/{view_object_type}/views/{view_id}",
                 team_id=team_id,
                 view_object_type=view_object_type,
                 view_id=view_id,
@@ -296,6 +300,10 @@ class ViewsResource(SyncAPIResource):
         *,
         team_id: str | None = None,
         view_object_type: Literal["action", "deal", "document", "event", "identity", "organization"],
+        cursor: str | Omit = omit,
+        include: str | Omit = omit,
+        limit: int | Omit = omit,
+        page: int | Omit = omit,
         # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
         # The extra values given here take precedence over values defined on the client or passed to this method.
         extra_headers: Headers | None = None,
@@ -303,10 +311,23 @@ class ViewsResource(SyncAPIResource):
         extra_body: Body | None = None,
         timeout: float | httpx.Timeout | None | NotGiven = not_given,
     ) -> ViewGetResponse:
-        """
-        Read a view bundle
+        """Returns the view bundle.
+
+        Pass `?include=records` to also fetch a page of records
+        selected by the view in the same call; the response is then wrapped as
+        `{view, records}`.
 
         Args:
+          cursor: Forwarded to the records sub-resource when `include=records`.
+
+          include: Comma-separated list of optional sub-resources to inline. Currently the only
+              recognized value is `records` — when present, the response is `{view, records}`
+              rather than the bare view bundle.
+
+          limit: Forwarded to the records sub-resource when `include=records`.
+
+          page: Forwarded to the records sub-resource when `include=records`.
+
           extra_headers: Send extra headers
 
           extra_query: Add additional query parameters to the request
@@ -323,17 +344,32 @@ class ViewsResource(SyncAPIResource):
             raise ValueError(f"Expected a non-empty value for `view_object_type` but received {view_object_type!r}")
         if not view_id:
             raise ValueError(f"Expected a non-empty value for `view_id` but received {view_id!r}")
-        return self._get(
-            path_template(
-                "/v2/prism/{team_id}/view/{view_object_type}/{view_id}",
-                team_id=team_id,
-                view_object_type=view_object_type,
-                view_id=view_id,
+        return cast(
+            ViewGetResponse,
+            self._get(
+                path_template(
+                    "/v2/prism/{team_id}/{view_object_type}/views/{view_id}",
+                    team_id=team_id,
+                    view_object_type=view_object_type,
+                    view_id=view_id,
+                ),
+                options=make_request_options(
+                    extra_headers=extra_headers,
+                    extra_query=extra_query,
+                    extra_body=extra_body,
+                    timeout=timeout,
+                    query=maybe_transform(
+                        {
+                            "cursor": cursor,
+                            "include": include,
+                            "limit": limit,
+                            "page": page,
+                        },
+                        view_get_params.ViewGetParams,
+                    ),
+                ),
+                cast_to=cast(Any, ViewGetResponse),  # Union types cannot be passed in as arguments in the type system
             ),
-            options=make_request_options(
-                extra_headers=extra_headers, extra_query=extra_query, extra_body=extra_body, timeout=timeout
-            ),
-            cast_to=ViewGetResponse,
         )
 
 
@@ -387,6 +423,7 @@ class AsyncViewsResource(AsyncAPIResource):
         body_team_id: Optional[str] | Omit = omit,
         updated_at: Optional[str] | Omit = omit,
         user_id: Optional[str] | Omit = omit,
+        idempotency_key: str | Omit = omit,
         # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
         # The extra values given here take precedence over values defined on the client or passed to this method.
         extra_headers: Headers | None = None,
@@ -420,9 +457,10 @@ class AsyncViewsResource(AsyncAPIResource):
             raise ValueError(f"Expected a non-empty value for `path_team_id` but received {path_team_id!r}")
         if not view_object_type:
             raise ValueError(f"Expected a non-empty value for `view_object_type` but received {view_object_type!r}")
+        extra_headers = {**strip_not_given({"Idempotency-Key": idempotency_key}), **(extra_headers or {})}
         return await self._post(
             path_template(
-                "/v2/prism/{path_team_id}/view/{view_object_type}",
+                "/v2/prism/{path_team_id}/{view_object_type}/views",
                 path_team_id=path_team_id,
                 view_object_type=view_object_type,
             ),
@@ -482,6 +520,7 @@ class AsyncViewsResource(AsyncAPIResource):
         body_team_id: Optional[str] | Omit = omit,
         user_id: Optional[str] | Omit = omit,
         view_type: str | Omit = omit,
+        idempotency_key: str | Omit = omit,
         # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
         # The extra values given here take precedence over values defined on the client or passed to this method.
         extra_headers: Headers | None = None,
@@ -510,9 +549,10 @@ class AsyncViewsResource(AsyncAPIResource):
             raise ValueError(f"Expected a non-empty value for `view_object_type` but received {view_object_type!r}")
         if not view_id:
             raise ValueError(f"Expected a non-empty value for `view_id` but received {view_id!r}")
+        extra_headers = {**strip_not_given({"Idempotency-Key": idempotency_key}), **(extra_headers or {})}
         return await self._patch(
             path_template(
-                "/v2/prism/{path_team_id}/view/{view_object_type}/{view_id}",
+                "/v2/prism/{path_team_id}/{view_object_type}/views/{view_id}",
                 path_team_id=path_team_id,
                 view_object_type=view_object_type,
                 view_id=view_id,
@@ -582,7 +622,7 @@ class AsyncViewsResource(AsyncAPIResource):
         extra_headers = {"Accept": "*/*", **(extra_headers or {})}
         return await self._delete(
             path_template(
-                "/v2/prism/{team_id}/view/{view_object_type}/{view_id}",
+                "/v2/prism/{team_id}/{view_object_type}/views/{view_id}",
                 team_id=team_id,
                 view_object_type=view_object_type,
                 view_id=view_id,
@@ -599,6 +639,10 @@ class AsyncViewsResource(AsyncAPIResource):
         *,
         team_id: str | None = None,
         view_object_type: Literal["action", "deal", "document", "event", "identity", "organization"],
+        cursor: str | Omit = omit,
+        include: str | Omit = omit,
+        limit: int | Omit = omit,
+        page: int | Omit = omit,
         # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
         # The extra values given here take precedence over values defined on the client or passed to this method.
         extra_headers: Headers | None = None,
@@ -606,10 +650,23 @@ class AsyncViewsResource(AsyncAPIResource):
         extra_body: Body | None = None,
         timeout: float | httpx.Timeout | None | NotGiven = not_given,
     ) -> ViewGetResponse:
-        """
-        Read a view bundle
+        """Returns the view bundle.
+
+        Pass `?include=records` to also fetch a page of records
+        selected by the view in the same call; the response is then wrapped as
+        `{view, records}`.
 
         Args:
+          cursor: Forwarded to the records sub-resource when `include=records`.
+
+          include: Comma-separated list of optional sub-resources to inline. Currently the only
+              recognized value is `records` — when present, the response is `{view, records}`
+              rather than the bare view bundle.
+
+          limit: Forwarded to the records sub-resource when `include=records`.
+
+          page: Forwarded to the records sub-resource when `include=records`.
+
           extra_headers: Send extra headers
 
           extra_query: Add additional query parameters to the request
@@ -626,17 +683,32 @@ class AsyncViewsResource(AsyncAPIResource):
             raise ValueError(f"Expected a non-empty value for `view_object_type` but received {view_object_type!r}")
         if not view_id:
             raise ValueError(f"Expected a non-empty value for `view_id` but received {view_id!r}")
-        return await self._get(
-            path_template(
-                "/v2/prism/{team_id}/view/{view_object_type}/{view_id}",
-                team_id=team_id,
-                view_object_type=view_object_type,
-                view_id=view_id,
+        return cast(
+            ViewGetResponse,
+            await self._get(
+                path_template(
+                    "/v2/prism/{team_id}/{view_object_type}/views/{view_id}",
+                    team_id=team_id,
+                    view_object_type=view_object_type,
+                    view_id=view_id,
+                ),
+                options=make_request_options(
+                    extra_headers=extra_headers,
+                    extra_query=extra_query,
+                    extra_body=extra_body,
+                    timeout=timeout,
+                    query=await async_maybe_transform(
+                        {
+                            "cursor": cursor,
+                            "include": include,
+                            "limit": limit,
+                            "page": page,
+                        },
+                        view_get_params.ViewGetParams,
+                    ),
+                ),
+                cast_to=cast(Any, ViewGetResponse),  # Union types cannot be passed in as arguments in the type system
             ),
-            options=make_request_options(
-                extra_headers=extra_headers, extra_query=extra_query, extra_body=extra_body, timeout=timeout
-            ),
-            cast_to=ViewGetResponse,
         )
 
 

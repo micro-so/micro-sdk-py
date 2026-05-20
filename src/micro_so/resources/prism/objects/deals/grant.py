@@ -8,7 +8,7 @@ from typing_extensions import Literal
 import httpx
 
 from ....._types import Body, Omit, Query, Headers, NotGiven, omit, not_given
-from ....._utils import path_template, maybe_transform, async_maybe_transform
+from ....._utils import path_template, maybe_transform, strip_not_given, async_maybe_transform
 from ....._compat import cached_property
 from ....._resource import SyncAPIResource, AsyncAPIResource
 from ....._response import (
@@ -53,6 +53,7 @@ class GrantResource(SyncAPIResource):
         team_group_id: Iterable[Dict[str, Literal["a", "r", "w"]]] | Omit = omit,
         body_team_id: Dict[str, Literal["a", "r", "w"]] | Omit = omit,
         user_id: Iterable[Dict[str, Literal["a", "r", "w"]]] | Omit = omit,
+        idempotency_key: str | Omit = omit,
         # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
         # The extra values given here take precedence over values defined on the client or passed to this method.
         extra_headers: Headers | None = None,
@@ -78,8 +79,9 @@ class GrantResource(SyncAPIResource):
             raise ValueError(f"Expected a non-empty value for `path_team_id` but received {path_team_id!r}")
         if not deal_id:
             raise ValueError(f"Expected a non-empty value for `deal_id` but received {deal_id!r}")
+        extra_headers = {**strip_not_given({"Idempotency-Key": idempotency_key}), **(extra_headers or {})}
         return self._put(
-            path_template("/v2/prism/grant/{path_team_id}/deal/{deal_id}", path_team_id=path_team_id, deal_id=deal_id),
+            path_template("/v2/prism/{path_team_id}/deal/{deal_id}/grant", path_team_id=path_team_id, deal_id=deal_id),
             body=maybe_transform(
                 {
                     "team_group_id": team_group_id,
@@ -125,7 +127,7 @@ class GrantResource(SyncAPIResource):
         if not deal_id:
             raise ValueError(f"Expected a non-empty value for `deal_id` but received {deal_id!r}")
         return self._get(
-            path_template("/v2/prism/grant/{team_id}/deal/{deal_id}", team_id=team_id, deal_id=deal_id),
+            path_template("/v2/prism/{team_id}/deal/{deal_id}/grant", team_id=team_id, deal_id=deal_id),
             options=make_request_options(
                 extra_headers=extra_headers, extra_query=extra_query, extra_body=extra_body, timeout=timeout
             ),
@@ -161,6 +163,7 @@ class AsyncGrantResource(AsyncAPIResource):
         team_group_id: Iterable[Dict[str, Literal["a", "r", "w"]]] | Omit = omit,
         body_team_id: Dict[str, Literal["a", "r", "w"]] | Omit = omit,
         user_id: Iterable[Dict[str, Literal["a", "r", "w"]]] | Omit = omit,
+        idempotency_key: str | Omit = omit,
         # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
         # The extra values given here take precedence over values defined on the client or passed to this method.
         extra_headers: Headers | None = None,
@@ -186,8 +189,9 @@ class AsyncGrantResource(AsyncAPIResource):
             raise ValueError(f"Expected a non-empty value for `path_team_id` but received {path_team_id!r}")
         if not deal_id:
             raise ValueError(f"Expected a non-empty value for `deal_id` but received {deal_id!r}")
+        extra_headers = {**strip_not_given({"Idempotency-Key": idempotency_key}), **(extra_headers or {})}
         return await self._put(
-            path_template("/v2/prism/grant/{path_team_id}/deal/{deal_id}", path_team_id=path_team_id, deal_id=deal_id),
+            path_template("/v2/prism/{path_team_id}/deal/{deal_id}/grant", path_team_id=path_team_id, deal_id=deal_id),
             body=await async_maybe_transform(
                 {
                     "team_group_id": team_group_id,
@@ -233,7 +237,7 @@ class AsyncGrantResource(AsyncAPIResource):
         if not deal_id:
             raise ValueError(f"Expected a non-empty value for `deal_id` but received {deal_id!r}")
         return await self._get(
-            path_template("/v2/prism/grant/{team_id}/deal/{deal_id}", team_id=team_id, deal_id=deal_id),
+            path_template("/v2/prism/{team_id}/deal/{deal_id}/grant", team_id=team_id, deal_id=deal_id),
             options=make_request_options(
                 extra_headers=extra_headers, extra_query=extra_query, extra_body=extra_body, timeout=timeout
             ),

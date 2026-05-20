@@ -19,6 +19,14 @@ class RecordListParams(TypedDict, total=False):
         ]
     ]
 
+    cursor: str
+    """Opaque cursor from a previous response's `next_cursor`.
+
+    Pass it back unchanged to fetch the next page. When set, `page` and `limit` are
+    derived from the cursor.
+    """
+
     limit: int
 
     page: int
+    """Page number (1-based). Prefer `cursor`."""

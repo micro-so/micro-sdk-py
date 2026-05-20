@@ -22,3 +22,5 @@ class DealCreateParams(TypedDict, total=False):
     """
 
     list: object
+
+    idempotency_key: Annotated[str, PropertyInfo(alias="Idempotency-Key")]

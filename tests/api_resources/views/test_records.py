@@ -32,6 +32,7 @@ class TestRecords:
         record = client.views.records.list(
             view_id="182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
             view_object_type="action",
+            cursor="cursor",
             limit=0,
             page=1,
         )
@@ -81,6 +82,17 @@ class TestRecords:
             object_id="182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
             view_object_type="action",
             view_id="182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
+        )
+        assert record is None
+
+    @pytest.mark.skip(reason="Mock server tests are disabled")
+    @parametrize
+    def test_method_pin_with_all_params(self, client: Micro) -> None:
+        record = client.views.records.pin(
+            object_id="182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
+            view_object_type="action",
+            view_id="182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
+            idempotency_key="x",
         )
         assert record is None
 
@@ -138,6 +150,17 @@ class TestRecords:
             view_id="182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
             view_object_type="action",
             object_ids=["182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e"],
+        )
+        assert record is None
+
+    @pytest.mark.skip(reason="Mock server tests are disabled")
+    @parametrize
+    def test_method_reorder_with_all_params(self, client: Micro) -> None:
+        record = client.views.records.reorder(
+            view_id="182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
+            view_object_type="action",
+            object_ids=["182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e"],
+            idempotency_key="x",
         )
         assert record is None
 
@@ -259,6 +282,7 @@ class TestAsyncRecords:
         record = await async_client.views.records.list(
             view_id="182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
             view_object_type="action",
+            cursor="cursor",
             limit=0,
             page=1,
         )
@@ -308,6 +332,17 @@ class TestAsyncRecords:
             object_id="182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
             view_object_type="action",
             view_id="182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
+        )
+        assert record is None
+
+    @pytest.mark.skip(reason="Mock server tests are disabled")
+    @parametrize
+    async def test_method_pin_with_all_params(self, async_client: AsyncMicro) -> None:
+        record = await async_client.views.records.pin(
+            object_id="182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
+            view_object_type="action",
+            view_id="182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
+            idempotency_key="x",
         )
         assert record is None
 
@@ -365,6 +400,17 @@ class TestAsyncRecords:
             view_id="182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
             view_object_type="action",
             object_ids=["182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e"],
+        )
+        assert record is None
+
+    @pytest.mark.skip(reason="Mock server tests are disabled")
+    @parametrize
+    async def test_method_reorder_with_all_params(self, async_client: AsyncMicro) -> None:
+        record = await async_client.views.records.reorder(
+            view_id="182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
+            view_object_type="action",
+            object_ids=["182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e"],
+            idempotency_key="x",
         )
         assert record is None
 

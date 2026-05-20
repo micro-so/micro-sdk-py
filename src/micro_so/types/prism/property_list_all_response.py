@@ -3,6 +3,6 @@
 from typing import Dict
 from typing_extensions import TypeAlias
 
-__all__ = ["MetadataListResponse"]
+__all__ = ["PropertyListAllResponse"]
 
-MetadataListResponse: TypeAlias = Dict[str, object]
+PropertyListAllResponse: TypeAlias = Dict[str, object]
