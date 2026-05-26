@@ -19,17 +19,17 @@ Methods:
 - <code title="get /v2/prism/{teamId}/{objectType}/properties">client.prism.properties.<a href="./src/micro_so/resources/prism/properties.py">list</a>(object_type, \*, team_id, \*\*<a href="src/micro_so/types/prism/property_list_params.py">params</a>) -> <a href="./src/micro_so/types/prism/property_list_response.py">PropertyListResponse</a></code>
 - <code title="get /v2/prism/{teamId}/properties">client.prism.properties.<a href="./src/micro_so/resources/prism/properties.py">list_all</a>(\*, team_id, \*\*<a href="src/micro_so/types/prism/property_list_all_params.py">params</a>) -> <a href="./src/micro_so/types/prism/property_list_all_response.py">PropertyListAllResponse</a></code>
 
-## Imports
+## ImportJobs
 
 Types:
 
 ```python
-from micro_so.types.prism import ImportGetResponse
+from micro_so.types.prism import ImportJobGetResponse
 ```
 
 Methods:
 
-- <code title="get /v2/prism/{teamId}/imports/{jobId}">client.prism.imports.<a href="./src/micro_so/resources/prism/imports.py">get</a>(job_id, \*, team_id) -> <a href="./src/micro_so/types/prism/import_get_response.py">ImportGetResponse</a></code>
+- <code title="get /v2/prism/{teamId}/imports/{jobId}">client.prism.import_jobs.<a href="./src/micro_so/resources/prism/import_jobs.py">get</a>(job_id, \*, team_id) -> <a href="./src/micro_so/types/prism/import_job_get_response.py">ImportJobGetResponse</a></code>
 
 ## Objects
 
