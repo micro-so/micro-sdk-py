@@ -2,6 +2,14 @@
 
 from __future__ import annotations
 
+from .imports import (
+    ImportsResource,
+    AsyncImportsResource,
+    ImportsResourceWithRawResponse,
+    AsyncImportsResourceWithRawResponse,
+    ImportsResourceWithStreamingResponse,
+    AsyncImportsResourceWithStreamingResponse,
+)
 from ..._compat import cached_property
 from .properties import (
     PropertiesResource,
@@ -12,14 +20,6 @@ from .properties import (
     AsyncPropertiesResourceWithStreamingResponse,
 )
 from ..._resource import SyncAPIResource, AsyncAPIResource
-from .import_jobs import (
-    ImportJobsResource,
-    AsyncImportJobsResource,
-    ImportJobsResourceWithRawResponse,
-    AsyncImportJobsResourceWithRawResponse,
-    ImportJobsResourceWithStreamingResponse,
-    AsyncImportJobsResourceWithStreamingResponse,
-)
 from .objects.objects import (
     ObjectsResource,
     AsyncObjectsResource,
@@ -38,8 +38,8 @@ class PrismResource(SyncAPIResource):
         return PropertiesResource(self._client)
 
     @cached_property
-    def import_jobs(self) -> ImportJobsResource:
-        return ImportJobsResource(self._client)
+    def imports(self) -> ImportsResource:
+        return ImportsResource(self._client)
 
     @cached_property
     def objects(self) -> ObjectsResource:
@@ -71,8 +71,8 @@ class AsyncPrismResource(AsyncAPIResource):
         return AsyncPropertiesResource(self._client)
 
     @cached_property
-    def import_jobs(self) -> AsyncImportJobsResource:
-        return AsyncImportJobsResource(self._client)
+    def imports(self) -> AsyncImportsResource:
+        return AsyncImportsResource(self._client)
 
     @cached_property
     def objects(self) -> AsyncObjectsResource:
@@ -107,8 +107,8 @@ class PrismResourceWithRawResponse:
         return PropertiesResourceWithRawResponse(self._prism.properties)
 
     @cached_property
-    def import_jobs(self) -> ImportJobsResourceWithRawResponse:
-        return ImportJobsResourceWithRawResponse(self._prism.import_jobs)
+    def imports(self) -> ImportsResourceWithRawResponse:
+        return ImportsResourceWithRawResponse(self._prism.imports)
 
     @cached_property
     def objects(self) -> ObjectsResourceWithRawResponse:
@@ -124,8 +124,8 @@ class AsyncPrismResourceWithRawResponse:
         return AsyncPropertiesResourceWithRawResponse(self._prism.properties)
 
     @cached_property
-    def import_jobs(self) -> AsyncImportJobsResourceWithRawResponse:
-        return AsyncImportJobsResourceWithRawResponse(self._prism.import_jobs)
+    def imports(self) -> AsyncImportsResourceWithRawResponse:
+        return AsyncImportsResourceWithRawResponse(self._prism.imports)
 
     @cached_property
     def objects(self) -> AsyncObjectsResourceWithRawResponse:
@@ -141,8 +141,8 @@ class PrismResourceWithStreamingResponse:
         return PropertiesResourceWithStreamingResponse(self._prism.properties)
 
     @cached_property
-    def import_jobs(self) -> ImportJobsResourceWithStreamingResponse:
-        return ImportJobsResourceWithStreamingResponse(self._prism.import_jobs)
+    def imports(self) -> ImportsResourceWithStreamingResponse:
+        return ImportsResourceWithStreamingResponse(self._prism.imports)
 
     @cached_property
     def objects(self) -> ObjectsResourceWithStreamingResponse:
@@ -158,8 +158,8 @@ class AsyncPrismResourceWithStreamingResponse:
         return AsyncPropertiesResourceWithStreamingResponse(self._prism.properties)
 
     @cached_property
-    def import_jobs(self) -> AsyncImportJobsResourceWithStreamingResponse:
-        return AsyncImportJobsResourceWithStreamingResponse(self._prism.import_jobs)
+    def imports(self) -> AsyncImportsResourceWithStreamingResponse:
+        return AsyncImportsResourceWithStreamingResponse(self._prism.imports)
 
     @cached_property
     def objects(self) -> AsyncObjectsResourceWithStreamingResponse:
