@@ -9,45 +9,45 @@ import pytest
 
 from micro_so import Micro, AsyncMicro
 from tests.utils import assert_matches_type
-from micro_so.types.prism import ImportJobGetResponse
+from micro_so.types.prism import ImportGetResponse
 
 base_url = os.environ.get("TEST_API_BASE_URL", "http://127.0.0.1:4010")
 
 
-class TestImportJobs:
+class TestImports:
     parametrize = pytest.mark.parametrize("client", [False, True], indirect=True, ids=["loose", "strict"])
 
     @pytest.mark.skip(reason="Mock server tests are disabled")
     @parametrize
     def test_method_get(self, client: Micro) -> None:
-        import_job = client.prism.import_jobs.get(
+        import_ = client.prism.imports.get(
             job_id="jobId",
         )
-        assert_matches_type(ImportJobGetResponse, import_job, path=["response"])
+        assert_matches_type(ImportGetResponse, import_, path=["response"])
 
     @pytest.mark.skip(reason="Mock server tests are disabled")
     @parametrize
     def test_raw_response_get(self, client: Micro) -> None:
-        response = client.prism.import_jobs.with_raw_response.get(
+        response = client.prism.imports.with_raw_response.get(
             job_id="jobId",
         )
 
         assert response.is_closed is True
         assert response.http_request.headers.get("X-Stainless-Lang") == "python"
-        import_job = response.parse()
-        assert_matches_type(ImportJobGetResponse, import_job, path=["response"])
+        import_ = response.parse()
+        assert_matches_type(ImportGetResponse, import_, path=["response"])
 
     @pytest.mark.skip(reason="Mock server tests are disabled")
     @parametrize
     def test_streaming_response_get(self, client: Micro) -> None:
-        with client.prism.import_jobs.with_streaming_response.get(
+        with client.prism.imports.with_streaming_response.get(
             job_id="jobId",
         ) as response:
             assert not response.is_closed
             assert response.http_request.headers.get("X-Stainless-Lang") == "python"
 
-            import_job = response.parse()
-            assert_matches_type(ImportJobGetResponse, import_job, path=["response"])
+            import_ = response.parse()
+            assert_matches_type(ImportGetResponse, import_, path=["response"])
 
         assert cast(Any, response.is_closed) is True
 
@@ -55,12 +55,12 @@ class TestImportJobs:
     @parametrize
     def test_path_params_get(self, client: Micro) -> None:
         with pytest.raises(ValueError, match=r"Expected a non-empty value for `job_id` but received ''"):
-            client.prism.import_jobs.with_raw_response.get(
+            client.prism.imports.with_raw_response.get(
                 job_id="",
             )
 
 
-class TestAsyncImportJobs:
+class TestAsyncImports:
     parametrize = pytest.mark.parametrize(
         "async_client", [False, True, {"http_client": "aiohttp"}], indirect=True, ids=["loose", "strict", "aiohttp"]
     )
@@ -68,34 +68,34 @@ class TestAsyncImportJobs:
     @pytest.mark.skip(reason="Mock server tests are disabled")
     @parametrize
     async def test_method_get(self, async_client: AsyncMicro) -> None:
-        import_job = await async_client.prism.import_jobs.get(
+        import_ = await async_client.prism.imports.get(
             job_id="jobId",
         )
-        assert_matches_type(ImportJobGetResponse, import_job, path=["response"])
+        assert_matches_type(ImportGetResponse, import_, path=["response"])
 
     @pytest.mark.skip(reason="Mock server tests are disabled")
     @parametrize
     async def test_raw_response_get(self, async_client: AsyncMicro) -> None:
-        response = await async_client.prism.import_jobs.with_raw_response.get(
+        response = await async_client.prism.imports.with_raw_response.get(
             job_id="jobId",
         )
 
         assert response.is_closed is True
         assert response.http_request.headers.get("X-Stainless-Lang") == "python"
-        import_job = await response.parse()
-        assert_matches_type(ImportJobGetResponse, import_job, path=["response"])
+        import_ = await response.parse()
+        assert_matches_type(ImportGetResponse, import_, path=["response"])
 
     @pytest.mark.skip(reason="Mock server tests are disabled")
     @parametrize
     async def test_streaming_response_get(self, async_client: AsyncMicro) -> None:
-        async with async_client.prism.import_jobs.with_streaming_response.get(
+        async with async_client.prism.imports.with_streaming_response.get(
             job_id="jobId",
         ) as response:
             assert not response.is_closed
             assert response.http_request.headers.get("X-Stainless-Lang") == "python"
 
-            import_job = await response.parse()
-            assert_matches_type(ImportJobGetResponse, import_job, path=["response"])
+            import_ = await response.parse()
+            assert_matches_type(ImportGetResponse, import_, path=["response"])
 
         assert cast(Any, response.is_closed) is True
 
@@ -103,6 +103,6 @@ class TestAsyncImportJobs:
     @parametrize
     async def test_path_params_get(self, async_client: AsyncMicro) -> None:
         with pytest.raises(ValueError, match=r"Expected a non-empty value for `job_id` but received ''"):
-            await async_client.prism.import_jobs.with_raw_response.get(
+            await async_client.prism.imports.with_raw_response.get(
                 job_id="",
             )

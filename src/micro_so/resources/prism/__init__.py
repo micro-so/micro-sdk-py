@@ -8,6 +8,14 @@ from .prism import (
     PrismResourceWithStreamingResponse,
     AsyncPrismResourceWithStreamingResponse,
 )
+from .imports import (
+    ImportsResource,
+    AsyncImportsResource,
+    ImportsResourceWithRawResponse,
+    AsyncImportsResourceWithRawResponse,
+    ImportsResourceWithStreamingResponse,
+    AsyncImportsResourceWithStreamingResponse,
+)
 from .objects import (
     ObjectsResource,
     AsyncObjectsResource,
@@ -24,14 +32,6 @@ from .properties import (
     PropertiesResourceWithStreamingResponse,
     AsyncPropertiesResourceWithStreamingResponse,
 )
-from .import_jobs import (
-    ImportJobsResource,
-    AsyncImportJobsResource,
-    ImportJobsResourceWithRawResponse,
-    AsyncImportJobsResourceWithRawResponse,
-    ImportJobsResourceWithStreamingResponse,
-    AsyncImportJobsResourceWithStreamingResponse,
-)
 
 __all__ = [
     "PropertiesResource",
@@ -40,12 +40,12 @@ __all__ = [
     "AsyncPropertiesResourceWithRawResponse",
     "PropertiesResourceWithStreamingResponse",
     "AsyncPropertiesResourceWithStreamingResponse",
-    "ImportJobsResource",
-    "AsyncImportJobsResource",
-    "ImportJobsResourceWithRawResponse",
-    "AsyncImportJobsResourceWithRawResponse",
-    "ImportJobsResourceWithStreamingResponse",
-    "AsyncImportJobsResourceWithStreamingResponse",
+    "ImportsResource",
+    "AsyncImportsResource",
+    "ImportsResourceWithRawResponse",
+    "AsyncImportsResourceWithRawResponse",
+    "ImportsResourceWithStreamingResponse",
+    "AsyncImportsResourceWithStreamingResponse",
     "ObjectsResource",
     "AsyncObjectsResource",
     "ObjectsResourceWithRawResponse",

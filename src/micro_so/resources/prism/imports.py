@@ -15,30 +15,30 @@ from ..._response import (
     async_to_streamed_response_wrapper,
 )
 from ..._base_client import make_request_options
-from ...types.prism.import_job_get_response import ImportJobGetResponse
+from ...types.prism.import_get_response import ImportGetResponse
 
-__all__ = ["ImportJobsResource", "AsyncImportJobsResource"]
+__all__ = ["ImportsResource", "AsyncImportsResource"]
 
 
-class ImportJobsResource(SyncAPIResource):
+class ImportsResource(SyncAPIResource):
     @cached_property
-    def with_raw_response(self) -> ImportJobsResourceWithRawResponse:
+    def with_raw_response(self) -> ImportsResourceWithRawResponse:
         """
         This property can be used as a prefix for any HTTP method call to return
         the raw response object instead of the parsed content.
 
         For more information, see https://www.github.com/micro-so/micro-sdk-py#accessing-raw-response-data-eg-headers
         """
-        return ImportJobsResourceWithRawResponse(self)
+        return ImportsResourceWithRawResponse(self)
 
     @cached_property
-    def with_streaming_response(self) -> ImportJobsResourceWithStreamingResponse:
+    def with_streaming_response(self) -> ImportsResourceWithStreamingResponse:
         """
         An alternative to `.with_raw_response` that doesn't eagerly read the response body.
 
         For more information, see https://www.github.com/micro-so/micro-sdk-py#with_streaming_response
         """
-        return ImportJobsResourceWithStreamingResponse(self)
+        return ImportsResourceWithStreamingResponse(self)
 
     def get(
         self,
@@ -51,7 +51,7 @@ class ImportJobsResource(SyncAPIResource):
         extra_query: Query | None = None,
         extra_body: Body | None = None,
         timeout: float | httpx.Timeout | None | NotGiven = not_given,
-    ) -> ImportJobGetResponse:
+    ) -> ImportGetResponse:
         """Poll the status of an async import.
 
         Sync imports complete in the original
@@ -78,29 +78,29 @@ class ImportJobsResource(SyncAPIResource):
             options=make_request_options(
                 extra_headers=extra_headers, extra_query=extra_query, extra_body=extra_body, timeout=timeout
             ),
-            cast_to=ImportJobGetResponse,
+            cast_to=ImportGetResponse,
         )
 
 
-class AsyncImportJobsResource(AsyncAPIResource):
+class AsyncImportsResource(AsyncAPIResource):
     @cached_property
-    def with_raw_response(self) -> AsyncImportJobsResourceWithRawResponse:
+    def with_raw_response(self) -> AsyncImportsResourceWithRawResponse:
         """
         This property can be used as a prefix for any HTTP method call to return
         the raw response object instead of the parsed content.
 
         For more information, see https://www.github.com/micro-so/micro-sdk-py#accessing-raw-response-data-eg-headers
         """
-        return AsyncImportJobsResourceWithRawResponse(self)
+        return AsyncImportsResourceWithRawResponse(self)
 
     @cached_property
-    def with_streaming_response(self) -> AsyncImportJobsResourceWithStreamingResponse:
+    def with_streaming_response(self) -> AsyncImportsResourceWithStreamingResponse:
         """
         An alternative to `.with_raw_response` that doesn't eagerly read the response body.
 
         For more information, see https://www.github.com/micro-so/micro-sdk-py#with_streaming_response
         """
-        return AsyncImportJobsResourceWithStreamingResponse(self)
+        return AsyncImportsResourceWithStreamingResponse(self)
 
     async def get(
         self,
@@ -113,7 +113,7 @@ class AsyncImportJobsResource(AsyncAPIResource):
         extra_query: Query | None = None,
         extra_body: Body | None = None,
         timeout: float | httpx.Timeout | None | NotGiven = not_given,
-    ) -> ImportJobGetResponse:
+    ) -> ImportGetResponse:
         """Poll the status of an async import.
 
         Sync imports complete in the original
@@ -140,41 +140,41 @@ class AsyncImportJobsResource(AsyncAPIResource):
             options=make_request_options(
                 extra_headers=extra_headers, extra_query=extra_query, extra_body=extra_body, timeout=timeout
             ),
-            cast_to=ImportJobGetResponse,
+            cast_to=ImportGetResponse,
         )
 
 
-class ImportJobsResourceWithRawResponse:
-    def __init__(self, import_jobs: ImportJobsResource) -> None:
-        self._import_jobs = import_jobs
+class ImportsResourceWithRawResponse:
+    def __init__(self, imports: ImportsResource) -> None:
+        self._imports = imports
 
         self.get = to_raw_response_wrapper(
-            import_jobs.get,
+            imports.get,
         )
 
 
-class AsyncImportJobsResourceWithRawResponse:
-    def __init__(self, import_jobs: AsyncImportJobsResource) -> None:
-        self._import_jobs = import_jobs
+class AsyncImportsResourceWithRawResponse:
+    def __init__(self, imports: AsyncImportsResource) -> None:
+        self._imports = imports
 
         self.get = async_to_raw_response_wrapper(
-            import_jobs.get,
+            imports.get,
         )
 
 
-class ImportJobsResourceWithStreamingResponse:
-    def __init__(self, import_jobs: ImportJobsResource) -> None:
-        self._import_jobs = import_jobs
+class ImportsResourceWithStreamingResponse:
+    def __init__(self, imports: ImportsResource) -> None:
+        self._imports = imports
 
         self.get = to_streamed_response_wrapper(
-            import_jobs.get,
+            imports.get,
         )
 
 
-class AsyncImportJobsResourceWithStreamingResponse:
-    def __init__(self, import_jobs: AsyncImportJobsResource) -> None:
-        self._import_jobs = import_jobs
+class AsyncImportsResourceWithStreamingResponse:
+    def __init__(self, imports: AsyncImportsResource) -> None:
+        self._imports = imports
 
         self.get = async_to_streamed_response_wrapper(
-            import_jobs.get,
+            imports.get,
         )
