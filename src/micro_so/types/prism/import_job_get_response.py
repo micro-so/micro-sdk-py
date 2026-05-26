@@ -6,7 +6,7 @@ from typing_extensions import Literal
 
 from ..._models import BaseModel
 
-__all__ = ["ImportGetResponse", "Error", "Result", "ResultError"]
+__all__ = ["ImportJobGetResponse", "Error", "Result", "ResultError"]
 
 
 class Error(BaseModel):
@@ -34,7 +34,7 @@ class Result(BaseModel):
     """True if the row matched an existing record via the dedupe key."""
 
 
-class ImportGetResponse(BaseModel):
+class ImportJobGetResponse(BaseModel):
     """Status snapshot of an import job.
 
     Same shape used by the POST /import response and by GET /imports/{jobId}.
