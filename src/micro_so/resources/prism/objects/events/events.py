@@ -313,7 +313,7 @@ class EventsResource(SyncAPIResource):
         Query
 
         Args:
-          cursor: Alternative location for the opaque cursor (sibling of `query`). Use whichever
+          cursor: Alternative location for the opaque cursor (a sibling of `query`). Use whichever
               feels more natural; if both are present, `query.cursor` wins.
 
           include_total: When true, the response includes a `total` field with the unpaginated row count.
@@ -625,7 +625,7 @@ class AsyncEventsResource(AsyncAPIResource):
         Query
 
         Args:
-          cursor: Alternative location for the opaque cursor (sibling of `query`). Use whichever
+          cursor: Alternative location for the opaque cursor (a sibling of `query`). Use whichever
               feels more natural; if both are present, `query.cursor` wins.
 
           include_total: When true, the response includes a `total` field with the unpaginated row count.

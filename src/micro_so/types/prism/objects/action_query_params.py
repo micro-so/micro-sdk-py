@@ -42,7 +42,7 @@ class ActionQueryParams(TypedDict, total=False):
     boxes: SequenceNotStr[str]
 
     cursor: str
-    """Alternative location for the opaque cursor (sibling of `query`).
+    """Alternative location for the opaque cursor (a sibling of `query`).
 
     Use whichever feels more natural; if both are present, `query.cursor` wins.
     """
