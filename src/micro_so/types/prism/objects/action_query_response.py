@@ -24,7 +24,7 @@ class Data(BaseModel):
     properties, values are nested `{ id, properties }` objects.
     """
 
-    source: Optional[str] = None
+    source: Optional[List[str]] = None
 
 
 class ActionQueryResponse(BaseModel):
