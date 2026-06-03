@@ -48,7 +48,9 @@ class RecordsResource(SyncAPIResource):
         view_id: str,
         *,
         team_id: str | None = None,
-        view_object_type: Literal["action", "deal", "document", "event", "identity", "organization"],
+        view_object_type: Literal[
+            "comment", "action", "deal", "engagement", "document", "event", "identity", "organization"
+        ],
         cursor: str | Omit = omit,
         limit: int | Omit = omit,
         page: int | Omit = omit,
@@ -115,7 +117,9 @@ class RecordsResource(SyncAPIResource):
         object_id: str,
         *,
         team_id: str | None = None,
-        view_object_type: Literal["action", "deal", "document", "event", "identity", "organization"],
+        view_object_type: Literal[
+            "comment", "action", "deal", "engagement", "document", "event", "identity", "organization"
+        ],
         view_id: str,
         idempotency_key: str | Omit = omit,
         # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
@@ -168,7 +172,9 @@ class RecordsResource(SyncAPIResource):
         view_id: str,
         *,
         team_id: str | None = None,
-        view_object_type: Literal["action", "deal", "document", "event", "identity", "organization"],
+        view_object_type: Literal[
+            "comment", "action", "deal", "engagement", "document", "event", "identity", "organization"
+        ],
         object_ids: SequenceNotStr[str],
         idempotency_key: str | Omit = omit,
         # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
@@ -219,7 +225,9 @@ class RecordsResource(SyncAPIResource):
         object_id: str,
         *,
         team_id: str | None = None,
-        view_object_type: Literal["action", "deal", "document", "event", "identity", "organization"],
+        view_object_type: Literal[
+            "comment", "action", "deal", "engagement", "document", "event", "identity", "organization"
+        ],
         view_id: str,
         # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
         # The extra values given here take precedence over values defined on the client or passed to this method.
@@ -291,7 +299,9 @@ class AsyncRecordsResource(AsyncAPIResource):
         view_id: str,
         *,
         team_id: str | None = None,
-        view_object_type: Literal["action", "deal", "document", "event", "identity", "organization"],
+        view_object_type: Literal[
+            "comment", "action", "deal", "engagement", "document", "event", "identity", "organization"
+        ],
         cursor: str | Omit = omit,
         limit: int | Omit = omit,
         page: int | Omit = omit,
@@ -358,7 +368,9 @@ class AsyncRecordsResource(AsyncAPIResource):
         object_id: str,
         *,
         team_id: str | None = None,
-        view_object_type: Literal["action", "deal", "document", "event", "identity", "organization"],
+        view_object_type: Literal[
+            "comment", "action", "deal", "engagement", "document", "event", "identity", "organization"
+        ],
         view_id: str,
         idempotency_key: str | Omit = omit,
         # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
@@ -411,7 +423,9 @@ class AsyncRecordsResource(AsyncAPIResource):
         view_id: str,
         *,
         team_id: str | None = None,
-        view_object_type: Literal["action", "deal", "document", "event", "identity", "organization"],
+        view_object_type: Literal[
+            "comment", "action", "deal", "engagement", "document", "event", "identity", "organization"
+        ],
         object_ids: SequenceNotStr[str],
         idempotency_key: str | Omit = omit,
         # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
@@ -462,7 +476,9 @@ class AsyncRecordsResource(AsyncAPIResource):
         object_id: str,
         *,
         team_id: str | None = None,
-        view_object_type: Literal["action", "deal", "document", "event", "identity", "organization"],
+        view_object_type: Literal[
+            "comment", "action", "deal", "engagement", "document", "event", "identity", "organization"
+        ],
         view_id: str,
         # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
         # The extra values given here take precedence over values defined on the client or passed to this method.

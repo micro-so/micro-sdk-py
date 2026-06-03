@@ -22,7 +22,7 @@ class TestRecords:
     def test_method_list(self, client: Micro) -> None:
         record = client.views.records.list(
             view_id="182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
-            view_object_type="action",
+            view_object_type="comment",
         )
         assert_matches_type(RecordListResponse, record, path=["response"])
 
@@ -31,7 +31,7 @@ class TestRecords:
     def test_method_list_with_all_params(self, client: Micro) -> None:
         record = client.views.records.list(
             view_id="182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
-            view_object_type="action",
+            view_object_type="comment",
             cursor="cursor",
             limit=0,
             page=1,
@@ -43,7 +43,7 @@ class TestRecords:
     def test_raw_response_list(self, client: Micro) -> None:
         response = client.views.records.with_raw_response.list(
             view_id="182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
-            view_object_type="action",
+            view_object_type="comment",
         )
 
         assert response.is_closed is True
@@ -56,7 +56,7 @@ class TestRecords:
     def test_streaming_response_list(self, client: Micro) -> None:
         with client.views.records.with_streaming_response.list(
             view_id="182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
-            view_object_type="action",
+            view_object_type="comment",
         ) as response:
             assert not response.is_closed
             assert response.http_request.headers.get("X-Stainless-Lang") == "python"
@@ -72,7 +72,7 @@ class TestRecords:
         with pytest.raises(ValueError, match=r"Expected a non-empty value for `view_id` but received ''"):
             client.views.records.with_raw_response.list(
                 view_id="",
-                view_object_type="action",
+                view_object_type="comment",
             )
 
     @pytest.mark.skip(reason="Mock server tests are disabled")
@@ -80,7 +80,7 @@ class TestRecords:
     def test_method_pin(self, client: Micro) -> None:
         record = client.views.records.pin(
             object_id="182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
-            view_object_type="action",
+            view_object_type="comment",
             view_id="182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
         )
         assert record is None
@@ -90,7 +90,7 @@ class TestRecords:
     def test_method_pin_with_all_params(self, client: Micro) -> None:
         record = client.views.records.pin(
             object_id="182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
-            view_object_type="action",
+            view_object_type="comment",
             view_id="182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
             idempotency_key="x",
         )
@@ -101,7 +101,7 @@ class TestRecords:
     def test_raw_response_pin(self, client: Micro) -> None:
         response = client.views.records.with_raw_response.pin(
             object_id="182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
-            view_object_type="action",
+            view_object_type="comment",
             view_id="182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
         )
 
@@ -115,7 +115,7 @@ class TestRecords:
     def test_streaming_response_pin(self, client: Micro) -> None:
         with client.views.records.with_streaming_response.pin(
             object_id="182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
-            view_object_type="action",
+            view_object_type="comment",
             view_id="182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
         ) as response:
             assert not response.is_closed
@@ -132,14 +132,14 @@ class TestRecords:
         with pytest.raises(ValueError, match=r"Expected a non-empty value for `view_id` but received ''"):
             client.views.records.with_raw_response.pin(
                 object_id="182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
-                view_object_type="action",
+                view_object_type="comment",
                 view_id="",
             )
 
         with pytest.raises(ValueError, match=r"Expected a non-empty value for `object_id` but received ''"):
             client.views.records.with_raw_response.pin(
                 object_id="",
-                view_object_type="action",
+                view_object_type="comment",
                 view_id="182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
             )
 
@@ -148,7 +148,7 @@ class TestRecords:
     def test_method_reorder(self, client: Micro) -> None:
         record = client.views.records.reorder(
             view_id="182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
-            view_object_type="action",
+            view_object_type="comment",
             object_ids=["182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e"],
         )
         assert record is None
@@ -158,7 +158,7 @@ class TestRecords:
     def test_method_reorder_with_all_params(self, client: Micro) -> None:
         record = client.views.records.reorder(
             view_id="182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
-            view_object_type="action",
+            view_object_type="comment",
             object_ids=["182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e"],
             idempotency_key="x",
         )
@@ -169,7 +169,7 @@ class TestRecords:
     def test_raw_response_reorder(self, client: Micro) -> None:
         response = client.views.records.with_raw_response.reorder(
             view_id="182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
-            view_object_type="action",
+            view_object_type="comment",
             object_ids=["182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e"],
         )
 
@@ -183,7 +183,7 @@ class TestRecords:
     def test_streaming_response_reorder(self, client: Micro) -> None:
         with client.views.records.with_streaming_response.reorder(
             view_id="182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
-            view_object_type="action",
+            view_object_type="comment",
             object_ids=["182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e"],
         ) as response:
             assert not response.is_closed
@@ -200,7 +200,7 @@ class TestRecords:
         with pytest.raises(ValueError, match=r"Expected a non-empty value for `view_id` but received ''"):
             client.views.records.with_raw_response.reorder(
                 view_id="",
-                view_object_type="action",
+                view_object_type="comment",
                 object_ids=["182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e"],
             )
 
@@ -209,7 +209,7 @@ class TestRecords:
     def test_method_unpin(self, client: Micro) -> None:
         record = client.views.records.unpin(
             object_id="182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
-            view_object_type="action",
+            view_object_type="comment",
             view_id="182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
         )
         assert record is None
@@ -219,7 +219,7 @@ class TestRecords:
     def test_raw_response_unpin(self, client: Micro) -> None:
         response = client.views.records.with_raw_response.unpin(
             object_id="182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
-            view_object_type="action",
+            view_object_type="comment",
             view_id="182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
         )
 
@@ -233,7 +233,7 @@ class TestRecords:
     def test_streaming_response_unpin(self, client: Micro) -> None:
         with client.views.records.with_streaming_response.unpin(
             object_id="182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
-            view_object_type="action",
+            view_object_type="comment",
             view_id="182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
         ) as response:
             assert not response.is_closed
@@ -250,14 +250,14 @@ class TestRecords:
         with pytest.raises(ValueError, match=r"Expected a non-empty value for `view_id` but received ''"):
             client.views.records.with_raw_response.unpin(
                 object_id="182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
-                view_object_type="action",
+                view_object_type="comment",
                 view_id="",
             )
 
         with pytest.raises(ValueError, match=r"Expected a non-empty value for `object_id` but received ''"):
             client.views.records.with_raw_response.unpin(
                 object_id="",
-                view_object_type="action",
+                view_object_type="comment",
                 view_id="182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
             )
 
@@ -272,7 +272,7 @@ class TestAsyncRecords:
     async def test_method_list(self, async_client: AsyncMicro) -> None:
         record = await async_client.views.records.list(
             view_id="182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
-            view_object_type="action",
+            view_object_type="comment",
         )
         assert_matches_type(RecordListResponse, record, path=["response"])
 
@@ -281,7 +281,7 @@ class TestAsyncRecords:
     async def test_method_list_with_all_params(self, async_client: AsyncMicro) -> None:
         record = await async_client.views.records.list(
             view_id="182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
-            view_object_type="action",
+            view_object_type="comment",
             cursor="cursor",
             limit=0,
             page=1,
@@ -293,7 +293,7 @@ class TestAsyncRecords:
     async def test_raw_response_list(self, async_client: AsyncMicro) -> None:
         response = await async_client.views.records.with_raw_response.list(
             view_id="182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
-            view_object_type="action",
+            view_object_type="comment",
         )
 
         assert response.is_closed is True
@@ -306,7 +306,7 @@ class TestAsyncRecords:
     async def test_streaming_response_list(self, async_client: AsyncMicro) -> None:
         async with async_client.views.records.with_streaming_response.list(
             view_id="182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
-            view_object_type="action",
+            view_object_type="comment",
         ) as response:
             assert not response.is_closed
             assert response.http_request.headers.get("X-Stainless-Lang") == "python"
@@ -322,7 +322,7 @@ class TestAsyncRecords:
         with pytest.raises(ValueError, match=r"Expected a non-empty value for `view_id` but received ''"):
             await async_client.views.records.with_raw_response.list(
                 view_id="",
-                view_object_type="action",
+                view_object_type="comment",
             )
 
     @pytest.mark.skip(reason="Mock server tests are disabled")
@@ -330,7 +330,7 @@ class TestAsyncRecords:
     async def test_method_pin(self, async_client: AsyncMicro) -> None:
         record = await async_client.views.records.pin(
             object_id="182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
-            view_object_type="action",
+            view_object_type="comment",
             view_id="182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
         )
         assert record is None
@@ -340,7 +340,7 @@ class TestAsyncRecords:
     async def test_method_pin_with_all_params(self, async_client: AsyncMicro) -> None:
         record = await async_client.views.records.pin(
             object_id="182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
-            view_object_type="action",
+            view_object_type="comment",
             view_id="182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
             idempotency_key="x",
         )
@@ -351,7 +351,7 @@ class TestAsyncRecords:
     async def test_raw_response_pin(self, async_client: AsyncMicro) -> None:
         response = await async_client.views.records.with_raw_response.pin(
             object_id="182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
-            view_object_type="action",
+            view_object_type="comment",
             view_id="182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
         )
 
@@ -365,7 +365,7 @@ class TestAsyncRecords:
     async def test_streaming_response_pin(self, async_client: AsyncMicro) -> None:
         async with async_client.views.records.with_streaming_response.pin(
             object_id="182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
-            view_object_type="action",
+            view_object_type="comment",
             view_id="182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
         ) as response:
             assert not response.is_closed
@@ -382,14 +382,14 @@ class TestAsyncRecords:
         with pytest.raises(ValueError, match=r"Expected a non-empty value for `view_id` but received ''"):
             await async_client.views.records.with_raw_response.pin(
                 object_id="182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
-                view_object_type="action",
+                view_object_type="comment",
                 view_id="",
             )
 
         with pytest.raises(ValueError, match=r"Expected a non-empty value for `object_id` but received ''"):
             await async_client.views.records.with_raw_response.pin(
                 object_id="",
-                view_object_type="action",
+                view_object_type="comment",
                 view_id="182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
             )
 
@@ -398,7 +398,7 @@ class TestAsyncRecords:
     async def test_method_reorder(self, async_client: AsyncMicro) -> None:
         record = await async_client.views.records.reorder(
             view_id="182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
-            view_object_type="action",
+            view_object_type="comment",
             object_ids=["182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e"],
         )
         assert record is None
@@ -408,7 +408,7 @@ class TestAsyncRecords:
     async def test_method_reorder_with_all_params(self, async_client: AsyncMicro) -> None:
         record = await async_client.views.records.reorder(
             view_id="182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
-            view_object_type="action",
+            view_object_type="comment",
             object_ids=["182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e"],
             idempotency_key="x",
         )
@@ -419,7 +419,7 @@ class TestAsyncRecords:
     async def test_raw_response_reorder(self, async_client: AsyncMicro) -> None:
         response = await async_client.views.records.with_raw_response.reorder(
             view_id="182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
-            view_object_type="action",
+            view_object_type="comment",
             object_ids=["182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e"],
         )
 
@@ -433,7 +433,7 @@ class TestAsyncRecords:
     async def test_streaming_response_reorder(self, async_client: AsyncMicro) -> None:
         async with async_client.views.records.with_streaming_response.reorder(
             view_id="182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
-            view_object_type="action",
+            view_object_type="comment",
             object_ids=["182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e"],
         ) as response:
             assert not response.is_closed
@@ -450,7 +450,7 @@ class TestAsyncRecords:
         with pytest.raises(ValueError, match=r"Expected a non-empty value for `view_id` but received ''"):
             await async_client.views.records.with_raw_response.reorder(
                 view_id="",
-                view_object_type="action",
+                view_object_type="comment",
                 object_ids=["182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e"],
             )
 
@@ -459,7 +459,7 @@ class TestAsyncRecords:
     async def test_method_unpin(self, async_client: AsyncMicro) -> None:
         record = await async_client.views.records.unpin(
             object_id="182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
-            view_object_type="action",
+            view_object_type="comment",
             view_id="182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
         )
         assert record is None
@@ -469,7 +469,7 @@ class TestAsyncRecords:
     async def test_raw_response_unpin(self, async_client: AsyncMicro) -> None:
         response = await async_client.views.records.with_raw_response.unpin(
             object_id="182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
-            view_object_type="action",
+            view_object_type="comment",
             view_id="182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
         )
 
@@ -483,7 +483,7 @@ class TestAsyncRecords:
     async def test_streaming_response_unpin(self, async_client: AsyncMicro) -> None:
         async with async_client.views.records.with_streaming_response.unpin(
             object_id="182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
-            view_object_type="action",
+            view_object_type="comment",
             view_id="182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
         ) as response:
             assert not response.is_closed
@@ -500,13 +500,13 @@ class TestAsyncRecords:
         with pytest.raises(ValueError, match=r"Expected a non-empty value for `view_id` but received ''"):
             await async_client.views.records.with_raw_response.unpin(
                 object_id="182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
-                view_object_type="action",
+                view_object_type="comment",
                 view_id="",
             )
 
         with pytest.raises(ValueError, match=r"Expected a non-empty value for `object_id` but received ''"):
             await async_client.views.records.with_raw_response.unpin(
                 object_id="",
-                view_object_type="action",
+                view_object_type="comment",
                 view_id="182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
             )

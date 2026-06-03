@@ -25,7 +25,7 @@ class TestViews:
     @parametrize
     def test_method_create(self, client: Micro) -> None:
         view = client.views.create(
-            view_object_type="action",
+            view_object_type="comment",
             name="name",
             view_type="view_type",
         )
@@ -35,7 +35,7 @@ class TestViews:
     @parametrize
     def test_method_create_with_all_params(self, client: Micro) -> None:
         view = client.views.create(
-            view_object_type="action",
+            view_object_type="comment",
             name="name",
             view_type="view_type",
             id="182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
@@ -65,7 +65,7 @@ class TestViews:
     @parametrize
     def test_raw_response_create(self, client: Micro) -> None:
         response = client.views.with_raw_response.create(
-            view_object_type="action",
+            view_object_type="comment",
             name="name",
             view_type="view_type",
         )
@@ -79,7 +79,7 @@ class TestViews:
     @parametrize
     def test_streaming_response_create(self, client: Micro) -> None:
         with client.views.with_streaming_response.create(
-            view_object_type="action",
+            view_object_type="comment",
             name="name",
             view_type="view_type",
         ) as response:
@@ -96,7 +96,7 @@ class TestViews:
     def test_method_update(self, client: Micro) -> None:
         view = client.views.update(
             view_id="182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
-            view_object_type="action",
+            view_object_type="comment",
         )
         assert_matches_type(ViewUpdateResponse, view, path=["response"])
 
@@ -105,7 +105,7 @@ class TestViews:
     def test_method_update_with_all_params(self, client: Micro) -> None:
         view = client.views.update(
             view_id="182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
-            view_object_type="action",
+            view_object_type="comment",
             aggregation_prop_def_id="182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
             aggregation_type="aggregation_type",
             column_layout={"foo": "bar"},
@@ -133,7 +133,7 @@ class TestViews:
     def test_raw_response_update(self, client: Micro) -> None:
         response = client.views.with_raw_response.update(
             view_id="182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
-            view_object_type="action",
+            view_object_type="comment",
         )
 
         assert response.is_closed is True
@@ -146,7 +146,7 @@ class TestViews:
     def test_streaming_response_update(self, client: Micro) -> None:
         with client.views.with_streaming_response.update(
             view_id="182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
-            view_object_type="action",
+            view_object_type="comment",
         ) as response:
             assert not response.is_closed
             assert response.http_request.headers.get("X-Stainless-Lang") == "python"
@@ -162,7 +162,7 @@ class TestViews:
         with pytest.raises(ValueError, match=r"Expected a non-empty value for `view_id` but received ''"):
             client.views.with_raw_response.update(
                 view_id="",
-                view_object_type="action",
+                view_object_type="comment",
             )
 
     @pytest.mark.skip(reason="Mock server tests are disabled")
@@ -170,7 +170,7 @@ class TestViews:
     def test_method_delete(self, client: Micro) -> None:
         view = client.views.delete(
             view_id="182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
-            view_object_type="action",
+            view_object_type="comment",
         )
         assert view is None
 
@@ -179,7 +179,7 @@ class TestViews:
     def test_raw_response_delete(self, client: Micro) -> None:
         response = client.views.with_raw_response.delete(
             view_id="182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
-            view_object_type="action",
+            view_object_type="comment",
         )
 
         assert response.is_closed is True
@@ -192,7 +192,7 @@ class TestViews:
     def test_streaming_response_delete(self, client: Micro) -> None:
         with client.views.with_streaming_response.delete(
             view_id="182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
-            view_object_type="action",
+            view_object_type="comment",
         ) as response:
             assert not response.is_closed
             assert response.http_request.headers.get("X-Stainless-Lang") == "python"
@@ -208,7 +208,7 @@ class TestViews:
         with pytest.raises(ValueError, match=r"Expected a non-empty value for `view_id` but received ''"):
             client.views.with_raw_response.delete(
                 view_id="",
-                view_object_type="action",
+                view_object_type="comment",
             )
 
     @pytest.mark.skip(reason="Mock server tests are disabled")
@@ -216,7 +216,7 @@ class TestViews:
     def test_method_get(self, client: Micro) -> None:
         view = client.views.get(
             view_id="182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
-            view_object_type="action",
+            view_object_type="comment",
         )
         assert_matches_type(ViewGetResponse, view, path=["response"])
 
@@ -225,7 +225,7 @@ class TestViews:
     def test_method_get_with_all_params(self, client: Micro) -> None:
         view = client.views.get(
             view_id="182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
-            view_object_type="action",
+            view_object_type="comment",
             cursor="cursor",
             include="records",
             limit=0,
@@ -238,7 +238,7 @@ class TestViews:
     def test_raw_response_get(self, client: Micro) -> None:
         response = client.views.with_raw_response.get(
             view_id="182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
-            view_object_type="action",
+            view_object_type="comment",
         )
 
         assert response.is_closed is True
@@ -251,7 +251,7 @@ class TestViews:
     def test_streaming_response_get(self, client: Micro) -> None:
         with client.views.with_streaming_response.get(
             view_id="182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
-            view_object_type="action",
+            view_object_type="comment",
         ) as response:
             assert not response.is_closed
             assert response.http_request.headers.get("X-Stainless-Lang") == "python"
@@ -267,7 +267,7 @@ class TestViews:
         with pytest.raises(ValueError, match=r"Expected a non-empty value for `view_id` but received ''"):
             client.views.with_raw_response.get(
                 view_id="",
-                view_object_type="action",
+                view_object_type="comment",
             )
 
 
@@ -280,7 +280,7 @@ class TestAsyncViews:
     @parametrize
     async def test_method_create(self, async_client: AsyncMicro) -> None:
         view = await async_client.views.create(
-            view_object_type="action",
+            view_object_type="comment",
             name="name",
             view_type="view_type",
         )
@@ -290,7 +290,7 @@ class TestAsyncViews:
     @parametrize
     async def test_method_create_with_all_params(self, async_client: AsyncMicro) -> None:
         view = await async_client.views.create(
-            view_object_type="action",
+            view_object_type="comment",
             name="name",
             view_type="view_type",
             id="182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
@@ -320,7 +320,7 @@ class TestAsyncViews:
     @parametrize
     async def test_raw_response_create(self, async_client: AsyncMicro) -> None:
         response = await async_client.views.with_raw_response.create(
-            view_object_type="action",
+            view_object_type="comment",
             name="name",
             view_type="view_type",
         )
@@ -334,7 +334,7 @@ class TestAsyncViews:
     @parametrize
     async def test_streaming_response_create(self, async_client: AsyncMicro) -> None:
         async with async_client.views.with_streaming_response.create(
-            view_object_type="action",
+            view_object_type="comment",
             name="name",
             view_type="view_type",
         ) as response:
@@ -351,7 +351,7 @@ class TestAsyncViews:
     async def test_method_update(self, async_client: AsyncMicro) -> None:
         view = await async_client.views.update(
             view_id="182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
-            view_object_type="action",
+            view_object_type="comment",
         )
         assert_matches_type(ViewUpdateResponse, view, path=["response"])
 
@@ -360,7 +360,7 @@ class TestAsyncViews:
     async def test_method_update_with_all_params(self, async_client: AsyncMicro) -> None:
         view = await async_client.views.update(
             view_id="182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
-            view_object_type="action",
+            view_object_type="comment",
             aggregation_prop_def_id="182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
             aggregation_type="aggregation_type",
             column_layout={"foo": "bar"},
@@ -388,7 +388,7 @@ class TestAsyncViews:
     async def test_raw_response_update(self, async_client: AsyncMicro) -> None:
         response = await async_client.views.with_raw_response.update(
             view_id="182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
-            view_object_type="action",
+            view_object_type="comment",
         )
 
         assert response.is_closed is True
@@ -401,7 +401,7 @@ class TestAsyncViews:
     async def test_streaming_response_update(self, async_client: AsyncMicro) -> None:
         async with async_client.views.with_streaming_response.update(
             view_id="182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
-            view_object_type="action",
+            view_object_type="comment",
         ) as response:
             assert not response.is_closed
             assert response.http_request.headers.get("X-Stainless-Lang") == "python"
@@ -417,7 +417,7 @@ class TestAsyncViews:
         with pytest.raises(ValueError, match=r"Expected a non-empty value for `view_id` but received ''"):
             await async_client.views.with_raw_response.update(
                 view_id="",
-                view_object_type="action",
+                view_object_type="comment",
             )
 
     @pytest.mark.skip(reason="Mock server tests are disabled")
@@ -425,7 +425,7 @@ class TestAsyncViews:
     async def test_method_delete(self, async_client: AsyncMicro) -> None:
         view = await async_client.views.delete(
             view_id="182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
-            view_object_type="action",
+            view_object_type="comment",
         )
         assert view is None
 
@@ -434,7 +434,7 @@ class TestAsyncViews:
     async def test_raw_response_delete(self, async_client: AsyncMicro) -> None:
         response = await async_client.views.with_raw_response.delete(
             view_id="182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
-            view_object_type="action",
+            view_object_type="comment",
         )
 
         assert response.is_closed is True
@@ -447,7 +447,7 @@ class TestAsyncViews:
     async def test_streaming_response_delete(self, async_client: AsyncMicro) -> None:
         async with async_client.views.with_streaming_response.delete(
             view_id="182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
-            view_object_type="action",
+            view_object_type="comment",
         ) as response:
             assert not response.is_closed
             assert response.http_request.headers.get("X-Stainless-Lang") == "python"
@@ -463,7 +463,7 @@ class TestAsyncViews:
         with pytest.raises(ValueError, match=r"Expected a non-empty value for `view_id` but received ''"):
             await async_client.views.with_raw_response.delete(
                 view_id="",
-                view_object_type="action",
+                view_object_type="comment",
             )
 
     @pytest.mark.skip(reason="Mock server tests are disabled")
@@ -471,7 +471,7 @@ class TestAsyncViews:
     async def test_method_get(self, async_client: AsyncMicro) -> None:
         view = await async_client.views.get(
             view_id="182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
-            view_object_type="action",
+            view_object_type="comment",
         )
         assert_matches_type(ViewGetResponse, view, path=["response"])
 
@@ -480,7 +480,7 @@ class TestAsyncViews:
     async def test_method_get_with_all_params(self, async_client: AsyncMicro) -> None:
         view = await async_client.views.get(
             view_id="182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
-            view_object_type="action",
+            view_object_type="comment",
             cursor="cursor",
             include="records",
             limit=0,
@@ -493,7 +493,7 @@ class TestAsyncViews:
     async def test_raw_response_get(self, async_client: AsyncMicro) -> None:
         response = await async_client.views.with_raw_response.get(
             view_id="182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
-            view_object_type="action",
+            view_object_type="comment",
         )
 
         assert response.is_closed is True
@@ -506,7 +506,7 @@ class TestAsyncViews:
     async def test_streaming_response_get(self, async_client: AsyncMicro) -> None:
         async with async_client.views.with_streaming_response.get(
             view_id="182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
-            view_object_type="action",
+            view_object_type="comment",
         ) as response:
             assert not response.is_closed
             assert response.http_request.headers.get("X-Stainless-Lang") == "python"
@@ -522,5 +522,5 @@ class TestAsyncViews:
         with pytest.raises(ValueError, match=r"Expected a non-empty value for `view_id` but received ''"):
             await async_client.views.with_raw_response.get(
                 view_id="",
-                view_object_type="action",
+                view_object_type="comment",
             )
