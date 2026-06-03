@@ -16,7 +16,7 @@ class ViewUpdateParams(TypedDict, total=False):
 
     view_object_type: Required[
         Annotated[
-            Literal["action", "deal", "document", "event", "identity", "organization"],
+            Literal["comment", "action", "deal", "engagement", "document", "event", "identity", "organization"],
             PropertyInfo(alias="viewObjectType"),
         ]
     ]

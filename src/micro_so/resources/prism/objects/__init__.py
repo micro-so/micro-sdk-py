@@ -56,6 +56,14 @@ from .identities import (
     IdentitiesResourceWithStreamingResponse,
     AsyncIdentitiesResourceWithStreamingResponse,
 )
+from .engagements import (
+    EngagementsResource,
+    AsyncEngagementsResource,
+    EngagementsResourceWithRawResponse,
+    AsyncEngagementsResourceWithRawResponse,
+    EngagementsResourceWithStreamingResponse,
+    AsyncEngagementsResourceWithStreamingResponse,
+)
 from .organizations import (
     OrganizationsResource,
     AsyncOrganizationsResource,
@@ -108,6 +116,12 @@ __all__ = [
     "AsyncEventsResourceWithRawResponse",
     "EventsResourceWithStreamingResponse",
     "AsyncEventsResourceWithStreamingResponse",
+    "EngagementsResource",
+    "AsyncEngagementsResource",
+    "EngagementsResourceWithRawResponse",
+    "AsyncEngagementsResourceWithRawResponse",
+    "EngagementsResourceWithStreamingResponse",
+    "AsyncEngagementsResourceWithStreamingResponse",
     "ObjectsResource",
     "AsyncObjectsResource",
     "ObjectsResourceWithRawResponse",

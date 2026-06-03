@@ -348,6 +348,59 @@ Methods:
 - <code title="put /v2/prism/{teamId}/event/{eventId}/grant">client.prism.objects.events.grant.<a href="./src/micro_so/resources/prism/objects/events/grant.py">update</a>(event_id, \*, path_team_id, \*\*<a href="src/micro_so/types/prism/objects/events/grant_update_params.py">params</a>) -> <a href="./src/micro_so/types/prism/objects/events/grant_update_response.py">GrantUpdateResponse</a></code>
 - <code title="get /v2/prism/{teamId}/event/{eventId}/grant">client.prism.objects.events.grant.<a href="./src/micro_so/resources/prism/objects/events/grant.py">get</a>(event_id, \*, team_id) -> <a href="./src/micro_so/types/prism/objects/events/grant_get_response.py">GrantGetResponse</a></code>
 
+### Engagements
+
+Types:
+
+```python
+from micro_so.types.prism.objects import (
+    Engagement,
+    EngagementCreateResponse,
+    EngagementUpdateResponse,
+    EngagementListResponse,
+    EngagementBulkCreateResponse,
+    EngagementBulkDeleteResponse,
+    EngagementBulkUpdateResponse,
+    EngagementCountResponse,
+    EngagementDuplicateResponse,
+    EngagementFindResponse,
+    EngagementGetResponse,
+    EngagementQueryResponse,
+    EngagementRestoreResponse,
+    EngagementUpsertResponse,
+)
+```
+
+Methods:
+
+- <code title="post /v2/prism/{teamId}/engagement">client.prism.objects.engagements.<a href="./src/micro_so/resources/prism/objects/engagements/engagements.py">create</a>(\*, team_id, \*\*<a href="src/micro_so/types/prism/objects/engagement_create_params.py">params</a>) -> <a href="./src/micro_so/types/prism/objects/engagement_create_response.py">EngagementCreateResponse</a></code>
+- <code title="patch /v2/prism/{teamId}/engagement/{engagementId}">client.prism.objects.engagements.<a href="./src/micro_so/resources/prism/objects/engagements/engagements.py">update</a>(engagement_id, \*, team_id, \*\*<a href="src/micro_so/types/prism/objects/engagement_update_params.py">params</a>) -> <a href="./src/micro_so/types/prism/objects/engagement_update_response.py">EngagementUpdateResponse</a></code>
+- <code title="get /v2/prism/{teamId}/engagement">client.prism.objects.engagements.<a href="./src/micro_so/resources/prism/objects/engagements/engagements.py">list</a>(\*, team_id, \*\*<a href="src/micro_so/types/prism/objects/engagement_list_params.py">params</a>) -> <a href="./src/micro_so/types/prism/objects/engagement_list_response.py">EngagementListResponse</a></code>
+- <code title="delete /v2/prism/{teamId}/engagement/{engagementId}">client.prism.objects.engagements.<a href="./src/micro_so/resources/prism/objects/engagements/engagements.py">delete</a>(engagement_id, \*, team_id) -> None</code>
+- <code title="post /v2/prism/{teamId}/engagement/import">client.prism.objects.engagements.<a href="./src/micro_so/resources/prism/objects/engagements/engagements.py">bulk_create</a>(\*, team_id, \*\*<a href="src/micro_so/types/prism/objects/engagement_bulk_create_params.py">params</a>) -> <a href="./src/micro_so/types/prism/objects/engagement_bulk_create_response.py">EngagementBulkCreateResponse</a></code>
+- <code title="post /v2/prism/{teamId}/engagement/batch/delete">client.prism.objects.engagements.<a href="./src/micro_so/resources/prism/objects/engagements/engagements.py">bulk_delete</a>(\*, team_id, \*\*<a href="src/micro_so/types/prism/objects/engagement_bulk_delete_params.py">params</a>) -> <a href="./src/micro_so/types/prism/objects/engagement_bulk_delete_response.py">EngagementBulkDeleteResponse</a></code>
+- <code title="post /v2/prism/{teamId}/engagement/batch/update">client.prism.objects.engagements.<a href="./src/micro_so/resources/prism/objects/engagements/engagements.py">bulk_update</a>(\*, team_id, \*\*<a href="src/micro_so/types/prism/objects/engagement_bulk_update_params.py">params</a>) -> <a href="./src/micro_so/types/prism/objects/engagement_bulk_update_response.py">EngagementBulkUpdateResponse</a></code>
+- <code title="get /v2/prism/{teamId}/engagement/count">client.prism.objects.engagements.<a href="./src/micro_so/resources/prism/objects/engagements/engagements.py">count</a>(\*, team_id, \*\*<a href="src/micro_so/types/prism/objects/engagement_count_params.py">params</a>) -> <a href="./src/micro_so/types/prism/objects/engagement_count_response.py">EngagementCountResponse</a></code>
+- <code title="post /v2/prism/{teamId}/engagement/{engagementId}/duplicate">client.prism.objects.engagements.<a href="./src/micro_so/resources/prism/objects/engagements/engagements.py">duplicate</a>(engagement_id, \*, team_id) -> <a href="./src/micro_so/types/prism/objects/engagement_duplicate_response.py">EngagementDuplicateResponse</a></code>
+- <code title="get /v2/prism/{teamId}/engagement/by/{slug}/{value}">client.prism.objects.engagements.<a href="./src/micro_so/resources/prism/objects/engagements/engagements.py">find</a>(value, \*, team_id, slug, \*\*<a href="src/micro_so/types/prism/objects/engagement_find_params.py">params</a>) -> <a href="./src/micro_so/types/prism/objects/engagement_find_response.py">EngagementFindResponse</a></code>
+- <code title="get /v2/prism/{teamId}/engagement/{engagementId}">client.prism.objects.engagements.<a href="./src/micro_so/resources/prism/objects/engagements/engagements.py">get</a>(engagement_id, \*, team_id, \*\*<a href="src/micro_so/types/prism/objects/engagement_get_params.py">params</a>) -> <a href="./src/micro_so/types/prism/objects/engagement_get_response.py">EngagementGetResponse</a></code>
+- <code title="post /v2/prism/{teamId}/engagement/query">client.prism.objects.engagements.<a href="./src/micro_so/resources/prism/objects/engagements/engagements.py">query</a>(\*, team_id, \*\*<a href="src/micro_so/types/prism/objects/engagement_query_params.py">params</a>) -> <a href="./src/micro_so/types/prism/objects/engagement_query_response.py">EngagementQueryResponse</a></code>
+- <code title="post /v2/prism/{teamId}/engagement/{engagementId}/restore">client.prism.objects.engagements.<a href="./src/micro_so/resources/prism/objects/engagements/engagements.py">restore</a>(engagement_id, \*, team_id) -> <a href="./src/micro_so/types/prism/objects/engagement_restore_response.py">EngagementRestoreResponse</a></code>
+- <code title="put /v2/prism/{teamId}/engagement/by/{slug}/{value}">client.prism.objects.engagements.<a href="./src/micro_so/resources/prism/objects/engagements/engagements.py">upsert</a>(value, \*, team_id, slug, \*\*<a href="src/micro_so/types/prism/objects/engagement_upsert_params.py">params</a>) -> <a href="./src/micro_so/types/prism/objects/engagement_upsert_response.py">EngagementUpsertResponse</a></code>
+
+#### Grant
+
+Types:
+
+```python
+from micro_so.types.prism.objects.engagements import GrantUpdateResponse, GrantGetResponse
+```
+
+Methods:
+
+- <code title="put /v2/prism/{teamId}/engagement/{engagementId}/grant">client.prism.objects.engagements.grant.<a href="./src/micro_so/resources/prism/objects/engagements/grant.py">update</a>(engagement_id, \*, path_team_id, \*\*<a href="src/micro_so/types/prism/objects/engagements/grant_update_params.py">params</a>) -> <a href="./src/micro_so/types/prism/objects/engagements/grant_update_response.py">GrantUpdateResponse</a></code>
+- <code title="get /v2/prism/{teamId}/engagement/{engagementId}/grant">client.prism.objects.engagements.grant.<a href="./src/micro_so/resources/prism/objects/engagements/grant.py">get</a>(engagement_id, \*, team_id) -> <a href="./src/micro_so/types/prism/objects/engagements/grant_get_response.py">GrantGetResponse</a></code>
+
 # Views
 
 Types:

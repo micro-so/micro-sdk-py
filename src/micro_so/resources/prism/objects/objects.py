@@ -60,6 +60,14 @@ from .documents.documents import (
     DocumentsResourceWithStreamingResponse,
     AsyncDocumentsResourceWithStreamingResponse,
 )
+from .engagements.engagements import (
+    EngagementsResource,
+    AsyncEngagementsResource,
+    EngagementsResourceWithRawResponse,
+    AsyncEngagementsResourceWithRawResponse,
+    EngagementsResourceWithStreamingResponse,
+    AsyncEngagementsResourceWithStreamingResponse,
+)
 
 __all__ = ["ObjectsResource", "AsyncObjectsResource"]
 
@@ -92,6 +100,10 @@ class ObjectsResource(SyncAPIResource):
     @cached_property
     def events(self) -> EventsResource:
         return EventsResource(self._client)
+
+    @cached_property
+    def engagements(self) -> EngagementsResource:
+        return EngagementsResource(self._client)
 
     @cached_property
     def with_raw_response(self) -> ObjectsResourceWithRawResponse:
@@ -141,6 +153,10 @@ class AsyncObjectsResource(AsyncAPIResource):
     @cached_property
     def events(self) -> AsyncEventsResource:
         return AsyncEventsResource(self._client)
+
+    @cached_property
+    def engagements(self) -> AsyncEngagementsResource:
+        return AsyncEngagementsResource(self._client)
 
     @cached_property
     def with_raw_response(self) -> AsyncObjectsResourceWithRawResponse:
@@ -194,6 +210,10 @@ class ObjectsResourceWithRawResponse:
     def events(self) -> EventsResourceWithRawResponse:
         return EventsResourceWithRawResponse(self._objects.events)
 
+    @cached_property
+    def engagements(self) -> EngagementsResourceWithRawResponse:
+        return EngagementsResourceWithRawResponse(self._objects.engagements)
+
 
 class AsyncObjectsResourceWithRawResponse:
     def __init__(self, objects: AsyncObjectsResource) -> None:
@@ -226,6 +246,10 @@ class AsyncObjectsResourceWithRawResponse:
     @cached_property
     def events(self) -> AsyncEventsResourceWithRawResponse:
         return AsyncEventsResourceWithRawResponse(self._objects.events)
+
+    @cached_property
+    def engagements(self) -> AsyncEngagementsResourceWithRawResponse:
+        return AsyncEngagementsResourceWithRawResponse(self._objects.engagements)
 
 
 class ObjectsResourceWithStreamingResponse:
@@ -260,6 +284,10 @@ class ObjectsResourceWithStreamingResponse:
     def events(self) -> EventsResourceWithStreamingResponse:
         return EventsResourceWithStreamingResponse(self._objects.events)
 
+    @cached_property
+    def engagements(self) -> EngagementsResourceWithStreamingResponse:
+        return EngagementsResourceWithStreamingResponse(self._objects.engagements)
+
 
 class AsyncObjectsResourceWithStreamingResponse:
     def __init__(self, objects: AsyncObjectsResource) -> None:
@@ -292,3 +320,7 @@ class AsyncObjectsResourceWithStreamingResponse:
     @cached_property
     def events(self) -> AsyncEventsResourceWithStreamingResponse:
         return AsyncEventsResourceWithStreamingResponse(self._objects.events)
+
+    @cached_property
+    def engagements(self) -> AsyncEngagementsResourceWithStreamingResponse:
+        return AsyncEngagementsResourceWithStreamingResponse(self._objects.engagements)
