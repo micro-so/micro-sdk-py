@@ -348,6 +348,14 @@ Methods:
 - <code title="put /v2/prism/{teamId}/event/{eventId}/grant">client.prism.objects.events.grant.<a href="./src/micro_so/resources/prism/objects/events/grant.py">update</a>(event_id, \*, path_team_id, \*\*<a href="src/micro_so/types/prism/objects/events/grant_update_params.py">params</a>) -> <a href="./src/micro_so/types/prism/objects/events/grant_update_response.py">GrantUpdateResponse</a></code>
 - <code title="get /v2/prism/{teamId}/event/{eventId}/grant">client.prism.objects.events.grant.<a href="./src/micro_so/resources/prism/objects/events/grant.py">get</a>(event_id, \*, team_id) -> <a href="./src/micro_so/types/prism/objects/events/grant_get_response.py">GrantGetResponse</a></code>
 
+### Engagements
+
+Types:
+
+```python
+from micro_so.types.prism.objects import Engagement
+```
+
 # Views
 
 Types:

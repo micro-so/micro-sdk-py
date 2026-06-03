@@ -60,7 +60,9 @@ class ViewsResource(SyncAPIResource):
 
     def create(
         self,
-        view_object_type: Literal["action", "deal", "document", "event", "identity", "organization"],
+        view_object_type: Literal[
+            "comment", "action", "deal", "engagement", "document", "event", "identity", "organization"
+        ],
         *,
         path_team_id: str | None = None,
         name: str,
@@ -162,7 +164,9 @@ class ViewsResource(SyncAPIResource):
         view_id: str,
         *,
         path_team_id: str | None = None,
-        view_object_type: Literal["action", "deal", "document", "event", "identity", "organization"],
+        view_object_type: Literal[
+            "comment", "action", "deal", "engagement", "document", "event", "identity", "organization"
+        ],
         aggregation_prop_def_id: Optional[str] | Omit = omit,
         aggregation_type: Optional[str] | Omit = omit,
         column_layout: Optional[Dict[str, object]] | Omit = omit,
@@ -252,7 +256,9 @@ class ViewsResource(SyncAPIResource):
         view_id: str,
         *,
         team_id: str | None = None,
-        view_object_type: Literal["action", "deal", "document", "event", "identity", "organization"],
+        view_object_type: Literal[
+            "comment", "action", "deal", "engagement", "document", "event", "identity", "organization"
+        ],
         # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
         # The extra values given here take precedence over values defined on the client or passed to this method.
         extra_headers: Headers | None = None,
@@ -299,7 +305,9 @@ class ViewsResource(SyncAPIResource):
         view_id: str,
         *,
         team_id: str | None = None,
-        view_object_type: Literal["action", "deal", "document", "event", "identity", "organization"],
+        view_object_type: Literal[
+            "comment", "action", "deal", "engagement", "document", "event", "identity", "organization"
+        ],
         cursor: str | Omit = omit,
         include: str | Omit = omit,
         limit: int | Omit = omit,
@@ -399,7 +407,9 @@ class AsyncViewsResource(AsyncAPIResource):
 
     async def create(
         self,
-        view_object_type: Literal["action", "deal", "document", "event", "identity", "organization"],
+        view_object_type: Literal[
+            "comment", "action", "deal", "engagement", "document", "event", "identity", "organization"
+        ],
         *,
         path_team_id: str | None = None,
         name: str,
@@ -501,7 +511,9 @@ class AsyncViewsResource(AsyncAPIResource):
         view_id: str,
         *,
         path_team_id: str | None = None,
-        view_object_type: Literal["action", "deal", "document", "event", "identity", "organization"],
+        view_object_type: Literal[
+            "comment", "action", "deal", "engagement", "document", "event", "identity", "organization"
+        ],
         aggregation_prop_def_id: Optional[str] | Omit = omit,
         aggregation_type: Optional[str] | Omit = omit,
         column_layout: Optional[Dict[str, object]] | Omit = omit,
@@ -591,7 +603,9 @@ class AsyncViewsResource(AsyncAPIResource):
         view_id: str,
         *,
         team_id: str | None = None,
-        view_object_type: Literal["action", "deal", "document", "event", "identity", "organization"],
+        view_object_type: Literal[
+            "comment", "action", "deal", "engagement", "document", "event", "identity", "organization"
+        ],
         # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
         # The extra values given here take precedence over values defined on the client or passed to this method.
         extra_headers: Headers | None = None,
@@ -638,7 +652,9 @@ class AsyncViewsResource(AsyncAPIResource):
         view_id: str,
         *,
         team_id: str | None = None,
-        view_object_type: Literal["action", "deal", "document", "event", "identity", "organization"],
+        view_object_type: Literal[
+            "comment", "action", "deal", "engagement", "document", "event", "identity", "organization"
+        ],
         cursor: str | Omit = omit,
         include: str | Omit = omit,
         limit: int | Omit = omit,

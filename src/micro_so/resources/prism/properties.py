@@ -47,7 +47,9 @@ class PropertiesResource(SyncAPIResource):
     def list(
         self,
         object_type: Literal[
+            "comment",
             "deal",
+            "engagement",
             "identity",
             "ai_chat_thread",
             "ai_chat_message",
@@ -183,7 +185,9 @@ class AsyncPropertiesResource(AsyncAPIResource):
     async def list(
         self,
         object_type: Literal[
+            "comment",
             "deal",
+            "engagement",
             "identity",
             "ai_chat_thread",
             "ai_chat_message",
