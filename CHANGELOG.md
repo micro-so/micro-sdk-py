@@ -1,5 +1,13 @@
 # Changelog
 
+## 0.7.1 (2026-06-05)
+
+Full Changelog: [v0.7.0...v0.7.1](https://github.com/micro-so/micro-sdk-py/compare/v0.7.0...v0.7.1)
+
+### Chores
+
+* remove custom code ([3eb5e9f](https://github.com/micro-so/micro-sdk-py/commit/3eb5e9f8d9d156e048cb5516066042aad0fa58c1))
+
 ## 0.7.0 (2026-06-03)
 
 Full Changelog: [v0.6.0...v0.7.0](https://github.com/micro-so/micro-sdk-py/compare/v0.6.0...v0.7.0)
