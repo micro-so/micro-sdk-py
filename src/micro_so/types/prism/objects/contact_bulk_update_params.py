@@ -18,7 +18,11 @@ class ContactBulkUpdateParams(TypedDict, total=False):
     idempotency_key: Annotated[str, PropertyInfo(alias="Idempotency-Key")]
 
 
-class Item(TypedDict, total=False, extra_items=object):  # type: ignore[call-arg]
+class Item(  # type: ignore[call-arg]
+    TypedDict,
+    total=False,
+    extra_items=object,  # pyright: ignore[reportGeneralTypeIssues]
+):
     """
     Object with `id` plus the same property body shape as PATCH (`default`/`list`/`extended`).
     """
