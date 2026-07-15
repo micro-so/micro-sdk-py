@@ -9,3 +9,4 @@ from .view_update_params import ViewUpdateParams as ViewUpdateParams
 from .view_create_response import ViewCreateResponse as ViewCreateResponse
 from .view_update_response import ViewUpdateResponse as ViewUpdateResponse
 from .prism_object_properties_param import PrismObjectPropertiesParam as PrismObjectPropertiesParam
+from .realtime_create_ticket_response import RealtimeCreateTicketResponse as RealtimeCreateTicketResponse

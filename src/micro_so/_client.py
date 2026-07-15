@@ -36,7 +36,8 @@ from ._base_client import (
 )
 
 if TYPE_CHECKING:
-    from .resources import prism, views
+    from .resources import prism, views, realtime
+    from .resources.realtime import RealtimeResource, AsyncRealtimeResource
     from .resources.prism.prism import PrismResource, AsyncPrismResource
     from .resources.views.views import ViewsResource, AsyncViewsResource
 
@@ -122,6 +123,12 @@ class Micro(SyncAPIClient):
         from .resources.views import ViewsResource
 
         return ViewsResource(self)
+
+    @cached_property
+    def realtime(self) -> RealtimeResource:
+        from .resources.realtime import RealtimeResource
+
+        return RealtimeResource(self)
 
     @cached_property
     def with_raw_response(self) -> MicroWithRawResponse:
@@ -329,6 +336,12 @@ class AsyncMicro(AsyncAPIClient):
         return AsyncViewsResource(self)
 
     @cached_property
+    def realtime(self) -> AsyncRealtimeResource:
+        from .resources.realtime import AsyncRealtimeResource
+
+        return AsyncRealtimeResource(self)
+
+    @cached_property
     def with_raw_response(self) -> AsyncMicroWithRawResponse:
         return AsyncMicroWithRawResponse(self)
 
@@ -471,6 +484,12 @@ class MicroWithRawResponse:
 
         return ViewsResourceWithRawResponse(self._client.views)
 
+    @cached_property
+    def realtime(self) -> realtime.RealtimeResourceWithRawResponse:
+        from .resources.realtime import RealtimeResourceWithRawResponse
+
+        return RealtimeResourceWithRawResponse(self._client.realtime)
+
 
 class AsyncMicroWithRawResponse:
     _client: AsyncMicro
@@ -489,6 +508,12 @@ class AsyncMicroWithRawResponse:
         from .resources.views import AsyncViewsResourceWithRawResponse
 
         return AsyncViewsResourceWithRawResponse(self._client.views)
+
+    @cached_property
+    def realtime(self) -> realtime.AsyncRealtimeResourceWithRawResponse:
+        from .resources.realtime import AsyncRealtimeResourceWithRawResponse
+
+        return AsyncRealtimeResourceWithRawResponse(self._client.realtime)
 
 
 class MicroWithStreamedResponse:
@@ -509,6 +534,12 @@ class MicroWithStreamedResponse:
 
         return ViewsResourceWithStreamingResponse(self._client.views)
 
+    @cached_property
+    def realtime(self) -> realtime.RealtimeResourceWithStreamingResponse:
+        from .resources.realtime import RealtimeResourceWithStreamingResponse
+
+        return RealtimeResourceWithStreamingResponse(self._client.realtime)
+
 
 class AsyncMicroWithStreamedResponse:
     _client: AsyncMicro
@@ -527,6 +558,12 @@ class AsyncMicroWithStreamedResponse:
         from .resources.views import AsyncViewsResourceWithStreamingResponse
 
         return AsyncViewsResourceWithStreamingResponse(self._client.views)
+
+    @cached_property
+    def realtime(self) -> realtime.AsyncRealtimeResourceWithStreamingResponse:
+        from .resources.realtime import AsyncRealtimeResourceWithStreamingResponse
+
+        return AsyncRealtimeResourceWithStreamingResponse(self._client.realtime)
 
 
 Client = Micro

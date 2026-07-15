@@ -430,3 +430,15 @@ Methods:
 - <code title="post /v2/prism/{teamId}/{viewObjectType}/views/{viewId}/records/{objectId}">client.views.records.<a href="./src/micro_so/resources/views/records.py">pin</a>(object_id, \*, team_id, view_object_type, view_id) -> None</code>
 - <code title="patch /v2/prism/{teamId}/{viewObjectType}/views/{viewId}/records">client.views.records.<a href="./src/micro_so/resources/views/records.py">reorder</a>(view_id, \*, team_id, view_object_type, \*\*<a href="src/micro_so/types/views/record_reorder_params.py">params</a>) -> None</code>
 - <code title="delete /v2/prism/{teamId}/{viewObjectType}/views/{viewId}/records/{objectId}">client.views.records.<a href="./src/micro_so/resources/views/records.py">unpin</a>(object_id, \*, team_id, view_object_type, view_id) -> None</code>
+
+# Realtime
+
+Types:
+
+```python
+from micro_so.types import RealtimeCreateTicketResponse
+```
+
+Methods:
+
+- <code title="post /v2/realtime/ticket">client.realtime.<a href="./src/micro_so/resources/realtime.py">create_ticket</a>() -> <a href="./src/micro_so/types/realtime_create_ticket_response.py">RealtimeCreateTicketResponse</a></code>

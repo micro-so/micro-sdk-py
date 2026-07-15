@@ -16,6 +16,14 @@ from .views import (
     ViewsResourceWithStreamingResponse,
     AsyncViewsResourceWithStreamingResponse,
 )
+from .realtime import (
+    RealtimeResource,
+    AsyncRealtimeResource,
+    RealtimeResourceWithRawResponse,
+    AsyncRealtimeResourceWithRawResponse,
+    RealtimeResourceWithStreamingResponse,
+    AsyncRealtimeResourceWithStreamingResponse,
+)
 
 __all__ = [
     "PrismResource",
@@ -30,4 +38,10 @@ __all__ = [
     "AsyncViewsResourceWithRawResponse",
     "ViewsResourceWithStreamingResponse",
     "AsyncViewsResourceWithStreamingResponse",
+    "RealtimeResource",
+    "AsyncRealtimeResource",
+    "RealtimeResourceWithRawResponse",
+    "AsyncRealtimeResourceWithRawResponse",
+    "RealtimeResourceWithStreamingResponse",
+    "AsyncRealtimeResourceWithStreamingResponse",
 ]
