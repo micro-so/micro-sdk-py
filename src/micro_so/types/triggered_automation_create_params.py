@@ -1,0 +1,124 @@
+# File generated from our OpenAPI spec by Stainless. See CONTRIBUTING.md for details.
+
+from __future__ import annotations
+
+from typing import Dict, Iterable, Optional
+from typing_extensions import Literal, Required, Annotated, TypedDict
+
+from .._utils import PropertyInfo
+
+__all__ = ["TriggeredAutomationCreateParams", "Action", "Changeset", "State"]
+
+
+class TriggeredAutomationCreateParams(TypedDict, total=False):
+    path_team_id: Annotated[str, PropertyInfo(alias="teamId")]
+
+    kind: Required[Literal["update", "lifecycle"]]
+
+    name: Required[str]
+
+    id: str
+
+    actions: Iterable[Action]
+    """
+    Actions to run when the automation fires; each item has a `type` plus
+    type-specific fields.
+    """
+
+    changeset: Changeset
+    """
+    A changeset filter group (update automations only): a combinator plus an array
+    of transition clauses matching what is changing. Dot-paths (nested reference
+    filters) are NOT permitted — direct properties only.
+    """
+
+    created_at: str
+
+    enabled: bool
+
+    list_id: Optional[str]
+
+    on_create: bool
+    """Lifecycle automations only."""
+
+    on_delete: bool
+    """Lifecycle automations only."""
+
+    state: State
+    """A filter group: a combinator plus an array of slug-based clauses.
+
+    Dot-paths (e.g. `organization.location`) express nested reference filters.
+    """
+
+    body_team_id: Annotated[Optional[str], PropertyInfo(alias="team_id")]
+
+    updated_at: Optional[str]
+
+    user_id: Optional[str]
+
+    idempotency_key: Annotated[str, PropertyInfo(alias="Idempotency-Key")]
+
+
+class Action(  # type: ignore[call-arg]
+    TypedDict,
+    total=False,
+    extra_items=object,  # pyright: ignore[reportGeneralTypeIssues]
+):
+    """An action the automation runs when it fires.
+
+    `type` selects the kind; the remaining fields are type-specific (`agent` → `agent_id`, `webhook` → `webhook_id`). Generic: new action types add fields here.
+    """
+
+    type: Required[Literal["agent", "webhook", "wait"]]
+
+    agent_id: Optional[str]
+    """Required when `type` is `agent`. The agent to run."""
+
+    cron_expression: Optional[str]
+    """wait: cron schedule for the resume time.
+
+    Exactly one of delay_seconds or cron_expression.
+    """
+
+    delay_seconds: Optional[int]
+    """wait: relative delay in seconds.
+
+    Exactly one of delay_seconds or cron_expression.
+    """
+
+    timezone: Optional[str]
+    """wait: IANA timezone for evaluating cron_expression (optional)."""
+
+    webhook_id: Optional[str]
+    """Required when `type` is `webhook`.
+
+    The id of the webhook the event is dispatched to (async) when the automation
+    fires.
+    """
+
+
+class Changeset(TypedDict, total=False):
+    """
+    A changeset filter group (update automations only): a combinator plus an array of transition clauses matching what is changing. Dot-paths (nested reference filters) are NOT permitted — direct properties only.
+    """
+
+    combinator: Literal["AND", "OR"]
+
+    filter: Iterable[Dict[str, object]]
+    """
+    Each entry is a transition clause { slug: { from?: { comparator: value }, to?: {
+    comparator: value } } }. `from` matches the prior value, `to` the new value; an
+    empty body { slug: {} } matches any change to that property.
+    """
+
+
+class State(TypedDict, total=False):
+    """A filter group: a combinator plus an array of slug-based clauses.
+
+    Dot-paths (e.g. `organization.location`) express nested reference filters.
+    """
+
+    combinator: Literal["AND", "OR"]
+
+    filter: Iterable[Dict[str, object]]
+    """Each entry is { slug: { comparator: value } }"""

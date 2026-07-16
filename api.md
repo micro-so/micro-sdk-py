@@ -431,6 +431,22 @@ Methods:
 - <code title="patch /v2/prism/{teamId}/{viewObjectType}/views/{viewId}/records">client.views.records.<a href="./src/micro_so/resources/views/records.py">reorder</a>(view_id, \*, team_id, view_object_type, \*\*<a href="src/micro_so/types/views/record_reorder_params.py">params</a>) -> None</code>
 - <code title="delete /v2/prism/{teamId}/{viewObjectType}/views/{viewId}/records/{objectId}">client.views.records.<a href="./src/micro_so/resources/views/records.py">unpin</a>(object_id, \*, team_id, view_object_type, view_id) -> None</code>
 
+# TriggeredAutomations
+
+Types:
+
+```python
+from micro_so.types import TriggeredAutomation, TriggeredAutomationListResponse
+```
+
+Methods:
+
+- <code title="post /v2/prism/{teamId}/{automationObjectType}/triggered_automations">client.triggered_automations.<a href="./src/micro_so/resources/triggered_automations.py">create</a>(automation_object_type, \*, path_team_id, \*\*<a href="src/micro_so/types/triggered_automation_create_params.py">params</a>) -> <a href="./src/micro_so/types/triggered_automation.py">TriggeredAutomation</a></code>
+- <code title="put /v2/prism/{teamId}/{automationObjectType}/triggered_automations/{automationId}">client.triggered_automations.<a href="./src/micro_so/resources/triggered_automations.py">update</a>(automation_id, \*, path_team_id, automation_object_type, \*\*<a href="src/micro_so/types/triggered_automation_update_params.py">params</a>) -> <a href="./src/micro_so/types/triggered_automation.py">TriggeredAutomation</a></code>
+- <code title="get /v2/prism/{teamId}/{automationObjectType}/triggered_automations">client.triggered_automations.<a href="./src/micro_so/resources/triggered_automations.py">list</a>(automation_object_type, \*, team_id, \*\*<a href="src/micro_so/types/triggered_automation_list_params.py">params</a>) -> <a href="./src/micro_so/types/triggered_automation_list_response.py">TriggeredAutomationListResponse</a></code>
+- <code title="delete /v2/prism/{teamId}/{automationObjectType}/triggered_automations/{automationId}">client.triggered_automations.<a href="./src/micro_so/resources/triggered_automations.py">delete</a>(automation_id, \*, team_id, automation_object_type) -> None</code>
+- <code title="get /v2/prism/{teamId}/{automationObjectType}/triggered_automations/{automationId}">client.triggered_automations.<a href="./src/micro_so/resources/triggered_automations.py">get</a>(automation_id, \*, team_id, automation_object_type) -> <a href="./src/micro_so/types/triggered_automation.py">TriggeredAutomation</a></code>
+
 # Realtime
 
 Types:
