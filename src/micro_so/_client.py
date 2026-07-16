@@ -36,9 +36,10 @@ from ._base_client import (
 )
 
 if TYPE_CHECKING:
-    from .resources import prism, views
+    from .resources import prism, views, triggered_automations
     from .resources.prism.prism import PrismResource, AsyncPrismResource
     from .resources.views.views import ViewsResource, AsyncViewsResource
+    from .resources.triggered_automations import TriggeredAutomationsResource, AsyncTriggeredAutomationsResource
 
 __all__ = ["Timeout", "Transport", "ProxiesTypes", "RequestOptions", "Micro", "AsyncMicro", "Client", "AsyncClient"]
 
@@ -122,6 +123,12 @@ class Micro(SyncAPIClient):
         from .resources.views import ViewsResource
 
         return ViewsResource(self)
+
+    @cached_property
+    def triggered_automations(self) -> TriggeredAutomationsResource:
+        from .resources.triggered_automations import TriggeredAutomationsResource
+
+        return TriggeredAutomationsResource(self)
 
     @cached_property
     def with_raw_response(self) -> MicroWithRawResponse:
@@ -327,6 +334,12 @@ class AsyncMicro(AsyncAPIClient):
         return AsyncViewsResource(self)
 
     @cached_property
+    def triggered_automations(self) -> AsyncTriggeredAutomationsResource:
+        from .resources.triggered_automations import AsyncTriggeredAutomationsResource
+
+        return AsyncTriggeredAutomationsResource(self)
+
+    @cached_property
     def with_raw_response(self) -> AsyncMicroWithRawResponse:
         return AsyncMicroWithRawResponse(self)
 
@@ -467,6 +480,12 @@ class MicroWithRawResponse:
 
         return ViewsResourceWithRawResponse(self._client.views)
 
+    @cached_property
+    def triggered_automations(self) -> triggered_automations.TriggeredAutomationsResourceWithRawResponse:
+        from .resources.triggered_automations import TriggeredAutomationsResourceWithRawResponse
+
+        return TriggeredAutomationsResourceWithRawResponse(self._client.triggered_automations)
+
 
 class AsyncMicroWithRawResponse:
     _client: AsyncMicro
@@ -485,6 +504,12 @@ class AsyncMicroWithRawResponse:
         from .resources.views import AsyncViewsResourceWithRawResponse
 
         return AsyncViewsResourceWithRawResponse(self._client.views)
+
+    @cached_property
+    def triggered_automations(self) -> triggered_automations.AsyncTriggeredAutomationsResourceWithRawResponse:
+        from .resources.triggered_automations import AsyncTriggeredAutomationsResourceWithRawResponse
+
+        return AsyncTriggeredAutomationsResourceWithRawResponse(self._client.triggered_automations)
 
 
 class MicroWithStreamedResponse:
@@ -505,6 +530,12 @@ class MicroWithStreamedResponse:
 
         return ViewsResourceWithStreamingResponse(self._client.views)
 
+    @cached_property
+    def triggered_automations(self) -> triggered_automations.TriggeredAutomationsResourceWithStreamingResponse:
+        from .resources.triggered_automations import TriggeredAutomationsResourceWithStreamingResponse
+
+        return TriggeredAutomationsResourceWithStreamingResponse(self._client.triggered_automations)
+
 
 class AsyncMicroWithStreamedResponse:
     _client: AsyncMicro
@@ -523,6 +554,12 @@ class AsyncMicroWithStreamedResponse:
         from .resources.views import AsyncViewsResourceWithStreamingResponse
 
         return AsyncViewsResourceWithStreamingResponse(self._client.views)
+
+    @cached_property
+    def triggered_automations(self) -> triggered_automations.AsyncTriggeredAutomationsResourceWithStreamingResponse:
+        from .resources.triggered_automations import AsyncTriggeredAutomationsResourceWithStreamingResponse
+
+        return AsyncTriggeredAutomationsResourceWithStreamingResponse(self._client.triggered_automations)
 
 
 Client = Micro
