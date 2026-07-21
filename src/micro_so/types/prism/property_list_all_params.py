@@ -2,7 +2,8 @@
 
 from __future__ import annotations
 
-from typing_extensions import Annotated, TypedDict
+from typing import Union
+from typing_extensions import Literal, Annotated, TypedDict
 
 from ..._utils import PropertyInfo
 
@@ -13,6 +14,15 @@ class PropertyListAllParams(TypedDict, total=False):
     team_id: Annotated[str, PropertyInfo(alias="teamId")]
 
     autofill: bool
+
+    include_options: Union[bool, Literal["true", "false", "0", "1"]]
+    """
+    When false, return property definitions without hydrating select/multiselect
+    option rows. Defaults to true server-side (parseIncludeOptions). Accepts boolean
+    or query-string forms (true/false/0/1). Uses anyOf (not oneOf) so qs/AJV
+    boolean-vs-string ambiguity does not 400 when Speakeasy SDKs send
+    include_options=true.
+    """
 
     list_id: str
     """Scope properties to a specific list/app."""

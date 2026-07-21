@@ -34,6 +34,7 @@ class TestProperties:
         property = client.prism.properties.list(
             object_type="comment",
             autofill=True,
+            include_options="true",
             list_id="182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
             term="term",
         )
@@ -76,6 +77,7 @@ class TestProperties:
     def test_method_list_all_with_all_params(self, client: Micro) -> None:
         property = client.prism.properties.list_all(
             autofill=True,
+            include_options="true",
             list_id="182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
             term="term",
         )
@@ -123,6 +125,7 @@ class TestAsyncProperties:
         property = await async_client.prism.properties.list(
             object_type="comment",
             autofill=True,
+            include_options="true",
             list_id="182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
             term="term",
         )
@@ -165,6 +168,7 @@ class TestAsyncProperties:
     async def test_method_list_all_with_all_params(self, async_client: AsyncMicro) -> None:
         property = await async_client.prism.properties.list_all(
             autofill=True,
+            include_options="true",
             list_id="182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
             term="term",
         )

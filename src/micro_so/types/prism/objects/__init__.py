@@ -31,8 +31,11 @@ from .contact_list_params import ContactListParams as ContactListParams
 from .deal_count_response import DealCountResponse as DealCountResponse
 from .deal_query_response import DealQueryResponse as DealQueryResponse
 from .document_get_params import DocumentGetParams as DocumentGetParams
+from .event_create_params import EventCreateParams as EventCreateParams
 from .event_find_response import EventFindResponse as EventFindResponse
 from .event_list_response import EventListResponse as EventListResponse
+from .event_update_params import EventUpdateParams as EventUpdateParams
+from .event_upsert_params import EventUpsertParams as EventUpsertParams
 from .identity_get_params import IdentityGetParams as IdentityGetParams
 from .action_create_params import ActionCreateParams as ActionCreateParams
 from .action_find_response import ActionFindResponse as ActionFindResponse
@@ -63,6 +66,9 @@ from .document_count_params import DocumentCountParams as DocumentCountParams
 from .document_get_response import DocumentGetResponse as DocumentGetResponse
 from .document_query_params import DocumentQueryParams as DocumentQueryParams
 from .engagement_get_params import EngagementGetParams as EngagementGetParams
+from .event_create_response import EventCreateResponse as EventCreateResponse
+from .event_update_response import EventUpdateResponse as EventUpdateResponse
+from .event_upsert_response import EventUpsertResponse as EventUpsertResponse
 from .identity_count_params import IdentityCountParams as IdentityCountParams
 from .identity_get_response import IdentityGetResponse as IdentityGetResponse
 from .identity_query_params import IdentityQueryParams as IdentityQueryParams
@@ -78,6 +84,7 @@ from .document_update_params import DocumentUpdateParams as DocumentUpdateParams
 from .document_upsert_params import DocumentUpsertParams as DocumentUpsertParams
 from .engagement_find_params import EngagementFindParams as EngagementFindParams
 from .engagement_list_params import EngagementListParams as EngagementListParams
+from .event_restore_response import EventRestoreResponse as EventRestoreResponse
 from .identity_create_params import IdentityCreateParams as IdentityCreateParams
 from .identity_find_response import IdentityFindResponse as IdentityFindResponse
 from .identity_list_response import IdentityListResponse as IdentityListResponse
@@ -108,6 +115,7 @@ from .engagement_find_response import EngagementFindResponse as EngagementFindRe
 from .engagement_list_response import EngagementListResponse as EngagementListResponse
 from .engagement_update_params import EngagementUpdateParams as EngagementUpdateParams
 from .engagement_upsert_params import EngagementUpsertParams as EngagementUpsertParams
+from .event_duplicate_response import EventDuplicateResponse as EventDuplicateResponse
 from .identity_create_response import IdentityCreateResponse as IdentityCreateResponse
 from .identity_update_response import IdentityUpdateResponse as IdentityUpdateResponse
 from .identity_upsert_response import IdentityUpsertResponse as IdentityUpsertResponse
