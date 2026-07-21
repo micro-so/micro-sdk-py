@@ -26,6 +26,12 @@ class Options(TypedDict, total=False):
     case_insensitive: Annotated[bool, PropertyInfo(alias="caseInsensitive")]
     """Whether deduplication should be case insensitive"""
 
+    create_missing_options: bool
+    """
+    When true, unknown values for select/multiselect properties are created as new
+    options instead of failing the import
+    """
+
     dedupe_by: str
     """Property slug to deduplicate on"""
 

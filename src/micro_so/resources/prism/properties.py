@@ -2,6 +2,7 @@
 
 from __future__ import annotations
 
+from typing import Union
 from typing_extensions import Literal
 
 import httpx
@@ -62,6 +63,7 @@ class PropertiesResource(SyncAPIResource):
         *,
         team_id: str | None = None,
         autofill: bool | Omit = omit,
+        include_options: Union[bool, Literal["true", "false", "0", "1"]] | Omit = omit,
         list_id: str | Omit = omit,
         term: str | Omit = omit,
         # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
@@ -75,6 +77,12 @@ class PropertiesResource(SyncAPIResource):
         Get metadata properties by object type
 
         Args:
+          include_options: When false, return property definitions without hydrating select/multiselect
+              option rows. Defaults to true server-side (parseIncludeOptions). Accepts boolean
+              or query-string forms (true/false/0/1). Uses anyOf (not oneOf) so qs/AJV
+              boolean-vs-string ambiguity does not 400 when Speakeasy SDKs send
+              include_options=true.
+
           list_id: Scope properties to a specific list/app.
 
           extra_headers: Send extra headers
@@ -101,6 +109,7 @@ class PropertiesResource(SyncAPIResource):
                 query=maybe_transform(
                     {
                         "autofill": autofill,
+                        "include_options": include_options,
                         "list_id": list_id,
                         "term": term,
                     },
@@ -115,6 +124,7 @@ class PropertiesResource(SyncAPIResource):
         *,
         team_id: str | None = None,
         autofill: bool | Omit = omit,
+        include_options: Union[bool, Literal["true", "false", "0", "1"]] | Omit = omit,
         list_id: str | Omit = omit,
         term: str | Omit = omit,
         # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
@@ -128,6 +138,12 @@ class PropertiesResource(SyncAPIResource):
         Get metadata properties
 
         Args:
+          include_options: When false, return property definitions without hydrating select/multiselect
+              option rows. Defaults to true server-side (parseIncludeOptions). Accepts boolean
+              or query-string forms (true/false/0/1). Uses anyOf (not oneOf) so qs/AJV
+              boolean-vs-string ambiguity does not 400 when Speakeasy SDKs send
+              include_options=true.
+
           list_id: Scope properties to a specific list/app.
 
           extra_headers: Send extra headers
@@ -152,6 +168,7 @@ class PropertiesResource(SyncAPIResource):
                 query=maybe_transform(
                     {
                         "autofill": autofill,
+                        "include_options": include_options,
                         "list_id": list_id,
                         "term": term,
                     },
@@ -200,6 +217,7 @@ class AsyncPropertiesResource(AsyncAPIResource):
         *,
         team_id: str | None = None,
         autofill: bool | Omit = omit,
+        include_options: Union[bool, Literal["true", "false", "0", "1"]] | Omit = omit,
         list_id: str | Omit = omit,
         term: str | Omit = omit,
         # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
@@ -213,6 +231,12 @@ class AsyncPropertiesResource(AsyncAPIResource):
         Get metadata properties by object type
 
         Args:
+          include_options: When false, return property definitions without hydrating select/multiselect
+              option rows. Defaults to true server-side (parseIncludeOptions). Accepts boolean
+              or query-string forms (true/false/0/1). Uses anyOf (not oneOf) so qs/AJV
+              boolean-vs-string ambiguity does not 400 when Speakeasy SDKs send
+              include_options=true.
+
           list_id: Scope properties to a specific list/app.
 
           extra_headers: Send extra headers
@@ -239,6 +263,7 @@ class AsyncPropertiesResource(AsyncAPIResource):
                 query=await async_maybe_transform(
                     {
                         "autofill": autofill,
+                        "include_options": include_options,
                         "list_id": list_id,
                         "term": term,
                     },
@@ -253,6 +278,7 @@ class AsyncPropertiesResource(AsyncAPIResource):
         *,
         team_id: str | None = None,
         autofill: bool | Omit = omit,
+        include_options: Union[bool, Literal["true", "false", "0", "1"]] | Omit = omit,
         list_id: str | Omit = omit,
         term: str | Omit = omit,
         # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
@@ -266,6 +292,12 @@ class AsyncPropertiesResource(AsyncAPIResource):
         Get metadata properties
 
         Args:
+          include_options: When false, return property definitions without hydrating select/multiselect
+              option rows. Defaults to true server-side (parseIncludeOptions). Accepts boolean
+              or query-string forms (true/false/0/1). Uses anyOf (not oneOf) so qs/AJV
+              boolean-vs-string ambiguity does not 400 when Speakeasy SDKs send
+              include_options=true.
+
           list_id: Scope properties to a specific list/app.
 
           extra_headers: Send extra headers
@@ -290,6 +322,7 @@ class AsyncPropertiesResource(AsyncAPIResource):
                 query=await async_maybe_transform(
                     {
                         "autofill": autofill,
+                        "include_options": include_options,
                         "list_id": list_id,
                         "term": term,
                     },
