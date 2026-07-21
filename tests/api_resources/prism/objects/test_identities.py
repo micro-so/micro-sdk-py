@@ -236,6 +236,7 @@ class TestIdentities:
             ],
             options={
                 "case_insensitive": True,
+                "create_missing_options": True,
                 "dedupe_by": "dedupe_by",
                 "list_id": "182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
             },
@@ -938,6 +939,7 @@ class TestAsyncIdentities:
             ],
             options={
                 "case_insensitive": True,
+                "create_missing_options": True,
                 "dedupe_by": "dedupe_by",
                 "list_id": "182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
             },

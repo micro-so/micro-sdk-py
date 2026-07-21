@@ -86,10 +86,10 @@ class Action(  # type: ignore[call-arg]
 ):
     """An action the automation runs when it fires.
 
-    `type` selects the kind; the remaining fields are type-specific (`agent` → `agent_id`, `webhook` → `webhook_id`). Generic: new action types add fields here.
+    `type` selects the kind; the remaining fields are type-specific (`agent` → `agent_id`, `webhook` → `webhook_id`, `email`/`linkedin` → the send-as user, template, and recipient-view fields). Generic: new action types add fields here.
     """
 
-    type: Required[Literal["agent", "webhook", "wait"]]
+    type: Required[Literal["agent", "webhook", "wait", "email", "linkedin"]]
 
     agent_id: Optional[str]
     """Required when `type` is `agent`. The agent to run."""
@@ -104,6 +104,51 @@ class Action(  # type: ignore[call-arg]
     """wait: relative delay in seconds.
 
     Exactly one of delay_seconds or cron_expression.
+    """
+
+    recipient_email_prop_def_id: Optional[str]
+    """Required when `type` is `email`.
+
+    The property (on the recipient view object) holding the recipient email address.
+    """
+
+    recipient_provider_prop_def_id: Optional[str]
+    """Required when `type` is `linkedin`.
+
+    The property (on the recipient view object) holding the recipient LinkedIn
+    provider id.
+    """
+
+    recipient_view_id: Optional[str]
+    """Required when `type` is `email` or `linkedin`.
+
+    The saved prism view resolved at send time to the recipient audience (its filter
+    re-runs each step, so responders drop out of later drip sends).
+    """
+
+    recipient_view_object_type: Optional[str]
+    """Required when `type` is `email` or `linkedin`.
+
+    Must be `contact` — the recipient audience is a contact view (contacts carry the
+    direct email / linkedin provider property).
+    """
+
+    send_as_user_id: Optional[str]
+    """Required when `type` is `email` or `linkedin`.
+
+    The user (external id) the message is sent as.
+    """
+
+    subject: Optional[str]
+    """Required when `type` is `email`.
+
+    The subject line; rendered as a Liquid template per recipient.
+    """
+
+    template_id: Optional[str]
+    """Required when `type` is `email` or `linkedin`.
+
+    The email-template document whose body is rendered (Liquid) per recipient.
     """
 
     timezone: Optional[str]

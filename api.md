@@ -319,21 +319,32 @@ Types:
 ```python
 from micro_so.types.prism.objects import (
     Event,
+    EventCreateResponse,
+    EventUpdateResponse,
     EventListResponse,
     EventCountResponse,
+    EventDuplicateResponse,
     EventFindResponse,
     EventGetResponse,
     EventQueryResponse,
+    EventRestoreResponse,
+    EventUpsertResponse,
 )
 ```
 
 Methods:
 
+- <code title="post /v2/prism/{teamId}/event">client.prism.objects.events.<a href="./src/micro_so/resources/prism/objects/events/events.py">create</a>(\*, team_id, \*\*<a href="src/micro_so/types/prism/objects/event_create_params.py">params</a>) -> <a href="./src/micro_so/types/prism/objects/event_create_response.py">EventCreateResponse</a></code>
+- <code title="patch /v2/prism/{teamId}/event/{eventId}">client.prism.objects.events.<a href="./src/micro_so/resources/prism/objects/events/events.py">update</a>(event_id, \*, team_id, \*\*<a href="src/micro_so/types/prism/objects/event_update_params.py">params</a>) -> <a href="./src/micro_so/types/prism/objects/event_update_response.py">EventUpdateResponse</a></code>
 - <code title="get /v2/prism/{teamId}/event">client.prism.objects.events.<a href="./src/micro_so/resources/prism/objects/events/events.py">list</a>(\*, team_id, \*\*<a href="src/micro_so/types/prism/objects/event_list_params.py">params</a>) -> <a href="./src/micro_so/types/prism/objects/event_list_response.py">EventListResponse</a></code>
+- <code title="delete /v2/prism/{teamId}/event/{eventId}">client.prism.objects.events.<a href="./src/micro_so/resources/prism/objects/events/events.py">delete</a>(event_id, \*, team_id) -> None</code>
 - <code title="get /v2/prism/{teamId}/event/count">client.prism.objects.events.<a href="./src/micro_so/resources/prism/objects/events/events.py">count</a>(\*, team_id, \*\*<a href="src/micro_so/types/prism/objects/event_count_params.py">params</a>) -> <a href="./src/micro_so/types/prism/objects/event_count_response.py">EventCountResponse</a></code>
+- <code title="post /v2/prism/{teamId}/event/{eventId}/duplicate">client.prism.objects.events.<a href="./src/micro_so/resources/prism/objects/events/events.py">duplicate</a>(event_id, \*, team_id) -> <a href="./src/micro_so/types/prism/objects/event_duplicate_response.py">EventDuplicateResponse</a></code>
 - <code title="get /v2/prism/{teamId}/event/by/{slug}/{value}">client.prism.objects.events.<a href="./src/micro_so/resources/prism/objects/events/events.py">find</a>(value, \*, team_id, slug, \*\*<a href="src/micro_so/types/prism/objects/event_find_params.py">params</a>) -> <a href="./src/micro_so/types/prism/objects/event_find_response.py">EventFindResponse</a></code>
 - <code title="get /v2/prism/{teamId}/event/{eventId}">client.prism.objects.events.<a href="./src/micro_so/resources/prism/objects/events/events.py">get</a>(event_id, \*, team_id, \*\*<a href="src/micro_so/types/prism/objects/event_get_params.py">params</a>) -> <a href="./src/micro_so/types/prism/objects/event_get_response.py">EventGetResponse</a></code>
 - <code title="post /v2/prism/{teamId}/event/query">client.prism.objects.events.<a href="./src/micro_so/resources/prism/objects/events/events.py">query</a>(\*, team_id, \*\*<a href="src/micro_so/types/prism/objects/event_query_params.py">params</a>) -> <a href="./src/micro_so/types/prism/objects/event_query_response.py">EventQueryResponse</a></code>
+- <code title="post /v2/prism/{teamId}/event/{eventId}/restore">client.prism.objects.events.<a href="./src/micro_so/resources/prism/objects/events/events.py">restore</a>(event_id, \*, team_id) -> <a href="./src/micro_so/types/prism/objects/event_restore_response.py">EventRestoreResponse</a></code>
+- <code title="put /v2/prism/{teamId}/event/by/{slug}/{value}">client.prism.objects.events.<a href="./src/micro_so/resources/prism/objects/events/events.py">upsert</a>(value, \*, team_id, slug, \*\*<a href="src/micro_so/types/prism/objects/event_upsert_params.py">params</a>) -> <a href="./src/micro_so/types/prism/objects/event_upsert_response.py">EventUpsertResponse</a></code>
 
 #### Grant
 
