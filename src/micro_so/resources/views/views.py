@@ -7,7 +7,7 @@ from typing_extensions import Literal
 
 import httpx
 
-from ...types import view_get_params, view_create_params, view_update_params
+from ...types import view_get_params, view_list_params, view_create_params, view_update_params
 from .records import (
     RecordsResource,
     AsyncRecordsResource,
@@ -28,6 +28,7 @@ from ..._response import (
 )
 from ..._base_client import make_request_options
 from ...types.view_get_response import ViewGetResponse
+from ...types.view_list_response import ViewListResponse
 from ...types.view_create_response import ViewCreateResponse
 from ...types.view_update_response import ViewUpdateResponse
 
@@ -249,6 +250,76 @@ class ViewsResource(SyncAPIResource):
                 extra_headers=extra_headers, extra_query=extra_query, extra_body=extra_body, timeout=timeout
             ),
             cast_to=ViewUpdateResponse,
+        )
+
+    def list(
+        self,
+        view_object_type: Literal[
+            "comment", "action", "deal", "engagement", "document", "event", "identity", "organization"
+        ],
+        *,
+        team_id: str | None = None,
+        cursor: str | Omit = omit,
+        limit: int | Omit = omit,
+        list_id: str | Omit = omit,
+        page: int | Omit = omit,
+        # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
+        # The extra values given here take precedence over values defined on the client or passed to this method.
+        extra_headers: Headers | None = None,
+        extra_query: Query | None = None,
+        extra_body: Body | None = None,
+        timeout: float | httpx.Timeout | None | NotGiven = not_given,
+    ) -> ViewListResponse:
+        """Returns saved view bundles for the path team.
+
+        Pass `?list_id=` to scope to a
+        list (CRM) instead. Cursor pagination matches other Prism list endpoints.
+
+        Args:
+          cursor: Opaque pagination cursor (from a prior response's next_cursor); supersedes
+              page/limit when present.
+
+          limit: Maximum items per page (<= 50; defaults to 50).
+
+          list_id: List (CRM) id to scope the listing to. When omitted, views owned by the path
+              team are returned.
+
+          page: 1-based page number. Prefer cursor.
+
+          extra_headers: Send extra headers
+
+          extra_query: Add additional query parameters to the request
+
+          extra_body: Add additional JSON properties to the request
+
+          timeout: Override the client-level default timeout for this request, in seconds
+        """
+        if team_id is None:
+            team_id = self._client._get_team_id_path_param()
+        if not team_id:
+            raise ValueError(f"Expected a non-empty value for `team_id` but received {team_id!r}")
+        if not view_object_type:
+            raise ValueError(f"Expected a non-empty value for `view_object_type` but received {view_object_type!r}")
+        return self._get(
+            path_template(
+                "/v2/prism/{team_id}/{view_object_type}/views", team_id=team_id, view_object_type=view_object_type
+            ),
+            options=make_request_options(
+                extra_headers=extra_headers,
+                extra_query=extra_query,
+                extra_body=extra_body,
+                timeout=timeout,
+                query=maybe_transform(
+                    {
+                        "cursor": cursor,
+                        "limit": limit,
+                        "list_id": list_id,
+                        "page": page,
+                    },
+                    view_list_params.ViewListParams,
+                ),
+            ),
+            cast_to=ViewListResponse,
         )
 
     def delete(
@@ -598,6 +669,76 @@ class AsyncViewsResource(AsyncAPIResource):
             cast_to=ViewUpdateResponse,
         )
 
+    async def list(
+        self,
+        view_object_type: Literal[
+            "comment", "action", "deal", "engagement", "document", "event", "identity", "organization"
+        ],
+        *,
+        team_id: str | None = None,
+        cursor: str | Omit = omit,
+        limit: int | Omit = omit,
+        list_id: str | Omit = omit,
+        page: int | Omit = omit,
+        # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
+        # The extra values given here take precedence over values defined on the client or passed to this method.
+        extra_headers: Headers | None = None,
+        extra_query: Query | None = None,
+        extra_body: Body | None = None,
+        timeout: float | httpx.Timeout | None | NotGiven = not_given,
+    ) -> ViewListResponse:
+        """Returns saved view bundles for the path team.
+
+        Pass `?list_id=` to scope to a
+        list (CRM) instead. Cursor pagination matches other Prism list endpoints.
+
+        Args:
+          cursor: Opaque pagination cursor (from a prior response's next_cursor); supersedes
+              page/limit when present.
+
+          limit: Maximum items per page (<= 50; defaults to 50).
+
+          list_id: List (CRM) id to scope the listing to. When omitted, views owned by the path
+              team are returned.
+
+          page: 1-based page number. Prefer cursor.
+
+          extra_headers: Send extra headers
+
+          extra_query: Add additional query parameters to the request
+
+          extra_body: Add additional JSON properties to the request
+
+          timeout: Override the client-level default timeout for this request, in seconds
+        """
+        if team_id is None:
+            team_id = self._client._get_team_id_path_param()
+        if not team_id:
+            raise ValueError(f"Expected a non-empty value for `team_id` but received {team_id!r}")
+        if not view_object_type:
+            raise ValueError(f"Expected a non-empty value for `view_object_type` but received {view_object_type!r}")
+        return await self._get(
+            path_template(
+                "/v2/prism/{team_id}/{view_object_type}/views", team_id=team_id, view_object_type=view_object_type
+            ),
+            options=make_request_options(
+                extra_headers=extra_headers,
+                extra_query=extra_query,
+                extra_body=extra_body,
+                timeout=timeout,
+                query=await async_maybe_transform(
+                    {
+                        "cursor": cursor,
+                        "limit": limit,
+                        "list_id": list_id,
+                        "page": page,
+                    },
+                    view_list_params.ViewListParams,
+                ),
+            ),
+            cast_to=ViewListResponse,
+        )
+
     async def delete(
         self,
         view_id: str,
@@ -738,6 +879,9 @@ class ViewsResourceWithRawResponse:
         self.update = to_raw_response_wrapper(
             views.update,
         )
+        self.list = to_raw_response_wrapper(
+            views.list,
+        )
         self.delete = to_raw_response_wrapper(
             views.delete,
         )
@@ -759,6 +903,9 @@ class AsyncViewsResourceWithRawResponse:
         )
         self.update = async_to_raw_response_wrapper(
             views.update,
+        )
+        self.list = async_to_raw_response_wrapper(
+            views.list,
         )
         self.delete = async_to_raw_response_wrapper(
             views.delete,
@@ -782,6 +929,9 @@ class ViewsResourceWithStreamingResponse:
         self.update = to_streamed_response_wrapper(
             views.update,
         )
+        self.list = to_streamed_response_wrapper(
+            views.list,
+        )
         self.delete = to_streamed_response_wrapper(
             views.delete,
         )
@@ -803,6 +953,9 @@ class AsyncViewsResourceWithStreamingResponse:
         )
         self.update = async_to_streamed_response_wrapper(
             views.update,
+        )
+        self.list = async_to_streamed_response_wrapper(
+            views.list,
         )
         self.delete = async_to_streamed_response_wrapper(
             views.delete,
