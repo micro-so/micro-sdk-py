@@ -36,9 +36,8 @@ from ._base_client import (
 )
 
 if TYPE_CHECKING:
-    from .resources import prism, views, triggered_automations
+    from .resources import prism, triggered_automations
     from .resources.prism.prism import PrismResource, AsyncPrismResource
-    from .resources.views.views import ViewsResource, AsyncViewsResource
     from .resources.triggered_automations import TriggeredAutomationsResource, AsyncTriggeredAutomationsResource
 
 __all__ = ["Timeout", "Transport", "ProxiesTypes", "RequestOptions", "Micro", "AsyncMicro", "Client", "AsyncClient"]
@@ -117,12 +116,6 @@ class Micro(SyncAPIClient):
         from .resources.prism import PrismResource
 
         return PrismResource(self)
-
-    @cached_property
-    def views(self) -> ViewsResource:
-        from .resources.views import ViewsResource
-
-        return ViewsResource(self)
 
     @cached_property
     def triggered_automations(self) -> TriggeredAutomationsResource:
@@ -328,12 +321,6 @@ class AsyncMicro(AsyncAPIClient):
         return AsyncPrismResource(self)
 
     @cached_property
-    def views(self) -> AsyncViewsResource:
-        from .resources.views import AsyncViewsResource
-
-        return AsyncViewsResource(self)
-
-    @cached_property
     def triggered_automations(self) -> AsyncTriggeredAutomationsResource:
         from .resources.triggered_automations import AsyncTriggeredAutomationsResource
 
@@ -475,12 +462,6 @@ class MicroWithRawResponse:
         return PrismResourceWithRawResponse(self._client.prism)
 
     @cached_property
-    def views(self) -> views.ViewsResourceWithRawResponse:
-        from .resources.views import ViewsResourceWithRawResponse
-
-        return ViewsResourceWithRawResponse(self._client.views)
-
-    @cached_property
     def triggered_automations(self) -> triggered_automations.TriggeredAutomationsResourceWithRawResponse:
         from .resources.triggered_automations import TriggeredAutomationsResourceWithRawResponse
 
@@ -498,12 +479,6 @@ class AsyncMicroWithRawResponse:
         from .resources.prism import AsyncPrismResourceWithRawResponse
 
         return AsyncPrismResourceWithRawResponse(self._client.prism)
-
-    @cached_property
-    def views(self) -> views.AsyncViewsResourceWithRawResponse:
-        from .resources.views import AsyncViewsResourceWithRawResponse
-
-        return AsyncViewsResourceWithRawResponse(self._client.views)
 
     @cached_property
     def triggered_automations(self) -> triggered_automations.AsyncTriggeredAutomationsResourceWithRawResponse:
@@ -525,12 +500,6 @@ class MicroWithStreamedResponse:
         return PrismResourceWithStreamingResponse(self._client.prism)
 
     @cached_property
-    def views(self) -> views.ViewsResourceWithStreamingResponse:
-        from .resources.views import ViewsResourceWithStreamingResponse
-
-        return ViewsResourceWithStreamingResponse(self._client.views)
-
-    @cached_property
     def triggered_automations(self) -> triggered_automations.TriggeredAutomationsResourceWithStreamingResponse:
         from .resources.triggered_automations import TriggeredAutomationsResourceWithStreamingResponse
 
@@ -548,12 +517,6 @@ class AsyncMicroWithStreamedResponse:
         from .resources.prism import AsyncPrismResourceWithStreamingResponse
 
         return AsyncPrismResourceWithStreamingResponse(self._client.prism)
-
-    @cached_property
-    def views(self) -> views.AsyncViewsResourceWithStreamingResponse:
-        from .resources.views import AsyncViewsResourceWithStreamingResponse
-
-        return AsyncViewsResourceWithStreamingResponse(self._client.views)
 
     @cached_property
     def triggered_automations(self) -> triggered_automations.AsyncTriggeredAutomationsResourceWithStreamingResponse:
