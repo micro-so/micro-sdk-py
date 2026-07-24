@@ -412,37 +412,6 @@ Methods:
 - <code title="put /v2/prism/{teamId}/engagement/{engagementId}/grant">client.prism.objects.engagements.grant.<a href="./src/micro_so/resources/prism/objects/engagements/grant.py">update</a>(engagement_id, \*, path_team_id, \*\*<a href="src/micro_so/types/prism/objects/engagements/grant_update_params.py">params</a>) -> <a href="./src/micro_so/types/prism/objects/engagements/grant_update_response.py">GrantUpdateResponse</a></code>
 - <code title="get /v2/prism/{teamId}/engagement/{engagementId}/grant">client.prism.objects.engagements.grant.<a href="./src/micro_so/resources/prism/objects/engagements/grant.py">get</a>(engagement_id, \*, team_id) -> <a href="./src/micro_so/types/prism/objects/engagements/grant_get_response.py">GrantGetResponse</a></code>
 
-# Views
-
-Types:
-
-```python
-from micro_so.types import ViewCreateResponse, ViewUpdateResponse, ViewListResponse, ViewGetResponse
-```
-
-Methods:
-
-- <code title="post /v2/prism/{teamId}/{viewObjectType}/views">client.views.<a href="./src/micro_so/resources/views/views.py">create</a>(view_object_type, \*, path_team_id, \*\*<a href="src/micro_so/types/view_create_params.py">params</a>) -> <a href="./src/micro_so/types/view_create_response.py">ViewCreateResponse</a></code>
-- <code title="patch /v2/prism/{teamId}/{viewObjectType}/views/{viewId}">client.views.<a href="./src/micro_so/resources/views/views.py">update</a>(view_id, \*, path_team_id, view_object_type, \*\*<a href="src/micro_so/types/view_update_params.py">params</a>) -> <a href="./src/micro_so/types/view_update_response.py">ViewUpdateResponse</a></code>
-- <code title="get /v2/prism/{teamId}/{viewObjectType}/views">client.views.<a href="./src/micro_so/resources/views/views.py">list</a>(view_object_type, \*, team_id, \*\*<a href="src/micro_so/types/view_list_params.py">params</a>) -> <a href="./src/micro_so/types/view_list_response.py">ViewListResponse</a></code>
-- <code title="delete /v2/prism/{teamId}/{viewObjectType}/views/{viewId}">client.views.<a href="./src/micro_so/resources/views/views.py">delete</a>(view_id, \*, team_id, view_object_type) -> None</code>
-- <code title="get /v2/prism/{teamId}/{viewObjectType}/views/{viewId}">client.views.<a href="./src/micro_so/resources/views/views.py">get</a>(view_id, \*, team_id, view_object_type, \*\*<a href="src/micro_so/types/view_get_params.py">params</a>) -> <a href="./src/micro_so/types/view_get_response.py">ViewGetResponse</a></code>
-
-## Records
-
-Types:
-
-```python
-from micro_so.types.views import RecordListResponse
-```
-
-Methods:
-
-- <code title="get /v2/prism/{teamId}/{viewObjectType}/views/{viewId}/records">client.views.records.<a href="./src/micro_so/resources/views/records.py">list</a>(view_id, \*, team_id, view_object_type, \*\*<a href="src/micro_so/types/views/record_list_params.py">params</a>) -> <a href="./src/micro_so/types/views/record_list_response.py">RecordListResponse</a></code>
-- <code title="post /v2/prism/{teamId}/{viewObjectType}/views/{viewId}/records/{objectId}">client.views.records.<a href="./src/micro_so/resources/views/records.py">pin</a>(object_id, \*, team_id, view_object_type, view_id) -> None</code>
-- <code title="patch /v2/prism/{teamId}/{viewObjectType}/views/{viewId}/records">client.views.records.<a href="./src/micro_so/resources/views/records.py">reorder</a>(view_id, \*, team_id, view_object_type, \*\*<a href="src/micro_so/types/views/record_reorder_params.py">params</a>) -> None</code>
-- <code title="delete /v2/prism/{teamId}/{viewObjectType}/views/{viewId}/records/{objectId}">client.views.records.<a href="./src/micro_so/resources/views/records.py">unpin</a>(object_id, \*, team_id, view_object_type, view_id) -> None</code>
-
 # TriggeredAutomations
 
 Types:
