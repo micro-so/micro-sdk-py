@@ -25,6 +25,15 @@ class PropertyListParams(TypedDict, total=False):
     """
 
     list_id: str
-    """Scope properties to a specific list/app."""
+    """Scope properties to a specific list/app.
+
+    Scoping is strict: the response carries only that list's definitions, not the
+    workspace-global ones that also apply to its records. Call once with `list_id`
+    and once without to see everything a write could resolve against.
+    """
 
     term: str
+    """Case-insensitive substring match on the property name.
+
+    Use this to find an existing property before creating a new one.
+    """

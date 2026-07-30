@@ -8,6 +8,14 @@ from .prism import (
     PrismResourceWithStreamingResponse,
     AsyncPrismResourceWithStreamingResponse,
 )
+from .views import (
+    ViewsResource,
+    AsyncViewsResource,
+    ViewsResourceWithRawResponse,
+    AsyncViewsResourceWithRawResponse,
+    ViewsResourceWithStreamingResponse,
+    AsyncViewsResourceWithStreamingResponse,
+)
 from .realtime import (
     RealtimeResource,
     AsyncRealtimeResource,
@@ -15,6 +23,14 @@ from .realtime import (
     AsyncRealtimeResourceWithRawResponse,
     RealtimeResourceWithStreamingResponse,
     AsyncRealtimeResourceWithStreamingResponse,
+)
+from .webhooks import (
+    WebhooksResource,
+    AsyncWebhooksResource,
+    WebhooksResourceWithRawResponse,
+    AsyncWebhooksResourceWithRawResponse,
+    WebhooksResourceWithStreamingResponse,
+    AsyncWebhooksResourceWithStreamingResponse,
 )
 from .triggered_automations import (
     TriggeredAutomationsResource,
@@ -32,12 +48,24 @@ __all__ = [
     "AsyncPrismResourceWithRawResponse",
     "PrismResourceWithStreamingResponse",
     "AsyncPrismResourceWithStreamingResponse",
+    "ViewsResource",
+    "AsyncViewsResource",
+    "ViewsResourceWithRawResponse",
+    "AsyncViewsResourceWithRawResponse",
+    "ViewsResourceWithStreamingResponse",
+    "AsyncViewsResourceWithStreamingResponse",
     "TriggeredAutomationsResource",
     "AsyncTriggeredAutomationsResource",
     "TriggeredAutomationsResourceWithRawResponse",
     "AsyncTriggeredAutomationsResourceWithRawResponse",
     "TriggeredAutomationsResourceWithStreamingResponse",
     "AsyncTriggeredAutomationsResourceWithStreamingResponse",
+    "WebhooksResource",
+    "AsyncWebhooksResource",
+    "WebhooksResourceWithRawResponse",
+    "AsyncWebhooksResourceWithRawResponse",
+    "WebhooksResourceWithStreamingResponse",
+    "AsyncWebhooksResourceWithStreamingResponse",
     "RealtimeResource",
     "AsyncRealtimeResource",
     "RealtimeResourceWithRawResponse",

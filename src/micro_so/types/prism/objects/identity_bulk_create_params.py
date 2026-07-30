@@ -2,9 +2,10 @@
 
 from __future__ import annotations
 
-from typing import Iterable
+from typing import Union, Iterable
 from typing_extensions import Required, Annotated, TypedDict
 
+from ...._types import SequenceNotStr
 from ...._utils import PropertyInfo
 from ...prism_object_properties_param import PrismObjectPropertiesParam
 
@@ -32,8 +33,26 @@ class Options(TypedDict, total=False):
     options instead of failing the import
     """
 
-    dedupe_by: str
-    """Property slug to deduplicate on"""
+    crm_id: str
+    """Deprecated alias for list_id."""
+
+    dedupe_by: Union[str, SequenceNotStr[str]]
+    """Property slug to deduplicate on.
+
+    A single-element array is also accepted; compound (multi-slug) dedupe is not
+    supported yet and is rejected with guidance.
+    """
 
     list_id: str
     """App/CRM ID for context (optional)"""
+
+    require_list_stage: bool
+    """Require app_stage for every row in the selected list.
+
+    app_stage is a reserved list-scoped alias for native status.
+    """
+
+    update_existing: bool
+    """
+    Patch a deduplicated record with the supplied properties instead of skipping it.
+    """

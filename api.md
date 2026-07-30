@@ -11,13 +11,40 @@ from micro_so.types import PrismObjectProperties
 Types:
 
 ```python
-from micro_so.types.prism import PropertyListResponse, PropertyListAllResponse
+from micro_so.types.prism import (
+    PropertyDefinition,
+    PropertyDefinitionCreate,
+    PropertyDefinitionPatch,
+    PropertyListResponse,
+    PropertyListAllResponse,
+)
 ```
 
 Methods:
 
-- <code title="get /v2/prism/{teamId}/{objectType}/properties">client.prism.properties.<a href="./src/micro_so/resources/prism/properties.py">list</a>(object_type, \*, team_id, \*\*<a href="src/micro_so/types/prism/property_list_params.py">params</a>) -> <a href="./src/micro_so/types/prism/property_list_response.py">PropertyListResponse</a></code>
-- <code title="get /v2/prism/{teamId}/properties">client.prism.properties.<a href="./src/micro_so/resources/prism/properties.py">list_all</a>(\*, team_id, \*\*<a href="src/micro_so/types/prism/property_list_all_params.py">params</a>) -> <a href="./src/micro_so/types/prism/property_list_all_response.py">PropertyListAllResponse</a></code>
+- <code title="post /v2/prism/{teamId}/{objectType}/properties">client.prism.properties.<a href="./src/micro_so/resources/prism/properties/properties.py">create</a>(object_type, \*, team_id, \*\*<a href="src/micro_so/types/prism/property_create_params.py">params</a>) -> <a href="./src/micro_so/types/prism/property_definition.py">PropertyDefinition</a></code>
+- <code title="patch /v2/prism/{teamId}/{objectType}/properties/{propertyId}">client.prism.properties.<a href="./src/micro_so/resources/prism/properties/properties.py">update</a>(property_id, \*, team_id, object_type, \*\*<a href="src/micro_so/types/prism/property_update_params.py">params</a>) -> <a href="./src/micro_so/types/prism/property_definition.py">PropertyDefinition</a></code>
+- <code title="get /v2/prism/{teamId}/{objectType}/properties">client.prism.properties.<a href="./src/micro_so/resources/prism/properties/properties.py">list</a>(object_type, \*, team_id, \*\*<a href="src/micro_so/types/prism/property_list_params.py">params</a>) -> <a href="./src/micro_so/types/prism/property_list_response.py">PropertyListResponse</a></code>
+- <code title="delete /v2/prism/{teamId}/{objectType}/properties/{propertyId}">client.prism.properties.<a href="./src/micro_so/resources/prism/properties/properties.py">delete</a>(property_id, \*, team_id, object_type, \*\*<a href="src/micro_so/types/prism/property_delete_params.py">params</a>) -> None</code>
+- <code title="get /v2/prism/{teamId}/properties">client.prism.properties.<a href="./src/micro_so/resources/prism/properties/properties.py">list_all</a>(\*, team_id, \*\*<a href="src/micro_so/types/prism/property_list_all_params.py">params</a>) -> <a href="./src/micro_so/types/prism/property_list_all_response.py">PropertyListAllResponse</a></code>
+
+### Options
+
+Types:
+
+```python
+from micro_so.types.prism.properties import (
+    PropertyOption,
+    PropertyOptionCreate,
+    PropertyOptionPatch,
+)
+```
+
+Methods:
+
+- <code title="post /v2/prism/{teamId}/{objectType}/properties/{propertyId}/options">client.prism.properties.options.<a href="./src/micro_so/resources/prism/properties/options.py">create</a>(property_id, \*, team_id, object_type, \*\*<a href="src/micro_so/types/prism/properties/option_create_params.py">params</a>) -> <a href="./src/micro_so/types/prism/properties/property_option.py">PropertyOption</a></code>
+- <code title="patch /v2/prism/{teamId}/{objectType}/properties/{propertyId}/options/{optionId}">client.prism.properties.options.<a href="./src/micro_so/resources/prism/properties/options.py">update</a>(option_id, \*, team_id, object_type, property_id, \*\*<a href="src/micro_so/types/prism/properties/option_update_params.py">params</a>) -> <a href="./src/micro_so/types/prism/properties/property_option.py">PropertyOption</a></code>
+- <code title="delete /v2/prism/{teamId}/{objectType}/properties/{propertyId}/options/{optionId}">client.prism.properties.options.<a href="./src/micro_so/resources/prism/properties/options.py">delete</a>(option_id, \*, team_id, object_type, property_id, \*\*<a href="src/micro_so/types/prism/properties/option_delete_params.py">params</a>) -> None</code>
 
 ## Imports
 
@@ -412,6 +439,37 @@ Methods:
 - <code title="put /v2/prism/{teamId}/engagement/{engagementId}/grant">client.prism.objects.engagements.grant.<a href="./src/micro_so/resources/prism/objects/engagements/grant.py">update</a>(engagement_id, \*, path_team_id, \*\*<a href="src/micro_so/types/prism/objects/engagements/grant_update_params.py">params</a>) -> <a href="./src/micro_so/types/prism/objects/engagements/grant_update_response.py">GrantUpdateResponse</a></code>
 - <code title="get /v2/prism/{teamId}/engagement/{engagementId}/grant">client.prism.objects.engagements.grant.<a href="./src/micro_so/resources/prism/objects/engagements/grant.py">get</a>(engagement_id, \*, team_id) -> <a href="./src/micro_so/types/prism/objects/engagements/grant_get_response.py">GrantGetResponse</a></code>
 
+# Views
+
+Types:
+
+```python
+from micro_so.types import ViewCreateResponse, ViewUpdateResponse, ViewListResponse, ViewGetResponse
+```
+
+Methods:
+
+- <code title="post /v2/prism/{teamId}/{objectType}/views">client.views.<a href="./src/micro_so/resources/views/views.py">create</a>(object_type, \*, path_team_id, \*\*<a href="src/micro_so/types/view_create_params.py">params</a>) -> <a href="./src/micro_so/types/view_create_response.py">ViewCreateResponse</a></code>
+- <code title="patch /v2/prism/{teamId}/{objectType}/views/{viewId}">client.views.<a href="./src/micro_so/resources/views/views.py">update</a>(view_id, \*, path_team_id, object_type, \*\*<a href="src/micro_so/types/view_update_params.py">params</a>) -> <a href="./src/micro_so/types/view_update_response.py">ViewUpdateResponse</a></code>
+- <code title="get /v2/prism/{teamId}/{objectType}/views">client.views.<a href="./src/micro_so/resources/views/views.py">list</a>(object_type, \*, team_id, \*\*<a href="src/micro_so/types/view_list_params.py">params</a>) -> <a href="./src/micro_so/types/view_list_response.py">ViewListResponse</a></code>
+- <code title="delete /v2/prism/{teamId}/{objectType}/views/{viewId}">client.views.<a href="./src/micro_so/resources/views/views.py">delete</a>(view_id, \*, team_id, object_type) -> None</code>
+- <code title="get /v2/prism/{teamId}/{objectType}/views/{viewId}">client.views.<a href="./src/micro_so/resources/views/views.py">get</a>(view_id, \*, team_id, object_type, \*\*<a href="src/micro_so/types/view_get_params.py">params</a>) -> <a href="./src/micro_so/types/view_get_response.py">ViewGetResponse</a></code>
+
+## Records
+
+Types:
+
+```python
+from micro_so.types.views import RecordListResponse
+```
+
+Methods:
+
+- <code title="get /v2/prism/{teamId}/{objectType}/views/{viewId}/records">client.views.records.<a href="./src/micro_so/resources/views/records.py">list</a>(view_id, \*, team_id, object_type, \*\*<a href="src/micro_so/types/views/record_list_params.py">params</a>) -> <a href="./src/micro_so/types/views/record_list_response.py">RecordListResponse</a></code>
+- <code title="post /v2/prism/{teamId}/{objectType}/views/{viewId}/records/{objectId}">client.views.records.<a href="./src/micro_so/resources/views/records.py">pin</a>(object_id, \*, team_id, object_type, view_id) -> None</code>
+- <code title="patch /v2/prism/{teamId}/{objectType}/views/{viewId}/records">client.views.records.<a href="./src/micro_so/resources/views/records.py">reorder</a>(view_id, \*, team_id, object_type, \*\*<a href="src/micro_so/types/views/record_reorder_params.py">params</a>) -> None</code>
+- <code title="delete /v2/prism/{teamId}/{objectType}/views/{viewId}/records/{objectId}">client.views.records.<a href="./src/micro_so/resources/views/records.py">unpin</a>(object_id, \*, team_id, object_type, view_id) -> None</code>
+
 # TriggeredAutomations
 
 Types:
@@ -427,6 +485,50 @@ Methods:
 - <code title="get /v2/prism/{teamId}/{automationObjectType}/triggered_automations">client.triggered_automations.<a href="./src/micro_so/resources/triggered_automations.py">list</a>(automation_object_type, \*, team_id, \*\*<a href="src/micro_so/types/triggered_automation_list_params.py">params</a>) -> <a href="./src/micro_so/types/triggered_automation_list_response.py">TriggeredAutomationListResponse</a></code>
 - <code title="delete /v2/prism/{teamId}/{automationObjectType}/triggered_automations/{automationId}">client.triggered_automations.<a href="./src/micro_so/resources/triggered_automations.py">delete</a>(automation_id, \*, team_id, automation_object_type) -> None</code>
 - <code title="get /v2/prism/{teamId}/{automationObjectType}/triggered_automations/{automationId}">client.triggered_automations.<a href="./src/micro_so/resources/triggered_automations.py">get</a>(automation_id, \*, team_id, automation_object_type) -> <a href="./src/micro_so/types/triggered_automation.py">TriggeredAutomation</a></code>
+
+# Webhooks
+
+Types:
+
+```python
+from micro_so.types import (
+    Webhook,
+    WebhookCreate,
+    WebhookDelivery,
+    WebhookDeliveryDetail,
+    WebhookUpdate,
+    WebhookWithSecret,
+    WebhookUpdateResponse,
+    WebhookListResponse,
+    WebhookListDeliveriesResponse,
+    WebhookPingResponse,
+    WebhookVerifyResponse,
+)
+```
+
+Methods:
+
+- <code title="post /v2/webhooks/{teamId}">client.webhooks.<a href="./src/micro_so/resources/webhooks/webhooks.py">create</a>(\*, team_id, \*\*<a href="src/micro_so/types/webhook_create_params.py">params</a>) -> <a href="./src/micro_so/types/webhook_with_secret.py">WebhookWithSecret</a></code>
+- <code title="patch /v2/webhooks/{teamId}/{webhookId}">client.webhooks.<a href="./src/micro_so/resources/webhooks/webhooks.py">update</a>(webhook_id, \*, team_id, \*\*<a href="src/micro_so/types/webhook_update_params.py">params</a>) -> <a href="./src/micro_so/types/webhook_update_response.py">WebhookUpdateResponse</a></code>
+- <code title="get /v2/webhooks/{teamId}">client.webhooks.<a href="./src/micro_so/resources/webhooks/webhooks.py">list</a>(\*, team_id) -> <a href="./src/micro_so/types/webhook_list_response.py">WebhookListResponse</a></code>
+- <code title="delete /v2/webhooks/{teamId}/{webhookId}">client.webhooks.<a href="./src/micro_so/resources/webhooks/webhooks.py">delete</a>(webhook_id, \*, team_id) -> None</code>
+- <code title="get /v2/webhooks/{teamId}/{webhookId}">client.webhooks.<a href="./src/micro_so/resources/webhooks/webhooks.py">get</a>(webhook_id, \*, team_id) -> <a href="./src/micro_so/types/webhook.py">Webhook</a></code>
+- <code title="get /v2/webhooks/{teamId}/deliveries">client.webhooks.<a href="./src/micro_so/resources/webhooks/webhooks.py">list_deliveries</a>(\*, team_id, \*\*<a href="src/micro_so/types/webhook_list_deliveries_params.py">params</a>) -> <a href="./src/micro_so/types/webhook_list_deliveries_response.py">WebhookListDeliveriesResponse</a></code>
+- <code title="post /v2/webhooks/{teamId}/{webhookId}/ping">client.webhooks.<a href="./src/micro_so/resources/webhooks/webhooks.py">ping</a>(webhook_id, \*, team_id, \*\*<a href="src/micro_so/types/webhook_ping_params.py">params</a>) -> <a href="./src/micro_so/types/webhook_ping_response.py">WebhookPingResponse</a></code>
+- <code title="post /v2/webhooks/{teamId}/{webhookId}/verify">client.webhooks.<a href="./src/micro_so/resources/webhooks/webhooks.py">verify</a>(webhook_id, \*, team_id) -> <a href="./src/micro_so/types/webhook_verify_response.py">WebhookVerifyResponse</a></code>
+
+## Deliveries
+
+Types:
+
+```python
+from micro_so.types.webhooks import DeliveryListResponse
+```
+
+Methods:
+
+- <code title="get /v2/webhooks/{teamId}/{webhookId}/deliveries">client.webhooks.deliveries.<a href="./src/micro_so/resources/webhooks/deliveries.py">list</a>(webhook_id, \*, team_id, \*\*<a href="src/micro_so/types/webhooks/delivery_list_params.py">params</a>) -> <a href="./src/micro_so/types/webhooks/delivery_list_response.py">DeliveryListResponse</a></code>
+- <code title="get /v2/webhooks/{teamId}/{webhookId}/deliveries/{deliveryId}">client.webhooks.deliveries.<a href="./src/micro_so/resources/webhooks/deliveries.py">get</a>(delivery_id, \*, team_id, webhook_id) -> <a href="./src/micro_so/types/webhook_delivery_detail.py">WebhookDeliveryDetail</a></code>
 
 # Realtime
 

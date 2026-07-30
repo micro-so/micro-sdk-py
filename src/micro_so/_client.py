@@ -36,9 +36,11 @@ from ._base_client import (
 )
 
 if TYPE_CHECKING:
-    from .resources import prism, realtime, triggered_automations
+    from .resources import prism, views, realtime, webhooks, triggered_automations
     from .resources.realtime import RealtimeResource, AsyncRealtimeResource
     from .resources.prism.prism import PrismResource, AsyncPrismResource
+    from .resources.views.views import ViewsResource, AsyncViewsResource
+    from .resources.webhooks.webhooks import WebhooksResource, AsyncWebhooksResource
     from .resources.triggered_automations import TriggeredAutomationsResource, AsyncTriggeredAutomationsResource
 
 __all__ = ["Timeout", "Transport", "ProxiesTypes", "RequestOptions", "Micro", "AsyncMicro", "Client", "AsyncClient"]
@@ -119,10 +121,22 @@ class Micro(SyncAPIClient):
         return PrismResource(self)
 
     @cached_property
+    def views(self) -> ViewsResource:
+        from .resources.views import ViewsResource
+
+        return ViewsResource(self)
+
+    @cached_property
     def triggered_automations(self) -> TriggeredAutomationsResource:
         from .resources.triggered_automations import TriggeredAutomationsResource
 
         return TriggeredAutomationsResource(self)
+
+    @cached_property
+    def webhooks(self) -> WebhooksResource:
+        from .resources.webhooks import WebhooksResource
+
+        return WebhooksResource(self)
 
     @cached_property
     def realtime(self) -> RealtimeResource:
@@ -330,10 +344,22 @@ class AsyncMicro(AsyncAPIClient):
         return AsyncPrismResource(self)
 
     @cached_property
+    def views(self) -> AsyncViewsResource:
+        from .resources.views import AsyncViewsResource
+
+        return AsyncViewsResource(self)
+
+    @cached_property
     def triggered_automations(self) -> AsyncTriggeredAutomationsResource:
         from .resources.triggered_automations import AsyncTriggeredAutomationsResource
 
         return AsyncTriggeredAutomationsResource(self)
+
+    @cached_property
+    def webhooks(self) -> AsyncWebhooksResource:
+        from .resources.webhooks import AsyncWebhooksResource
+
+        return AsyncWebhooksResource(self)
 
     @cached_property
     def realtime(self) -> AsyncRealtimeResource:
@@ -479,10 +505,22 @@ class MicroWithRawResponse:
         return PrismResourceWithRawResponse(self._client.prism)
 
     @cached_property
+    def views(self) -> views.ViewsResourceWithRawResponse:
+        from .resources.views import ViewsResourceWithRawResponse
+
+        return ViewsResourceWithRawResponse(self._client.views)
+
+    @cached_property
     def triggered_automations(self) -> triggered_automations.TriggeredAutomationsResourceWithRawResponse:
         from .resources.triggered_automations import TriggeredAutomationsResourceWithRawResponse
 
         return TriggeredAutomationsResourceWithRawResponse(self._client.triggered_automations)
+
+    @cached_property
+    def webhooks(self) -> webhooks.WebhooksResourceWithRawResponse:
+        from .resources.webhooks import WebhooksResourceWithRawResponse
+
+        return WebhooksResourceWithRawResponse(self._client.webhooks)
 
     @cached_property
     def realtime(self) -> realtime.RealtimeResourceWithRawResponse:
@@ -504,10 +542,22 @@ class AsyncMicroWithRawResponse:
         return AsyncPrismResourceWithRawResponse(self._client.prism)
 
     @cached_property
+    def views(self) -> views.AsyncViewsResourceWithRawResponse:
+        from .resources.views import AsyncViewsResourceWithRawResponse
+
+        return AsyncViewsResourceWithRawResponse(self._client.views)
+
+    @cached_property
     def triggered_automations(self) -> triggered_automations.AsyncTriggeredAutomationsResourceWithRawResponse:
         from .resources.triggered_automations import AsyncTriggeredAutomationsResourceWithRawResponse
 
         return AsyncTriggeredAutomationsResourceWithRawResponse(self._client.triggered_automations)
+
+    @cached_property
+    def webhooks(self) -> webhooks.AsyncWebhooksResourceWithRawResponse:
+        from .resources.webhooks import AsyncWebhooksResourceWithRawResponse
+
+        return AsyncWebhooksResourceWithRawResponse(self._client.webhooks)
 
     @cached_property
     def realtime(self) -> realtime.AsyncRealtimeResourceWithRawResponse:
@@ -529,10 +579,22 @@ class MicroWithStreamedResponse:
         return PrismResourceWithStreamingResponse(self._client.prism)
 
     @cached_property
+    def views(self) -> views.ViewsResourceWithStreamingResponse:
+        from .resources.views import ViewsResourceWithStreamingResponse
+
+        return ViewsResourceWithStreamingResponse(self._client.views)
+
+    @cached_property
     def triggered_automations(self) -> triggered_automations.TriggeredAutomationsResourceWithStreamingResponse:
         from .resources.triggered_automations import TriggeredAutomationsResourceWithStreamingResponse
 
         return TriggeredAutomationsResourceWithStreamingResponse(self._client.triggered_automations)
+
+    @cached_property
+    def webhooks(self) -> webhooks.WebhooksResourceWithStreamingResponse:
+        from .resources.webhooks import WebhooksResourceWithStreamingResponse
+
+        return WebhooksResourceWithStreamingResponse(self._client.webhooks)
 
     @cached_property
     def realtime(self) -> realtime.RealtimeResourceWithStreamingResponse:
@@ -554,10 +616,22 @@ class AsyncMicroWithStreamedResponse:
         return AsyncPrismResourceWithStreamingResponse(self._client.prism)
 
     @cached_property
+    def views(self) -> views.AsyncViewsResourceWithStreamingResponse:
+        from .resources.views import AsyncViewsResourceWithStreamingResponse
+
+        return AsyncViewsResourceWithStreamingResponse(self._client.views)
+
+    @cached_property
     def triggered_automations(self) -> triggered_automations.AsyncTriggeredAutomationsResourceWithStreamingResponse:
         from .resources.triggered_automations import AsyncTriggeredAutomationsResourceWithStreamingResponse
 
         return AsyncTriggeredAutomationsResourceWithStreamingResponse(self._client.triggered_automations)
+
+    @cached_property
+    def webhooks(self) -> webhooks.AsyncWebhooksResourceWithStreamingResponse:
+        from .resources.webhooks import AsyncWebhooksResourceWithStreamingResponse
+
+        return AsyncWebhooksResourceWithStreamingResponse(self._client.webhooks)
 
     @cached_property
     def realtime(self) -> realtime.AsyncRealtimeResourceWithStreamingResponse:

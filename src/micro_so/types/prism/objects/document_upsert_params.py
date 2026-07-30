@@ -15,6 +15,12 @@ class DocumentUpsertParams(TypedDict, total=False):
 
     slug: Required[str]
 
+    list_id: str
+    """Scope the upsert to a specific list/app.
+
+    Required to match or write list-scoped properties, including `app_stage`.
+    """
+
     default: Dict[str, object]
     """Properties keyed by property slug.
 

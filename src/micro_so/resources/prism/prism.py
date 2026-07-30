@@ -11,14 +11,6 @@ from .imports import (
     AsyncImportsResourceWithStreamingResponse,
 )
 from ..._compat import cached_property
-from .properties import (
-    PropertiesResource,
-    AsyncPropertiesResource,
-    PropertiesResourceWithRawResponse,
-    AsyncPropertiesResourceWithRawResponse,
-    PropertiesResourceWithStreamingResponse,
-    AsyncPropertiesResourceWithStreamingResponse,
-)
 from ..._resource import SyncAPIResource, AsyncAPIResource
 from .objects.objects import (
     ObjectsResource,
@@ -27,6 +19,14 @@ from .objects.objects import (
     AsyncObjectsResourceWithRawResponse,
     ObjectsResourceWithStreamingResponse,
     AsyncObjectsResourceWithStreamingResponse,
+)
+from .properties.properties import (
+    PropertiesResource,
+    AsyncPropertiesResource,
+    PropertiesResourceWithRawResponse,
+    AsyncPropertiesResourceWithRawResponse,
+    PropertiesResourceWithStreamingResponse,
+    AsyncPropertiesResourceWithStreamingResponse,
 )
 
 __all__ = ["PrismResource", "AsyncPrismResource"]

@@ -536,6 +536,7 @@ class TestEvents:
         event = client.prism.objects.events.upsert(
             value="value",
             slug="slug",
+            list_id="182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
             default={"foo": "bar"},
             list={},
             idempotency_key="x",
@@ -1099,6 +1100,7 @@ class TestAsyncEvents:
         event = await async_client.prism.objects.events.upsert(
             value="value",
             slug="slug",
+            list_id="182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
             default={"foo": "bar"},
             list={},
             idempotency_key="x",

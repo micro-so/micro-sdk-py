@@ -237,8 +237,11 @@ class TestDocuments:
             options={
                 "case_insensitive": True,
                 "create_missing_options": True,
-                "dedupe_by": "dedupe_by",
+                "crm_id": "182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
+                "dedupe_by": "string",
                 "list_id": "182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
+                "require_list_stage": True,
+                "update_existing": True,
             },
             idempotency_key="x",
         )
@@ -679,6 +682,7 @@ class TestDocuments:
         document = client.prism.objects.documents.upsert(
             value="value",
             slug="slug",
+            list_id="182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
             default={"foo": "bar"},
             list={},
             idempotency_key="x",
@@ -940,8 +944,11 @@ class TestAsyncDocuments:
             options={
                 "case_insensitive": True,
                 "create_missing_options": True,
-                "dedupe_by": "dedupe_by",
+                "crm_id": "182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
+                "dedupe_by": "string",
                 "list_id": "182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
+                "require_list_stage": True,
+                "update_existing": True,
             },
             idempotency_key="x",
         )
@@ -1382,6 +1389,7 @@ class TestAsyncDocuments:
         document = await async_client.prism.objects.documents.upsert(
             value="value",
             slug="slug",
+            list_id="182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
             default={"foo": "bar"},
             list={},
             idempotency_key="x",

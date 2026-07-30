@@ -731,6 +731,7 @@ class ContactsResource(SyncAPIResource):
         *,
         team_id: str | None = None,
         slug: str,
+        list_id: str | Omit = omit,
         default: Dict[str, object] | Omit = omit,
         list: object | Omit = omit,
         idempotency_key: str | Omit = omit,
@@ -749,6 +750,9 @@ class ContactsResource(SyncAPIResource):
         multiple records match, 409 is returned and you should patch by id instead.
 
         Args:
+          list_id: Scope the upsert to a specific list/app. Required to match or write list-scoped
+              properties, including `app_stage`.
+
           default: Properties keyed by property slug. Values can be strings, numbers, booleans,
               arrays, or null. For select/multiselect properties, values may be option slugs
               or option UUIDs on write; option slugs are returned on read.
@@ -780,7 +784,11 @@ class ContactsResource(SyncAPIResource):
                 contact_upsert_params.ContactUpsertParams,
             ),
             options=make_request_options(
-                extra_headers=extra_headers, extra_query=extra_query, extra_body=extra_body, timeout=timeout
+                extra_headers=extra_headers,
+                extra_query=extra_query,
+                extra_body=extra_body,
+                timeout=timeout,
+                query=maybe_transform({"list_id": list_id}, contact_upsert_params.ContactUpsertParams),
             ),
             cast_to=ContactUpsertResponse,
         )
@@ -1469,6 +1477,7 @@ class AsyncContactsResource(AsyncAPIResource):
         *,
         team_id: str | None = None,
         slug: str,
+        list_id: str | Omit = omit,
         default: Dict[str, object] | Omit = omit,
         list: object | Omit = omit,
         idempotency_key: str | Omit = omit,
@@ -1487,6 +1496,9 @@ class AsyncContactsResource(AsyncAPIResource):
         multiple records match, 409 is returned and you should patch by id instead.
 
         Args:
+          list_id: Scope the upsert to a specific list/app. Required to match or write list-scoped
+              properties, including `app_stage`.
+
           default: Properties keyed by property slug. Values can be strings, numbers, booleans,
               arrays, or null. For select/multiselect properties, values may be option slugs
               or option UUIDs on write; option slugs are returned on read.
@@ -1518,7 +1530,11 @@ class AsyncContactsResource(AsyncAPIResource):
                 contact_upsert_params.ContactUpsertParams,
             ),
             options=make_request_options(
-                extra_headers=extra_headers, extra_query=extra_query, extra_body=extra_body, timeout=timeout
+                extra_headers=extra_headers,
+                extra_query=extra_query,
+                extra_body=extra_body,
+                timeout=timeout,
+                query=await async_maybe_transform({"list_id": list_id}, contact_upsert_params.ContactUpsertParams),
             ),
             cast_to=ContactUpsertResponse,
         )

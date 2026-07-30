@@ -747,6 +747,7 @@ class OrganizationsResource(SyncAPIResource):
         *,
         team_id: str | None = None,
         slug: str,
+        list_id: str | Omit = omit,
         default: Dict[str, object] | Omit = omit,
         list: object | Omit = omit,
         idempotency_key: str | Omit = omit,
@@ -765,6 +766,9 @@ class OrganizationsResource(SyncAPIResource):
         multiple records match, 409 is returned and you should patch by id instead.
 
         Args:
+          list_id: Scope the upsert to a specific list/app. Required to match or write list-scoped
+              properties, including `app_stage`.
+
           default: Properties keyed by property slug. Values can be strings, numbers, booleans,
               arrays, or null. For select/multiselect properties, values may be option slugs
               or option UUIDs on write; option slugs are returned on read.
@@ -798,7 +802,11 @@ class OrganizationsResource(SyncAPIResource):
                 organization_upsert_params.OrganizationUpsertParams,
             ),
             options=make_request_options(
-                extra_headers=extra_headers, extra_query=extra_query, extra_body=extra_body, timeout=timeout
+                extra_headers=extra_headers,
+                extra_query=extra_query,
+                extra_body=extra_body,
+                timeout=timeout,
+                query=maybe_transform({"list_id": list_id}, organization_upsert_params.OrganizationUpsertParams),
             ),
             cast_to=OrganizationUpsertResponse,
         )
@@ -1511,6 +1519,7 @@ class AsyncOrganizationsResource(AsyncAPIResource):
         *,
         team_id: str | None = None,
         slug: str,
+        list_id: str | Omit = omit,
         default: Dict[str, object] | Omit = omit,
         list: object | Omit = omit,
         idempotency_key: str | Omit = omit,
@@ -1529,6 +1538,9 @@ class AsyncOrganizationsResource(AsyncAPIResource):
         multiple records match, 409 is returned and you should patch by id instead.
 
         Args:
+          list_id: Scope the upsert to a specific list/app. Required to match or write list-scoped
+              properties, including `app_stage`.
+
           default: Properties keyed by property slug. Values can be strings, numbers, booleans,
               arrays, or null. For select/multiselect properties, values may be option slugs
               or option UUIDs on write; option slugs are returned on read.
@@ -1562,7 +1574,13 @@ class AsyncOrganizationsResource(AsyncAPIResource):
                 organization_upsert_params.OrganizationUpsertParams,
             ),
             options=make_request_options(
-                extra_headers=extra_headers, extra_query=extra_query, extra_body=extra_body, timeout=timeout
+                extra_headers=extra_headers,
+                extra_query=extra_query,
+                extra_body=extra_body,
+                timeout=timeout,
+                query=await async_maybe_transform(
+                    {"list_id": list_id}, organization_upsert_params.OrganizationUpsertParams
+                ),
             ),
             cast_to=OrganizationUpsertResponse,
         )

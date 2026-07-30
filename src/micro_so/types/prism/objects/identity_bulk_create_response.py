@@ -33,6 +33,12 @@ class Result(BaseModel):
     existing: Optional[bool] = None
     """True if the row matched an existing record via the dedupe key."""
 
+    input_index: Optional[int] = None
+    """Zero-based position of this row in the request."""
+
+    updated: Optional[bool] = None
+    """True if a matching record was updated."""
+
 
 class IdentityBulkCreateResponse(BaseModel):
     """Status snapshot of an import job.
