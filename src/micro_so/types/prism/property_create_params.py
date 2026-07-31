@@ -43,7 +43,7 @@ class PropertyCreateParams(TypedDict, total=False):
             "ref_ai_chat_thread",
             "ref_ai_chat_message",
             "multiref_ai_chat_message",
-            "multiref_agent_artifact",
+            "multiref_agent_site",
             "multiref_action",
             "multiref_comment",
             "multiref_contact",
