@@ -170,6 +170,7 @@ class TriggeredAutomationsResource(SyncAPIResource):
         body_team_id: Optional[str] | Omit = omit,
         updated_at: Optional[str] | Omit = omit,
         user_id: Optional[str] | Omit = omit,
+        idempotency_key: str | Omit = omit,
         # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
         # The extra values given here take precedence over values defined on the client or passed to this method.
         extra_headers: Headers | None = None,
@@ -217,6 +218,7 @@ class TriggeredAutomationsResource(SyncAPIResource):
             )
         if not automation_id:
             raise ValueError(f"Expected a non-empty value for `automation_id` but received {automation_id!r}")
+        extra_headers = {**strip_not_given({"Idempotency-Key": idempotency_key}), **(extra_headers or {})}
         return self._put(
             path_template(
                 "/v2/prism/{path_team_id}/{automation_object_type}/triggered_automations/{automation_id}",
@@ -581,6 +583,7 @@ class AsyncTriggeredAutomationsResource(AsyncAPIResource):
         body_team_id: Optional[str] | Omit = omit,
         updated_at: Optional[str] | Omit = omit,
         user_id: Optional[str] | Omit = omit,
+        idempotency_key: str | Omit = omit,
         # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
         # The extra values given here take precedence over values defined on the client or passed to this method.
         extra_headers: Headers | None = None,
@@ -628,6 +631,7 @@ class AsyncTriggeredAutomationsResource(AsyncAPIResource):
             )
         if not automation_id:
             raise ValueError(f"Expected a non-empty value for `automation_id` but received {automation_id!r}")
+        extra_headers = {**strip_not_given({"Idempotency-Key": idempotency_key}), **(extra_headers or {})}
         return await self._put(
             path_template(
                 "/v2/prism/{path_team_id}/{automation_object_type}/triggered_automations/{automation_id}",

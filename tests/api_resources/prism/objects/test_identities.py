@@ -41,7 +41,12 @@ class TestIdentities:
     @parametrize
     def test_method_create_with_all_params(self, client: Micro) -> None:
         identity = client.prism.objects.identities.create(
-            default={"foo": "bar"},
+            default={
+                "full_name": "bar",
+                "email": "bar",
+                "title": "bar",
+                "organization": "bar",
+            },
             list={},
             idempotency_key="x",
         )
@@ -82,7 +87,7 @@ class TestIdentities:
     def test_method_update_with_all_params(self, client: Micro) -> None:
         identity = client.prism.objects.identities.update(
             identity_id="182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
-            default={"foo": "bar"},
+            default={"title": "bar"},
             list={},
             idempotency_key="x",
             if_match="If-Match",
@@ -563,7 +568,7 @@ class TestIdentities:
     @parametrize
     def test_method_query(self, client: Micro) -> None:
         identity = client.prism.objects.identities.query(
-            query={"select": ["string"]},
+            query={"select": ["full_name", "email", "title", "organization"]},
         )
         assert_matches_type(IdentityQueryResponse, identity, path=["response"])
 
@@ -572,11 +577,11 @@ class TestIdentities:
     def test_method_query_with_all_params(self, client: Micro) -> None:
         identity = client.prism.objects.identities.query(
             query={
-                "select": ["string"],
+                "select": ["full_name", "email", "title", "organization"],
                 "combinator": "AND",
                 "cursor": "cursor",
-                "filter": [{"foo": {"api_empty": "string"}}],
-                "limit": 1,
+                "filter": [{"full_name": {"api_empty": "Sarah Chen"}}],
+                "limit": 10,
                 "list_id": "182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
                 "page": 0,
                 "sort": [{"foo": "asc"}],
@@ -587,6 +592,7 @@ class TestIdentities:
             deleted=True,
             include_total=True,
             sources=["182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e"],
+            idempotency_key="x",
         )
         assert_matches_type(IdentityQueryResponse, identity, path=["response"])
 
@@ -594,7 +600,7 @@ class TestIdentities:
     @parametrize
     def test_raw_response_query(self, client: Micro) -> None:
         response = client.prism.objects.identities.with_raw_response.query(
-            query={"select": ["string"]},
+            query={"select": ["full_name", "email", "title", "organization"]},
         )
 
         assert response.is_closed is True
@@ -606,7 +612,7 @@ class TestIdentities:
     @parametrize
     def test_streaming_response_query(self, client: Micro) -> None:
         with client.prism.objects.identities.with_streaming_response.query(
-            query={"select": ["string"]},
+            query={"select": ["full_name", "email", "title", "organization"]},
         ) as response:
             assert not response.is_closed
             assert response.http_request.headers.get("X-Stainless-Lang") == "python"
@@ -748,7 +754,12 @@ class TestAsyncIdentities:
     @parametrize
     async def test_method_create_with_all_params(self, async_client: AsyncMicro) -> None:
         identity = await async_client.prism.objects.identities.create(
-            default={"foo": "bar"},
+            default={
+                "full_name": "bar",
+                "email": "bar",
+                "title": "bar",
+                "organization": "bar",
+            },
             list={},
             idempotency_key="x",
         )
@@ -789,7 +800,7 @@ class TestAsyncIdentities:
     async def test_method_update_with_all_params(self, async_client: AsyncMicro) -> None:
         identity = await async_client.prism.objects.identities.update(
             identity_id="182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
-            default={"foo": "bar"},
+            default={"title": "bar"},
             list={},
             idempotency_key="x",
             if_match="If-Match",
@@ -1270,7 +1281,7 @@ class TestAsyncIdentities:
     @parametrize
     async def test_method_query(self, async_client: AsyncMicro) -> None:
         identity = await async_client.prism.objects.identities.query(
-            query={"select": ["string"]},
+            query={"select": ["full_name", "email", "title", "organization"]},
         )
         assert_matches_type(IdentityQueryResponse, identity, path=["response"])
 
@@ -1279,11 +1290,11 @@ class TestAsyncIdentities:
     async def test_method_query_with_all_params(self, async_client: AsyncMicro) -> None:
         identity = await async_client.prism.objects.identities.query(
             query={
-                "select": ["string"],
+                "select": ["full_name", "email", "title", "organization"],
                 "combinator": "AND",
                 "cursor": "cursor",
-                "filter": [{"foo": {"api_empty": "string"}}],
-                "limit": 1,
+                "filter": [{"full_name": {"api_empty": "Sarah Chen"}}],
+                "limit": 10,
                 "list_id": "182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
                 "page": 0,
                 "sort": [{"foo": "asc"}],
@@ -1294,6 +1305,7 @@ class TestAsyncIdentities:
             deleted=True,
             include_total=True,
             sources=["182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e"],
+            idempotency_key="x",
         )
         assert_matches_type(IdentityQueryResponse, identity, path=["response"])
 
@@ -1301,7 +1313,7 @@ class TestAsyncIdentities:
     @parametrize
     async def test_raw_response_query(self, async_client: AsyncMicro) -> None:
         response = await async_client.prism.objects.identities.with_raw_response.query(
-            query={"select": ["string"]},
+            query={"select": ["full_name", "email", "title", "organization"]},
         )
 
         assert response.is_closed is True
@@ -1313,7 +1325,7 @@ class TestAsyncIdentities:
     @parametrize
     async def test_streaming_response_query(self, async_client: AsyncMicro) -> None:
         async with async_client.prism.objects.identities.with_streaming_response.query(
-            query={"select": ["string"]},
+            query={"select": ["full_name", "email", "title", "organization"]},
         ) as response:
             assert not response.is_closed
             assert response.http_request.headers.get("X-Stainless-Lang") == "python"

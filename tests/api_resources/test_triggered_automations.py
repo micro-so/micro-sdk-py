@@ -158,6 +158,7 @@ class TestTriggeredAutomations:
             body_team_id="182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
             updated_at="updated_at",
             user_id="user_id",
+            idempotency_key="x",
         )
         assert_matches_type(TriggeredAutomation, triggered_automation, path=["response"])
 
@@ -487,6 +488,7 @@ class TestAsyncTriggeredAutomations:
             body_team_id="182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
             updated_at="updated_at",
             user_id="user_id",
+            idempotency_key="x",
         )
         assert_matches_type(TriggeredAutomation, triggered_automation, path=["response"])
 

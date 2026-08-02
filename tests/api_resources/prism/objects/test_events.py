@@ -38,7 +38,12 @@ class TestEvents:
     @parametrize
     def test_method_create_with_all_params(self, client: Micro) -> None:
         event = client.prism.objects.events.create(
-            default={"foo": "bar"},
+            default={
+                "full_name": "bar",
+                "email": "bar",
+                "title": "bar",
+                "organization": "bar",
+            },
             list={},
             idempotency_key="x",
         )
@@ -79,7 +84,7 @@ class TestEvents:
     def test_method_update_with_all_params(self, client: Micro) -> None:
         event = client.prism.objects.events.update(
             event_id="182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
-            default={"foo": "bar"},
+            default={"title": "bar"},
             list={},
             idempotency_key="x",
             if_match="If-Match",
@@ -417,7 +422,7 @@ class TestEvents:
     @parametrize
     def test_method_query(self, client: Micro) -> None:
         event = client.prism.objects.events.query(
-            query={"select": ["string"]},
+            query={"select": ["full_name", "email", "title", "organization"]},
         )
         assert_matches_type(EventQueryResponse, event, path=["response"])
 
@@ -426,11 +431,11 @@ class TestEvents:
     def test_method_query_with_all_params(self, client: Micro) -> None:
         event = client.prism.objects.events.query(
             query={
-                "select": ["string"],
+                "select": ["full_name", "email", "title", "organization"],
                 "combinator": "AND",
                 "cursor": "cursor",
-                "filter": [{"foo": {"api_empty": "string"}}],
-                "limit": 1,
+                "filter": [{"full_name": {"api_empty": "Sarah Chen"}}],
+                "limit": 10,
                 "list_id": "182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
                 "page": 0,
                 "sort": [{"foo": "asc"}],
@@ -441,6 +446,7 @@ class TestEvents:
             deleted=True,
             include_total=True,
             sources=["182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e"],
+            idempotency_key="x",
         )
         assert_matches_type(EventQueryResponse, event, path=["response"])
 
@@ -448,7 +454,7 @@ class TestEvents:
     @parametrize
     def test_raw_response_query(self, client: Micro) -> None:
         response = client.prism.objects.events.with_raw_response.query(
-            query={"select": ["string"]},
+            query={"select": ["full_name", "email", "title", "organization"]},
         )
 
         assert response.is_closed is True
@@ -460,7 +466,7 @@ class TestEvents:
     @parametrize
     def test_streaming_response_query(self, client: Micro) -> None:
         with client.prism.objects.events.with_streaming_response.query(
-            query={"select": ["string"]},
+            query={"select": ["full_name", "email", "title", "organization"]},
         ) as response:
             assert not response.is_closed
             assert response.http_request.headers.get("X-Stainless-Lang") == "python"
@@ -602,7 +608,12 @@ class TestAsyncEvents:
     @parametrize
     async def test_method_create_with_all_params(self, async_client: AsyncMicro) -> None:
         event = await async_client.prism.objects.events.create(
-            default={"foo": "bar"},
+            default={
+                "full_name": "bar",
+                "email": "bar",
+                "title": "bar",
+                "organization": "bar",
+            },
             list={},
             idempotency_key="x",
         )
@@ -643,7 +654,7 @@ class TestAsyncEvents:
     async def test_method_update_with_all_params(self, async_client: AsyncMicro) -> None:
         event = await async_client.prism.objects.events.update(
             event_id="182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
-            default={"foo": "bar"},
+            default={"title": "bar"},
             list={},
             idempotency_key="x",
             if_match="If-Match",
@@ -981,7 +992,7 @@ class TestAsyncEvents:
     @parametrize
     async def test_method_query(self, async_client: AsyncMicro) -> None:
         event = await async_client.prism.objects.events.query(
-            query={"select": ["string"]},
+            query={"select": ["full_name", "email", "title", "organization"]},
         )
         assert_matches_type(EventQueryResponse, event, path=["response"])
 
@@ -990,11 +1001,11 @@ class TestAsyncEvents:
     async def test_method_query_with_all_params(self, async_client: AsyncMicro) -> None:
         event = await async_client.prism.objects.events.query(
             query={
-                "select": ["string"],
+                "select": ["full_name", "email", "title", "organization"],
                 "combinator": "AND",
                 "cursor": "cursor",
-                "filter": [{"foo": {"api_empty": "string"}}],
-                "limit": 1,
+                "filter": [{"full_name": {"api_empty": "Sarah Chen"}}],
+                "limit": 10,
                 "list_id": "182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
                 "page": 0,
                 "sort": [{"foo": "asc"}],
@@ -1005,6 +1016,7 @@ class TestAsyncEvents:
             deleted=True,
             include_total=True,
             sources=["182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e"],
+            idempotency_key="x",
         )
         assert_matches_type(EventQueryResponse, event, path=["response"])
 
@@ -1012,7 +1024,7 @@ class TestAsyncEvents:
     @parametrize
     async def test_raw_response_query(self, async_client: AsyncMicro) -> None:
         response = await async_client.prism.objects.events.with_raw_response.query(
-            query={"select": ["string"]},
+            query={"select": ["full_name", "email", "title", "organization"]},
         )
 
         assert response.is_closed is True
@@ -1024,7 +1036,7 @@ class TestAsyncEvents:
     @parametrize
     async def test_streaming_response_query(self, async_client: AsyncMicro) -> None:
         async with async_client.prism.objects.events.with_streaming_response.query(
-            query={"select": ["string"]},
+            query={"select": ["full_name", "email", "title", "organization"]},
         ) as response:
             assert not response.is_closed
             assert response.http_request.headers.get("X-Stainless-Lang") == "python"

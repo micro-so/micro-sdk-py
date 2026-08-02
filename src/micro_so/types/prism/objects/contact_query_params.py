@@ -58,6 +58,8 @@ class ContactQueryParams(TypedDict, total=False):
 
     sources: SequenceNotStr[str]
 
+    idempotency_key: Annotated[str, PropertyInfo(alias="Idempotency-Key")]
+
 
 class QueryFilterQueryFilterItemPrismQueryFilterEq(TypedDict, total=False):
     api_empty: Required[Annotated[Union[str, bool], PropertyInfo(alias="=")]]

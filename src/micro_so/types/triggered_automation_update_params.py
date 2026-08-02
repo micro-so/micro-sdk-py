@@ -78,6 +78,8 @@ class TriggeredAutomationUpdateParams(TypedDict, total=False):
 
     user_id: Optional[str]
 
+    idempotency_key: Annotated[str, PropertyInfo(alias="Idempotency-Key")]
+
 
 class Action(  # type: ignore[call-arg]
     TypedDict,

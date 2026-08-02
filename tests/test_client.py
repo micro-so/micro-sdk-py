@@ -948,7 +948,9 @@ class TestMicro:
         )
 
         with pytest.raises(APITimeoutError):
-            client.prism.objects.deals.with_streaming_response.query(query={"select": ["string"]}).__enter__()
+            client.prism.objects.deals.with_streaming_response.query(
+                query={"select": ["full_name", "email", "title", "organization"]}
+            ).__enter__()
 
         assert _get_open_connections(client) == 0
 
@@ -958,7 +960,9 @@ class TestMicro:
         respx_mock.post("/v2/prism/My Team ID/deal/query").mock(return_value=httpx.Response(500))
 
         with pytest.raises(APIStatusError):
-            client.prism.objects.deals.with_streaming_response.query(query={"select": ["string"]}).__enter__()
+            client.prism.objects.deals.with_streaming_response.query(
+                query={"select": ["full_name", "email", "title", "organization"]}
+            ).__enter__()
         assert _get_open_connections(client) == 0
 
     @pytest.mark.parametrize("failures_before_success", [0, 2, 4])
@@ -987,7 +991,9 @@ class TestMicro:
 
         respx_mock.post("/v2/prism/My Team ID/deal/query").mock(side_effect=retry_handler)
 
-        response = client.prism.objects.deals.with_raw_response.query(query={"select": ["string"]})
+        response = client.prism.objects.deals.with_raw_response.query(
+            query={"select": ["full_name", "email", "title", "organization"]}
+        )
 
         assert response.retries_taken == failures_before_success
         assert int(response.http_request.headers.get("x-stainless-retry-count")) == failures_before_success
@@ -1010,7 +1016,8 @@ class TestMicro:
         respx_mock.post("/v2/prism/My Team ID/deal/query").mock(side_effect=retry_handler)
 
         response = client.prism.objects.deals.with_raw_response.query(
-            query={"select": ["string"]}, extra_headers={"x-stainless-retry-count": Omit()}
+            query={"select": ["full_name", "email", "title", "organization"]},
+            extra_headers={"x-stainless-retry-count": Omit()},
         )
 
         assert len(response.http_request.headers.get_list("x-stainless-retry-count")) == 0
@@ -1035,7 +1042,8 @@ class TestMicro:
         respx_mock.post("/v2/prism/My Team ID/deal/query").mock(side_effect=retry_handler)
 
         response = client.prism.objects.deals.with_raw_response.query(
-            query={"select": ["string"]}, extra_headers={"x-stainless-retry-count": "42"}
+            query={"select": ["full_name", "email", "title", "organization"]},
+            extra_headers={"x-stainless-retry-count": "42"},
         )
 
         assert response.http_request.headers.get("x-stainless-retry-count") == "42"
@@ -1942,7 +1950,7 @@ class TestAsyncMicro:
 
         with pytest.raises(APITimeoutError):
             await async_client.prism.objects.deals.with_streaming_response.query(
-                query={"select": ["string"]}
+                query={"select": ["full_name", "email", "title", "organization"]}
             ).__aenter__()
 
         assert _get_open_connections(async_client) == 0
@@ -1954,7 +1962,7 @@ class TestAsyncMicro:
 
         with pytest.raises(APIStatusError):
             await async_client.prism.objects.deals.with_streaming_response.query(
-                query={"select": ["string"]}
+                query={"select": ["full_name", "email", "title", "organization"]}
             ).__aenter__()
         assert _get_open_connections(async_client) == 0
 
@@ -1984,7 +1992,9 @@ class TestAsyncMicro:
 
         respx_mock.post("/v2/prism/My Team ID/deal/query").mock(side_effect=retry_handler)
 
-        response = await client.prism.objects.deals.with_raw_response.query(query={"select": ["string"]})
+        response = await client.prism.objects.deals.with_raw_response.query(
+            query={"select": ["full_name", "email", "title", "organization"]}
+        )
 
         assert response.retries_taken == failures_before_success
         assert int(response.http_request.headers.get("x-stainless-retry-count")) == failures_before_success
@@ -2009,7 +2019,8 @@ class TestAsyncMicro:
         respx_mock.post("/v2/prism/My Team ID/deal/query").mock(side_effect=retry_handler)
 
         response = await client.prism.objects.deals.with_raw_response.query(
-            query={"select": ["string"]}, extra_headers={"x-stainless-retry-count": Omit()}
+            query={"select": ["full_name", "email", "title", "organization"]},
+            extra_headers={"x-stainless-retry-count": Omit()},
         )
 
         assert len(response.http_request.headers.get_list("x-stainless-retry-count")) == 0
@@ -2034,7 +2045,8 @@ class TestAsyncMicro:
         respx_mock.post("/v2/prism/My Team ID/deal/query").mock(side_effect=retry_handler)
 
         response = await client.prism.objects.deals.with_raw_response.query(
-            query={"select": ["string"]}, extra_headers={"x-stainless-retry-count": "42"}
+            query={"select": ["full_name", "email", "title", "organization"]},
+            extra_headers={"x-stainless-retry-count": "42"},
         )
 
         assert response.http_request.headers.get("x-stainless-retry-count") == "42"

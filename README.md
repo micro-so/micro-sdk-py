@@ -136,7 +136,11 @@ client = Micro(
 )
 
 response = client.prism.objects.deals.query(
-    query={"select": ["string"]},
+    query={
+        "select": ["full_name", "email", "title", "organization"],
+        "filter": [{"full_name": {"api_empty": "Sarah Chen"}}],
+        "limit": 10,
+    },
 )
 print(response.query)
 ```

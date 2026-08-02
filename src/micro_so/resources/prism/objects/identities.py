@@ -637,6 +637,7 @@ class IdentitiesResource(SyncAPIResource):
         deleted: bool | Omit = omit,
         include_total: bool | Omit = omit,
         sources: SequenceNotStr[str] | Omit = omit,
+        idempotency_key: str | Omit = omit,
         # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
         # The extra values given here take precedence over values defined on the client or passed to this method.
         extra_headers: Headers | None = None,
@@ -667,6 +668,7 @@ class IdentitiesResource(SyncAPIResource):
             team_id = self._client._get_team_id_path_param()
         if not team_id:
             raise ValueError(f"Expected a non-empty value for `team_id` but received {team_id!r}")
+        extra_headers = {**strip_not_given({"Idempotency-Key": idempotency_key}), **(extra_headers or {})}
         return self._post(
             path_template("/v2/prism/{team_id}/identity/query", team_id=team_id),
             body=maybe_transform(
@@ -1387,6 +1389,7 @@ class AsyncIdentitiesResource(AsyncAPIResource):
         deleted: bool | Omit = omit,
         include_total: bool | Omit = omit,
         sources: SequenceNotStr[str] | Omit = omit,
+        idempotency_key: str | Omit = omit,
         # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
         # The extra values given here take precedence over values defined on the client or passed to this method.
         extra_headers: Headers | None = None,
@@ -1417,6 +1420,7 @@ class AsyncIdentitiesResource(AsyncAPIResource):
             team_id = self._client._get_team_id_path_param()
         if not team_id:
             raise ValueError(f"Expected a non-empty value for `team_id` but received {team_id!r}")
+        extra_headers = {**strip_not_given({"Idempotency-Key": idempotency_key}), **(extra_headers or {})}
         return await self._post(
             path_template("/v2/prism/{team_id}/identity/query", team_id=team_id),
             body=await async_maybe_transform(
