@@ -2,6 +2,14 @@
 
 from __future__ import annotations
 
+from .lists import (
+    ListsResource,
+    AsyncListsResource,
+    ListsResourceWithRawResponse,
+    AsyncListsResourceWithRawResponse,
+    ListsResourceWithStreamingResponse,
+    AsyncListsResourceWithStreamingResponse,
+)
 from .imports import (
     ImportsResource,
     AsyncImportsResource,
@@ -38,6 +46,10 @@ class PrismResource(SyncAPIResource):
         return PropertiesResource(self._client)
 
     @cached_property
+    def lists(self) -> ListsResource:
+        return ListsResource(self._client)
+
+    @cached_property
     def imports(self) -> ImportsResource:
         return ImportsResource(self._client)
 
@@ -69,6 +81,10 @@ class AsyncPrismResource(AsyncAPIResource):
     @cached_property
     def properties(self) -> AsyncPropertiesResource:
         return AsyncPropertiesResource(self._client)
+
+    @cached_property
+    def lists(self) -> AsyncListsResource:
+        return AsyncListsResource(self._client)
 
     @cached_property
     def imports(self) -> AsyncImportsResource:
@@ -107,6 +123,10 @@ class PrismResourceWithRawResponse:
         return PropertiesResourceWithRawResponse(self._prism.properties)
 
     @cached_property
+    def lists(self) -> ListsResourceWithRawResponse:
+        return ListsResourceWithRawResponse(self._prism.lists)
+
+    @cached_property
     def imports(self) -> ImportsResourceWithRawResponse:
         return ImportsResourceWithRawResponse(self._prism.imports)
 
@@ -122,6 +142,10 @@ class AsyncPrismResourceWithRawResponse:
     @cached_property
     def properties(self) -> AsyncPropertiesResourceWithRawResponse:
         return AsyncPropertiesResourceWithRawResponse(self._prism.properties)
+
+    @cached_property
+    def lists(self) -> AsyncListsResourceWithRawResponse:
+        return AsyncListsResourceWithRawResponse(self._prism.lists)
 
     @cached_property
     def imports(self) -> AsyncImportsResourceWithRawResponse:
@@ -141,6 +165,10 @@ class PrismResourceWithStreamingResponse:
         return PropertiesResourceWithStreamingResponse(self._prism.properties)
 
     @cached_property
+    def lists(self) -> ListsResourceWithStreamingResponse:
+        return ListsResourceWithStreamingResponse(self._prism.lists)
+
+    @cached_property
     def imports(self) -> ImportsResourceWithStreamingResponse:
         return ImportsResourceWithStreamingResponse(self._prism.imports)
 
@@ -156,6 +184,10 @@ class AsyncPrismResourceWithStreamingResponse:
     @cached_property
     def properties(self) -> AsyncPropertiesResourceWithStreamingResponse:
         return AsyncPropertiesResourceWithStreamingResponse(self._prism.properties)
+
+    @cached_property
+    def lists(self) -> AsyncListsResourceWithStreamingResponse:
+        return AsyncListsResourceWithStreamingResponse(self._prism.lists)
 
     @cached_property
     def imports(self) -> AsyncImportsResourceWithStreamingResponse:

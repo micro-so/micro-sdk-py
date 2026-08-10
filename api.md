@@ -46,6 +46,20 @@ Methods:
 - <code title="patch /v2/prism/{teamId}/{objectType}/properties/{propertyId}/options/{optionId}">client.prism.properties.options.<a href="./src/micro_so/resources/prism/properties/options.py">update</a>(option_id, \*, team_id, object_type, property_id, \*\*<a href="src/micro_so/types/prism/properties/option_update_params.py">params</a>) -> <a href="./src/micro_so/types/prism/properties/property_option.py">PropertyOption</a></code>
 - <code title="delete /v2/prism/{teamId}/{objectType}/properties/{propertyId}/options/{optionId}">client.prism.properties.options.<a href="./src/micro_so/resources/prism/properties/options.py">delete</a>(option_id, \*, team_id, object_type, property_id, \*\*<a href="src/micro_so/types/prism/properties/option_delete_params.py">params</a>) -> None</code>
 
+## Lists
+
+Types:
+
+```python
+from micro_so.types.prism import List, ListCreate, ListListResponse
+```
+
+Methods:
+
+- <code title="post /v2/prism/{teamId}/lists">client.prism.lists.<a href="./src/micro_so/resources/prism/lists.py">create</a>(\*, team_id, \*\*<a href="src/micro_so/types/prism/list_create_params.py">params</a>) -> <a href="./src/micro_so/types/prism/list.py">List</a></code>
+- <code title="get /v2/prism/{teamId}/lists">client.prism.lists.<a href="./src/micro_so/resources/prism/lists.py">list</a>(\*, team_id) -> <a href="./src/micro_so/types/prism/list_list_response.py">ListListResponse</a></code>
+- <code title="get /v2/prism/{teamId}/lists/{listId}">client.prism.lists.<a href="./src/micro_so/resources/prism/lists.py">get</a>(list_id, \*, team_id) -> <a href="./src/micro_so/types/prism/list.py">List</a></code>
+
 ## Imports
 
 Types:
