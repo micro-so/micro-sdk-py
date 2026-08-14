@@ -18,9 +18,9 @@ from ....._response import (
     async_to_streamed_response_wrapper,
 )
 from ....._base_client import make_request_options
-from .....types.prism.objects.deals import grant_update_params
-from .....types.prism.objects.deals.grant_get_response import GrantGetResponse
-from .....types.prism.objects.deals.grant_update_response import GrantUpdateResponse
+from .....types.prism.objects.messages import grant_update_params
+from .....types.prism.objects.messages.grant_get_response import GrantGetResponse
+from .....types.prism.objects.messages.grant_update_response import GrantUpdateResponse
 
 __all__ = ["GrantResource", "AsyncGrantResource"]
 
@@ -47,7 +47,7 @@ class GrantResource(SyncAPIResource):
 
     def update(
         self,
-        deal_id: str,
+        message_id: str,
         *,
         path_team_id: str | None = None,
         share_level: Literal["metadata", "full"] | Omit = omit,
@@ -84,11 +84,13 @@ class GrantResource(SyncAPIResource):
             path_team_id = self._client._get_team_id_path_param()
         if not path_team_id:
             raise ValueError(f"Expected a non-empty value for `path_team_id` but received {path_team_id!r}")
-        if not deal_id:
-            raise ValueError(f"Expected a non-empty value for `deal_id` but received {deal_id!r}")
+        if not message_id:
+            raise ValueError(f"Expected a non-empty value for `message_id` but received {message_id!r}")
         extra_headers = {**strip_not_given({"Idempotency-Key": idempotency_key}), **(extra_headers or {})}
         return self._put(
-            path_template("/v2/prism/{path_team_id}/deal/{deal_id}/grant", path_team_id=path_team_id, deal_id=deal_id),
+            path_template(
+                "/v2/prism/{path_team_id}/message/{message_id}/grant", path_team_id=path_team_id, message_id=message_id
+            ),
             body=maybe_transform(
                 {
                     "share_level": share_level,
@@ -106,7 +108,7 @@ class GrantResource(SyncAPIResource):
 
     def get(
         self,
-        deal_id: str,
+        message_id: str,
         *,
         team_id: str | None = None,
         # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
@@ -132,10 +134,10 @@ class GrantResource(SyncAPIResource):
             team_id = self._client._get_team_id_path_param()
         if not team_id:
             raise ValueError(f"Expected a non-empty value for `team_id` but received {team_id!r}")
-        if not deal_id:
-            raise ValueError(f"Expected a non-empty value for `deal_id` but received {deal_id!r}")
+        if not message_id:
+            raise ValueError(f"Expected a non-empty value for `message_id` but received {message_id!r}")
         return self._get(
-            path_template("/v2/prism/{team_id}/deal/{deal_id}/grant", team_id=team_id, deal_id=deal_id),
+            path_template("/v2/prism/{team_id}/message/{message_id}/grant", team_id=team_id, message_id=message_id),
             options=make_request_options(
                 extra_headers=extra_headers, extra_query=extra_query, extra_body=extra_body, timeout=timeout
             ),
@@ -165,7 +167,7 @@ class AsyncGrantResource(AsyncAPIResource):
 
     async def update(
         self,
-        deal_id: str,
+        message_id: str,
         *,
         path_team_id: str | None = None,
         share_level: Literal["metadata", "full"] | Omit = omit,
@@ -202,11 +204,13 @@ class AsyncGrantResource(AsyncAPIResource):
             path_team_id = self._client._get_team_id_path_param()
         if not path_team_id:
             raise ValueError(f"Expected a non-empty value for `path_team_id` but received {path_team_id!r}")
-        if not deal_id:
-            raise ValueError(f"Expected a non-empty value for `deal_id` but received {deal_id!r}")
+        if not message_id:
+            raise ValueError(f"Expected a non-empty value for `message_id` but received {message_id!r}")
         extra_headers = {**strip_not_given({"Idempotency-Key": idempotency_key}), **(extra_headers or {})}
         return await self._put(
-            path_template("/v2/prism/{path_team_id}/deal/{deal_id}/grant", path_team_id=path_team_id, deal_id=deal_id),
+            path_template(
+                "/v2/prism/{path_team_id}/message/{message_id}/grant", path_team_id=path_team_id, message_id=message_id
+            ),
             body=await async_maybe_transform(
                 {
                     "share_level": share_level,
@@ -224,7 +228,7 @@ class AsyncGrantResource(AsyncAPIResource):
 
     async def get(
         self,
-        deal_id: str,
+        message_id: str,
         *,
         team_id: str | None = None,
         # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
@@ -250,10 +254,10 @@ class AsyncGrantResource(AsyncAPIResource):
             team_id = self._client._get_team_id_path_param()
         if not team_id:
             raise ValueError(f"Expected a non-empty value for `team_id` but received {team_id!r}")
-        if not deal_id:
-            raise ValueError(f"Expected a non-empty value for `deal_id` but received {deal_id!r}")
+        if not message_id:
+            raise ValueError(f"Expected a non-empty value for `message_id` but received {message_id!r}")
         return await self._get(
-            path_template("/v2/prism/{team_id}/deal/{deal_id}/grant", team_id=team_id, deal_id=deal_id),
+            path_template("/v2/prism/{team_id}/message/{message_id}/grant", team_id=team_id, message_id=message_id),
             options=make_request_options(
                 extra_headers=extra_headers, extra_query=extra_query, extra_body=extra_body, timeout=timeout
             ),

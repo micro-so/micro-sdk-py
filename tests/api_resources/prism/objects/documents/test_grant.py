@@ -30,6 +30,7 @@ class TestGrant:
     def test_method_update_with_all_params(self, client: Micro) -> None:
         grant = client.prism.objects.documents.grant.update(
             document_id="182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
+            share_level="metadata",
             team_group_id=[{"foo": "a"}],
             body_team_id={"foo": "a"},
             user_id=[{"foo": "a"}],
@@ -132,6 +133,7 @@ class TestAsyncGrant:
     async def test_method_update_with_all_params(self, async_client: AsyncMicro) -> None:
         grant = await async_client.prism.objects.documents.grant.update(
             document_id="182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
+            share_level="metadata",
             team_group_id=[{"foo": "a"}],
             body_team_id={"foo": "a"},
             user_id=[{"foo": "a"}],

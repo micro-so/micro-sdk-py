@@ -52,6 +52,14 @@ from .actions.actions import (
     ActionsResourceWithStreamingResponse,
     AsyncActionsResourceWithStreamingResponse,
 )
+from .messages.messages import (
+    MessagesResource,
+    AsyncMessagesResource,
+    MessagesResourceWithRawResponse,
+    AsyncMessagesResourceWithRawResponse,
+    MessagesResourceWithStreamingResponse,
+    AsyncMessagesResourceWithStreamingResponse,
+)
 from .documents.documents import (
     DocumentsResource,
     AsyncDocumentsResource,
@@ -106,6 +114,10 @@ class ObjectsResource(SyncAPIResource):
         return EngagementsResource(self._client)
 
     @cached_property
+    def messages(self) -> MessagesResource:
+        return MessagesResource(self._client)
+
+    @cached_property
     def with_raw_response(self) -> ObjectsResourceWithRawResponse:
         """
         This property can be used as a prefix for any HTTP method call to return
@@ -157,6 +169,10 @@ class AsyncObjectsResource(AsyncAPIResource):
     @cached_property
     def engagements(self) -> AsyncEngagementsResource:
         return AsyncEngagementsResource(self._client)
+
+    @cached_property
+    def messages(self) -> AsyncMessagesResource:
+        return AsyncMessagesResource(self._client)
 
     @cached_property
     def with_raw_response(self) -> AsyncObjectsResourceWithRawResponse:
@@ -214,6 +230,10 @@ class ObjectsResourceWithRawResponse:
     def engagements(self) -> EngagementsResourceWithRawResponse:
         return EngagementsResourceWithRawResponse(self._objects.engagements)
 
+    @cached_property
+    def messages(self) -> MessagesResourceWithRawResponse:
+        return MessagesResourceWithRawResponse(self._objects.messages)
+
 
 class AsyncObjectsResourceWithRawResponse:
     def __init__(self, objects: AsyncObjectsResource) -> None:
@@ -250,6 +270,10 @@ class AsyncObjectsResourceWithRawResponse:
     @cached_property
     def engagements(self) -> AsyncEngagementsResourceWithRawResponse:
         return AsyncEngagementsResourceWithRawResponse(self._objects.engagements)
+
+    @cached_property
+    def messages(self) -> AsyncMessagesResourceWithRawResponse:
+        return AsyncMessagesResourceWithRawResponse(self._objects.messages)
 
 
 class ObjectsResourceWithStreamingResponse:
@@ -288,6 +312,10 @@ class ObjectsResourceWithStreamingResponse:
     def engagements(self) -> EngagementsResourceWithStreamingResponse:
         return EngagementsResourceWithStreamingResponse(self._objects.engagements)
 
+    @cached_property
+    def messages(self) -> MessagesResourceWithStreamingResponse:
+        return MessagesResourceWithStreamingResponse(self._objects.messages)
+
 
 class AsyncObjectsResourceWithStreamingResponse:
     def __init__(self, objects: AsyncObjectsResource) -> None:
@@ -324,3 +352,7 @@ class AsyncObjectsResourceWithStreamingResponse:
     @cached_property
     def engagements(self) -> AsyncEngagementsResourceWithStreamingResponse:
         return AsyncEngagementsResourceWithStreamingResponse(self._objects.engagements)
+
+    @cached_property
+    def messages(self) -> AsyncMessagesResourceWithStreamingResponse:
+        return AsyncMessagesResourceWithStreamingResponse(self._objects.messages)

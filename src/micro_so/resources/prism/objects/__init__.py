@@ -40,6 +40,14 @@ from .contacts import (
     ContactsResourceWithStreamingResponse,
     AsyncContactsResourceWithStreamingResponse,
 )
+from .messages import (
+    MessagesResource,
+    AsyncMessagesResource,
+    MessagesResourceWithRawResponse,
+    AsyncMessagesResourceWithRawResponse,
+    MessagesResourceWithStreamingResponse,
+    AsyncMessagesResourceWithStreamingResponse,
+)
 from .documents import (
     DocumentsResource,
     AsyncDocumentsResource,
@@ -122,6 +130,12 @@ __all__ = [
     "AsyncEngagementsResourceWithRawResponse",
     "EngagementsResourceWithStreamingResponse",
     "AsyncEngagementsResourceWithStreamingResponse",
+    "MessagesResource",
+    "AsyncMessagesResource",
+    "MessagesResourceWithRawResponse",
+    "AsyncMessagesResourceWithRawResponse",
+    "MessagesResourceWithStreamingResponse",
+    "AsyncMessagesResourceWithStreamingResponse",
     "ObjectsResource",
     "AsyncObjectsResource",
     "ObjectsResourceWithRawResponse",

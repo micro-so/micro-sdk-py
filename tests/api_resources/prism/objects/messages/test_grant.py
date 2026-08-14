@@ -9,7 +9,7 @@ import pytest
 
 from micro_so import Micro, AsyncMicro
 from tests.utils import assert_matches_type
-from micro_so.types.prism.objects.events import GrantGetResponse, GrantUpdateResponse
+from micro_so.types.prism.objects.messages import GrantGetResponse, GrantUpdateResponse
 
 base_url = os.environ.get("TEST_API_BASE_URL", "http://127.0.0.1:4010")
 
@@ -20,16 +20,16 @@ class TestGrant:
     @pytest.mark.skip(reason="Mock server tests are disabled")
     @parametrize
     def test_method_update(self, client: Micro) -> None:
-        grant = client.prism.objects.events.grant.update(
-            event_id="182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
+        grant = client.prism.objects.messages.grant.update(
+            message_id="182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
         )
         assert_matches_type(GrantUpdateResponse, grant, path=["response"])
 
     @pytest.mark.skip(reason="Mock server tests are disabled")
     @parametrize
     def test_method_update_with_all_params(self, client: Micro) -> None:
-        grant = client.prism.objects.events.grant.update(
-            event_id="182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
+        grant = client.prism.objects.messages.grant.update(
+            message_id="182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
             share_level="metadata",
             team_group_id=[{"foo": "a"}],
             body_team_id={"foo": "a"},
@@ -41,8 +41,8 @@ class TestGrant:
     @pytest.mark.skip(reason="Mock server tests are disabled")
     @parametrize
     def test_raw_response_update(self, client: Micro) -> None:
-        response = client.prism.objects.events.grant.with_raw_response.update(
-            event_id="182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
+        response = client.prism.objects.messages.grant.with_raw_response.update(
+            message_id="182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
         )
 
         assert response.is_closed is True
@@ -53,8 +53,8 @@ class TestGrant:
     @pytest.mark.skip(reason="Mock server tests are disabled")
     @parametrize
     def test_streaming_response_update(self, client: Micro) -> None:
-        with client.prism.objects.events.grant.with_streaming_response.update(
-            event_id="182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
+        with client.prism.objects.messages.grant.with_streaming_response.update(
+            message_id="182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
         ) as response:
             assert not response.is_closed
             assert response.http_request.headers.get("X-Stainless-Lang") == "python"
@@ -67,24 +67,24 @@ class TestGrant:
     @pytest.mark.skip(reason="Mock server tests are disabled")
     @parametrize
     def test_path_params_update(self, client: Micro) -> None:
-        with pytest.raises(ValueError, match=r"Expected a non-empty value for `event_id` but received ''"):
-            client.prism.objects.events.grant.with_raw_response.update(
-                event_id="",
+        with pytest.raises(ValueError, match=r"Expected a non-empty value for `message_id` but received ''"):
+            client.prism.objects.messages.grant.with_raw_response.update(
+                message_id="",
             )
 
     @pytest.mark.skip(reason="Mock server tests are disabled")
     @parametrize
     def test_method_get(self, client: Micro) -> None:
-        grant = client.prism.objects.events.grant.get(
-            event_id="182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
+        grant = client.prism.objects.messages.grant.get(
+            message_id="182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
         )
         assert_matches_type(GrantGetResponse, grant, path=["response"])
 
     @pytest.mark.skip(reason="Mock server tests are disabled")
     @parametrize
     def test_raw_response_get(self, client: Micro) -> None:
-        response = client.prism.objects.events.grant.with_raw_response.get(
-            event_id="182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
+        response = client.prism.objects.messages.grant.with_raw_response.get(
+            message_id="182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
         )
 
         assert response.is_closed is True
@@ -95,8 +95,8 @@ class TestGrant:
     @pytest.mark.skip(reason="Mock server tests are disabled")
     @parametrize
     def test_streaming_response_get(self, client: Micro) -> None:
-        with client.prism.objects.events.grant.with_streaming_response.get(
-            event_id="182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
+        with client.prism.objects.messages.grant.with_streaming_response.get(
+            message_id="182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
         ) as response:
             assert not response.is_closed
             assert response.http_request.headers.get("X-Stainless-Lang") == "python"
@@ -109,9 +109,9 @@ class TestGrant:
     @pytest.mark.skip(reason="Mock server tests are disabled")
     @parametrize
     def test_path_params_get(self, client: Micro) -> None:
-        with pytest.raises(ValueError, match=r"Expected a non-empty value for `event_id` but received ''"):
-            client.prism.objects.events.grant.with_raw_response.get(
-                event_id="",
+        with pytest.raises(ValueError, match=r"Expected a non-empty value for `message_id` but received ''"):
+            client.prism.objects.messages.grant.with_raw_response.get(
+                message_id="",
             )
 
 
@@ -123,16 +123,16 @@ class TestAsyncGrant:
     @pytest.mark.skip(reason="Mock server tests are disabled")
     @parametrize
     async def test_method_update(self, async_client: AsyncMicro) -> None:
-        grant = await async_client.prism.objects.events.grant.update(
-            event_id="182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
+        grant = await async_client.prism.objects.messages.grant.update(
+            message_id="182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
         )
         assert_matches_type(GrantUpdateResponse, grant, path=["response"])
 
     @pytest.mark.skip(reason="Mock server tests are disabled")
     @parametrize
     async def test_method_update_with_all_params(self, async_client: AsyncMicro) -> None:
-        grant = await async_client.prism.objects.events.grant.update(
-            event_id="182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
+        grant = await async_client.prism.objects.messages.grant.update(
+            message_id="182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
             share_level="metadata",
             team_group_id=[{"foo": "a"}],
             body_team_id={"foo": "a"},
@@ -144,8 +144,8 @@ class TestAsyncGrant:
     @pytest.mark.skip(reason="Mock server tests are disabled")
     @parametrize
     async def test_raw_response_update(self, async_client: AsyncMicro) -> None:
-        response = await async_client.prism.objects.events.grant.with_raw_response.update(
-            event_id="182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
+        response = await async_client.prism.objects.messages.grant.with_raw_response.update(
+            message_id="182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
         )
 
         assert response.is_closed is True
@@ -156,8 +156,8 @@ class TestAsyncGrant:
     @pytest.mark.skip(reason="Mock server tests are disabled")
     @parametrize
     async def test_streaming_response_update(self, async_client: AsyncMicro) -> None:
-        async with async_client.prism.objects.events.grant.with_streaming_response.update(
-            event_id="182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
+        async with async_client.prism.objects.messages.grant.with_streaming_response.update(
+            message_id="182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
         ) as response:
             assert not response.is_closed
             assert response.http_request.headers.get("X-Stainless-Lang") == "python"
@@ -170,24 +170,24 @@ class TestAsyncGrant:
     @pytest.mark.skip(reason="Mock server tests are disabled")
     @parametrize
     async def test_path_params_update(self, async_client: AsyncMicro) -> None:
-        with pytest.raises(ValueError, match=r"Expected a non-empty value for `event_id` but received ''"):
-            await async_client.prism.objects.events.grant.with_raw_response.update(
-                event_id="",
+        with pytest.raises(ValueError, match=r"Expected a non-empty value for `message_id` but received ''"):
+            await async_client.prism.objects.messages.grant.with_raw_response.update(
+                message_id="",
             )
 
     @pytest.mark.skip(reason="Mock server tests are disabled")
     @parametrize
     async def test_method_get(self, async_client: AsyncMicro) -> None:
-        grant = await async_client.prism.objects.events.grant.get(
-            event_id="182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
+        grant = await async_client.prism.objects.messages.grant.get(
+            message_id="182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
         )
         assert_matches_type(GrantGetResponse, grant, path=["response"])
 
     @pytest.mark.skip(reason="Mock server tests are disabled")
     @parametrize
     async def test_raw_response_get(self, async_client: AsyncMicro) -> None:
-        response = await async_client.prism.objects.events.grant.with_raw_response.get(
-            event_id="182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
+        response = await async_client.prism.objects.messages.grant.with_raw_response.get(
+            message_id="182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
         )
 
         assert response.is_closed is True
@@ -198,8 +198,8 @@ class TestAsyncGrant:
     @pytest.mark.skip(reason="Mock server tests are disabled")
     @parametrize
     async def test_streaming_response_get(self, async_client: AsyncMicro) -> None:
-        async with async_client.prism.objects.events.grant.with_streaming_response.get(
-            event_id="182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
+        async with async_client.prism.objects.messages.grant.with_streaming_response.get(
+            message_id="182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
         ) as response:
             assert not response.is_closed
             assert response.http_request.headers.get("X-Stainless-Lang") == "python"
@@ -212,7 +212,7 @@ class TestAsyncGrant:
     @pytest.mark.skip(reason="Mock server tests are disabled")
     @parametrize
     async def test_path_params_get(self, async_client: AsyncMicro) -> None:
-        with pytest.raises(ValueError, match=r"Expected a non-empty value for `event_id` but received ''"):
-            await async_client.prism.objects.events.grant.with_raw_response.get(
-                event_id="",
+        with pytest.raises(ValueError, match=r"Expected a non-empty value for `message_id` but received ''"):
+            await async_client.prism.objects.messages.grant.with_raw_response.get(
+                message_id="",
             )

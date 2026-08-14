@@ -50,6 +50,7 @@ class GrantResource(SyncAPIResource):
         engagement_id: str,
         *,
         path_team_id: str | None = None,
+        share_level: Literal["metadata", "full"] | Omit = omit,
         team_group_id: Iterable[Dict[str, Literal["a", "r", "w"]]] | Omit = omit,
         body_team_id: Dict[str, Literal["a", "r", "w"]] | Omit = omit,
         user_id: Iterable[Dict[str, Literal["a", "r", "w"]]] | Omit = omit,
@@ -61,10 +62,16 @@ class GrantResource(SyncAPIResource):
         extra_body: Body | None = None,
         timeout: float | httpx.Timeout | None | NotGiven = not_given,
     ) -> GrantUpdateResponse:
-        """
-        Update grant
+        """Update grant
 
         Args:
+          share_level: How much of the record the grant exposes.
+
+        `metadata` shares only the record's
+              headers and participants; `full` shares its contents. Currently recorded on the
+              access row and returned on read — it is not yet enforced by the read path.
+              Applies to `message` grants; ignored for other object types.
+
           extra_headers: Send extra headers
 
           extra_query: Add additional query parameters to the request
@@ -88,6 +95,7 @@ class GrantResource(SyncAPIResource):
             ),
             body=maybe_transform(
                 {
+                    "share_level": share_level,
                     "team_group_id": team_group_id,
                     "body_team_id": body_team_id,
                     "user_id": user_id,
@@ -166,6 +174,7 @@ class AsyncGrantResource(AsyncAPIResource):
         engagement_id: str,
         *,
         path_team_id: str | None = None,
+        share_level: Literal["metadata", "full"] | Omit = omit,
         team_group_id: Iterable[Dict[str, Literal["a", "r", "w"]]] | Omit = omit,
         body_team_id: Dict[str, Literal["a", "r", "w"]] | Omit = omit,
         user_id: Iterable[Dict[str, Literal["a", "r", "w"]]] | Omit = omit,
@@ -177,10 +186,16 @@ class AsyncGrantResource(AsyncAPIResource):
         extra_body: Body | None = None,
         timeout: float | httpx.Timeout | None | NotGiven = not_given,
     ) -> GrantUpdateResponse:
-        """
-        Update grant
+        """Update grant
 
         Args:
+          share_level: How much of the record the grant exposes.
+
+        `metadata` shares only the record's
+              headers and participants; `full` shares its contents. Currently recorded on the
+              access row and returned on read — it is not yet enforced by the read path.
+              Applies to `message` grants; ignored for other object types.
+
           extra_headers: Send extra headers
 
           extra_query: Add additional query parameters to the request
@@ -204,6 +219,7 @@ class AsyncGrantResource(AsyncAPIResource):
             ),
             body=await async_maybe_transform(
                 {
+                    "share_level": share_level,
                     "team_group_id": team_group_id,
                     "body_team_id": body_team_id,
                     "user_id": user_id,

@@ -453,6 +453,21 @@ Methods:
 - <code title="put /v2/prism/{teamId}/engagement/{engagementId}/grant">client.prism.objects.engagements.grant.<a href="./src/micro_so/resources/prism/objects/engagements/grant.py">update</a>(engagement_id, \*, path_team_id, \*\*<a href="src/micro_so/types/prism/objects/engagements/grant_update_params.py">params</a>) -> <a href="./src/micro_so/types/prism/objects/engagements/grant_update_response.py">GrantUpdateResponse</a></code>
 - <code title="get /v2/prism/{teamId}/engagement/{engagementId}/grant">client.prism.objects.engagements.grant.<a href="./src/micro_so/resources/prism/objects/engagements/grant.py">get</a>(engagement_id, \*, team_id) -> <a href="./src/micro_so/types/prism/objects/engagements/grant_get_response.py">GrantGetResponse</a></code>
 
+### Messages
+
+#### Grant
+
+Types:
+
+```python
+from micro_so.types.prism.objects.messages import GrantUpdateResponse, GrantGetResponse
+```
+
+Methods:
+
+- <code title="put /v2/prism/{teamId}/message/{messageId}/grant">client.prism.objects.messages.grant.<a href="./src/micro_so/resources/prism/objects/messages/grant.py">update</a>(message_id, \*, path_team_id, \*\*<a href="src/micro_so/types/prism/objects/messages/grant_update_params.py">params</a>) -> <a href="./src/micro_so/types/prism/objects/messages/grant_update_response.py">GrantUpdateResponse</a></code>
+- <code title="get /v2/prism/{teamId}/message/{messageId}/grant">client.prism.objects.messages.grant.<a href="./src/micro_so/resources/prism/objects/messages/grant.py">get</a>(message_id, \*, team_id) -> <a href="./src/micro_so/types/prism/objects/messages/grant_get_response.py">GrantGetResponse</a></code>
+
 # Views
 
 Types:
