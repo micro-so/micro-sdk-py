@@ -41,8 +41,10 @@ class DocumentQueryResponse(BaseModel):
     next_cursor: Optional[str] = None
     """Opaque cursor pointing at the next page.
 
-    Pass it back unchanged in the request body (`cursor`) of the next call. Null
-    when `has_more` is false.
+    Pass it back unchanged. Do not parse it. The current encoding is offset-based
+    (page + limit), so it has the same concurrent-write drift the deprecated `page`
+    parameter has; treat it as a black box so a future keyset cursor is a drop-in.
+    Null when `has_more` is false.
     """
 
     total: Optional[int] = None

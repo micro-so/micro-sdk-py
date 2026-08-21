@@ -150,6 +150,12 @@ class PropertiesResource(SyncAPIResource):
         choices via `options`.
 
         Args:
+          object_type: Object types that support CRUD, query, list, and per-type property metadata.
+              `GET /v2/prism/{teamId}/properties` (list-all) also returns definitions for
+              pipeline-owned types that are not in this set — including `message`, `thread`,
+              and `linkedin_thread`. Those types are not queryable. Contacts expose
+              `last_email` as a `ref_message`; you cannot query `message` to follow it.
+
           name: Human-readable name, unique within the scope the definition is created in. A
               name already taken in that scope returns 409; the message names the existing
               definition's id, slug and type so you can write to it instead.
@@ -290,6 +296,12 @@ class PropertiesResource(SyncAPIResource):
         the body so the server knows which per-type table to write.
 
         Args:
+          object_type: Object types that support CRUD, query, list, and per-type property metadata.
+              `GET /v2/prism/{teamId}/properties` (list-all) also returns definitions for
+              pipeline-owned types that are not in this set — including `message`, `thread`,
+              and `linkedin_thread`. Those types are not queryable. Contacts expose
+              `last_email` as a `ref_message`; you cannot query `message` to follow it.
+
           type: Storage type for a property definition. Determines which per-type table holds
               the values, and which display formats the property can take.
 
@@ -367,6 +379,12 @@ class PropertiesResource(SyncAPIResource):
         Get metadata properties by object type
 
         Args:
+          object_type: Object types that support CRUD, query, list, and per-type property metadata.
+              `GET /v2/prism/{teamId}/properties` (list-all) also returns definitions for
+              pipeline-owned types that are not in this set — including `message`, `thread`,
+              and `linkedin_thread`. Those types are not queryable. Contacts expose
+              `last_email` as a `ref_message`; you cannot query `message` to follow it.
+
           include_options: When false, return property definitions without hydrating select/multiselect
               option rows. Defaults to true server-side (parseIncludeOptions). Accepts boolean
               or query-string forms (true/false/0/1). Uses anyOf (not oneOf) so qs/AJV
@@ -487,6 +505,12 @@ class PropertiesResource(SyncAPIResource):
         `property_in_use` if records still reference the property.
 
         Args:
+          object_type: Object types that support CRUD, query, list, and per-type property metadata.
+              `GET /v2/prism/{teamId}/properties` (list-all) also returns definitions for
+              pipeline-owned types that are not in this set — including `message`, `thread`,
+              and `linkedin_thread`. Those types are not queryable. Contacts expose
+              `last_email` as a `ref_message`; you cannot query `message` to follow it.
+
           type: Storage type of this property definition.
 
           extra_headers: Send extra headers
@@ -545,7 +569,11 @@ class PropertiesResource(SyncAPIResource):
         timeout: float | httpx.Timeout | None | NotGiven = not_given,
     ) -> PropertyListAllResponse:
         """
-        Get metadata properties
+        Lists property definitions across every object type the engine knows about,
+        including pipeline-owned types that are not queryable or CRUD-capable
+        (`message`, `thread`, `linkedin_thread`, and others). Only the `ObjectType` enum
+        (12 types) can be queried, created, updated, or listed. Contacts point at
+        `message` via `last_email`; that relationship cannot be followed with `/query`.
 
         Args:
           include_options: When false, return property definitions without hydrating select/multiselect
@@ -705,6 +733,12 @@ class AsyncPropertiesResource(AsyncAPIResource):
         choices via `options`.
 
         Args:
+          object_type: Object types that support CRUD, query, list, and per-type property metadata.
+              `GET /v2/prism/{teamId}/properties` (list-all) also returns definitions for
+              pipeline-owned types that are not in this set — including `message`, `thread`,
+              and `linkedin_thread`. Those types are not queryable. Contacts expose
+              `last_email` as a `ref_message`; you cannot query `message` to follow it.
+
           name: Human-readable name, unique within the scope the definition is created in. A
               name already taken in that scope returns 409; the message names the existing
               definition's id, slug and type so you can write to it instead.
@@ -845,6 +879,12 @@ class AsyncPropertiesResource(AsyncAPIResource):
         the body so the server knows which per-type table to write.
 
         Args:
+          object_type: Object types that support CRUD, query, list, and per-type property metadata.
+              `GET /v2/prism/{teamId}/properties` (list-all) also returns definitions for
+              pipeline-owned types that are not in this set — including `message`, `thread`,
+              and `linkedin_thread`. Those types are not queryable. Contacts expose
+              `last_email` as a `ref_message`; you cannot query `message` to follow it.
+
           type: Storage type for a property definition. Determines which per-type table holds
               the values, and which display formats the property can take.
 
@@ -922,6 +962,12 @@ class AsyncPropertiesResource(AsyncAPIResource):
         Get metadata properties by object type
 
         Args:
+          object_type: Object types that support CRUD, query, list, and per-type property metadata.
+              `GET /v2/prism/{teamId}/properties` (list-all) also returns definitions for
+              pipeline-owned types that are not in this set — including `message`, `thread`,
+              and `linkedin_thread`. Those types are not queryable. Contacts expose
+              `last_email` as a `ref_message`; you cannot query `message` to follow it.
+
           include_options: When false, return property definitions without hydrating select/multiselect
               option rows. Defaults to true server-side (parseIncludeOptions). Accepts boolean
               or query-string forms (true/false/0/1). Uses anyOf (not oneOf) so qs/AJV
@@ -1042,6 +1088,12 @@ class AsyncPropertiesResource(AsyncAPIResource):
         `property_in_use` if records still reference the property.
 
         Args:
+          object_type: Object types that support CRUD, query, list, and per-type property metadata.
+              `GET /v2/prism/{teamId}/properties` (list-all) also returns definitions for
+              pipeline-owned types that are not in this set — including `message`, `thread`,
+              and `linkedin_thread`. Those types are not queryable. Contacts expose
+              `last_email` as a `ref_message`; you cannot query `message` to follow it.
+
           type: Storage type of this property definition.
 
           extra_headers: Send extra headers
@@ -1100,7 +1152,11 @@ class AsyncPropertiesResource(AsyncAPIResource):
         timeout: float | httpx.Timeout | None | NotGiven = not_given,
     ) -> PropertyListAllResponse:
         """
-        Get metadata properties
+        Lists property definitions across every object type the engine knows about,
+        including pipeline-owned types that are not queryable or CRUD-capable
+        (`message`, `thread`, `linkedin_thread`, and others). Only the `ObjectType` enum
+        (12 types) can be queried, created, updated, or listed. Contacts point at
+        `message` via `last_email`; that relationship cannot be followed with `/query`.
 
         Args:
           include_options: When false, return property definitions without hydrating select/multiselect

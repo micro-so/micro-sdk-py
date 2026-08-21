@@ -31,6 +31,13 @@ class PropertyDeleteParams(TypedDict, total=False):
             PropertyInfo(alias="objectType"),
         ]
     ]
+    """Object types that support CRUD, query, list, and per-type property metadata.
+
+    `GET /v2/prism/{teamId}/properties` (list-all) also returns definitions for
+    pipeline-owned types that are not in this set — including `message`, `thread`,
+    and `linkedin_thread`. Those types are not queryable. Contacts expose
+    `last_email` as a `ref_message`; you cannot query `message` to follow it.
+    """
 
     type: Required[
         Literal[

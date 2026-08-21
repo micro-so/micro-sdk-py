@@ -124,6 +124,12 @@ class OptionsResource(SyncAPIResource):
         write.
 
         Args:
+          object_type: Object types that support CRUD, query, list, and per-type property metadata.
+              `GET /v2/prism/{teamId}/properties` (list-all) also returns definitions for
+              pipeline-owned types that are not in this set — including `message`, `thread`,
+              and `linkedin_thread`. Those types are not queryable. Contacts expose
+              `last_email` as a `ref_message`; you cannot query `message` to follow it.
+
           type: Storage type for a property definition. Determines which per-type table holds
               the values, and which display formats the property can take.
 
@@ -253,12 +259,17 @@ class OptionsResource(SyncAPIResource):
         extra_body: Body | None = None,
         timeout: float | httpx.Timeout | None | NotGiven = not_given,
     ) -> PropertyOption:
-        """Update a property option
+        """
+        Update a property option
 
         Args:
-          type: Storage type for a property definition.
+          object_type: Object types that support CRUD, query, list, and per-type property metadata.
+              `GET /v2/prism/{teamId}/properties` (list-all) also returns definitions for
+              pipeline-owned types that are not in this set — including `message`, `thread`,
+              and `linkedin_thread`. Those types are not queryable. Contacts expose
+              `last_email` as a `ref_message`; you cannot query `message` to follow it.
 
-        Determines which per-type table holds
+          type: Storage type for a property definition. Determines which per-type table holds
               the values, and which display formats the property can take.
 
           extra_headers: Send extra headers
@@ -376,12 +387,17 @@ class OptionsResource(SyncAPIResource):
         extra_body: Body | None = None,
         timeout: float | httpx.Timeout | None | NotGiven = not_given,
     ) -> None:
-        """Delete a property option
+        """
+        Delete a property option
 
         Args:
-          type: Storage type for a property definition.
+          object_type: Object types that support CRUD, query, list, and per-type property metadata.
+              `GET /v2/prism/{teamId}/properties` (list-all) also returns definitions for
+              pipeline-owned types that are not in this set — including `message`, `thread`,
+              and `linkedin_thread`. Those types are not queryable. Contacts expose
+              `last_email` as a `ref_message`; you cannot query `message` to follow it.
 
-        Determines which per-type table holds
+          type: Storage type for a property definition. Determines which per-type table holds
               the values, and which display formats the property can take.
 
           extra_headers: Send extra headers
@@ -528,6 +544,12 @@ class AsyncOptionsResource(AsyncAPIResource):
         write.
 
         Args:
+          object_type: Object types that support CRUD, query, list, and per-type property metadata.
+              `GET /v2/prism/{teamId}/properties` (list-all) also returns definitions for
+              pipeline-owned types that are not in this set — including `message`, `thread`,
+              and `linkedin_thread`. Those types are not queryable. Contacts expose
+              `last_email` as a `ref_message`; you cannot query `message` to follow it.
+
           type: Storage type for a property definition. Determines which per-type table holds
               the values, and which display formats the property can take.
 
@@ -657,12 +679,17 @@ class AsyncOptionsResource(AsyncAPIResource):
         extra_body: Body | None = None,
         timeout: float | httpx.Timeout | None | NotGiven = not_given,
     ) -> PropertyOption:
-        """Update a property option
+        """
+        Update a property option
 
         Args:
-          type: Storage type for a property definition.
+          object_type: Object types that support CRUD, query, list, and per-type property metadata.
+              `GET /v2/prism/{teamId}/properties` (list-all) also returns definitions for
+              pipeline-owned types that are not in this set — including `message`, `thread`,
+              and `linkedin_thread`. Those types are not queryable. Contacts expose
+              `last_email` as a `ref_message`; you cannot query `message` to follow it.
 
-        Determines which per-type table holds
+          type: Storage type for a property definition. Determines which per-type table holds
               the values, and which display formats the property can take.
 
           extra_headers: Send extra headers
@@ -780,12 +807,17 @@ class AsyncOptionsResource(AsyncAPIResource):
         extra_body: Body | None = None,
         timeout: float | httpx.Timeout | None | NotGiven = not_given,
     ) -> None:
-        """Delete a property option
+        """
+        Delete a property option
 
         Args:
-          type: Storage type for a property definition.
+          object_type: Object types that support CRUD, query, list, and per-type property metadata.
+              `GET /v2/prism/{teamId}/properties` (list-all) also returns definitions for
+              pipeline-owned types that are not in this set — including `message`, `thread`,
+              and `linkedin_thread`. Those types are not queryable. Contacts expose
+              `last_email` as a `ref_message`; you cannot query `message` to follow it.
 
-        Determines which per-type table holds
+          type: Storage type for a property definition. Determines which per-type table holds
               the values, and which display formats the property can take.
 
           extra_headers: Send extra headers
