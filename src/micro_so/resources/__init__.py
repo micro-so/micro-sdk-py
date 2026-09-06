@@ -8,6 +8,14 @@ from .prism import (
     PrismResourceWithStreamingResponse,
     AsyncPrismResourceWithStreamingResponse,
 )
+from .views import (
+    ViewsResource,
+    AsyncViewsResource,
+    ViewsResourceWithRawResponse,
+    AsyncViewsResourceWithRawResponse,
+    ViewsResourceWithStreamingResponse,
+    AsyncViewsResourceWithStreamingResponse,
+)
 from .triggered_automations import (
     TriggeredAutomationsResource,
     AsyncTriggeredAutomationsResource,
@@ -24,6 +32,12 @@ __all__ = [
     "AsyncPrismResourceWithRawResponse",
     "PrismResourceWithStreamingResponse",
     "AsyncPrismResourceWithStreamingResponse",
+    "ViewsResource",
+    "AsyncViewsResource",
+    "ViewsResourceWithRawResponse",
+    "AsyncViewsResourceWithRawResponse",
+    "ViewsResourceWithStreamingResponse",
+    "AsyncViewsResourceWithStreamingResponse",
     "TriggeredAutomationsResource",
     "AsyncTriggeredAutomationsResource",
     "TriggeredAutomationsResourceWithRawResponse",

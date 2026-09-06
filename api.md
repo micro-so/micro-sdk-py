@@ -417,14 +417,13 @@ Methods:
 Types:
 
 ```python
-from micro_so.types import ViewCreateResponse, ViewUpdateResponse, ViewListResponse, ViewGetResponse
+from micro_so.types import ViewCreateResponse, ViewUpdateResponse, ViewGetResponse
 ```
 
 Methods:
 
 - <code title="post /v2/prism/{teamId}/{viewObjectType}/views">client.views.<a href="./src/micro_so/resources/views/views.py">create</a>(view_object_type, \*, path_team_id, \*\*<a href="src/micro_so/types/view_create_params.py">params</a>) -> <a href="./src/micro_so/types/view_create_response.py">ViewCreateResponse</a></code>
 - <code title="patch /v2/prism/{teamId}/{viewObjectType}/views/{viewId}">client.views.<a href="./src/micro_so/resources/views/views.py">update</a>(view_id, \*, path_team_id, view_object_type, \*\*<a href="src/micro_so/types/view_update_params.py">params</a>) -> <a href="./src/micro_so/types/view_update_response.py">ViewUpdateResponse</a></code>
-- <code title="get /v2/prism/{teamId}/{viewObjectType}/views">client.views.<a href="./src/micro_so/resources/views/views.py">list</a>(view_object_type, \*, team_id, \*\*<a href="src/micro_so/types/view_list_params.py">params</a>) -> <a href="./src/micro_so/types/view_list_response.py">ViewListResponse</a></code>
 - <code title="delete /v2/prism/{teamId}/{viewObjectType}/views/{viewId}">client.views.<a href="./src/micro_so/resources/views/views.py">delete</a>(view_id, \*, team_id, view_object_type) -> None</code>
 - <code title="get /v2/prism/{teamId}/{viewObjectType}/views/{viewId}">client.views.<a href="./src/micro_so/resources/views/views.py">get</a>(view_id, \*, team_id, view_object_type, \*\*<a href="src/micro_so/types/view_get_params.py">params</a>) -> <a href="./src/micro_so/types/view_get_response.py">ViewGetResponse</a></code>
 
