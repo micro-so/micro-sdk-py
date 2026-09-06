@@ -1,5 +1,14 @@
 # Changelog
 
+## 0.9.0 (2026-09-06)
+
+Full Changelog: [v0.8.0...v0.9.0](https://github.com/micro-so/micro-sdk-py/compare/v0.8.0...v0.9.0)
+
+### Bug Fixes
+
+* Preserve the existing sync and async views APIs when preparing this release.
+* Verify view retrieval and cursor-based record listing with local HTTP contract tests.
+
 ## 0.8.0 (2026-07-21)
 
 Full Changelog: [v0.7.1...v0.8.0](https://github.com/micro-so/micro-sdk-py/compare/v0.7.1...v0.8.0)
