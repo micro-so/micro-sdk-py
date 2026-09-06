@@ -789,6 +789,20 @@ class BaseClient(Generic[_HttpxClientT, _DefaultStreamT]):
         timeout = sleep_seconds * jitter
         return timeout if timeout >= 0 else 0
 
+    def _request_max_retries(self, options: FinalRequestOptions) -> int:
+        if is_given(options.max_retries):
+            return options.max_retries
+        method = options.method.upper()
+        parts = httpx.URL(options.url).path.removeprefix("/").split("/")
+        is_query = (
+            method == "POST"
+            and len(parts) == 5
+            and parts[:2] == ["v2", "prism"]
+            and all(parts[2:])
+            and (parts[2] == "query" or parts[4] == "query")
+        )
+        return self.max_retries if method in {"GET", "HEAD", "OPTIONS"} or is_query else 0
+
     def _should_retry(self, response: httpx.Response) -> bool:
         # Note: this is not a standard header
         should_retry_header = response.headers.get("x-should-retry")
@@ -999,7 +1013,7 @@ class SyncAPIClient(BaseClient[httpx.Client, Stream[Any]]):
             input_options.idempotency_key = self._idempotency_key()
 
         response: httpx.Response | None = None
-        max_retries = input_options.get_max_retries(self.max_retries)
+        max_retries = self._request_max_retries(input_options)
 
         retries_taken = 0
         for retries_taken in range(max_retries + 1):
@@ -1584,7 +1598,7 @@ class AsyncAPIClient(BaseClient[httpx.AsyncClient, AsyncStream[Any]]):
             input_options.idempotency_key = self._idempotency_key()
 
         response: httpx.Response | None = None
-        max_retries = input_options.get_max_retries(self.max_retries)
+        max_retries = self._request_max_retries(input_options)
 
         retries_taken = 0
         for retries_taken in range(max_retries + 1):
