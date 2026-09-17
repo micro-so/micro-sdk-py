@@ -23,6 +23,7 @@ from micro_so.types.prism.objects import (
     IdentityBulkCreateResponse,
     IdentityBulkDeleteResponse,
     IdentityBulkUpdateResponse,
+    IdentityFindOrCreateResponse,
 )
 
 base_url = os.environ.get("TEST_API_BASE_URL", "http://127.0.0.1:4010")
@@ -512,6 +513,50 @@ class TestIdentities:
                 value="",
                 slug="slug",
             )
+
+    @pytest.mark.skip(reason="Mock server tests are disabled")
+    @parametrize
+    def test_method_find_or_create(self, client: Micro) -> None:
+        identity = client.prism.objects.identities.find_or_create(
+            match={"email_address": "email_address"},
+        )
+        assert_matches_type(IdentityFindOrCreateResponse, identity, path=["response"])
+
+    @pytest.mark.skip(reason="Mock server tests are disabled")
+    @parametrize
+    def test_method_find_or_create_with_all_params(self, client: Micro) -> None:
+        identity = client.prism.objects.identities.find_or_create(
+            match={"email_address": "email_address"},
+            defaults={"foo": "bar"},
+            idempotency_key="x",
+        )
+        assert_matches_type(IdentityFindOrCreateResponse, identity, path=["response"])
+
+    @pytest.mark.skip(reason="Mock server tests are disabled")
+    @parametrize
+    def test_raw_response_find_or_create(self, client: Micro) -> None:
+        response = client.prism.objects.identities.with_raw_response.find_or_create(
+            match={"email_address": "email_address"},
+        )
+
+        assert response.is_closed is True
+        assert response.http_request.headers.get("X-Stainless-Lang") == "python"
+        identity = response.parse()
+        assert_matches_type(IdentityFindOrCreateResponse, identity, path=["response"])
+
+    @pytest.mark.skip(reason="Mock server tests are disabled")
+    @parametrize
+    def test_streaming_response_find_or_create(self, client: Micro) -> None:
+        with client.prism.objects.identities.with_streaming_response.find_or_create(
+            match={"email_address": "email_address"},
+        ) as response:
+            assert not response.is_closed
+            assert response.http_request.headers.get("X-Stainless-Lang") == "python"
+
+            identity = response.parse()
+            assert_matches_type(IdentityFindOrCreateResponse, identity, path=["response"])
+
+        assert cast(Any, response.is_closed) is True
 
     @pytest.mark.skip(reason="Mock server tests are disabled")
     @parametrize
@@ -1225,6 +1270,50 @@ class TestAsyncIdentities:
                 value="",
                 slug="slug",
             )
+
+    @pytest.mark.skip(reason="Mock server tests are disabled")
+    @parametrize
+    async def test_method_find_or_create(self, async_client: AsyncMicro) -> None:
+        identity = await async_client.prism.objects.identities.find_or_create(
+            match={"email_address": "email_address"},
+        )
+        assert_matches_type(IdentityFindOrCreateResponse, identity, path=["response"])
+
+    @pytest.mark.skip(reason="Mock server tests are disabled")
+    @parametrize
+    async def test_method_find_or_create_with_all_params(self, async_client: AsyncMicro) -> None:
+        identity = await async_client.prism.objects.identities.find_or_create(
+            match={"email_address": "email_address"},
+            defaults={"foo": "bar"},
+            idempotency_key="x",
+        )
+        assert_matches_type(IdentityFindOrCreateResponse, identity, path=["response"])
+
+    @pytest.mark.skip(reason="Mock server tests are disabled")
+    @parametrize
+    async def test_raw_response_find_or_create(self, async_client: AsyncMicro) -> None:
+        response = await async_client.prism.objects.identities.with_raw_response.find_or_create(
+            match={"email_address": "email_address"},
+        )
+
+        assert response.is_closed is True
+        assert response.http_request.headers.get("X-Stainless-Lang") == "python"
+        identity = await response.parse()
+        assert_matches_type(IdentityFindOrCreateResponse, identity, path=["response"])
+
+    @pytest.mark.skip(reason="Mock server tests are disabled")
+    @parametrize
+    async def test_streaming_response_find_or_create(self, async_client: AsyncMicro) -> None:
+        async with async_client.prism.objects.identities.with_streaming_response.find_or_create(
+            match={"email_address": "email_address"},
+        ) as response:
+            assert not response.is_closed
+            assert response.http_request.headers.get("X-Stainless-Lang") == "python"
+
+            identity = await response.parse()
+            assert_matches_type(IdentityFindOrCreateResponse, identity, path=["response"])
+
+        assert cast(Any, response.is_closed) is True
 
     @pytest.mark.skip(reason="Mock server tests are disabled")
     @parametrize

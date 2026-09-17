@@ -23,6 +23,7 @@ from micro_so.types.prism.objects import (
     OrganizationBulkCreateResponse,
     OrganizationBulkDeleteResponse,
     OrganizationBulkUpdateResponse,
+    OrganizationFindOrCreateResponse,
 )
 
 base_url = os.environ.get("TEST_API_BASE_URL", "http://127.0.0.1:4010")
@@ -512,6 +513,50 @@ class TestOrganizations:
                 value="",
                 slug="slug",
             )
+
+    @pytest.mark.skip(reason="Mock server tests are disabled")
+    @parametrize
+    def test_method_find_or_create(self, client: Micro) -> None:
+        organization = client.prism.objects.organizations.find_or_create(
+            match={"primary_domain": "primary_domain"},
+        )
+        assert_matches_type(OrganizationFindOrCreateResponse, organization, path=["response"])
+
+    @pytest.mark.skip(reason="Mock server tests are disabled")
+    @parametrize
+    def test_method_find_or_create_with_all_params(self, client: Micro) -> None:
+        organization = client.prism.objects.organizations.find_or_create(
+            match={"primary_domain": "primary_domain"},
+            defaults={"foo": "bar"},
+            idempotency_key="x",
+        )
+        assert_matches_type(OrganizationFindOrCreateResponse, organization, path=["response"])
+
+    @pytest.mark.skip(reason="Mock server tests are disabled")
+    @parametrize
+    def test_raw_response_find_or_create(self, client: Micro) -> None:
+        response = client.prism.objects.organizations.with_raw_response.find_or_create(
+            match={"primary_domain": "primary_domain"},
+        )
+
+        assert response.is_closed is True
+        assert response.http_request.headers.get("X-Stainless-Lang") == "python"
+        organization = response.parse()
+        assert_matches_type(OrganizationFindOrCreateResponse, organization, path=["response"])
+
+    @pytest.mark.skip(reason="Mock server tests are disabled")
+    @parametrize
+    def test_streaming_response_find_or_create(self, client: Micro) -> None:
+        with client.prism.objects.organizations.with_streaming_response.find_or_create(
+            match={"primary_domain": "primary_domain"},
+        ) as response:
+            assert not response.is_closed
+            assert response.http_request.headers.get("X-Stainless-Lang") == "python"
+
+            organization = response.parse()
+            assert_matches_type(OrganizationFindOrCreateResponse, organization, path=["response"])
+
+        assert cast(Any, response.is_closed) is True
 
     @pytest.mark.skip(reason="Mock server tests are disabled")
     @parametrize
@@ -1225,6 +1270,50 @@ class TestAsyncOrganizations:
                 value="",
                 slug="slug",
             )
+
+    @pytest.mark.skip(reason="Mock server tests are disabled")
+    @parametrize
+    async def test_method_find_or_create(self, async_client: AsyncMicro) -> None:
+        organization = await async_client.prism.objects.organizations.find_or_create(
+            match={"primary_domain": "primary_domain"},
+        )
+        assert_matches_type(OrganizationFindOrCreateResponse, organization, path=["response"])
+
+    @pytest.mark.skip(reason="Mock server tests are disabled")
+    @parametrize
+    async def test_method_find_or_create_with_all_params(self, async_client: AsyncMicro) -> None:
+        organization = await async_client.prism.objects.organizations.find_or_create(
+            match={"primary_domain": "primary_domain"},
+            defaults={"foo": "bar"},
+            idempotency_key="x",
+        )
+        assert_matches_type(OrganizationFindOrCreateResponse, organization, path=["response"])
+
+    @pytest.mark.skip(reason="Mock server tests are disabled")
+    @parametrize
+    async def test_raw_response_find_or_create(self, async_client: AsyncMicro) -> None:
+        response = await async_client.prism.objects.organizations.with_raw_response.find_or_create(
+            match={"primary_domain": "primary_domain"},
+        )
+
+        assert response.is_closed is True
+        assert response.http_request.headers.get("X-Stainless-Lang") == "python"
+        organization = await response.parse()
+        assert_matches_type(OrganizationFindOrCreateResponse, organization, path=["response"])
+
+    @pytest.mark.skip(reason="Mock server tests are disabled")
+    @parametrize
+    async def test_streaming_response_find_or_create(self, async_client: AsyncMicro) -> None:
+        async with async_client.prism.objects.organizations.with_streaming_response.find_or_create(
+            match={"primary_domain": "primary_domain"},
+        ) as response:
+            assert not response.is_closed
+            assert response.http_request.headers.get("X-Stainless-Lang") == "python"
+
+            organization = await response.parse()
+            assert_matches_type(OrganizationFindOrCreateResponse, organization, path=["response"])
+
+        assert cast(Any, response.is_closed) is True
 
     @pytest.mark.skip(reason="Mock server tests are disabled")
     @parametrize

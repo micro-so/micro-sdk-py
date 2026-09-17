@@ -130,6 +130,7 @@ from micro_so.types.prism.objects import (
     OrganizationCountResponse,
     OrganizationDuplicateResponse,
     OrganizationFindResponse,
+    OrganizationFindOrCreateResponse,
     OrganizationGetResponse,
     OrganizationQueryResponse,
     OrganizationRestoreResponse,
@@ -149,6 +150,7 @@ Methods:
 - <code title="get /v2/prism/{teamId}/organization/count">client.prism.objects.organizations.<a href="./src/micro_so/resources/prism/objects/organizations.py">count</a>(\*, team_id, \*\*<a href="src/micro_so/types/prism/objects/organization_count_params.py">params</a>) -> <a href="./src/micro_so/types/prism/objects/organization_count_response.py">OrganizationCountResponse</a></code>
 - <code title="post /v2/prism/{teamId}/organization/{organizationId}/duplicate">client.prism.objects.organizations.<a href="./src/micro_so/resources/prism/objects/organizations.py">duplicate</a>(organization_id, \*, team_id) -> <a href="./src/micro_so/types/prism/objects/organization_duplicate_response.py">OrganizationDuplicateResponse</a></code>
 - <code title="get /v2/prism/{teamId}/organization/by/{slug}/{value}">client.prism.objects.organizations.<a href="./src/micro_so/resources/prism/objects/organizations.py">find</a>(value, \*, team_id, slug, \*\*<a href="src/micro_so/types/prism/objects/organization_find_params.py">params</a>) -> <a href="./src/micro_so/types/prism/objects/organization_find_response.py">OrganizationFindResponse</a></code>
+- <code title="post /v2/prism/{teamId}/organization/find-or-create">client.prism.objects.organizations.<a href="./src/micro_so/resources/prism/objects/organizations.py">find_or_create</a>(\*, team_id, \*\*<a href="src/micro_so/types/prism/objects/organization_find_or_create_params.py">params</a>) -> <a href="./src/micro_so/types/prism/objects/organization_find_or_create_response.py">OrganizationFindOrCreateResponse</a></code>
 - <code title="get /v2/prism/{teamId}/organization/{organizationId}">client.prism.objects.organizations.<a href="./src/micro_so/resources/prism/objects/organizations.py">get</a>(organization_id, \*, team_id, \*\*<a href="src/micro_so/types/prism/objects/organization_get_params.py">params</a>) -> <a href="./src/micro_so/types/prism/objects/organization_get_response.py">OrganizationGetResponse</a></code>
 - <code title="post /v2/prism/{teamId}/organization/query">client.prism.objects.organizations.<a href="./src/micro_so/resources/prism/objects/organizations.py">query</a>(\*, team_id, \*\*<a href="src/micro_so/types/prism/objects/organization_query_params.py">params</a>) -> <a href="./src/micro_so/types/prism/objects/organization_query_response.py">OrganizationQueryResponse</a></code>
 - <code title="post /v2/prism/{teamId}/organization/{organizationId}/restore">client.prism.objects.organizations.<a href="./src/micro_so/resources/prism/objects/organizations.py">restore</a>(organization_id, \*, team_id) -> <a href="./src/micro_so/types/prism/objects/organization_restore_response.py">OrganizationRestoreResponse</a></code>
@@ -170,6 +172,7 @@ from micro_so.types.prism.objects import (
     IdentityCountResponse,
     IdentityDuplicateResponse,
     IdentityFindResponse,
+    IdentityFindOrCreateResponse,
     IdentityGetResponse,
     IdentityQueryResponse,
     IdentityRestoreResponse,
@@ -189,6 +192,7 @@ Methods:
 - <code title="get /v2/prism/{teamId}/identity/count">client.prism.objects.identities.<a href="./src/micro_so/resources/prism/objects/identities.py">count</a>(\*, team_id, \*\*<a href="src/micro_so/types/prism/objects/identity_count_params.py">params</a>) -> <a href="./src/micro_so/types/prism/objects/identity_count_response.py">IdentityCountResponse</a></code>
 - <code title="post /v2/prism/{teamId}/identity/{identityId}/duplicate">client.prism.objects.identities.<a href="./src/micro_so/resources/prism/objects/identities.py">duplicate</a>(identity_id, \*, team_id) -> <a href="./src/micro_so/types/prism/objects/identity_duplicate_response.py">IdentityDuplicateResponse</a></code>
 - <code title="get /v2/prism/{teamId}/identity/by/{slug}/{value}">client.prism.objects.identities.<a href="./src/micro_so/resources/prism/objects/identities.py">find</a>(value, \*, team_id, slug, \*\*<a href="src/micro_so/types/prism/objects/identity_find_params.py">params</a>) -> <a href="./src/micro_so/types/prism/objects/identity_find_response.py">IdentityFindResponse</a></code>
+- <code title="post /v2/prism/{teamId}/identity/find-or-create">client.prism.objects.identities.<a href="./src/micro_so/resources/prism/objects/identities.py">find_or_create</a>(\*, team_id, \*\*<a href="src/micro_so/types/prism/objects/identity_find_or_create_params.py">params</a>) -> <a href="./src/micro_so/types/prism/objects/identity_find_or_create_response.py">IdentityFindOrCreateResponse</a></code>
 - <code title="get /v2/prism/{teamId}/identity/{identityId}">client.prism.objects.identities.<a href="./src/micro_so/resources/prism/objects/identities.py">get</a>(identity_id, \*, team_id, \*\*<a href="src/micro_so/types/prism/objects/identity_get_params.py">params</a>) -> <a href="./src/micro_so/types/prism/objects/identity_get_response.py">IdentityGetResponse</a></code>
 - <code title="post /v2/prism/{teamId}/identity/query">client.prism.objects.identities.<a href="./src/micro_so/resources/prism/objects/identities.py">query</a>(\*, team_id, \*\*<a href="src/micro_so/types/prism/objects/identity_query_params.py">params</a>) -> <a href="./src/micro_so/types/prism/objects/identity_query_response.py">IdentityQueryResponse</a></code>
 - <code title="post /v2/prism/{teamId}/identity/{identityId}/restore">client.prism.objects.identities.<a href="./src/micro_so/resources/prism/objects/identities.py">restore</a>(identity_id, \*, team_id) -> <a href="./src/micro_so/types/prism/objects/identity_restore_response.py">IdentityRestoreResponse</a></code>

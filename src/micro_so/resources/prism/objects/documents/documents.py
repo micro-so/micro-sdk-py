@@ -105,7 +105,13 @@ class DocumentsResource(SyncAPIResource):
         Args:
           default: Properties keyed by property slug. Values can be strings, numbers, booleans,
               arrays, or null. For select/multiselect properties, values may be option slugs
-              or option UUIDs on write; option slugs are returned on read.
+              or option UUIDs on write; option slugs are returned on read. Identity
+              email_addresses accepts contact UUIDs or email strings on create/update. Emails
+              use Micro normalization and resolve to contact links within the write
+              transaction; creating an identity does not merge other identities. Arrays
+              replace links; {\\__op: 'append'|'remove', values: [...]} changes only the
+              specified links. Removing an email never creates a contact. Identity companies
+              contains organization UUIDs, whose read access is checked when adding links.
 
           extra_headers: Send extra headers
 
@@ -158,7 +164,13 @@ class DocumentsResource(SyncAPIResource):
 
         Values can be strings, numbers, booleans,
               arrays, or null. For select/multiselect properties, values may be option slugs
-              or option UUIDs on write; option slugs are returned on read.
+              or option UUIDs on write; option slugs are returned on read. Identity
+              email_addresses accepts contact UUIDs or email strings on create/update. Emails
+              use Micro normalization and resolve to contact links within the write
+              transaction; creating an identity does not merge other identities. Arrays
+              replace links; {\\__op: 'append'|'remove', values: [...]} changes only the
+              specified links. Removing an email never creates a contact. Identity companies
+              contains organization UUIDs, whose read access is checked when adding links.
 
           extra_headers: Send extra headers
 
@@ -780,7 +792,13 @@ class DocumentsResource(SyncAPIResource):
 
           default: Properties keyed by property slug. Values can be strings, numbers, booleans,
               arrays, or null. For select/multiselect properties, values may be option slugs
-              or option UUIDs on write; option slugs are returned on read.
+              or option UUIDs on write; option slugs are returned on read. Identity
+              email_addresses accepts contact UUIDs or email strings on create/update. Emails
+              use Micro normalization and resolve to contact links within the write
+              transaction; creating an identity does not merge other identities. Arrays
+              replace links; {\\__op: 'append'|'remove', values: [...]} changes only the
+              specified links. Removing an email never creates a contact. Identity companies
+              contains organization UUIDs, whose read access is checked when adding links.
 
           extra_headers: Send extra headers
 
@@ -868,7 +886,13 @@ class AsyncDocumentsResource(AsyncAPIResource):
         Args:
           default: Properties keyed by property slug. Values can be strings, numbers, booleans,
               arrays, or null. For select/multiselect properties, values may be option slugs
-              or option UUIDs on write; option slugs are returned on read.
+              or option UUIDs on write; option slugs are returned on read. Identity
+              email_addresses accepts contact UUIDs or email strings on create/update. Emails
+              use Micro normalization and resolve to contact links within the write
+              transaction; creating an identity does not merge other identities. Arrays
+              replace links; {\\__op: 'append'|'remove', values: [...]} changes only the
+              specified links. Removing an email never creates a contact. Identity companies
+              contains organization UUIDs, whose read access is checked when adding links.
 
           extra_headers: Send extra headers
 
@@ -921,7 +945,13 @@ class AsyncDocumentsResource(AsyncAPIResource):
 
         Values can be strings, numbers, booleans,
               arrays, or null. For select/multiselect properties, values may be option slugs
-              or option UUIDs on write; option slugs are returned on read.
+              or option UUIDs on write; option slugs are returned on read. Identity
+              email_addresses accepts contact UUIDs or email strings on create/update. Emails
+              use Micro normalization and resolve to contact links within the write
+              transaction; creating an identity does not merge other identities. Arrays
+              replace links; {\\__op: 'append'|'remove', values: [...]} changes only the
+              specified links. Removing an email never creates a contact. Identity companies
+              contains organization UUIDs, whose read access is checked when adding links.
 
           extra_headers: Send extra headers
 
@@ -1543,7 +1573,13 @@ class AsyncDocumentsResource(AsyncAPIResource):
 
           default: Properties keyed by property slug. Values can be strings, numbers, booleans,
               arrays, or null. For select/multiselect properties, values may be option slugs
-              or option UUIDs on write; option slugs are returned on read.
+              or option UUIDs on write; option slugs are returned on read. Identity
+              email_addresses accepts contact UUIDs or email strings on create/update. Emails
+              use Micro normalization and resolve to contact links within the write
+              transaction; creating an identity does not merge other identities. Arrays
+              replace links; {\\__op: 'append'|'remove', values: [...]} changes only the
+              specified links. Removing an email never creates a contact. Identity companies
+              contains organization UUIDs, whose read access is checked when adding links.
 
           extra_headers: Send extra headers
 

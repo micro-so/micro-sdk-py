@@ -29,6 +29,7 @@ from ....types.prism.objects import (
     identity_bulk_create_params,
     identity_bulk_delete_params,
     identity_bulk_update_params,
+    identity_find_or_create_params,
 )
 from ....types.prism_object_properties_param import PrismObjectPropertiesParam
 from ....types.prism.objects.identity_get_response import IdentityGetResponse
@@ -44,6 +45,7 @@ from ....types.prism.objects.identity_duplicate_response import IdentityDuplicat
 from ....types.prism.objects.identity_bulk_create_response import IdentityBulkCreateResponse
 from ....types.prism.objects.identity_bulk_delete_response import IdentityBulkDeleteResponse
 from ....types.prism.objects.identity_bulk_update_response import IdentityBulkUpdateResponse
+from ....types.prism.objects.identity_find_or_create_response import IdentityFindOrCreateResponse
 
 __all__ = ["IdentitiesResource", "AsyncIdentitiesResource"]
 
@@ -93,7 +95,13 @@ class IdentitiesResource(SyncAPIResource):
         Args:
           default: Properties keyed by property slug. Values can be strings, numbers, booleans,
               arrays, or null. For select/multiselect properties, values may be option slugs
-              or option UUIDs on write; option slugs are returned on read.
+              or option UUIDs on write; option slugs are returned on read. Identity
+              email_addresses accepts contact UUIDs or email strings on create/update. Emails
+              use Micro normalization and resolve to contact links within the write
+              transaction; creating an identity does not merge other identities. Arrays
+              replace links; {\\__op: 'append'|'remove', values: [...]} changes only the
+              specified links. Removing an email never creates a contact. Identity companies
+              contains organization UUIDs, whose read access is checked when adding links.
 
           extra_headers: Send extra headers
 
@@ -146,7 +154,13 @@ class IdentitiesResource(SyncAPIResource):
 
         Values can be strings, numbers, booleans,
               arrays, or null. For select/multiselect properties, values may be option slugs
-              or option UUIDs on write; option slugs are returned on read.
+              or option UUIDs on write; option slugs are returned on read. Identity
+              email_addresses accepts contact UUIDs or email strings on create/update. Emails
+              use Micro normalization and resolve to contact links within the write
+              transaction; creating an identity does not merge other identities. Arrays
+              replace links; {\\__op: 'append'|'remove', values: [...]} changes only the
+              specified links. Removing an email never creates a contact. Identity companies
+              contains organization UUIDs, whose read access is checked when adding links.
 
           extra_headers: Send extra headers
 
@@ -586,6 +600,57 @@ class IdentitiesResource(SyncAPIResource):
             cast_to=IdentityFindResponse,
         )
 
+    def find_or_create(
+        self,
+        *,
+        team_id: str | None = None,
+        match: identity_find_or_create_params.Match,
+        defaults: Dict[str, object] | Omit = omit,
+        idempotency_key: str | Omit = omit,
+        # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
+        # The extra values given here take precedence over values defined on the client or passed to this method.
+        extra_headers: Headers | None = None,
+        extra_query: Query | None = None,
+        extra_body: Body | None = None,
+        timeout: float | httpx.Timeout | None | NotGiven = not_given,
+    ) -> IdentityFindOrCreateResponse:
+        """
+        Matches identity by normalized email_address or organization by canonical
+        lowercase primary_domain. defaults is a flat slug/value object used only on
+        creation; do not include the matching field. Returns 409 for multiple visible
+        matches. Same-key calls through this endpoint serialize; ordinary creates and
+        updates do not participate. Matching is workspace- and caller-access-scoped, not
+        a global uniqueness guarantee.
+
+        Args:
+          extra_headers: Send extra headers
+
+          extra_query: Add additional query parameters to the request
+
+          extra_body: Add additional JSON properties to the request
+
+          timeout: Override the client-level default timeout for this request, in seconds
+        """
+        if team_id is None:
+            team_id = self._client._get_team_id_path_param()
+        if not team_id:
+            raise ValueError(f"Expected a non-empty value for `team_id` but received {team_id!r}")
+        extra_headers = {**strip_not_given({"Idempotency-Key": idempotency_key}), **(extra_headers or {})}
+        return self._post(
+            path_template("/v2/prism/{team_id}/identity/find-or-create", team_id=team_id),
+            body=maybe_transform(
+                {
+                    "match": match,
+                    "defaults": defaults,
+                },
+                identity_find_or_create_params.IdentityFindOrCreateParams,
+            ),
+            options=make_request_options(
+                extra_headers=extra_headers, extra_query=extra_query, extra_body=extra_body, timeout=timeout
+            ),
+            cast_to=IdentityFindOrCreateResponse,
+        )
+
     def get(
         self,
         identity_id: str,
@@ -768,7 +833,13 @@ class IdentitiesResource(SyncAPIResource):
 
           default: Properties keyed by property slug. Values can be strings, numbers, booleans,
               arrays, or null. For select/multiselect properties, values may be option slugs
-              or option UUIDs on write; option slugs are returned on read.
+              or option UUIDs on write; option slugs are returned on read. Identity
+              email_addresses accepts contact UUIDs or email strings on create/update. Emails
+              use Micro normalization and resolve to contact links within the write
+              transaction; creating an identity does not merge other identities. Arrays
+              replace links; {\\__op: 'append'|'remove', values: [...]} changes only the
+              specified links. Removing an email never creates a contact. Identity companies
+              contains organization UUIDs, whose read access is checked when adding links.
 
           extra_headers: Send extra headers
 
@@ -852,7 +923,13 @@ class AsyncIdentitiesResource(AsyncAPIResource):
         Args:
           default: Properties keyed by property slug. Values can be strings, numbers, booleans,
               arrays, or null. For select/multiselect properties, values may be option slugs
-              or option UUIDs on write; option slugs are returned on read.
+              or option UUIDs on write; option slugs are returned on read. Identity
+              email_addresses accepts contact UUIDs or email strings on create/update. Emails
+              use Micro normalization and resolve to contact links within the write
+              transaction; creating an identity does not merge other identities. Arrays
+              replace links; {\\__op: 'append'|'remove', values: [...]} changes only the
+              specified links. Removing an email never creates a contact. Identity companies
+              contains organization UUIDs, whose read access is checked when adding links.
 
           extra_headers: Send extra headers
 
@@ -905,7 +982,13 @@ class AsyncIdentitiesResource(AsyncAPIResource):
 
         Values can be strings, numbers, booleans,
               arrays, or null. For select/multiselect properties, values may be option slugs
-              or option UUIDs on write; option slugs are returned on read.
+              or option UUIDs on write; option slugs are returned on read. Identity
+              email_addresses accepts contact UUIDs or email strings on create/update. Emails
+              use Micro normalization and resolve to contact links within the write
+              transaction; creating an identity does not merge other identities. Arrays
+              replace links; {\\__op: 'append'|'remove', values: [...]} changes only the
+              specified links. Removing an email never creates a contact. Identity companies
+              contains organization UUIDs, whose read access is checked when adding links.
 
           extra_headers: Send extra headers
 
@@ -1345,6 +1428,57 @@ class AsyncIdentitiesResource(AsyncAPIResource):
             cast_to=IdentityFindResponse,
         )
 
+    async def find_or_create(
+        self,
+        *,
+        team_id: str | None = None,
+        match: identity_find_or_create_params.Match,
+        defaults: Dict[str, object] | Omit = omit,
+        idempotency_key: str | Omit = omit,
+        # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
+        # The extra values given here take precedence over values defined on the client or passed to this method.
+        extra_headers: Headers | None = None,
+        extra_query: Query | None = None,
+        extra_body: Body | None = None,
+        timeout: float | httpx.Timeout | None | NotGiven = not_given,
+    ) -> IdentityFindOrCreateResponse:
+        """
+        Matches identity by normalized email_address or organization by canonical
+        lowercase primary_domain. defaults is a flat slug/value object used only on
+        creation; do not include the matching field. Returns 409 for multiple visible
+        matches. Same-key calls through this endpoint serialize; ordinary creates and
+        updates do not participate. Matching is workspace- and caller-access-scoped, not
+        a global uniqueness guarantee.
+
+        Args:
+          extra_headers: Send extra headers
+
+          extra_query: Add additional query parameters to the request
+
+          extra_body: Add additional JSON properties to the request
+
+          timeout: Override the client-level default timeout for this request, in seconds
+        """
+        if team_id is None:
+            team_id = self._client._get_team_id_path_param()
+        if not team_id:
+            raise ValueError(f"Expected a non-empty value for `team_id` but received {team_id!r}")
+        extra_headers = {**strip_not_given({"Idempotency-Key": idempotency_key}), **(extra_headers or {})}
+        return await self._post(
+            path_template("/v2/prism/{team_id}/identity/find-or-create", team_id=team_id),
+            body=await async_maybe_transform(
+                {
+                    "match": match,
+                    "defaults": defaults,
+                },
+                identity_find_or_create_params.IdentityFindOrCreateParams,
+            ),
+            options=make_request_options(
+                extra_headers=extra_headers, extra_query=extra_query, extra_body=extra_body, timeout=timeout
+            ),
+            cast_to=IdentityFindOrCreateResponse,
+        )
+
     async def get(
         self,
         identity_id: str,
@@ -1527,7 +1661,13 @@ class AsyncIdentitiesResource(AsyncAPIResource):
 
           default: Properties keyed by property slug. Values can be strings, numbers, booleans,
               arrays, or null. For select/multiselect properties, values may be option slugs
-              or option UUIDs on write; option slugs are returned on read.
+              or option UUIDs on write; option slugs are returned on read. Identity
+              email_addresses accepts contact UUIDs or email strings on create/update. Emails
+              use Micro normalization and resolve to contact links within the write
+              transaction; creating an identity does not merge other identities. Arrays
+              replace links; {\\__op: 'append'|'remove', values: [...]} changes only the
+              specified links. Removing an email never creates a contact. Identity companies
+              contains organization UUIDs, whose read access is checked when adding links.
 
           extra_headers: Send extra headers
 
@@ -1600,6 +1740,9 @@ class IdentitiesResourceWithRawResponse:
         self.find = to_raw_response_wrapper(
             identities.find,
         )
+        self.find_or_create = to_raw_response_wrapper(
+            identities.find_or_create,
+        )
         self.get = to_raw_response_wrapper(
             identities.get,
         )
@@ -1647,6 +1790,9 @@ class AsyncIdentitiesResourceWithRawResponse:
         )
         self.find = async_to_raw_response_wrapper(
             identities.find,
+        )
+        self.find_or_create = async_to_raw_response_wrapper(
+            identities.find_or_create,
         )
         self.get = async_to_raw_response_wrapper(
             identities.get,
@@ -1696,6 +1842,9 @@ class IdentitiesResourceWithStreamingResponse:
         self.find = to_streamed_response_wrapper(
             identities.find,
         )
+        self.find_or_create = to_streamed_response_wrapper(
+            identities.find_or_create,
+        )
         self.get = to_streamed_response_wrapper(
             identities.get,
         )
@@ -1743,6 +1892,9 @@ class AsyncIdentitiesResourceWithStreamingResponse:
         )
         self.find = async_to_streamed_response_wrapper(
             identities.find,
+        )
+        self.find_or_create = async_to_streamed_response_wrapper(
+            identities.find_or_create,
         )
         self.get = async_to_streamed_response_wrapper(
             identities.get,
