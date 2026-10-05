@@ -188,16 +188,16 @@ Error codes are as follows:
 
 ### Retries
 
-Certain errors are automatically retried 2 times by default, with a short exponential backoff.
+Read requests (GET, HEAD, OPTIONS, and the two public Prism query POST routes) retry up to 2 times by default with exponential backoff. Writes do not retry automatically, even with an idempotency key: a connection failure or server error may follow a completed side effect.
 Connection errors (for example, due to a network connectivity problem), 408 Request Timeout, 409 Conflict,
-429 Rate Limit, and >=500 Internal errors are all retried by default.
+429 Rate Limit, and >=500 errors are retryable for those reads.
 
-You can use the `max_retries` option to configure or disable retry settings:
+Client `max_retries` configures read retries. To deliberately retry a write, pass an explicit `max_retries` in the low-level request `options` only after reconciling uncertain outcomes.
 
 ```python
 from micro_so import Micro
 
-# Configure the default for all requests:
+# Configure the default for read requests:
 client = Micro(
     team_id="My Team ID",
     # default is 2
@@ -239,7 +239,7 @@ client.with_options(timeout=5.0).prism.objects.deals.query(
 
 On timeout, an `APITimeoutError` is thrown.
 
-Note that requests that time out are [retried twice by default](#retries).
+Read requests that time out are [retried twice by default](#retries). Writes are not retried automatically.
 
 ## Advanced
 
